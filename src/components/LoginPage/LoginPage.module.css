@@ -1,0 +1,143 @@
+.page {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    font-size: 24px;
+}
+
+.left {
+    background-image: url("/public/images/login-page.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex: 1;
+    height:880px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 880px;
+    background-color: #222429;
+}
+
+.first {
+    position: absolute;
+    width: 319px;
+    height: 225px;
+    left: 200px;
+    top: 143px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 530;
+    font-size: 96px;
+    line-height: 93px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.description {
+    position: absolute;
+    width: 508px;
+    height: 125px;
+    left: 106px;
+    top: 633px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 24px;
+    line-height: 2px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.title {
+    position: absolute;
+    left: 52.03%;
+    right: 36.6%;
+    top: 1.95%;
+    bottom: 94.14%;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    /* identical to box height, or 167% */
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.oak {
+    color: #65D36E;;
+}
+
+.login {
+    position: absolute;
+    top: 40%;
+    left: 68%;
+    margin-top: 4.2%;
+    margin-bottom: 3.2%;
+    width: 55%;
+    padding: 10px;
+    font-size: 38px;
+  
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+
+    color: #FFFFFF;
+}
+
+.logo {
+    margin-right: 10px;
+    content: url("/public/images/oak-white.png");
+}
+
+.leftlogo {
+    position: absolute;
+    left: 22.71%;
+    right: 72.75%;
+    top: 16.14%;
+    bottom: 71.09%;
+    content: url("/public/images/oak-white-big.png");
+}
+
+.button {
+    position: absolute;
+    width: 320px;
+    height: 52px;
+    left: 920px;
+    top: 526px;
+
+    background: #65D36E;
+    border-radius: 48px;
+}
+
+.buttontag {
+    position: absolute;
+    width: 144px;
+    height: 40px;
+    left: 1025px;
+    top: 531px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    /* identical to box height, or 200% */
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
