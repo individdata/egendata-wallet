@@ -10,9 +10,7 @@ function MainComponent() {
         Project
         <div className={styles.oak}>OAK</div>
       </div>
-      <p className={styles.login}>Log in</p>
       <LoginButton />
-      <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
     </div>
   );
 }
