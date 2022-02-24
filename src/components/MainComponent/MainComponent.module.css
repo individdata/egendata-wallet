@@ -1,0 +1,87 @@
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 1000px;
+    background:#1B1B1B;;
+}
+
+.title {
+    margin-left: 15px;
+    margin-top: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    /* identical to box height, or 167% */
+  
+    color: #FFFFFF;
+}
+
+.oak {
+    color: #65D36E;;
+}
+
+.login {
+    margin-top: 45%;
+    padding: 10px;
+    font-size: 38px;
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+
+    color: #FFFFFF;
+}
+
+.logo {
+    margin-right: 10px;
+    content: url("/public/images/oak-white.png");
+}
+
+.button {
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 1%;
+    padding: 10px;
+    background: #65D36E;
+    border-radius: 48px;
+}
+
+.buttontag {
+    position: absolute;
+    width: 144px;
+    height: 40px;
+    left: 1025px;
+    top: 531px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    /* identical to box height, or 200% */
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.how {
+    margin-top: 38%;
+    margin-left: 18%;
+    position: absolute;
+    width: 232px;
+    
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    
+    text-decoration-line: underline;
+    
+    color: #757575;
+}
