@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './MainComponent.module.css';
 import LoginButton from './LoginButton';
+import TagsComponent from './TagsComponent/TagsComponent';
 
 function MainComponent() {
   return (
@@ -10,6 +11,7 @@ function MainComponent() {
         Project
         <div className={styles.oak}>OAK</div>
       </div>
+      <TagsComponent />
       <LoginButton />
     </div>
   );

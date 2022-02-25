@@ -1,6 +1,6 @@
 function reducer(state: boolean, action: any) {
   switch (action.type) {
-    case 'login':
+    case 'mydate':
       return true;
     default:
       return false;
