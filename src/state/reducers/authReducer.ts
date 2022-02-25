@@ -8,7 +8,7 @@ function reducer(state: boolean, action: AuthAction) {
     case AuthActionType.LOGOUT:
       return false;
     default:
-      return state;
+      return false;
   }
 }
 
