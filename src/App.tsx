@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import MainComponent from './components/MainComponent/MainComponent';
 import LoginComponent from './components/LoginComponent/LoginComponent';
+import { State } from './state/reducers';
 
 function App() {
-  const login = useSelector((state: any) => state.login);
+  const loggedin = useSelector((state: State) => state.auth);
 
-  if (login) {
+  if (loggedin) {
     return (
       <div className="App">
         <body>

@@ -5,7 +5,7 @@ import styles from './MainComponent.module.css';
 import { actionCreators } from '../../state/index';
 
 function LoginButton() {
-  const loginState = useSelector((state: any) => state.login);
+  const loginState = useSelector((state: boolean) => state);
   const dispatch = useDispatch();
   const { login } = bindActionCreators(actionCreators, dispatch);
   let displayvalue = 'inline';

@@ -7,7 +7,7 @@ function LoginComponent() {
   return (
     <div className={styles.main}>
       <ImageComponent />
-      <MainComponent/>
+      <MainComponent />
     </div>
   );
 }
