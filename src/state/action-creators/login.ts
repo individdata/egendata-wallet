@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import AuthActionType from '../action-types';
+import AuthActionType from '../action-types/login';
 
 export const login = (state: boolean) => (dispatch: Dispatch) => {
   dispatch({

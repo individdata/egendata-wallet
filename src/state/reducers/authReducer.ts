@@ -1,14 +1,14 @@
-import AuthActionType from '../action-types';
-import { AuthAction } from '../actions';
+import AuthActionType from '../action-types/login';
+import { AuthAction } from '../actions/login';
 
-function reducer(state: boolean, action: AuthAction) {
+function reducer(state = false, action: AuthAction) {
   switch (action.type) {
     case AuthActionType.LOGIN:
       return true;
     case AuthActionType.LOGOUT:
       return false;
     default:
-      return false;
+      return state;
   }
 }
 

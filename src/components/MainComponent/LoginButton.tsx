@@ -2,14 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MainComponent.module.css';
-import { actionCreators } from '../../state/index';
+import { loginAction } from '../../state/index';
 import { State } from '../../state/reducers';
 
 function LoginButton() {
   const loginState = useSelector((state: State) => state.auth);
-  console.log('loginState: ', loginState);
   const dispatch = useDispatch();
-  const { login } = bindActionCreators(actionCreators, dispatch);
+  const { login } = bindActionCreators(loginAction, dispatch);
   let displayvalue = 'inline';
   if (loginState) {
     displayvalue = 'none';
