@@ -1,28 +1,28 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import styles from './MainComponent.module.css';
-import { loginAction } from '../../state/index';
-import { State } from '../../state/reducers';
+import styles from './LoginButton.module.css';
+import { loginAction } from '../../../state/index';
+import { State } from '../../../state/reducers';
 
 function LoginButton() {
-  const loginState = useSelector((state: State) => state.auth);
+  const authState = useSelector((state: State) => state.auth);
   const dispatch = useDispatch();
   const { login } = bindActionCreators(loginAction, dispatch);
-  let displayvalue = 'inline';
-  if (loginState) {
-    displayvalue = 'none';
-  }
+  console.log(authState);
+
   return (
-    <div style={{ display: displayvalue }}>
+    <div style={{ display: authState.certified }}>
       <p className={styles.login}>Log in</p>
       <button
         className={styles.button}
         type="button"
         arua-label="login"
-        onClick={() => login(loginState)}
+        onClick={() => login(authState)}
       >
-        Open Freja eID
+        <div className={styles.buttontext}>
+          Open Freja eID
+        </div>
       </button>
       <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
     </div>

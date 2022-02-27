@@ -6,9 +6,9 @@ import LoginComponent from './components/LoginComponent/LoginComponent';
 import { State } from './state/reducers';
 
 function App() {
-  const loggedin = useSelector((state: State) => state.auth);
+  const authState = useSelector((state: State) => state.auth);
 
-  if (loggedin) {
+  if (authState.certified === 'none') {
     return (
       <div className="App">
         <body>

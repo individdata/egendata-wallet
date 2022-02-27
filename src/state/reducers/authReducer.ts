@@ -1,12 +1,27 @@
-import AuthActionType from '../action-types/login';
-import { AuthAction } from '../actions/login';
+import AuthActionType from '../action-types/auth';
+import { AuthAction } from '../actions/auth';
+import { AuthStateType } from '../reducer-types/auth';
 
-function reducer(state = false, action: AuthAction) {
+const initialState: AuthStateType = {
+  certified: 'inline',
+  uncertified: 'none',
+  tags: 'none',
+};
+
+function reducer(state = initialState, action: AuthAction) {
   switch (action.type) {
     case AuthActionType.LOGIN:
-      return true;
+      return {
+        certified: 'none',
+        uncertified: 'flex',
+        tags: 'inline',
+      };
     case AuthActionType.LOGOUT:
-      return false;
+      return {
+        certified: 'inline',
+        uncertified: 'none',
+        tags: 'none',
+      };
     default:
       return state;
   }

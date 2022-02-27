@@ -6,20 +6,16 @@ import { tagsAction } from '../../../state/index';
 import { State } from '../../../state/reducers';
 
 function TagsComponent() {
-  const states = useSelector((state: State) => state);
-  const loginState = useSelector((state: State) => state.auth);
+  const authState = useSelector((state: State) => state.auth);
   const inboxState = useSelector((state: State) => state.inbox);
   const consentState = useSelector((state: State) => state.consent);
   const mydataState = useSelector((state: State) => state.mydata);
   const dispatch = useDispatch();
   const { inbox, consent, mydata } = bindActionCreators(tagsAction, dispatch);
-  console.log(states);
-  let displayvalue = 'none';
-  if (loginState) {
-    displayvalue = 'inline';
-  }
+  console.log(authState);
+
   return (
-    <div style={{ display: displayvalue }}>
+    <div style={{ display: authState.tags }}>
       <div>
         <div className={styles.tab}>
           <button

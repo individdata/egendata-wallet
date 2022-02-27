@@ -1,0 +1,26 @@
+[
+    {
+        "name": "BNP Parbas",
+        "brief": "Request to data transfer", 
+        "date": "2022-04-18",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Your consent is needed to send the data from Arbetsförmedlingen to BNP Paribas.",
+        "companyclass": 1,
+        "readstatus": false
+    },
+    {
+        "name": "BNP Parbas",
+        "brief": "Request to data transfer", 
+        "date": "2022-03-18",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Your consent is needed to send the data from Arbetsförmedlingen to BNP Paribas.",
+        "companyclass": 1,
+        "readstatus": true
+    },
+    {
+        "name": "BNP Parbas",
+        "brief": "Request to data transfer", 
+        "date": "2022-02-18",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Your consent is needed to send the data from Arbetsförmedlingen to BNP Paribas.",
+        "companyclass": 1,
+        "readstatus": true
+    }
+]

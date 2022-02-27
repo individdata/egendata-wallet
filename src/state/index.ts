@@ -1,2 +1,2 @@
-export * as loginAction from './action-creators/login';
+export * as loginAction from './action-creators/auth';
 export * as tagsAction from './action-creators/tags';

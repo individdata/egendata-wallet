@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './MainComponent.module.css';
-import LoginButton from './LoginButton';
+import LoginButton from './LoginButton/LoginButton';
+import LogoutButton from './LogoutButton/LogoutButton';
 import TagsComponent from './TagsComponent/TagsComponent';
 
 function MainComponent() {
@@ -11,6 +12,7 @@ function MainComponent() {
         Project
         <div className={styles.oak}>OAK</div>
       </div>
+      <LogoutButton />
       <TagsComponent />
       <LoginButton />
     </div>

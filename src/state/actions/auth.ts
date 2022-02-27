@@ -1,4 +1,4 @@
-import AuthActionType from '../action-types/login';
+import AuthActionType from '../action-types/auth';
 
 interface LoginAction {
   type: AuthActionType.LOGIN
