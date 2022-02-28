@@ -1,16 +1,33 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { State } from '../../../state/reducers';
-import styles from './InboxContentBox.module.css';
+import styles from './RequestComponent.module.css';
 
-function RequestComponent() {
-  const inboxState = useSelector((state: State) => state.inbox);
+export interface RequestType {
+  name: string,
+  brief: string,
+  date: string,
+  content: string,
+  readstatus: boolean
+}
+
+function RequestComponent(props: RequestType) {
+  const { name, brief, date } = props;
   return (
-    <div
-      className={styles.box}
-      style={{ display: inboxState.contentVisible }}>
-      hallo, inbox
-    </div>
+    <button
+      type="button"
+      className={styles.requestBox}
+      style={{ display: 'flex' }}
+    >
+      <img className={styles.logo} alt="logo" />
+      <div className={styles.name}>
+        {name}
+      </div>
+      <div className={styles.brief}>
+        {brief}
+      </div>
+      <div className={styles.date}>
+        {date}
+      </div>
+    </button>
   );
 }
 

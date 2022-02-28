@@ -3,6 +3,7 @@ import styles from './MainComponent.module.css';
 import LoginButton from './LoginButton/LoginButton';
 import LogoutButton from './LogoutButton/LogoutButton';
 import TagsComponent from './TagsComponent/TagsComponent';
+import TagsContentComponent from './TagsContentComponent/TagsContentComponent';
 
 function MainComponent() {
   return (
@@ -15,6 +16,7 @@ function MainComponent() {
       <LogoutButton />
       <TagsComponent />
       <LoginButton />
+      <TagsContentComponent />
     </div>
   );
 }
