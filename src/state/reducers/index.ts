@@ -1,14 +1,10 @@
 import { combineReducers } from 'redux';
-import inboxReducer from './inboxReducer';
-import consentReducer from './consentReducer';
-import mydataReducer from './mydataReducer';
+import tabsReducer from './tabsReducer';
 import authReducer from './authReducer';
 
 const reducers = combineReducers({
   auth: authReducer,
-  inbox: inboxReducer,
-  consent: consentReducer,
-  mydata: mydataReducer,
+  tabs: tabsReducer,
 });
 
 export default reducers;

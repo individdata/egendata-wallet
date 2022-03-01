@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
-import MainComponent from './components/MainComponent/MainComponent';
-import LoginComponent from './components/LoginComponent/LoginComponent';
+import MainPage from './pages/MainPage/MainPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 import { State } from './state/reducers';
 
 function App() {
   const authState = useSelector((state: State) => state.auth);
 
-  if (authState.certified === 'none') {
+  if (authState === 'login') {
     return (
       <div className="App">
         <body>
-          <MainComponent />
+          <MainPage />
         </body>
       </div>
     );
@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <body>
-        <LoginComponent />
+        <LoginPage />
       </body>
     </div>
   );

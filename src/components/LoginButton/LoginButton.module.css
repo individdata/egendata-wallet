@@ -1,0 +1,55 @@
+.loginpage1 {
+    display: inline;
+}
+
+.loginpage2 {
+    display: none;
+}
+
+.login {
+    margin-top: 320px;
+    padding: 10px;
+    font-size: 38px;
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+
+    color: #FFFFFF;
+}
+
+.button {
+    width: 40%;
+    height: 52px;
+    margin-left: 30%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 10px;
+    background: #65D36E;
+    border-radius: 48px;
+    border: none;
+}
+
+.button .buttontext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    /* identical to box height, or 200% */
+
+    color: #FFFFFF;
+}
+
+.how {
+    margin-top: 100px;
+    margin-left: 33%;
+    
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration-line: underline;
+    
+    color: #FFFFFF;
+}

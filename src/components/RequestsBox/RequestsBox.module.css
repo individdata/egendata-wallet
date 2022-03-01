@@ -1,0 +1,19 @@
+.tagsContent1 {
+    display: flex;
+}
+
+.tagsContent1 {
+    display: none;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin-top: 10%;
+    margin-left: 20%;
+    width: 60%;
+    height: 680px;
+    background: #2465C7;
+}
