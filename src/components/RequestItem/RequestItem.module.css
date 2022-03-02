@@ -1,8 +1,20 @@
-.requestBox {
+.requestBox1 {
+    display: flex;
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 15%;
+    height: 48px;
+    background: #191B1F;
+    border-radius: 48px;
+    border: none;
+}
+
+.requestBox2 {
+    display: none;
     position: absolute;
     left: 27.78%;
     right: 27.78%;
-    margin-top: 2%;
+    margin-top: 5%;
     height: 48px;
     background: #191B1F;
     border-radius: 48px;
@@ -55,4 +67,67 @@
     /* identical to box height */
 
     color: #FFFFFF;
+}
+
+.transfer1 {
+    display: flex;
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 15%;
+    height: 48px;
+    background: #2D43A5;
+    border-radius: 48px;
+    border: none;
+
+    border-radius: 48px;
+}
+
+.transfer2 {
+    display: none;
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 15%;
+    height: 48px;
+    background: #2D43A5;
+    border-radius: 48px;
+    border: none;
+
+    border-radius: 48px;
+}
+
+.text {
+    margin-top: 12px;
+    margin-left: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.sourcename {
+    margin-top: 12px;
+    margin-left: 15px;
+    margin-right: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.arrow {
+    height: 14px;
+    width: 18px;
+    margin-top: 16px;
+    margin-left: 8px;
+    content: url("/public/images/arrow-right.png");
 }

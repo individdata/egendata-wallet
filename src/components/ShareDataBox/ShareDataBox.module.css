@@ -1,0 +1,205 @@
+.transferbox1 {
+    display: inline;
+}
+
+.transferbox2 {
+    opacity:0.5;
+    height: 240px;
+}
+
+.transferbox3 {
+    display: none;
+}
+
+
+.box {
+    margin-top: 46px;
+    margin-left: 15%;
+    width: 70%;
+    height: 240px;
+    background: #191B1F;
+    border-radius: 16px;
+}
+
+.firstLine {
+    margin-left: 5%;
+    display: flex;
+    height: 30px;
+}
+
+.one {
+    width: 21px;
+    height: 22px;
+    margin-top: 17px;
+    margin-left: 0px;
+    content: url("/public/images/2.png");
+}
+
+.firstLine {
+    display: flex;
+    height: 38px;
+}
+
+.text {
+    margin-left: 8px;
+    margin-top: 19px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    /* identical to box height */
+    color: #757575;
+}
+
+.line {
+    border-top: 1px solid #2E2E2E;
+    margin-top: 8px;
+    width: 90%;
+}
+
+.secondline {
+    height: 90px;
+}
+
+.secondtext {
+    display: inline;
+}
+
+.personnumber {
+    display: flex;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    /* or 125% */
+    margin-top: 40px;
+    margin-left: 25%;
+
+    color: #FFFFFF;
+}
+
+.persontext1 {
+    display: inline;
+    color: #5CBC64;
+}
+
+.persontext2 {
+    display: none;
+}
+
+.employmentstatus {
+    display: flex;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+
+    /* or 125% */
+    margin-left: 27%;
+
+    color: #FFFFFF;
+}
+
+.employtext1 {
+    display: inline;
+    color: #5CBC64;
+}
+
+.employtext2 {
+    display: none;
+}
+
+.thirdline {
+    display: flex;
+    height: 100px;
+    background: #31343B;
+    border-radius: 0px 0px 16px 16px;
+}
+
+.af {
+   width: 40px;
+   height: 40px;
+   margin-left: 30px;
+   margin-top: 22px;
+   content: url("/public/images/bnp.png");
+}
+
+.aftitle {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 16px;
+    margin-top: 28px;
+
+/* identical to box height, or 100% */
+
+    color: #FFFFFF;
+}
+
+.checkbox {
+    margin-left: 50px;
+    margin-top: 36px;
+    height: 18px;
+    width: 18px;
+    color: chartreuse;
+}
+
+.consentedtext {
+    margin-left: 5px;
+    margin-top: 36px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    /* identical to box height, or 154% */
+
+    color: #FFFFFF;
+}
+
+.button2 {
+    width: 130px;
+    height: 46px;
+    margin-top: 24px;
+    margin-left: 15px;
+    
+    background-color: #31343B;
+    border: 1px solid #454545;
+    box-sizing: border-box;
+    border-radius: 24px;
+}
+
+.button1 {
+    width: 130px;
+    height: 46px;
+    margin-top: 24px;
+    margin-left: 15px;
+
+    background: #5CBC64;
+    border-radius: 24px;
+    border: none;
+}
+
+.buttontext2 {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    /* identical to box height, or 125% */
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.buttontext1 {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    /* identical to box height, or 125% */
+
+    text-align: center;
+
+    color: #1A1A1A;
+}

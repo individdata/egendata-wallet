@@ -1,0 +1,67 @@
+.shape {
+    width: 70%;
+    height: 400px;
+    margin-top: 8px;
+    margin-left: 15%;
+    border-radius: 16px;
+}
+.requestContent1 {
+    display: flex;
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 15%;
+    height: 400px;
+    background: #191B1F;
+    border-radius: 16px;
+    border: none;
+}
+
+.requestContent2 {
+    display: none;
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 15%;
+    height: 400px;
+    background: #191B1F;
+    border-radius: 16px;
+    border: none;
+}
+
+.content {
+    width: 70%;
+    height: 160px;
+    margin-top: 12%;
+    margin-left: 15%;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    /* or 125% */
+
+
+    color: #FFFFFF;
+}
+
+.button {
+    width: 30%;
+    height: 48px;
+    margin-left: 35%;
+    margin-top: 20px;
+    padding: 10px;
+    background: #65D36E;
+    border-radius: 48px;
+    border: none;
+}
+
+.button .buttontext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    /* identical to box height, or 200% */
+
+    color:black;
+}
