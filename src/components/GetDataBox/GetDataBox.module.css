@@ -96,8 +96,27 @@
     border-radius: 0px 0px 16px 16px;
 }
 
+.firstItem {
+    width: 30%;
+    display: flex;
+}
+
+.secondItem {
+    margin-left: 15%;
+    width: 5%;
+}
+
+.thirdItem {
+    margin-left: 5%;
+    width: 18%;
+}
+
+.fourthItem {
+    margin-left: 2%;
+    width: 20%;
+}
+
 .af {
-   width: 40px;
    height: 40px;
    margin-left: 30px;
    margin-top: 22px;

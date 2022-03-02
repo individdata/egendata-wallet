@@ -6,16 +6,24 @@
     display: none;
 }
 
+.firstline {
+   margin-top: 400px;
+   height: 30px;
+}
+
 .login {
-    margin-top: 320px;
-    padding: 10px;
     font-size: 38px;
     text-align: center;
     font-family: Open Sans;
     font-style: normal;
     font-weight: 800;
-
+    text-align: center;
     color: #FFFFFF;
+}
+
+.secondline {
+    margin-top: 20px;
+    height: 60px;
 }
 
 .button {
@@ -35,21 +43,23 @@
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
-    line-height: 40px;
     /* identical to box height, or 200% */
 
     color: #FFFFFF;
 }
 
+.thirdline {
+    height: 30px;
+    margin-top: 12px;
+    margin-left: 36%;
+}
+
 .how {
-    margin-top: 100px;
-    margin-left: 33%;
-    
     font-family: Open Sans;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     text-decoration-line: underline;
-    
+    text-align: center;
     color: #FFFFFF;
 }

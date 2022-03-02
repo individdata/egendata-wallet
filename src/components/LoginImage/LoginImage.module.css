@@ -3,26 +3,27 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    display: flex;
+    display: inline;
     flex: 1;
 }
 
-.leftlogo {
-    position: absolute;
-    left: 18.71%;
-    right: 72.75%;
-    top: 14.14%;
-    bottom: 71.09%;
+.leaf {
+    height: 50px;
+    margin-top: 18%;
+    margin-left: 45%;
+}
+
+.leaf .logo {
     content: url("/public/images/oak-white-big.png");
 }
 
-.first {
-    position: absolute;
-    width: 319px;
-    height: 225px;
-    left: 200px;
-    top: 143px;
+.title {
+    height: 380px;
+    width: 50%;
+    margin-left: 25%;
+}
 
+.first { 
     font-family: Open Sans;
     font-style: normal;
     font-weight: 530;
@@ -33,13 +34,12 @@
     color: #FFFFFF;
 }
 
-.description {
-    position: absolute;
-    width: 508px;
-    height: 125px;
-    left: 106px;
-    top: 633px;
+.text {
+    height: 160px;
+    margin-top: 10px;
+}
 
+.description {
     font-family: Open Sans;
     font-style: normal;
     font-weight: 550;

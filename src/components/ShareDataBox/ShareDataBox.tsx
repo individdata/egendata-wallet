@@ -58,25 +58,33 @@ function ShareDataBox(props: RequestType) {
           </div>
         </div>
         <div className={styles.thirdline}>
-          <img className={styles.af} alt="logo" />
-          <div className={styles.aftitle}>{name}</div>
-          <input
-            type="checkbox"
-            className={styles.checkbox}
-            checked={checked}
-            onChange={handleChange}
-          />
-          <div className={styles.consentedtext}>Gonsent to share</div>
-          <button
-            className={(checked) ? styles.button1 : styles.button2}
-            disabled={(!checked)}
-            type="button"
-            onClick={() => sharedata(flowState)}
-          >
-            <div className={(checked) ? styles.buttontext1 : styles.buttontext2}>
-              Share data
-            </div>
-          </button>
+          <div className={styles.firstItem}>
+            <img className={styles.af} alt="logo" />
+            <div className={styles.aftitle}>{name}</div>
+          </div>
+          <div className={styles.secondItem}>
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={checked}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.thirdItem}>
+            <div className={styles.consentedtext}>Gonsent to share</div>
+          </div>
+          <div className={styles.fourthItem}>
+            <button
+              className={(checked) ? styles.button1 : styles.button2}
+              disabled={(!checked)}
+              type="button"
+              onClick={() => sharedata(flowState)}
+            >
+              <div className={(checked) ? styles.buttontext1 : styles.buttontext2}>
+                Share data
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>

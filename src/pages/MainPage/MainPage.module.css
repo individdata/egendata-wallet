@@ -8,10 +8,13 @@
 
 .headline{
     display: flex;
+    height: 50px;
+    width: 100%;
 }
 
 .title {
-    margin-left: 15px;
+    display: flex;
+    margin-left: 20px;
     margin-top: 20px;
     font-family: Open Sans;
     font-style: normal;
@@ -22,12 +25,30 @@
     color: #FFFFFF;
 }
 
+.tabs {
+    margin-left: 25%;
+}
+
+.logout {
+    margin-left: 50%;
+}
+
+
 .oak {
     color: #65D36E;;
 }
 
-.logo {
+.logo1 {
     margin-right: 10px;
+    width: 26px;
+    height: 40px;
+    content: url("/public/images/oak-green.png");
+}
+
+.logo2 {
+    margin-right: 10px;
+    width: 26px;
+    height: 40px;
     content: url("/public/images/oak-white.png");
 }
 
