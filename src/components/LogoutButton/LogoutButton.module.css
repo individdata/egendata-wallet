@@ -4,14 +4,12 @@
 
 .logoutavailable2 {
     display: flex;
-  }
+}
 
-.logout {
-    
-    position: absolute;
+.logout {   
     width: 300px;
     height: 40px;
-    left: 1244px;
+    margin-left: 20%;
     top: 30px;
     display: flex;
     flex-direction: column;
@@ -47,7 +45,6 @@
     content: url("/public/images/arrow-down.png");
 }
   
-
 .dropdown .dropdowncontent {
     display: none;
     position: absolute;
@@ -69,7 +66,6 @@
     font-size: 16px;
 }
 
-  
 .dropdowncontent .dropdownbutton:hover {background-color: #ccc}
   
 .dropdown:hover .dropdowncontent {
@@ -79,5 +75,3 @@
 .dropdown:hover .dropbtn {
     background-color: #2980B9;
 }
-
-

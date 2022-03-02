@@ -6,6 +6,10 @@
     background: #222429;
 }
 
+.headline{
+    display: flex;
+}
+
 .title {
     margin-left: 15px;
     margin-top: 20px;

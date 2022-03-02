@@ -22,7 +22,7 @@ function ShareDataBox(props: RequestType) {
     setChecked(c.target.checked);
   };
   const dispatch = useDispatch();
-  const { getdata } = bindActionCreators(flowAction, dispatch);
+  const { sharedata } = bindActionCreators(flowAction, dispatch);
 
   const personnumber = '19881202-1234';
   const employmentstatus = 'unemployed';
@@ -71,7 +71,7 @@ function ShareDataBox(props: RequestType) {
             className={(checked) ? styles.button1 : styles.button2}
             disabled={(!checked)}
             type="button"
-            onClick={() => getdata(flowState)}
+            onClick={() => sharedata(flowState)}
           >
             <div className={(checked) ? styles.buttontext1 : styles.buttontext2}>
               Share data
