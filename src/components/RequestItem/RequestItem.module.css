@@ -9,6 +9,10 @@
     border: none;
 }
 
+.requestBox1:hover {
+    background-color: blue;
+}
+
 .requestBox2 {
     display: none;
     position: absolute;
@@ -19,6 +23,10 @@
     background: #191B1F;
     border-radius: 48px;
     border: none;
+}
+
+.requestBox1:hover {
+    background-color: blue;
 }
 
 .logo {

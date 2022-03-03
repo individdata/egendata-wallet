@@ -69,6 +69,10 @@
     border: none;
 }
 
+.button:hover {
+    background-color: blue;
+}
+
 .buttontext {
     width: 228px;
     height: 20px;

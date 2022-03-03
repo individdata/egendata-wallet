@@ -38,6 +38,10 @@
     border: none;
 }
 
+.button:hover {
+    background-color: blue;
+}
+
 .button .buttontext {
     font-family: Open Sans;
     font-style: normal;

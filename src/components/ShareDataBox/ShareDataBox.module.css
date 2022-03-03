@@ -165,6 +165,14 @@
     border-radius: 24px;
 }
 
+.button2:hover {
+    background-color: blue;
+}
+
+.button1:hover {
+    background-color: blue;
+}
+
 .button1 {
     width: 130px;
     height: 46px;
