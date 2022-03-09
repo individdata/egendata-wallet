@@ -12,7 +12,13 @@ function CertificateBox() {
   const { certificate } = bindActionCreators(flowAction, dispatch);
 
   return (
-    <div className={(authState === 'login' && flowState === 'sharedata') ? styles.main1 : styles.main2}>
+    <div
+      className={
+        authState === 'login' && flowState === 'sharedata'
+          ? styles.main1
+          : styles.main2
+      }
+    >
       <div className={styles.box}>
         <img className={styles.certificate} alt="logo" />
         <div className={styles.text}>
@@ -26,9 +32,7 @@ function CertificateBox() {
           type="button"
           onClick={() => certificate(flowState)}
         >
-          <div className={styles.buttontext}>
-            Return to requesting service
-          </div>
+          <div className={styles.buttontext}>Return to requesting service</div>
         </button>
       </div>
     </div>

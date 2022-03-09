@@ -27,13 +27,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "set CI=true && react-scripts test --coverage --watchAll=false",
+    "test": "set CI=true && react-scripts test --coverage --watchAll=false ",
     "eject": "react-scripts eject",
     "jest": "jest --coverageReporters text-summary --",
     "_lint": "eslint --config ./.eslintrc.json --ext tsx --ext ts",
     "lint": "npm run _lint -- ./src/",
     "lint:fix": "npm run _lint -- --fix ./src/",
-    "prepare": "husky install"
+    "prepare": "husky install "
   },
   "jest": {
     "coverageThreshold": {
