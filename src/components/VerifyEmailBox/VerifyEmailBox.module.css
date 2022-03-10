@@ -30,6 +30,7 @@
 }
 
 .text {
+    width: min(80%, 500px);
     padding-left: 12%;
     margin-top: 20px;
     overflow-wrap: break-word;font-family: Open Sans;
