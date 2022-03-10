@@ -3,6 +3,7 @@ import { FlowAction } from '../actions/flow';
 
 const initialState = 'unopen';
 
+// eslint-disable-next-line @typescript-eslint/default-param-last
 function reducer(state = initialState, action: FlowAction) {
   switch (action.type) {
     case FlowActionType.UNOPEN:
