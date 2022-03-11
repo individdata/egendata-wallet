@@ -36,18 +36,14 @@ export default function VerifiyEmailBox() {
           <FontAwesomeIcon
             icon={faEnvelope}
             fontSize="22"
-            style={{
-              color: 'white', alignItems: 'center', justifyContent: 'center', marginTop: '5%', marginRight: '12%',
-            }}
+            className={styles.emailIcon}
           />
           <input
             type="text"
             id="email"
             name="email"
             placeholder="example@email.com"
-            style={{
-              border: 'none', marginLeft: '15%', color: 'white', background: '#2C2C2C', padding: '20px 10px', height: 10, width: '50%', justifyContent: 'center', alignContent: 'center',
-            }}
+            className={styles.inputField}
           />
         </form>
         <button
