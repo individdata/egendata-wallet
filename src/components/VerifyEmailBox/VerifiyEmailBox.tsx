@@ -22,7 +22,7 @@ export default function VerifiyEmailBox() {
     >
       <div className={styles.box}>
         <img className={styles.certificate} alt="logo" />
-        <div className={styles.text}>
+        <div className={styles.text4}>
           Your unemployement certificat is now
           being shared with BNP Paribas.
         </div>
@@ -31,7 +31,7 @@ export default function VerifiyEmailBox() {
         </div>
 
         <div className={styles.text}>Do you want a copy by Email? </div>
-        <p className={styles.text2}>Just enter your Email address</p>
+        <p className={styles.text3}>Just enter your Email address</p>
         <form className={styles.form}>
           <FontAwesomeIcon
             icon={faEnvelope}
