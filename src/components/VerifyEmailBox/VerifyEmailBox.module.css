@@ -161,3 +161,35 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 1045px ) {
+.box {
+  width: 30%;
+  height: 624px;
+  margin-left: 15%;
+  background: #2c2c2c;
+  border-radius: 24px;
+}
+
+.certificate {
+    margin-left: 45%;
+    width: 40px;
+    height: 40px;
+    margin-top: 80px;
+    content: url("/public/images/check-circle.png");
+  }    
+
+  .text4 {
+  width: min(80%, 406px);
+  margin-left: 10%;
+  margin-top: 20px;
+  overflow-wrap: break-word;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+}
+}
