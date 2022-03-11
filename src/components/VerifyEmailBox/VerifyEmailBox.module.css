@@ -52,7 +52,7 @@
 }
 .text4 {
   width: min(80%, 406px);
-  margin-left: 20%;
+  margin-left: 15%;
   margin-top: 20px;
   overflow-wrap: break-word;
   font-family: Open Sans;
@@ -166,7 +166,7 @@
 .box {
   width: 30%;
   height: 624px;
-  margin-left: 15%;
+  margin-left: 5%;
   background: #2c2c2c;
   border-radius: 24px;
 }
@@ -191,5 +191,15 @@
   text-align: center;
   color: #fff;
   margin-bottom: 20px;
+}
+.button {
+  width: max(60%, 250px);
+  height: 46px;
+  margin-top: 10%;
+  margin-left: 10%;
+
+  background: #5cbc64;
+  border-radius: 24px;
+  border: none;
 }
 }
