@@ -17,8 +17,12 @@ function LoginPage() {
   return (
     <div className="App">
       <div className={styles.main}>
-        <LoginImage />
-        <DirectMainPage />
+        <div className={styles.left}>
+          <LoginImage />
+        </div>
+        <div className={styles.right}>
+          <DirectMainPage />
+        </div>
       </div>
     </div>
   );
