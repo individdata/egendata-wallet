@@ -1,23 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './MainPage.module.css';
+import styles from './DirectMainPage.module.css';
 import LoginButton from '../../components/LoginButton/LoginButton';
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import Tabs from '../../components/Tabs/Tabs';
 import RequestsBox from '../../components/RequestsBox/RequestsBox';
 import CertificateBox from '../../components/CertificateBox/CertificateBox';
+import OakLogo from '../../components/OakLogo/OakLogo';
 import { State } from '../../state/reducers';
 
 function MainPage() {
   const authState = useSelector((state: State) => state.auth);
-
   return (
     <div className={styles.main}>
       <div className={styles.headline}>
-        <div className={styles.title} style={{ display: 'flex' }}>
-          <img className={(authState === 'login') ? styles.logo1 : styles.logo2} alt="logo" />
-          Project
-          <div className={styles.oak}>OAK</div>
+        <div className={styles.logo}>
+          <OakLogo />
         </div>
         <div className={styles.tabs}>
           <Tabs />
@@ -26,7 +24,17 @@ function MainPage() {
           <LogoutButton />
         </div>
       </div>
-      <LoginButton />
+      <div className={(authState === 'logout') ? styles.loginpage1 : styles.loginpage2}>
+        <div className={styles.firstline}>
+          <p className={styles.login}>Log in</p>
+        </div>
+        <div className={styles.secondline}>
+          <LoginButton />
+        </div>
+        <div className={styles.thirdline}>
+          <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
+        </div>
+      </div>
       <RequestsBox />
       <CertificateBox />
     </div>

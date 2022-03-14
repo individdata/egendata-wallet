@@ -1,29 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './App.css';
-import MainPage from './pages/MainPage/MainPage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import { State } from './state/reducers';
+import DirectLoginPage from './pages/DirectLoginPage/DirectLoginPage';
+import RedirectLoginPage from './pages/RedirectLoginPage/RedirectLoginPage';
+import { redirect } from './setupParameters';
 
 function App() {
-  const authState = useSelector((state: State) => state.auth);
-
-  if (authState === 'login') {
-    return (
-      <div className="App">
-        <body>
-          <MainPage />
-        </body>
-      </div>
-    );
+  if (redirect) {
+    return <RedirectLoginPage redirect={redirect} />;
   }
-  return (
-    <div className="App">
-      <body>
-        <LoginPage />
-      </body>
-    </div>
-  );
+  return <DirectLoginPage />;
 }
-
 export default App;

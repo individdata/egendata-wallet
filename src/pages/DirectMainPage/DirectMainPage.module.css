@@ -12,17 +12,43 @@
     width: 100%;
 }
 
-.title {
-    display: flex;
-    margin-left: 20px;
+.firstline {
+    margin-top: 400px;
+    height: 30px;
+}
+
+.secondline {
     margin-top: 20px;
+    height: 70px;
+}
+
+.thirdline {
+    height: 30px;
+    margin-top: 16px;
+    margin-left: 29%;
+}
+
+.loginpage1 {
+    display: inline;
+}
+
+.loginpage2 {
+    display: none;
+}
+
+.login {
+    font-size: 38px;
+    text-align: center;
     font-family: Open Sans;
     font-style: normal;
     font-weight: 800;
-    font-size: 28px;
-    /* identical to box height, or 167% */
-  
+    text-align: center;
     color: #FFFFFF;
+}
+
+.logo {
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 .tabs {
@@ -31,25 +57,6 @@
 
 .logout {
     margin-left: 50%;
-}
-
-
-.oak {
-    color: #65D36E;;
-}
-
-.logo1 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-green.png");
-}
-
-.logo2 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-white.png");
 }
 
 .buttontag {

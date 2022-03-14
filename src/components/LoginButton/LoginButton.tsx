@@ -2,35 +2,34 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './LoginButton.module.css';
-import { loginAction } from '../../state/index';
+import { loginAction, flowAction } from '../../state/index';
 import { State } from '../../state/reducers';
 
-function LoginButton() {
+function LoginButton(props: any) {
+  const { redirect } = props;
   const authState = useSelector((state: State) => state.auth);
+  const flowState = useSelector((state: State) => state.flow);
   const dispatch = useDispatch();
   const { login } = bindActionCreators(loginAction, dispatch);
-
+  const { consented } = bindActionCreators(flowAction, dispatch);
   return (
-    <div className={(authState === 'logout') ? styles.loginpage1 : styles.loginpage2}>
-      <div className={styles.firstline}>
-        <p className={styles.login}>Log in</p>
+    <button
+      className={styles.button}
+      type="button"
+      arua-label="login"
+      onClick={() => {
+        if (redirect) {
+          login(authState);
+          consented(flowState);
+        } else {
+          login(authState);
+        }
+      }}
+    >
+      <div className={styles.buttontext}>
+        Open Freja eID
       </div>
-      <div className={styles.secondline}>
-        <button
-          className={styles.button}
-          type="button"
-          arua-label="login"
-          onClick={() => login(authState)}
-        >
-          <div className={styles.buttontext}>
-            Open Freja eID
-          </div>
-        </button>
-      </div>
-      <div className={styles.thirdline}>
-        <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
-      </div>
-    </div>
+    </button>
   );
 }
 
