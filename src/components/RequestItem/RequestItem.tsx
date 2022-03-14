@@ -24,34 +24,30 @@ function RequestItem(props: RequestType) {
     <div className={styles.shape}>
       <button
         type="button"
-        className={(flowState === 'unopen' || flowState === 'open') ? styles.requestBox1 : styles.requestBox2}
+        className={
+          flowState === 'unopen' || flowState === 'open'
+            ? styles.requestBox1
+            : styles.requestBox2
+        }
         onClick={() => open(flowState)}
       >
         <img className={styles.logo} alt="logo" />
-        <div className={styles.name}>
-          {name}
-        </div>
-        <div className={styles.brief}>
-          {brief}
-        </div>
-        <div className={styles.date}>
-          {date}
-        </div>
+        <div className={styles.name}>{name}</div>
+        <div className={styles.brief}>{brief}</div>
+        <div className={styles.date}>{date}</div>
       </button>
-      <div className={(flowState !== 'unopen' && flowState !== 'open') ? styles.transfer1 : styles.transfer2}>
-        <div className={styles.text}>
-          Data transfer
-        </div>
-        <div className={styles.sourcename}>
-          Arbetsförmedlingen
-        </div>
+      <div
+        className={
+          flowState !== 'unopen' && flowState !== 'open'
+            ? styles.transfer1
+            : styles.transfer2
+        }
+      >
+        <div className={styles.text}>Data transfer</div>
+        <div className={styles.sourcename}>Arbetsförmedlingen</div>
         <img className={styles.arrow} alt="logo" />
-        <div className={styles.name}>
-          {name}
-        </div>
-        <div className={styles.date}>
-          {date}
-        </div>
+        <div className={styles.name}>{name}</div>
+        <div className={styles.date}>{date}</div>
       </div>
     </div>
   );

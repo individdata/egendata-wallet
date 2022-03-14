@@ -1,3 +1,3 @@
-export const redirect = true;
+export const redirect = false;
 
 export default redirect;
