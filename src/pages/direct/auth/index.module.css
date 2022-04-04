@@ -1,0 +1,29 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    font-size: 24px;
+}
+
+.left1 {
+    display: none;
+}
+
+.left2 {
+    width: 50%;
+}
+
+.right1 {
+    width: 100%;
+}
+
+.right2 {
+    width: 50%;
+}
+
+
+.App {
+    background-color: #222429;
+}

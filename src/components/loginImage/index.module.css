@@ -1,0 +1,62 @@
+.main {
+    background-image: url("/public/images/login-page.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 1000px;
+    flex: 1;
+}
+
+.leaf {
+    height: 150px;
+    margin-left: 45%;
+}
+
+.logo {
+    margin-top: 100px;
+    content: url("/public/images/oak-white-big.png");
+}
+
+.title {
+    height: 380px;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.first { 
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 530;
+    font-size: 96px;
+    line-height: 93px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.text {
+    height: 260px;
+    margin-top: 10px;
+}
+
+.description {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 150;
+    font-size: 24px;
+    line-height: 2px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.paragraph {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 150;
+    font-size: 24px;
+    line-height: 2px;
+    text-align: center;
+    margin-top: 2.8 rem;
+    color: #FFFFFF;
+}

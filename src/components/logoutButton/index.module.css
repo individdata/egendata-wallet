@@ -1,0 +1,75 @@
+.logoutavailable1 {
+  display: none;
+}
+
+.logoutavailable2 {
+    display: flex;
+}
+
+.logout {   
+    width: 500px;
+    margin-right: 10px;
+    margin-top: 20px;
+    display: flex;
+}
+
+.logo {
+    width: 30px;
+    content: url("/public/images/user-circle.png");
+}
+
+.dropdown {
+    margin-left: 30px;
+    position: absolute;
+}
+
+.dropdown .dropbtn {
+    margin-left: 3px;
+    margin-top: 3px;
+    background: transparent;
+    border: none
+}
+
+.buttontext {
+    font-family: Open Sans;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.arrowdown {
+    margin-top: 10px;
+    margin-left: 7px;
+    content: url("/public/images/arrow-down.png");
+}
+  
+.dropdown .dropdowncontent {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 100x 280px 260px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdowncontent .dropdownbutton {
+    margin-left: 60px;
+    background-color: transparent;
+    border: none;
+}
+
+.dropdownbutton .doprdownbuttontext {
+    font-family: Open Sans;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.dropdowncontent .dropdownbutton:hover {background-color: #ccc}
+  
+.dropdown:hover .dropdowncontent {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #2980B9;
+}
