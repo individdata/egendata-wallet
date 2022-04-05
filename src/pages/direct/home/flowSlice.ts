@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../store';
 import { DataRequest, DataResponse, inboxContent } from './fetchrequests';
 
@@ -17,11 +16,11 @@ const initialState = {
   content: [],
 } as FlowState;
 
-export const getInboxContent = createAsyncThunk<Array<DataRequest | DataResponse>> (
+export const getInboxContent = createAsyncThunk<Array<DataRequest | DataResponse>>(
   'inbox/getInboxContent',
   async (id, { getState }): Promise<DataRequest[]> => {
     const state = getState() as RootState;
-    const inboxUrl = state.auth.user?.storage + "oak/inbox/";
+    const inboxUrl = `${state.auth.user?.storage}oak/inbox/`;
     return inboxContent(inboxUrl);
   },
 );

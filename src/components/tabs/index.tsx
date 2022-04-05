@@ -7,48 +7,53 @@ import { selectTab } from '../../pages/direct/home/tabsSlice';
 function Tags() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
-  const tabState  = useSelector((state: RootState) => state.tabs.tab);
+  const tabState = useSelector((state: RootState) => state.tabs.tab);
   console.log('tabState=', tabState);
-  console.log((tabState === 'inbox'));
+  console.log(tabState === 'inbox');
   const dispatch = useDispatch();
 
   return (
-    <div className={(isLoggedIn) ? styles.tabbar1 : styles.tabbar2}>
+    <div className={isLoggedIn ? styles.tabbar1 : styles.tabbar2}>
       <div>
         <div className={styles.tab}>
           <button
-            className={(tabState === 'inbox') ? styles.button1 : styles.button2}
+            className={tabState === 'inbox' ? styles.button1 : styles.button2}
             type="button"
             arua-label="inbox"
-            onClick={
-                () => dispatch(selectTab('inbox'))}
+            onClick={() => dispatch(selectTab('inbox'))}
           >
             <div
-              className={(tabState === 'inbox') ? styles.buttontext1 : styles.buttontext2}
+              className={
+                tabState === 'inbox' ? styles.buttontext1 : styles.buttontext2
+              }
             >
               Inbox
             </div>
           </button>
           <button
-            className={(tabState === 'consent') ? styles.button1 : styles.button2}
+            className={tabState === 'consent' ? styles.button1 : styles.button2}
             type="button"
             arua-label="consent"
             onClick={() => dispatch(selectTab('consent'))}
           >
             <div
-              className={(tabState === 'consent') ? styles.buttontext1 : styles.buttontext2}
+              className={
+                tabState === 'consent' ? styles.buttontext1 : styles.buttontext2
+              }
             >
               Consents
             </div>
           </button>
           <button
-            className={(tabState === 'mydata') ? styles.button1 : styles.button2}
+            className={tabState === 'mydata' ? styles.button1 : styles.button2}
             type="button"
             arua-label="mydata"
             onClick={() => dispatch(selectTab('mydata'))}
           >
             <div
-              className={(tabState === 'mydata') ? styles.buttontext1 : styles.buttontext2}
+              className={
+                tabState === 'mydata' ? styles.buttontext1 : styles.buttontext2
+              }
             >
               My data
             </div>
