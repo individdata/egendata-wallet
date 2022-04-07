@@ -28,7 +28,7 @@ const inrupt = {
 };
 
 const css2 = {
-  oidcIssuer: 'https://css2-ipo-dev.test.services.jtech.se',
+  oidcIssuer: 'https://oak-pod-provider-oak-develop.test.services.jtech.se',
   clientName: 'Digital Wallet',
   redirectUrl: `${window.location.href}auth/cb`,
 };
