@@ -7,7 +7,7 @@ import LoginImage from '../../../components/loginImage';
 function AuthPage() {
   return (
 
-    <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row' }}>
+    <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
       <Grid className={styles.left} item xs={12} md={6}>
         <LoginImage />
       </Grid>
