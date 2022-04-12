@@ -7,7 +7,9 @@ function LoginImageText() {
     <Grid container>
       <Grid className={styles.header} item xs={12} sx={{ marginBottom: '29px' }}>
         <Grid sx={{ maxWidth: '340px' }}>
-          <p className={styles.first}>Your data in your control</p>
+          <p className={styles.first}>
+            jakob wallet
+          </p>
         </Grid>
       </Grid>
       <Grid
