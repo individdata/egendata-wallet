@@ -4,27 +4,40 @@
     font-style: normal;
     font-weight: 800;
     font-size: 28px;
-    color: #FFFFFF;
-}
-
-.logo1 {
+    color: #ffffff;
+  }
+  
+  .logo1 {
     margin-right: 10px;
     width: 26px;
     height: 40px;
     content: url("/public/images/oak-green.png");
-}
-
-.logo2 {
+  }
+  
+  .logo2 {
     margin-right: 10px;
     width: 26px;
     height: 40px;
     content: url("/public/images/oak-white.png");
-}
-
-.firstline {
+  }
+  
+  .firstline {
     margin-left: 46%;
-}
+  }
+  
+  .oak {
+    color: #65d36e;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+  }
 
-.oak {
-    color: #65D36E;
-}
+

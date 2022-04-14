@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import LoginButton from '../../../components/loginButton';
@@ -14,32 +15,34 @@ function HomePage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
-    <div className={styles.main}>
-      <div className={styles.headline}>
-        <div className={styles.logo}>
-          <OakLogo />
-        </div>
-        <div className={styles.tabs}>
-          <Tabs />
-        </div>
-        <div className={styles.logout}>
-          <LogoutButton />
-        </div>
-      </div>
-      <div className={(isLoggedIn) ? styles.loginpage2 : styles.loginpage1}>
-        <div className={styles.firstline}>
-          <p className={styles.login}>Log in</p>
-        </div>
-        <div className={styles.secondline}>
-          <LoginButton />
-        </div>
-        <div className={styles.thirdline}>
-          <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
-        </div>
-      </div>
-      <RequestsBox />
-      {/* <CertificateBox /> */}
-    </div>
+    <Grid container sx={{ marginTop: '15px' }}>
+      <Grid xs={12} md={4} className={styles.paddingItem2}>
+        <OakLogo />
+      </Grid>
+      <Grid
+        xs={12}
+        md={4}
+        className={(!isLoggedIn) ? styles.paddingItem : styles.paddingItem2}
+      >
+        <Tabs />
+      </Grid>
+      <Grid
+        xs={12}
+        md={4}
+        className={(!isLoggedIn) ? styles.paddingItem : styles.paddingItem2}
+      >
+        <LogoutButton />
+      </Grid>
+      <Grid xs={12}>
+        <LoginButton />
+      </Grid>
+      <Grid xs={12}>
+        <RequestsBox />
+      </Grid>
+      <Grid item xs={12}>
+        {/* <CertificateBox /> */}
+      </Grid>
+    </Grid>
   );
 }
 

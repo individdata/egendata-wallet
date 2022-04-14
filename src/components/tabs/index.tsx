@@ -1,3 +1,4 @@
+import Grid from '@mui/material/Grid';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
@@ -16,48 +17,44 @@ function Tags() {
     <div className={isLoggedIn ? styles.tabbar1 : styles.tabbar2}>
       <div>
         <div className={styles.tab}>
-          <button
-            className={tabState === 'inbox' ? styles.button1 : styles.button2}
-            type="button"
-            arua-label="inbox"
-            onClick={() => dispatch(selectTab('inbox'))}
-          >
-            <div
-              className={
-                tabState === 'inbox' ? styles.buttontext1 : styles.buttontext2
-              }
+          <Grid sx={{ backgroundColor: '#191B1F', borderRadius: '24px' }}>
+            <button
+              className={(tabState === 'inbox') ? styles.button1 : styles.button2}
+              type="button"
+              arua-label="inbox"
+              onClick={() => dispatch(selectTab('inbox'))}
             >
-              Inbox
-            </div>
-          </button>
-          <button
-            className={tabState === 'consent' ? styles.button1 : styles.button2}
-            type="button"
-            arua-label="consent"
-            onClick={() => dispatch(selectTab('consent'))}
-          >
-            <div
-              className={
-                tabState === 'consent' ? styles.buttontext1 : styles.buttontext2
-              }
+              <div
+                className={(tabState === 'inbox') ? styles.buttontext1 : styles.buttontext2}
+              >
+                Inbox
+              </div>
+            </button>
+            <button
+              className={(tabState === 'consent') ? styles.button1 : styles.button2}
+              type="button"
+              arua-label="consent"
+              onClick={() => dispatch(selectTab('consent'))}
             >
-              Consents
-            </div>
-          </button>
-          <button
-            className={tabState === 'mydata' ? styles.button1 : styles.button2}
-            type="button"
-            arua-label="mydata"
-            onClick={() => dispatch(selectTab('mydata'))}
-          >
-            <div
-              className={
-                tabState === 'mydata' ? styles.buttontext1 : styles.buttontext2
-              }
+              <div
+                className={(tabState === 'consent') ? styles.buttontext1 : styles.buttontext2}
+              >
+                Consents
+              </div>
+            </button>
+            <button
+              className={(tabState === 'mydata') ? styles.button1 : styles.button2}
+              type="button"
+              arua-label="mydata"
+              onClick={() => dispatch(selectTab('mydata'))}
             >
-              My data
-            </div>
-          </button>
+              <div
+                className={(tabState === 'mydata') ? styles.buttontext1 : styles.buttontext2}
+              >
+                My data
+              </div>
+            </button>
+          </Grid>
         </div>
       </div>
     </div>
