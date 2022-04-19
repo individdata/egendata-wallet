@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 

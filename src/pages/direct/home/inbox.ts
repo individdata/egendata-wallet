@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   getSolidDataset, getThing, getStringNoLocale, Thing, getUrl, getUrlAll, getStringNoLocaleAll,
 } from '@inrupt/solid-client';
