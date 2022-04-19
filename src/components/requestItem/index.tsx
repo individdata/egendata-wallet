@@ -2,50 +2,55 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import { RootState } from '../../store';
-import { consent } from '../../pages/direct/home/flowSlice';
+import { DataRequest } from '../../pages/direct/home/inbox';
+import { select } from '../../pages/direct/home/requestSlice';
+import GetDataBox from '../getDataBox';
+import ShareDataBox from '../shareDataBox';
+import RequestContent from '../requestContent';
+import CertificateBox from '../certificateBox';
 
-export interface RequestType {
-  name: string,
-  brief: string,
-  date: string,
-  content: string,
-  readstatus: boolean
-}
-
-function RequestItem(props: RequestType) {
-  const { name, brief, date } = props;
-  const flowState = useSelector((state: RootState) => state.flow.flow);
+function RequestItem(props: DataRequest) {
+  const {
+    id, subject, requestedData, requestedFrom, requestedBy,
+  } = props;
+  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
   const dispatch = useDispatch();
-  const handleClick = (flowState === 'uncheck') ? () => dispatch(consent('checking')) : () => dispatch(consent('consenting'));
 
   return (
-    <div className={styles.shape}>
+    <div key={id} className={styles.shape}>
       <button
         type="button"
         className={
-          flowState === 'uncheck' || flowState === 'checking'
+          requestState?.status === 'idle' || requestState?.status === 'selected'
             ? styles.requestBox1
             : styles.requestBox2
         }
-        onClick={handleClick}
+        onClick={() => dispatch(select(id))}
       >
         <img className={styles.logo} alt="logo" />
-        <div className={styles.name}>{name}</div>
-        <div className={styles.brief}>{brief}</div>
-        <div className={styles.date}>{date}</div>
+        <div className={styles.name}>reqeuster</div>
+        <div className={styles.brief}>{id}</div>
+        <div className={styles.date}>date</div>
+        
       </button>
-      <div
-        className={
-          flowState !== 'uncheck' && flowState !== 'checking'
-            ? styles.transfer1
-            : styles.transfer2
-        }
-      >
-        <div className={styles.text}>Data transfer</div>
-        <div className={styles.sourcename}>Arbetsförmedlingen</div>
-        <img className={styles.arrow} alt="logo" />
-        <div className={styles.name}>{name}</div>
-        <div className={styles.date}>{date}</div>
+      <div>
+        <div
+          className={
+            requestState?.status === 'consenting' || requestState?.status === 'gotData' || requestState?.status === 'sharedData'
+              ? styles.transfer1
+              : styles.transfer2
+          }
+        >
+          <div className={styles.text}>{id}</div>
+          <div className={styles.sourcename}>source</div>
+          <img className={styles.arrow} alt="logo" />
+          <div className={styles.name}>requester</div>
+          <div className={styles.date}>date</div>
+        </div>
+        <RequestContent {...props} />
+        <GetDataBox {...props} />
+        <ShareDataBox {...props} />
+        <CertificateBox {...props} />
       </div>
     </div>
   );

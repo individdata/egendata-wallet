@@ -3,14 +3,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from './pages/direct/auth/authSlice';
 import afterLoginReducer from './pages/direct/auth/afterLoginSlice';
 import tabsReducer from './pages/direct/home/tabsSlice';
-import flowReducer from './pages/direct/home/flowSlice';
+import requestReducer from './pages/direct/home/requestSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     afterLogin: afterLoginReducer,
     tabs: tabsReducer,
-    flow: flowReducer,
+    requests: requestReducer,
   },
 });
 

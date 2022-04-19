@@ -10,7 +10,7 @@ import {
 // import { useDispatch } from 'react-redux';
 import { AuthorizedUser } from './types';
 import { redirectRoot } from './afterLoginSlice';
-// import { resetInbox } from '../inbox/inboxSlice';
+import { resetRequests, getInboxContent } from '../home/requestSlice';
 
 const sunetIdp = false;
 
@@ -28,7 +28,7 @@ const inrupt = {
 };
 
 const css2 = {
-  oidcIssuer: 'https://css2-ipo-dev.test.services.jtech.se',
+  oidcIssuer: 'https://oak-pod-provider-oak-develop.test.services.jtech.se/',
   clientName: 'Digital Wallet',
   redirectUrl: `${window.location.href}auth/cb`,
 };
@@ -73,15 +73,17 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
     // console.log('storage=', storage);
     const authorizedUser: AuthorizedUser = {
       webid: userInfo?.webId ? userInfo.webId : '',
-      name: 'Name',
+      name: name ?? '',
       storage: storage ?? '',
       id: 0,
       completed: true,
     };
     // console.log('afterLogin authorizedUser=', authorizedUser);
     if (userInfo?.isLoggedIn) {
-      // console.log('dispatch(redirectRoot())');
+      console.log('dispatch(redirectRoot())');
       dispatch(redirectRoot());
+      dispatch(getInboxContent());
+      console.log('9999999');
     }
     return authorizedUser;
   },
@@ -92,7 +94,7 @@ export const doLogout = createAsyncThunk<undefined>(
   async (id, { dispatch }) => {
     console.log('doLogout');
     await logout();
-    // dispatch(resetInbox());
+    dispatch(resetRequests());
     return undefined;
   },
 );

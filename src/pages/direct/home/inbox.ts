@@ -27,6 +27,7 @@ async function inboxItem(url: string) {
   const requestUrl = getUrl(item, 'https://oak.se/dataRequest');
   // console.log('requestUrl=', requestUrl);
   if (requestUrl) {
+    const ds = await getSolidDataset(requestUrl, { fetch });
     const thing = getThing(ds, requestUrl) as Thing;
     // console.log('thing=', thing);
     const id = getStringNoLocale(thing, 'http://schema.org/identifier') ?? '';
@@ -40,7 +41,7 @@ async function inboxItem(url: string) {
       requestedBy,
       type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
     } as DataRequest;
-      // console.log('dataRequest=', dataRequest);
+    // console.log('dataRequest=', dataRequest);
     return dataRequest;
   }
   /*
@@ -48,7 +49,7 @@ async function inboxItem(url: string) {
     const thing = getThing(ds, responseUrl!) as Thing;
     const id = getStringNoLocale(thing, 'http://schema.org/identifier') ?? '';
     return {
-    id
+      id
     } as DataResponse;
     */
   const dataRequest = {

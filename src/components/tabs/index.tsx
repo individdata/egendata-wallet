@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import { selectTab } from '../../pages/direct/home/tabsSlice';
+import { inbox } from '../../pages/direct/home/requestSlice';
 
 function Tags() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
-  const tabState  = useSelector((state: RootState) => state.tabs.tab);
+  const tabState = useSelector((state: RootState) => state.tabs.tab);
   console.log('tabState=', tabState);
   console.log((tabState === 'inbox'));
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ function Tags() {
             type="button"
             arua-label="inbox"
             onClick={
-                () => dispatch(selectTab('inbox'))}
+                () => { dispatch(selectTab('inbox')), dispatch(inbox()) }
+            }
           >
             <div
               className={(tabState === 'inbox') ? styles.buttontext1 : styles.buttontext2}

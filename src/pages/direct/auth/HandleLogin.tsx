@@ -10,11 +10,10 @@ import { RootState } from '../../../store';
 export function HandleLogin() {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-  console.log('code=', code);
+  // console.log('code=', code);
   // const authState = useSelector((state: State) => state.auth);
   const dispatch = useDispatch();
   // const handleClick = () => dispatch(navigate('/'));
-
   if (code) {
     dispatch(afterLogin());
   }

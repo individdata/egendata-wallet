@@ -3,11 +3,11 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import styles from './index.module.css';
-import { doLogin, doLogout } from '../../pages/direct/auth/login';
+import { doLogin } from '../../pages/direct/auth/login';
 
 function LoginButton(props: any) {
   const user = useSelector((state: RootState) => state.auth.user);
-  const isLoggedIn = user?.completed;
+  // const isLoggedIn = user?.completed;
   console.log(props);
   // const loggedIn = isLoggedIn ? (
   //  <div className="user">
@@ -17,12 +17,12 @@ function LoginButton(props: any) {
   //  </div>
   // ) : <div />;
   const dispatch = useDispatch();
-  const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin());
+  // const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin());
   return (
     <button
       className={styles.button}
       type="button"
-      onClick={handleClick}
+      onClick={() => dispatch(doLogin())}
     >
       <div className={styles.buttontext}>
         login

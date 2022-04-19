@@ -1,9 +1,9 @@
 .requestBox1 {
     display: flex;
     width: 70%;
-    margin-top: 5%;
+    margin-top: 10px;
     margin-left: 15%;
-    height: 48px;
+    height: 60px;
     background: #191B1F;
     border-radius: 48px;
     border: none;
@@ -15,25 +15,13 @@
 
 .requestBox2 {
     display: none;
-    position: absolute;
-    left: 27.78%;
-    right: 27.78%;
-    margin-top: 5%;
-    height: 48px;
-    background: #191B1F;
-    border-radius: 48px;
-    border: none;
-}
-
-.requestBox1:hover {
-    background-color: blue;
 }
 
 .logo {
     width: 40px;
     height: 40px;
-    margin-top: 3px;
-    margin-left: 0px;
+    margin-top: 9px;
+    margin-left: 6px;
     content: url("/public/images/bnp.png");
 }
 
@@ -92,15 +80,6 @@
 
 .transfer2 {
     display: none;
-    width: 70%;
-    margin-top: 5%;
-    margin-left: 15%;
-    height: 48px;
-    background: #2D43A5;
-    border-radius: 48px;
-    border: none;
-
-    border-radius: 48px;
 }
 
 .text {
@@ -201,4 +180,4 @@
 
     color: #FFFFFF;
 }
-}    
+}  

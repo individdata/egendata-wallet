@@ -1,53 +1,33 @@
-/* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { DataRequest } from '../../pages/direct/home/inbox';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/home/fetchrequests';
 import RequestItem from '../requestItem';
-import { inboxContent } from '../../pages/direct/home/fetchrequests';
-// import RequestContent from '../RequsetContent/RequestContent';
-// import GetDataBox from '../GetDataBox/GetDataBox';
-// import ShareDataBox from '../ShareDataBox/ShareDataBox';
 
-function RequestsBox() {
+export function RequestBox() {
   const user = useSelector((state: RootState) => state.auth.user);
-  const [requests, setRequests] = useState<DataRequest[]>();
   const isLoggedIn = user?.completed;
-  const inboxUrl = user?.storage + "oak/inbox/";
-  useEffect(() => {
-    inboxContent(inboxUrl).then((requests) => {
-      setRequests(requests);
-    });
-  }, []);
-  console.log('requests=', requests);
-  const readstatus = true;
+
+  const requests = useSelector((state: RootState) => state.requests);
+  console.log('inboxContent%%%%%=', requests);
+  const inbox = requests.map(request => {
+    if (request.content.type === "http://oak.se/UnemploymentCertificateDataRequest") {
+      const content = request.content as DataRequest;
+      return (
+        <RequestItem {...content} />
+      );
+    }
+    return null;
+  });
+
   return (
     <div className={styles.box}>
-      <div className={(isLoggedIn) ? styles.tagsContent1 : styles.tagsContent2}>
-        <div>whywhy</div>
-        <div>
-          {requests?.map(item => {
-            if (item.type === 'http://oak.se/UnemploymentCertificateDataRequest') {
-              const i = item as DataRequest;
-              console.log(i);
-              return (
-                <RequestItem
-                  name='BNP Parbas'
-                  brief={i.id}
-                  date={'2022-03-25'}
-                  content={i.id}
-                  readstatus={readstatus}
-                />
-              );
-            }
-            return null;
-          })}
-        </div>
+      <div className={isLoggedIn? styles.requestBoxDisplay : styles.requestBoxDisappear}>
+        {inbox}
       </div>
     </div>
-
   );
 }
 
-export default RequestsBox;
+export default RequestBox;

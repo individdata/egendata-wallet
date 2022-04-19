@@ -7,7 +7,7 @@ import { RootState } from '../../../store';
 import Tabs from '../../../components/tabs';
 
 import OakLogo from '../../../components/oakLogo';
-import RequestsBox from '../../../components/requestBox';
+import Inbox from '../../../components/requestBox';
 // import VerifiyEmailBox from '../../../components/VerifyEmailBox/VerifiyEmailBox';
 
 function HomePage() {
@@ -37,7 +37,7 @@ function HomePage() {
           <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
         </div>
       </div>
-      <RequestsBox />
+      <Inbox />
       {/* <CertificateBox /> */}
     </div>
   );
