@@ -13,6 +13,29 @@
     width: 100%;
 }
 
+.logo {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.tabs {
+    margin-left: 25%;
+}
+
+.logout {
+    margin-left: 50%;
+}
+
+.login {
+    font-size: 38px;
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    text-align: center;
+    color: #FFFFFF;
+}
+
 .firstline {
     margin-top: 400px;
     height: 30px;
@@ -26,7 +49,7 @@
 .thirdline {
     height: 30px;
     margin-top: 16px;
-    margin-left: 29%;
+    margin-left: 38%;
 }
 
 .loginpage1 {
@@ -37,19 +60,15 @@
     display: none;
 }
 
-.login {
-    font-size: 38px;
-    text-align: center;
+.title {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 20px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: 800;
-    text-align: center;
+    font-size: 28px;
     color: #FFFFFF;
-}
-
-.logo {
-    margin-left: 20px;
-    margin-top: 20px;
 }
 
 .tabs {
@@ -58,6 +77,25 @@
 
 .logout {
     margin-left: 50%;
+}
+
+
+.oak {
+    color: #65D36E;;
+}
+
+.logo1 {
+    margin-right: 10px;
+    width: 26px;
+    height: 40px;
+    content: url("/public/images/oak-green.png");
+}
+
+.logo2 {
+    margin-right: 10px;
+    width: 26px;
+    height: 40px;
+    content: url("/public/images/oak-white.png");
 }
 
 .buttontag {
@@ -72,22 +110,26 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 40px;
-    /* identical to box height, or 200% */
-
     text-align: center;
 
     color: #FFFFFF;
 }
 
-@media screend and (max-width: 1045px){
+.titleItem{
+    display: flex;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    color: #FFFFFF;
 
-.main {
-    width: max(30%, 200px);
-    flex-direction: column;
-    margin-left: 45%;
-    flex: 1;
-    flex-grow: 1;
-    height: 1000px;
-    background: blue;
 }
+
+.paddingItem{
+    display: none;
+}
+
+
+.paddingItem2{
+    padding: 30px;
 }

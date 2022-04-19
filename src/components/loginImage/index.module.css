@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 1000px;
+height: 100%;
     flex: 1;
 }
 
@@ -59,4 +59,8 @@
     text-align: center;
     margin-top: 2.8 rem;
     color: #FFFFFF;
+}
+
+.bgMe{
+
 }

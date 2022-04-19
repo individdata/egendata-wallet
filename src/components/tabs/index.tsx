@@ -10,11 +10,11 @@ function Tags() {
   const isLoggedIn = user?.completed;
   const tabState = useSelector((state: RootState) => state.tabs.tab);
   console.log('tabState=', tabState);
-  console.log((tabState === 'inbox'));
+  console.log(tabState === 'inbox');
   const dispatch = useDispatch();
 
   return (
-    <div className={(isLoggedIn) ? styles.tabbar1 : styles.tabbar2}>
+    <div className={isLoggedIn ? styles.tabbar1 : styles.tabbar2}>
       <div>
         <div className={styles.tab}>
           <button

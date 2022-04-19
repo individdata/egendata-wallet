@@ -1,0 +1,73 @@
+.left {
+    background-image: url("../../../public/images/login-page.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: inline;
+    flex: 1;
+    height: 100%;
+  }
+  
+  .leaf {
+    height: 70px;
+    width: 70px;
+  }
+  
+  .leaf .logo {
+    content: url("../../../public/images/oak-white-big.png");
+  }
+  
+  .title {
+    height: 380px;
+    width: 50%;
+    margin-left: 25%;
+  }
+  
+  .first {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 530;
+    font-size: 96px;
+    line-height: 93px;
+    text-align: center;
+  
+    color: #ffffff;
+  }
+  
+  .text {
+    height: 160px;
+    margin-top: 10px;
+  }
+  
+  .description {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 18px;
+    line-height: 2px;
+    text-align: center;
+  
+    color: #ffffff;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .container {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+

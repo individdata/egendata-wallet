@@ -9,15 +9,7 @@ function LoginButton(props: any) {
   const user = useSelector((state: RootState) => state.auth.user);
   // const isLoggedIn = user?.completed;
   console.log(props);
-  // const loggedIn = isLoggedIn ? (
-  //  <div className="user">
-  //    logged in user:
-  //   {' '}
-  //    {user?.name}
-  //  </div>
-  // ) : <div />;
   const dispatch = useDispatch();
-  // const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin());
   return (
     <button
       className={styles.button}

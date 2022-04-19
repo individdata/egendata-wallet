@@ -1,30 +1,32 @@
 .title {
-    display: flex;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    color: #FFFFFF;
+  display: flex;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  color: #FFFFFF;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 
 .logo1 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-green.png");
+  margin-right: 10px;
+  width: 26px;
+  height: 40px;
+  content: url("/public/images/oak-green.png");
 }
 
 .logo2 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-white.png");
+  margin-right: 10px;
+  width: 26px;
+  height: 40px;
+  content: url("/public/images/oak-white.png");
 }
 
 .firstline {
-    margin-left: 46%;
+  margin-left: 46%;
 }
 
 .oak {
-    color: #65D36E;
+  color: #65D36E;;
 }

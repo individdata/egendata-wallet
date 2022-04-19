@@ -8,7 +8,6 @@ import RequestItem from '../requestItem';
 export function RequestBox() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
-
   const requests = useSelector((state: RootState) => state.requests);
   console.log('inboxContent%%%%%=', requests);
   const inbox = requests.map(request => {

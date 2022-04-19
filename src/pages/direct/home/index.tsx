@@ -5,10 +5,8 @@ import LoginButton from '../../../components/loginButton';
 import LogoutButton from '../../../components/logoutButton';
 import { RootState } from '../../../store';
 import Tabs from '../../../components/tabs';
-
 import OakLogo from '../../../components/oakLogo';
 import Inbox from '../../../components/requestBox';
-// import VerifiyEmailBox from '../../../components/VerifyEmailBox/VerifiyEmailBox';
 
 function HomePage() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -38,7 +36,6 @@ function HomePage() {
         </div>
       </div>
       <Inbox />
-      {/* <CertificateBox /> */}
     </div>
   );
 }

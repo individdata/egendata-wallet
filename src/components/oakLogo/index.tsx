@@ -1,4 +1,6 @@
 import React from 'react';
+import Grid from '@mui/material/Grid';
+
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import { RootState } from '../../store';
@@ -8,10 +10,10 @@ function OakLogo() {
   const isLoggedIn = user?.completed;
   return (
     <div className={styles.title}>
-      <img className={(isLoggedIn) ? styles.logo1 : styles.logo2} alt="logo" />
+      <img className={isLoggedIn ? styles.logo1 : styles.logo2} alt="logo" />
       Project
       <div className={styles.oak}>OAK</div>
-    </div>
+  </div>
   );
 }
 

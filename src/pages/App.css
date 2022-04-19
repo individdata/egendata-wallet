@@ -1,3 +1,7 @@
+.App {
+  background-color: #222429;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -33,3 +37,4 @@
     transform: translateY(0px);
   }
 }
+

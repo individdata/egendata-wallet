@@ -1,22 +1,32 @@
 import React from 'react';
+import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
 import styles from './index.module.css';
 import HomePage from '../home';
 import LoginImage from '../../../components/loginImage';
+import { RootState } from '../../../store';
 
 function AuthPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
-    <div className={styles.main}>
-      <div className={(isLoggedIn) ? styles.left1 : styles.left2}>
-        <LoginImage />
-      </div>
-      <div className={(isLoggedIn) ? styles.right1 : styles.right2}>
-        <HomePage />
-      </div>
-    </div>
+
+    <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+      {!isLoggedIn ? (
+        <>
+          <Grid className={styles.left} item xs={12} md={6}>
+            <LoginImage />
+          </Grid>
+          <Grid xs={12} md={6}>
+            <HomePage />
+          </Grid>
+        </>
+      ) : (
+        <Grid xs={12} md={12}>
+          <HomePage />
+        </Grid>
+      ) }
+    </Grid>
   );
 }
 

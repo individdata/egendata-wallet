@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { share } from '../../pages/direct/home/requestSlice';
+import { inbox } from '../../pages/direct/home/requestSlice';
 import styles from './index.module.css';
 import { DataRequest } from '../../pages/direct/home/inbox';
 
@@ -33,7 +33,7 @@ function CertificateBox(props: DataRequest) {
         <button
           className={styles.button}
           type="button"
-          onClick={() => dispatch(share(id))}
+          onClick={() => dispatch(inbox())}
         >
           <div className={styles.buttontext}>Return to requesting service</div>
         </button>

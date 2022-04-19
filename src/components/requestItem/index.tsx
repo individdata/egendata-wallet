@@ -44,7 +44,7 @@ function RequestItem(props: DataRequest) {
           <div className={styles.text}>{id}</div>
           <div className={styles.sourcename}>source</div>
           <img className={styles.arrow} alt="logo" />
-          <div className={styles.name}>requester</div>
+          <div className={styles.name}>Requester</div>
           <div className={styles.date}>date</div>
         </div>
         <RequestContent {...props} />
