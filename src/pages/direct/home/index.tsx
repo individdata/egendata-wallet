@@ -15,21 +15,26 @@ function HomePage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
-    <Grid container sx={{ marginTop: '15px' }}>
+    <Grid
+      container
+      sx={{
+        marginTop: '15px',
+      }}
+    >
       <Grid xs={12} md={4} className={styles.paddingItem2}>
         <OakLogo />
       </Grid>
       <Grid
         xs={12}
         md={4}
-        className={(!isLoggedIn) ? styles.paddingItem : styles.paddingItem2}
+        className={!isLoggedIn ? styles.paddingItem : styles.paddingItem2}
       >
         <Tabs />
       </Grid>
       <Grid
         xs={12}
         md={4}
-        className={(!isLoggedIn) ? styles.paddingItem : styles.paddingItem2}
+        className={!isLoggedIn ? styles.paddingItem : styles.paddingItem2}
       >
         <LogoutButton />
       </Grid>
@@ -39,9 +44,7 @@ function HomePage() {
       <Grid xs={12}>
         <RequestsBox />
       </Grid>
-      <Grid item xs={12}>
-        {/* <CertificateBox /> */}
-      </Grid>
+      <Grid xs={12}>{/* <CertificateBox /> */}</Grid>
     </Grid>
   );
 }

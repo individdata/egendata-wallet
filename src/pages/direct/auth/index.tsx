@@ -17,12 +17,12 @@ function AuthPage() {
           <Grid className={styles.left} item xs={12} md={6}>
             <LoginImage />
           </Grid>
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={6} item>
             <HomePage />
           </Grid>
         </>
       ) : (
-        <Grid xs={12} md={12}>
+        <Grid xs={12} md={12} item>
           <HomePage />
         </Grid>
       ) }
