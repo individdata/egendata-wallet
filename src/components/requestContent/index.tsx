@@ -7,19 +7,36 @@ import { consent } from '../../pages/direct/home/requestSlice';
 import styles from './index.module.css';
 
 function RequestContent(props: DataRequest) {
-  const { id, subject, requestedData, requestedFrom, requestedBy } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  const {
+    id, subject, requestedData, requestedFrom, requestedBy,
+  } = props;
+  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
   const dispatch = useDispatch();
 
   return (
     <div className={(requestState?.status === 'selected') ? styles.requestContent1 : styles.requestContent2}>
       <div style={{ display: 'inline' }}>
         <div className={styles.content}>
-          <div>id: {id}</div>
-          <div>subject: {subject}</div>
-          <div>requestedData: {requestedData}</div>
-          <div>requestedFrom: {requestedFrom}</div>
-          <div>requestedBy: {requestedBy}</div>
+          <div>
+            id:
+            {id}
+          </div>
+          <div>
+            subject:
+            {subject}
+          </div>
+          <div>
+            requestedData:
+            {requestedData}
+          </div>
+          <div>
+            requestedFrom:
+            {requestedFrom}
+          </div>
+          <div>
+            requestedBy:
+            {requestedBy}
+          </div>
         </div>
         <button
           className={styles.button}

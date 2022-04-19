@@ -6,10 +6,11 @@ import styles from './index.module.css';
 import { DataRequest } from '../../pages/direct/home/inbox';
 
 function ShareDataBox(props: DataRequest) {
+  /* subject, requestedData, requestedFrom, requestedBy, */
   const {
-    id, subject, requestedData, requestedFrom, requestedBy,
+    id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {

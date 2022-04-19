@@ -6,10 +6,11 @@ import styles from './index.module.css';
 import { DataRequest } from '../../pages/direct/home/inbox';
 
 function CertificateBox(props: DataRequest) {
+  /* subject, requestedData, requestedFrom, requestedBy, */
   const {
-    id, subject, requestedData, requestedFrom, requestedBy,
+    id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  const requestState = useSelector((state: RootState) => (state.requests.find((request) => (request.id === id))));
   const dispatch = useDispatch();
 
   return (
@@ -23,12 +24,12 @@ function CertificateBox(props: DataRequest) {
       <div className={styles.box}>
         <img className={styles.certificate} alt="logo" />
         <div className={styles.text}>
-          Your unemployement certificat {id} is now being shared with requester
-          .
+          Your unemployement certificat
+          {id}
+          is now being shared with requester.
         </div>
         <div className={styles.text2}>
-          Your unemployement certificat is now being shared with requester
-          .
+          Your unemployement certificat is now being shared with requester.
         </div>
         <button
           className={styles.button}

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './index.module.css';
@@ -10,10 +11,11 @@ import RequestContent from '../requestContent';
 import CertificateBox from '../certificateBox';
 
 function RequestItem(props: DataRequest) {
+  /* subject, requestedData, requestedFrom, requestedBy, */
   const {
-    id, subject, requestedData, requestedFrom, requestedBy,
+    id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
   const dispatch = useDispatch();
 
   return (
@@ -31,7 +33,6 @@ function RequestItem(props: DataRequest) {
         <div className={styles.name}>reqeuster</div>
         <div className={styles.brief}>{id}</div>
         <div className={styles.date}>date</div>
-        
       </button>
       <div>
         <div

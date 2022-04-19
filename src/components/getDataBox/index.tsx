@@ -6,8 +6,9 @@ import styles from './index.module.css';
 import { DataRequest } from '../../pages/direct/home/inbox';
 
 function GetDataBox(props: DataRequest) {
-  const { id, subject, requestedData, requestedFrom, requestedBy } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  /* subject, requestedData, requestedFrom, requestedBy */
+  const { id } = props;
+  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {

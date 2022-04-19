@@ -1,14 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import { doLogin } from '../../pages/direct/auth/login';
 
-function LoginButton(props: any) {
-  const user = useSelector((state: RootState) => state.auth.user);
+function LoginButton() {
   // const isLoggedIn = user?.completed;
-  console.log(props);
+  // console.log(props);
   const dispatch = useDispatch();
   return (
     <button

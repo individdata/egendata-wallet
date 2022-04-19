@@ -9,8 +9,8 @@ function Tags() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   const tabState = useSelector((state: RootState) => state.tabs.tab);
-  console.log('tabState=', tabState);
-  console.log(tabState === 'inbox');
+  // console.log('tabState=', tabState);
+  // console.log(tabState === 'inbox');
   const dispatch = useDispatch();
 
   return (
@@ -22,7 +22,7 @@ function Tags() {
             type="button"
             arua-label="inbox"
             onClick={
-                () => { dispatch(selectTab('inbox')), dispatch(inbox()) }
+                () => { dispatch(selectTab('inbox')); dispatch(inbox()); }
             }
           >
             <div

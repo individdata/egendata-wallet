@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../store';
@@ -14,7 +16,7 @@ type RequestState = {
 
 export const getInboxContent = createAsyncThunk<Array<DataRequest | DataResponse>>(
   'inbox/getInboxContent',
-  async (id, { getState }): Promise<DataRequest[]> => {
+  async (id, { getState }): Promise<DataRequest[]> => { 
     const state = getState() as RootState;
     const inboxUrl = state.auth.user?.storage + "oak/inbox/";
     return inboxContent(inboxUrl);
