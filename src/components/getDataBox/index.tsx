@@ -10,12 +10,11 @@ function GetDataBox(props: DataRequest) {
   const { id } = props;
   const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
   const [checked, setChecked] = React.useState(false);
-
+  const dispatch = useDispatch();
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(c.target.checked);
     dispatch(fetchInfo(id));
   };
-  const dispatch = useDispatch();
   let transferBoxState;
   if (requestState?.status === 'consenting') {
     transferBoxState = styles.transferbox1;
