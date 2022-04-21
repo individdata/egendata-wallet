@@ -1,25 +1,38 @@
 .main {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1;
     flex-grow: 1;
+    width: 100%;
     height: 1000px;
     background: #222429;
 }
 
-.headline{
+.header{
     display: flex;
     height: 50px;
     width: 100%;
+    min-height: 80px;
+}
+
+.body{
+    margin-top: 50px;
+    display: inline;
+    width: 40%;
+    min-width: 480px;
+    height: 70%;
+    min-width: 580px;
+}
+
+.footer{
+    width: 60%;
+    color:  #FFFFFF;
 }
 
 .logo {
     margin-left: 20px;
     margin-top: 20px;
-}
-
-.tabs {
-    margin-left: 25%;
 }
 
 .button {
@@ -44,114 +57,36 @@
     color: #FFFFFF;
 }
 
-.logout {
-    margin-left: 50%;
-}
-
-.login {
-    font-size: 38px;
+.showtext1{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
     text-align: center;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    text-align: center;
-    color: #FFFFFF;
 }
 
-.firstline {
-    margin-top: 400px;
-    height: 30px;
-}
-
-.secondline {
-    margin-top: 20px;
-    height: 70px;
-}
-
-.thirdline {
-    height: 30px;
-    margin-top: 16px;
-    margin-left: 38%;
-}
-
-.loginpage1 {
-    display: inline;
-}
-
-.loginpage2 {
+.notshowtext1{
     display: none;
 }
 
-.title {
-    display: flex;
-    margin-left: 20px;
-    margin-top: 20px;
-    font-family: Open Sans;
+.word1 {
+    width: 100%;
+    height: 35px;
     font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    color: #FFFFFF;
-}
-
-.tabs {
-    margin-left: 25%;
-}
-
-.logout {
-    margin-left: 50%;
-}
-
-
-.oak {
-    color: #65D36E;;
-}
-
-.logo1 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-green.png");
-}
-
-.logo2 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-white.png");
-}
-
-.buttontag {
-    position: absolute;
-    width: 144px;
-    height: 40px;
-    left: 1025px;
-    top: 531px;
-
-    font-family: Open Sans;
-    font-style: normal;
+    font-size: 24px;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 40px;
-    text-align: center;
-
-    color: #FFFFFF;
+    color: #ACACAC;
 }
 
-.titleItem{
-    display: flex;
-    font-family: Open Sans;
+.word2 {
+    width: 100%;
+    height: 35px;
     font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    color: #FFFFFF;
-
+    font-size: 24px;
+    font-weight: 600;
+    color: #FFFFFF;;
 }
 
-.paddingItem{
-    display: none;
-}
-
-
-.paddingItem2{
-    padding: 30px;
+.text5 {
+    text-align: center;   
 }
