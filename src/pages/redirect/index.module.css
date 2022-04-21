@@ -90,3 +90,7 @@
 .text5 {
     text-align: center;   
 }
+
+.shownothing {
+    display: none;
+}

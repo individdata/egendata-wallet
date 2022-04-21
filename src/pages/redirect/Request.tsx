@@ -16,15 +16,6 @@ export function HandleRequest() {
   const dispatch = useDispatch();
   const handleClick = () => dispatch(doLogin(currentPath));
 
-  if (user) {
-    const redirectPath = localStorage.getItem('redirectPath');
-    return (
-      <div className="consent">
-        <h1>Consent Page</h1>
-        {redirectPath}
-      </div>
-    );
-  }
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -39,14 +30,18 @@ export function HandleRequest() {
             <div className={styles.word2}> BNP Paribas</div>
           </div>
         </div>
-        <button type="button" className={styles.button} onClick={handleClick}>
+        <button
+          type="button"
+          className={isLoggedIn ? styles.shownothing : styles.button}
+          onClick={handleClick}
+        >
           <div className={styles.buttontext}>
             Continue
           </div>
         </button>
       </div>
       <div className={styles.footer}>
-        <div className={styles.text5}>
+        <div className={isLoggedIn ? styles.shownothing : styles.text5}>
           Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.
         </div>
       </div>
