@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
-import { doLogin } from '../../pages/direct/auth/login';
+import { doLogin } from '../../pages/auth/login';
 
 function LoginButton() {
   // const isLoggedIn = user?.completed;
@@ -12,7 +12,7 @@ function LoginButton() {
     <button
       className={styles.button}
       type="button"
-      onClick={() => dispatch(doLogin())}
+      onClick={() => dispatch(doLogin('/'))}
     >
       <div className={styles.buttontext}>
         login

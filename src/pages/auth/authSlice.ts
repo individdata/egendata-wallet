@@ -8,12 +8,16 @@ type AuthState = {
   status: 'authorizing' | 'handleredirect' | 'handlingredirect' | 'loggedin' | 'error' | 'idle' | 'unauthorizing';
   error: string | null;
   user: AuthorizedUser | undefined;
+  redirect: boolean;
+  redirectPath: string;
 };
 
 const initialState = {
   status: 'idle',
   error: null,
   user: undefined,
+  redirect: false,
+  redirectPath: '/',
 } as AuthState;
 
 export const authSlice = createSlice({
@@ -29,8 +33,9 @@ export const authSlice = createSlice({
 
     builder.addCase(
       doLogin.fulfilled,
-      (state) => {
+      (state, { payload }) => {
         state.status = 'handleredirect';
+        state.redirectPath = payload;
       },
     );
 

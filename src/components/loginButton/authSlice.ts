@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { doLogin, afterLogin, doLogout } from '../../pages/direct/auth/login';
-import { AuthorizedUser } from '../../pages/direct/auth/types';
+import { doLogin, afterLogin, doLogout } from '../../pages/auth/login';
+import { AuthorizedUser } from '../../pages/auth/types';
 
 type AuthState = {
   status: 'authorizing' | 'handleredirect' | 'handlingredirect' | 'loggedin' | 'error' | 'idle' | 'unauthorizing';

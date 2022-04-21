@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { fetch } from '../../pages/direct/home/requestSlice';
+import { fetch, fetchInfo } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/home/inbox';
+import { DataRequest } from '../../pages/direct/inbox';
 
 function GetDataBox(props: DataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy */
@@ -13,6 +13,7 @@ function GetDataBox(props: DataRequest) {
 
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(c.target.checked);
+    dispatch(fetchInfo(id));
   };
   const dispatch = useDispatch();
   let transferBoxState;

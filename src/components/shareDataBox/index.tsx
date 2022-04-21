@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { share } from '../../pages/direct/home/requestSlice';
+import { share } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/home/inbox';
+import { DataRequest } from '../../pages/direct/inbox';
 
 function ShareDataBox(props: DataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy, */

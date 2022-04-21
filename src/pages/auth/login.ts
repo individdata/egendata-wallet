@@ -9,8 +9,7 @@ import {
 } from '@inrupt/solid-client';
 // import { useDispatch } from 'react-redux';
 import { AuthorizedUser } from './types';
-import { redirectRoot } from './afterLoginSlice';
-import { resetRequests, getInboxContent } from '../home/requestSlice';
+import { resetRequests, getInboxContent } from '../direct/requestSlice';
 
 const sunetIdp = false;
 
@@ -30,23 +29,19 @@ const inrupt = {
 const css2 = {
   oidcIssuer: 'https://oak-pod-provider-oak-develop.test.services.jtech.se/',
   clientName: 'Digital Wallet',
-  redirectUrl: `${window.location.href}auth/cb`,
+  redirectUrl: `${window.location.origin}/auth/cb`,
 };
 
 const idp = css2;
 
-export const doLogin = createAsyncThunk(
+export const doLogin = createAsyncThunk<string, string>(
   'auth/login',
-  async () => {
+  async (redirectPath) => {
     // login with solid auth client
     // console.log(`redirectUrl = ${idp.redirectUrl}`);
-    try {
-      await login(idp);
-    } catch (error) {
-      // console.log(`error = ${error}`);
-      return error;
-    }
-    return null;
+    localStorage.setItem('redirectPath', redirectPath);
+    await login(idp);
+    return redirectPath;
   },
 );
 
@@ -73,17 +68,17 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
     // console.log('storage=', storage);
     const authorizedUser: AuthorizedUser = {
       webid: userInfo?.webId ? userInfo.webId : '',
-      name: name ?? '',
+      name: name ?? 'Name',
       storage: storage ?? '',
-      id: 0,
+      id: '',
       completed: true,
     };
     // console.log('afterLogin authorizedUser=', authorizedUser);
     if (userInfo?.isLoggedIn) {
-      console.log('dispatch(redirectRoot())');
-      dispatch(redirectRoot());
-      dispatch(getInboxContent());
-      console.log('9999999');
+      // console.log('dispatch(redirectRoot())');
+      // dispatch(redirectRoot());
+      /* re checke lina */
+      // dispatch(getInboxContent());
     }
     return authorizedUser;
   },

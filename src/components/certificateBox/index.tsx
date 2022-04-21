@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { inbox } from '../../pages/direct/home/requestSlice';
+import { inbox } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/home/inbox';
+import { DataRequest } from '../../pages/direct/inbox';
 
 function CertificateBox(props: DataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy, */

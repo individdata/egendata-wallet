@@ -2,9 +2,9 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
-import HomePage from '../home';
-import LoginImage from '../../../components/loginImage';
-import { RootState } from '../../../store';
+import HomePage from '../direct';
+import LoginImage from '../../components/loginImage';
+import { RootState } from '../../store';
 
 function AuthPage() {
   const user = useSelector((state: RootState) => state.auth.user);

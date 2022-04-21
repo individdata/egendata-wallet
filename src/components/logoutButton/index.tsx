@@ -3,13 +3,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import styles from './index.module.css';
-import { doLogout, doLogin } from '../../pages/direct/auth/login';
+import { doLogout, doLogin } from '../../pages/auth/login';
 
 function LogoutButton() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   const dispatch = useDispatch();
-  const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin());
+  const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin('/'));
   return (
 
     <div className={(!isLoggedIn) ? styles.logoutavailable1 : styles.logoutavailable2}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { DataRequest } from '../../pages/direct/home/inbox';
-import { selectTab } from '../../pages/direct/home/tabsSlice';
-import { consent } from '../../pages/direct/home/requestSlice';
+import { DataRequest } from '../../pages/direct/inbox';
+import { selectTab } from '../../pages/direct/tabsSlice';
+import { consent } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
 
 function RequestContent(props: DataRequest) {

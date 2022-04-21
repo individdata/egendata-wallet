@@ -2,6 +2,6 @@ export type AuthorizedUser = {
   webid: string;
   name: string;
   storage?: string;
-  id: number;
+  id: string;
   completed: boolean;
 };

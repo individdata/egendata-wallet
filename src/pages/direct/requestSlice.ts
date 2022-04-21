@@ -2,14 +2,14 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { RootState } from '../../../store';
+import { RootState } from '../../store';
 import { DataRequest, DataResponse, inboxContent } from './inbox';
 
 export type InboxContent = string[];
 
 type RequestState = {
   id: string;
-  status: 'idle' | 'fetching' | 'selected' | 'unselected' | 'consenting' | 'gotData' | 'sharedData' ;
+  status: 'idle' | 'fetching' | 'selected' | 'unselected' | 'consenting' | 'checkingFetchInfo' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
   error: string | null;
   content: DataRequest | DataResponse;
 };
@@ -49,6 +49,13 @@ export const requestSlice = createSlice({
       for (const item of state) {
         if (item.id === currentrequest.payload) {
           item.status = 'consenting';
+        }
+      }
+    },
+    fetchInfo: (state, currentrequest) => {
+      for (const item of state) {
+        if (item.id === currentrequest.payload) {
+          item.status = 'checkingFetchInfo';
         }
       }
     },
@@ -96,7 +103,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, select, consent, fetch, share,
+  resetRequests, inbox, select, consent, fetch, fetchInfo, share,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

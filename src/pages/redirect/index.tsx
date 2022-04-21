@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
-import LoginButton from '../../../components/loginButton';
-import LogoutButton from '../../../components/logoutButton';
-import { RootState } from '../../../store';
-import Tabs from '../../../components/tabs';
-import OakLogo from '../../../components/oakLogo';
-import Inbox from '../../../components/requestBox';
+import LoginButton from '../../components/loginButton';
+import LogoutButton from '../../components/logoutButton';
+import { RootState } from '../../store';
+import Tabs from '../../components/tabs';
+import OakLogo from '../../components/oakLogo';
+import Inbox from '../../components/requestBox';
 
-function HomePage() {
+function RedirectPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
@@ -40,4 +40,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default RedirectPage;

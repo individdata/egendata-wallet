@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { RootState } from '../../store';
-import { share } from '../../pages/direct/home/requestSlice';
+import { share } from '../../pages/direct/requestSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import validator from 'validator';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/home/inbox';
+import { DataRequest } from '../../pages/direct/inbox';
 
 export default function VerifiyEmailBox(props: DataRequest) {
   const [emailError, setEmailError] = useState('');
