@@ -24,8 +24,7 @@ function LogoutButton() {
                 style={{ display: 'flex' }}
               >
                 <div className={styles.buttontext}>
-                  Marcello Grita
-                  {/* {user?.name} */}
+                  {user?.name}
                 </div>
                 <img className={styles.arrowdown} alt="arrow down" />
               </button>

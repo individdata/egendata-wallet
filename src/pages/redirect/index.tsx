@@ -1,41 +1,54 @@
+/* eslint-disable no-console */
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
-import LoginButton from '../../components/loginButton';
-import LogoutButton from '../../components/logoutButton';
 import { RootState } from '../../store';
-import Tabs from '../../components/tabs';
+import { doLogin } from '../auth/login';
 import OakLogo from '../../components/oakLogo';
-import Inbox from '../../components/requestBox';
+import LogoutButton from '../../components/logoutButton/redirect';
 
-function RedirectPage() {
+export function RedirectPage() {
+  const currentURL = window.location.href;
+  const url = new URL(currentURL);
+  const currentPath = url.pathname + url.search;
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
+  const dispatch = useDispatch();
+  const handleClick = () => dispatch(doLogin(currentPath));
+
   return (
     <div className={styles.main}>
-      <div className={styles.headline}>
+      <div className={styles.header}>
         <div className={styles.logo}>
           <OakLogo />
         </div>
-        <div className={styles.tabs}>
-          <Tabs />
-        </div>
-        <div className={styles.logout}>
+        <div className={styles.logoname}>
           <LogoutButton />
         </div>
       </div>
-      <div className={(isLoggedIn) ? styles.loginpage2 : styles.loginpage1}>
-        <div className={styles.firstline}>
-          <p className={styles.login}>Log in</p>
+      <div className={styles.body}>
+        <div className={isLoggedIn ? styles.notshowtext1 : styles.showtext1}>
+          <div className={styles.word1}>
+            Share your data with
+            <div className={styles.word2}> BNP Paribas</div>
+          </div>
         </div>
-        <div className={styles.secondline}>
-          <LoginButton />
-        </div>
-        <div className={styles.thirdline}>
-          <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
+        <button
+          type="button"
+          className={isLoggedIn ? styles.shownothing : styles.button}
+          onClick={handleClick}
+        >
+          <div className={styles.buttontext}>
+            Continue
+          </div>
+        </button>
+      </div>
+      <div className={styles.footer}>
+        <div className={isLoggedIn ? styles.shownothing : styles.text5}>
+          Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.
         </div>
       </div>
-      <Inbox />
     </div>
   );
 }

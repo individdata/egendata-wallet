@@ -15,6 +15,7 @@
 }
   
 .logo {
+  height: 30px;
   width: 30px;
   content: url("/public/images/user-circle.png");
 }
@@ -89,3 +90,21 @@
     justify-content: center;
 }
 
+.items {   
+    display: flex;
+}
+
+.logocontainer {
+    width: 180px;
+    margin-top: 20px;
+    display: flex;
+}
+
+.logotext {
+    margin-top: 2px;
+    margin-left: 5px;
+    font-family: Open Sans;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AuthPage from './auth';
 import { HandleLogin } from './auth/HandleLogin';
-import { HandleRequest } from './redirect/Request';
+import { RedirectPage } from './redirect';
 
 function RoutePages() {
   // if (redirect) {
@@ -13,7 +13,7 @@ function RoutePages() {
       <Route path="/" element={<AuthPage />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/auth/*" element={<HandleLogin />} />
-      <Route path="/request" element={<HandleRequest />} />
+      <Route path="/request" element={<RedirectPage />} />
     </Routes>
   );
 }

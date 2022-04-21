@@ -35,6 +35,12 @@
     margin-top: 20px;
 }
 
+.logoname {
+    position: absolute;
+    top: 0px;
+    right: 10px
+}
+
 .button {
     width: 40%;
     height: 52px;
