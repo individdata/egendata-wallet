@@ -8,6 +8,7 @@ import OakLogo from '../../components/oakLogo';
 import LogoutButton from '../../components/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
+import ShareEmployementCard from '../../components/shareEmployementCard/ShareEmployementCard';
 
 export function RedirectPage() {
   const currentURL = window.location.href;
@@ -39,6 +40,8 @@ export function RedirectPage() {
       <BlueBtnCard />
 
       <LandingTextBox />
+
+      <ShareEmployementCard />
       <div style={{
         width: '40%',
         padding: '10px',
@@ -56,6 +59,7 @@ export function RedirectPage() {
           </div>
         </button>
       </div>
+
       <div className={styles.footer}>
         <div className={isLoggedIn ? styles.shownothing : styles.text5}>
           Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.
