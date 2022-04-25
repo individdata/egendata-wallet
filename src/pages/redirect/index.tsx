@@ -1,12 +1,13 @@
-/* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
 import { RootState } from '../../store';
 import { doLogin } from '../auth/login';
 import OakLogo from '../../components/oakLogo';
 import LogoutButton from '../../components/logoutButton/redirect';
+import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
+import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
 
 export function RedirectPage() {
   const currentURL = window.location.href;
@@ -34,6 +35,17 @@ export function RedirectPage() {
             <div className={styles.word2}> BNP Paribas</div>
           </div>
         </div>
+      </div>
+      <BlueBtnCard />
+
+      <LandingTextBox />
+      <div style={{
+        width: '40%',
+        padding: '10px',
+        minWidth: '315px',
+      }}
+      >
+
         <button
           type="button"
           className={isLoggedIn ? styles.shownothing : styles.button}
