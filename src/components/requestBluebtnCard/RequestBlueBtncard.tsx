@@ -5,33 +5,67 @@ import GetDataBall from '../getDataBall/GetDataBall';
 import GreenArrowLogo from '../greenArrowLogo/GreenArrowLogo';
 import ShareBall from '../shareBall/ShareBall';
 
+const style2 = {
+  columnCenter: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  miniBox: {
+    width: '40%',
+    padding: '10px',
+    minWidth: '315px',
+  },
+};
+
 function BlueBtnCard() {
   return (
-    <div className={styles.box}>
-      <Grid
-        container
-        sx={{
-          marginTop: '20px',
-          marginBottom: '40px',
-          borderRadius: '12px',
-          backgroundColor: '#2d43a5',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '150px',
+
+    <Grid
+      item
+      xs={12}
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <button
+        type="button"
+        className={styles.requestBoxItem1}
+        style={{
+          width: '100%',
+          paddingTop: '10px',
+          marginTop: '35px',
         }}
       >
-        <Grid className={styles.center} xs={12} md={4}>
-          <GetDataBall />
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            backgroundColor: '#2d43a5',
+            borderRadius: '15px',
+          }}
+        >
+          <Grid item md={4} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              <GetDataBall />
+            </Grid>
+          </Grid>
+          <Grid item md={4} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              <GreenArrowLogo />
+            </Grid>
+          </Grid>
+
+          <Grid item md={4} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              <ShareBall />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid className={styles.center} xs={12} md={4}>
-          <GreenArrowLogo />
-        </Grid>
-        <Grid className={styles.center} xs={12} md={4}>
-          <ShareBall />
-        </Grid>
-      </Grid>
-    </div>
+      </button>
+    </Grid>
   );
 }
 

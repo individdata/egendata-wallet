@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import styles from './index.module.css';
+import styles from '../requestBluebtnCard/index.module.css';
 
 function GetDataBall() {
   return (
@@ -38,6 +38,7 @@ function GetDataBall() {
       </span>
       Get your data
     </Grid>
+
   );
 }
 
