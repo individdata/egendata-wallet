@@ -1,14 +1,28 @@
 import React from 'react';
+// import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
+
+// import Grid from '@mui/material/Grid';
+// import { useSearchParams } from 'react-router-dom';
+
 import { RootState } from '../../store';
 import { doLogin } from '../auth/login';
 import OakLogo from '../../components/oakLogo';
 import LogoutButton from '../../components/logoutButton/redirect';
+import { createRequest } from '../../util/Inbound/InboundDataRequest';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
 
 export function RedirectPage() {
+  // const [searchParams] = useSearchParams();
+  // const requestorWebId = searchParams.get('requestorWebId');
+  // const providerWebId = searchParams.get('providerWebId');
+  // const documentType = searchParams.get('documentType');
+  // console.log('requestorWebId=', requestorWebId);
+  // console.log('providerWebId=', providerWebId);
+  // console.log('documentType=', documentType);
+  createRequest();
   const currentURL = window.location.href;
   const url = new URL(currentURL);
   const currentPath = url.pathname + url.search;

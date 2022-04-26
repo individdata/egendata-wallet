@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import {
   getSolidDataset, getThing, getStringNoLocale, Thing, getUrl, getUrlAll, getStringNoLocaleAll,
 } from '@inrupt/solid-client';
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
-import { deleteFile } from './solid';
 
 export type DataRequest = {
   id: string,
@@ -22,15 +21,15 @@ export type DataResponse = {
   type: string,
 };
 
-export async function inboxItem(url: string) {
+async function inboxItem(url: string) {
   const ds = await getSolidDataset(url, { fetch });
   // console.log('ds=', ds);
   const item = getThing(ds, url) as Thing;
   const requestUrl = getUrl(item, 'https://oak.se/dataRequest');
   // console.log('requestUrl=', requestUrl);
   if (requestUrl) {
-    const dataSet = await getSolidDataset(requestUrl, { fetch });
-    const thing = getThing(dataSet, requestUrl) as Thing;
+    const ds = await getSolidDataset(requestUrl, { fetch });
+    const thing = getThing(ds, requestUrl) as Thing;
     // console.log('thing=', thing);
     const id = getStringNoLocale(thing, 'http://schema.org/identifier') ?? '';
     const requestedBy = getUrl(thing, 'http://www.w3.org/2007/ont/link#requestedBy') ?? '';
@@ -43,7 +42,7 @@ export async function inboxItem(url: string) {
       requestedBy,
       type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
     } as DataRequest;
-    console.log('dataRequest=', dataRequest);
+    // console.log('dataRequest=', dataRequest);
     return dataRequest;
   }
   /*
@@ -76,17 +75,6 @@ export async function inboxContent(inboxUrl: string) {
       async (url) => inboxItem(url),
     ),
   );
-  console.log('list=', list);
+  // console.log('list=', list);
   return list;
-}
-
-export async function inboxClean(inboxUrl: string) {
-  const ds = await getSolidDataset(inboxUrl, { fetch });
-  const inbox = getThing(ds, inboxUrl) as Thing;
-  const content: Array<string> = getUrlAll(inbox, 'http://www.w3.org/ns/ldp#contains');
-  content.forEach(
-    async (item: string) => {
-      await deleteFile(item);
-    },
-  );
 }
