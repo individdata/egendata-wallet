@@ -1,7 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 // import Grid from '@mui/material/Grid';
 // import { useSearchParams } from 'react-router-dom';
+
+import Grid from '@mui/material/Grid';
 import { RootState } from '../../store';
 import { doLogin } from '../auth/login';
 import OakLogo from '../../components/oakLogo';
@@ -10,6 +13,7 @@ import styles from './index.module.css';
 import { createRequest } from '../../util/Inbound/InboundDataRequest';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
+import ShareEmployementCard from '../../components/shareEmployementCard/ShareEmployementCard';
 
 export function RedirectPage() {
   // const [searchParams] = useSearchParams();
@@ -27,6 +31,20 @@ export function RedirectPage() {
   const isLoggedIn = user?.completed;
   const dispatch = useDispatch();
   const handleClick = () => dispatch(doLogin(currentPath));
+
+  const style2 = {
+    columnCenter: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+    miniBox: {
+      width: '40%',
+      padding: '10px',
+      minWidth: '315px',
+    },
+  };
 
   return (
     <div className={styles.main}>
@@ -49,26 +67,26 @@ export function RedirectPage() {
       <BlueBtnCard />
 
       <LandingTextBox />
-      <div style={{
-        width: '40%',
-        padding: '10px',
-        minWidth: '315px',
-      }}
-      >
 
+      <Grid container spacing={3}>
+        <ShareEmployementCard />
+      </Grid>
+
+      <div style={style2.miniBox}>
         <button
           type="button"
           className={isLoggedIn ? styles.shownothing : styles.button}
           onClick={handleClick}
         >
-          <div className={styles.buttontext}>
-            Continue
-          </div>
+          <div className={styles.buttontext}>Continue</div>
         </button>
       </div>
+
       <div className={styles.footer}>
         <div className={isLoggedIn ? styles.shownothing : styles.text5}>
-          Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.
+          Project Oak is a governmental initiative that allows you to store and
+          transfer digital information between public and private
+          organtisations.
         </div>
       </div>
     </div>

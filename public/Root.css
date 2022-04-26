@@ -1,14 +1,13 @@
 body {
-    height: 100%;
-    width: 100%;
-    background: #222429;
-  }
-  #root {
-    height: 100%;
-    width: 100%;
-    left: 0;
-    position: absolute;
-    overflow-y: scroll;
-  }
+  height: 100%;
+  width: 100%;
+  background: #222429;
+}
 
-
+#root {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  position: absolute;
+  overflow-y: scroll;
+}
