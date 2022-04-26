@@ -1,12 +1,12 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import styles from './index.module.css';
+import styles from '../requestBluebtnCard/index.module.css';
 import Arrow from '../../util/Arrow';
 
 function GreenArrowLogo() {
   return (
     <Grid container>
-      <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Grid container sx={{ display: 'flex', justifyContent: 'center', paddingTop: '17px' }}>
         <Grid item md={6} className={styles.item}>
           Project
           <div className={styles.oak}>OAK</div>
