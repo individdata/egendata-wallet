@@ -1,0 +1,32 @@
+.box {
+    position: absolute;
+    width: 100%;
+    height: 117px;
+    background: #2D43A5;
+    border-radius: 16px;
+}
+
+.lines {
+    display: inline;
+    align-items: center;
+}
+
+.line1 {
+    height: 50px;
+    weight: 100%;
+    text-align: center;
+    align-items: center;
+}
+
+.line1 .project {
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    color: #FFFFFF;
+}
+
+.oak {
+    color: #65D36E;;
+  }
