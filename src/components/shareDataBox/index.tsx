@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { share } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/inbox';
+import { InboundDataRequest } from '../../util/oak/datarequest';
 
-function ShareDataBox(props: DataRequest) {
+function ShareDataBox(props: InboundDataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy, */
   const {
     id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests[id]);
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {

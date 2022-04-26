@@ -22,7 +22,7 @@ export default function VerifiyEmailBox(props: DataRequest) {
   };
 
   const { id, subject, requestedData, requestedFrom, requestedBy } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find(request => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests[id]);
   const dispatch = useDispatch();
   console.log('validate email', emailError);
   return (

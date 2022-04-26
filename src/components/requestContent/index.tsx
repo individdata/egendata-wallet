@@ -1,16 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { DataRequest } from '../../pages/direct/inbox';
 import { selectTab } from '../../pages/direct/tabsSlice';
 import { consent } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
+import { InboundDataRequest } from '../../util/oak/datarequest';
 
-function RequestContent(props: DataRequest) {
+function RequestContent(props: InboundDataRequest) {
   const {
-    id, subject, requestedData, requestedFrom, requestedBy,
+    id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests[id]);
   const dispatch = useDispatch();
 
   return (
@@ -20,22 +20,6 @@ function RequestContent(props: DataRequest) {
           <div>
             id:
             {id}
-          </div>
-          <div>
-            subject:
-            {subject}
-          </div>
-          <div>
-            requestedData:
-            {requestedData}
-          </div>
-          <div>
-            requestedFrom:
-            {requestedFrom}
-          </div>
-          <div>
-            requestedBy:
-            {requestedBy}
           </div>
         </div>
         <button

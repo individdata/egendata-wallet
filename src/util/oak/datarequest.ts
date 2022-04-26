@@ -1,16 +1,25 @@
 import { egendataPrefixTurtle } from './egendata';
 
 export type InboundDataRequest = {
+  id: string,
   requestorWebId: string,
   providerWebId: string,
   documentType: string,
   purpose: string,
   returnUrl: string,
 };
-export const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}/oak/requests/request-${id}`);
-export const inboundDataRequestTurtle = ((requestorWebId: string, providerWebId: string, documentType: string, purpose: string, returnUrl: string) => `
+export const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/requests/request-${id}`);
+export const inboundDataRequestTurtle = ((
+  id: string,
+  requestorWebId: string,
+  providerWebId: string,
+  documentType: string,
+  purpose: string,
+  returnUrl: string,
+) => `
 ${egendataPrefixTurtle}
 <> a <egendata:InboundDataRequest> ;
+  <egendata:id> "${id}" ;
   <egendata:requestorWebId> "${requestorWebId}" ;
   <egendata:providerWebId> "${providerWebId}" ;
   <egendata:documentType> "${documentType}" ;
