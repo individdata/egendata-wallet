@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import LoginButton from '../../components/loginButton';
-import LogoutButton from '../../components/logoutButton';
+import LogoutButton from '../../components/header/logoutButton';
 import { RootState } from '../../store';
-import Tabs from '../../components/tabs';
-import OakLogo from '../../components/oakLogo';
+import Tabs from '../../components/header/tabs';
+import OakLogo from '../../components/header/oakLogo';
 import Inbox from '../../components/requestBox';
 
 function HomePage() {

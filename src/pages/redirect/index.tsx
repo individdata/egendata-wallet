@@ -8,9 +8,8 @@ import styles from './index.module.css';
 
 import { RootState } from '../../store';
 import { doLogin } from '../auth/login';
-import OakLogo from '../../components/oakLogo';
-import LogoutButton from '../../components/logoutButton/redirect';
-import { createRequest } from '../../util/Inbound/InboundDataRequest';
+import OakLogo from '../../components/header/oakLogo';
+import LogoutButton from '../../components/header/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
 
@@ -22,7 +21,6 @@ export function RedirectPage() {
   // console.log('requestorWebId=', requestorWebId);
   // console.log('providerWebId=', providerWebId);
   // console.log('documentType=', documentType);
-  createRequest();
   const currentURL = window.location.href;
   const url = new URL(currentURL);
   const currentPath = url.pathname + url.search;

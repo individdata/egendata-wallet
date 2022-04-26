@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 import { Buffer } from 'buffer';
+import Header from '../../components/header';
 import { v4 as uuid } from 'uuid';
 import { RootState } from '../../store';
 import styles from './index.module.css';
@@ -37,10 +38,11 @@ function LandingPage() {
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
-
+  const redirectState = false;
   return (
     <Grid container>
       <Grid item xs={12}>
+        <Header {...redirectState} />
         <div className={styles.LandingPage}>
           {`LandingPage (request: ${request}, isLoggedIn: ${isLoggedIn})`}
           <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
