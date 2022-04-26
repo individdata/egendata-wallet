@@ -3,16 +3,6 @@
         "browser": true,
         "es2021": true
     },
-    "overrides": [
-      {
-        "files": [
-          "./src/state/reducers/**.ts"
-        ],
-        "rules": {
-          "default-param-last" : "off"
-        }
-      }
-   ],
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
