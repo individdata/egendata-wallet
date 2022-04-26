@@ -1,114 +1,76 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { AiOutlineFileText } from 'react-icons/ai';
-import { ImArrowUpRight2 } from 'react-icons/im';
-import styles from './index.module.css';
+import styles from '../../pages/redirect/index.module.css';
+import AfTitleText from './AfTitleText';
+import FileLogoComponent from './FileLogoComponent';
+import TextFileComponent from './TextFileComponent';
+import AfSourcetitle from './AfSourcetitle';
+import GetDataButton from './GetDataButton';
+
+const style2 = {
+  columnCenter: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  miniBox: {
+    width: '40%',
+    padding: '10px',
+    minWidth: '315px',
+  },
+};
 
 function ShareEmployementCard() {
   return (
-    <div className={styles.box}>
-
-      <Grid
-        container
-        sx={{
-          backgroundColor: 'black',
-          borderRadius: '10px',
-          padding: '10px',
-
+    <Grid
+      item
+      xs={12}
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <button
+        type="button"
+        className={styles.requestBoxItem1}
+        style={{
+          width: '50%',
+          paddingTop: '10px',
+          marginTop: '35px',
         }}
       >
-        <Grid item md={6} xs={12}>
-          <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
-          }}
-          >
-
-            <Grid container>
-              {/* <h2 style={{ color: 'white' }}>logo</h2> */}
-              <AiOutlineFileText id={styles.file} size={40} />
-              <h2
-                style={{
-                  display: 'flex',
-                  color: 'white',
-                  fontSize: '16px',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                Unemployment certificate
-              </h2>
-              {/* logo */}
-              {/* employedmenbt text */}
-            </Grid>
-            <Grid container>
-              <h2
-                style={{
-                  display: 'flex',
-                  color: 'white',
-                  fontSize: '16px',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  //   marginRight: '15px',
-                  margin: 'auto',
-                }}
-              >
-                Get from:
-              </h2>
-              <h2
-                style={{
-                  display: 'flex',
-                  color: '#65D36E',
-                  fontSize: '16px',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                // marginLeft: '15px',
-                }}
-              >
-                Arbetsförmedligen
-              </h2>
-            </Grid>
-          </div>
-        </Grid>
         <Grid
-          item
-          md={6}
-          xs={12}
+          container
+          spacing={3}
           sx={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto', marginTop: '20px',
+            backgroundColor: 'transparent',
           }}
         >
-          <button
-            className={styles.button}
-            style={{
-              border: '2px solid #65D36E ',
-              padding: '9px',
-              display: 'flex',
-              flexDirection: 'row',
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              <FileLogoComponent />
+              <TextFileComponent />
+            </Grid>
+          </Grid>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              {/* takes up half of the screen row 1 col 2 */}
+            </Grid>
+          </Grid>
 
-            }}
-            type="button"
-          >
-
-            <h2 style={{
-              color: '#65D36E',
-              textAlign: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              display: 'flex',
-              marginRight: '15px',
-            }}
-            >
-              Get Data
-
-            </h2>
-            <ImArrowUpRight2 id={styles.topRight} />
-          </button>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
+            <Grid container spacing={3} sx={style2.columnCenter}>
+              <AfSourcetitle />
+              <AfTitleText />
+            </Grid>
+          </Grid>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
+            <GetDataButton />
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </button>
+    </Grid>
   );
 }
 
