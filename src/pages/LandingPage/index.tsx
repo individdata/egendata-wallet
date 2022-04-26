@@ -11,6 +11,7 @@ import Button from '../../components/ui/Button';
 import { doLogin } from '../auth/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
+import FlowBox from '../../components/flowBox';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -46,6 +47,9 @@ function LandingPage() {
         <div className={styles.main}>
           <Header {...redirectState} />
           <div className={styles.body}>
+            <div className={styles.flowBox}>
+              <FlowBox />
+            </div>
             <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
           </div>
         </div>
