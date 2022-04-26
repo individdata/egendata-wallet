@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 import { Buffer } from 'buffer';
-import Header from '../../components/header';
 import { v4 as uuid } from 'uuid';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../auth/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
+import Header from '../../components/header';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -42,10 +43,11 @@ function LandingPage() {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Header {...redirectState} />
-        <div className={styles.LandingPage}>
-          {`LandingPage (request: ${request}, isLoggedIn: ${isLoggedIn})`}
-          <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
+        <div className={styles.main}>
+          <Header {...redirectState} />
+          <div className={styles.body}>
+            <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
+          </div>
         </div>
       </Grid>
     </Grid>

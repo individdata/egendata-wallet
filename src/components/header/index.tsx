@@ -7,23 +7,23 @@ import { RootState } from '../../store';
 import Tabs from './tabs';
 import OakLogo from './oakLogo';
 
-function Header(redirect: Boolean) {
+function Header(redirect: boolean) {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
     <div className={styles.headline}>
-        <div className={styles.logo}>
-          <OakLogo />
-        </div>
-        <div className={(redirect && isLoggedIn) ? styles.tabs: styles.shownothing}>
-          <Tabs />
-        </div>
-        <div className={(redirect === false && isLoggedIn) ? styles.logout: styles.shownothing}>
-          <LogoutButton />
-        </div>
-        <div className={(redirect === false && isLoggedIn) ? styles.logout: styles.shownothing}>
-          <RedirectLogoutButton />
-        </div>
+      <div className={styles.logo}>
+        <OakLogo />
+      </div>
+      <div className={(redirect && isLoggedIn) ? styles.tabs : styles.shownothing}>
+        <Tabs />
+      </div>
+      <div className={(redirect === false && isLoggedIn) ? styles.logout : styles.shownothing}>
+        <LogoutButton />
+      </div>
+      <div className={(redirect === false && isLoggedIn) ? styles.logout : styles.shownothing}>
+        <RedirectLogoutButton />
+      </div>
     </div>
   );
 }
