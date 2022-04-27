@@ -3,10 +3,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
-import { InboundDataRequest, inboundDataRequestTurtle, inboundDataRequestUrl } from '../../util/oak/datarequest';
+import { InboundDataRequest, OutboundDataRequest, storeInboundRequest, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
 import { requestContent } from './requests';
-import { v4 as uuid } from 'uuid';
-import { putFile } from '../../util/oak/solid';
 
 // export type InboxContent = string[];
 
@@ -23,23 +21,29 @@ export const storeInboundDataRequest = createAsyncThunk<void, InboundDataRequest
   async (request, { getState }): Promise<void> => { 
     const state = getState() as RootState;
     const { user } = state.auth;
-    if (user) {
-      const userWebId = user.webid;
-      const userPod = user.storage ?? userWebId;
-      const requestUrl = inboundDataRequestUrl(userPod, request.id);
-      const requestData = inboundDataRequestTurtle(
-        request.id,
-        request.requestorWebId,
-        request.providerWebId,
-        request.documentType,
-        request.purpose,
-        request.returnUrl,
-        );
-      await putFile(
-        requestUrl,
-        { body: requestData },
-        "text/turtle",
-      )
+    if (user && user.storage) {
+      const userPod = user.storage;
+      await storeInboundRequest(userPod, request);
+    }
+ },
+);
+
+export const createOutboundDataRequest = createAsyncThunk<void,
+{
+  id: string
+  data: OutboundDataRequest
+  sourcePod: string
+}>(
+  'request/saveInboundDataRequest',
+  async (request, { getState }): Promise<void> => { 
+    const state = getState() as RootState;
+    const { user } = state.auth;
+    if (user && user.storage) {
+      const userPod = user.storage;
+      /* we might call all these in parallell ... Promise.all ? */
+      await storeOutboundRequest(userPod, request.data);
+      await storeOutboundRequestLink(request.id, userPod, request.sourcePod);
+      /* to be continued ... */
     }
  },
 );

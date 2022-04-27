@@ -24,11 +24,11 @@ const style2 = {
 function ShareEmployementCard() {
   return (
     <Grid
-      item
       xs={12}
       sx={{
         display: 'flex',
         justifyContent: 'center',
+        width: '100%',
       }}
     >
       <button

@@ -12,6 +12,7 @@ import OakLogo from '../../components/header/oakLogo';
 import LogoutButton from '../../components/header/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
+import ShareEmployementCard from '../../components/shareEmployementCard/ShareEmployementCard';
 
 export function RedirectPage() {
   // const [searchParams] = useSearchParams();
@@ -67,11 +68,6 @@ export function RedirectPage() {
 
       <LandingTextBox />
 
-      {/* <Grid container spacing={3}>
-        <ShareEmployementCard />
-
-      </Grid> */}
-
       <div style={style2.miniBox}>
         <button
           type="button"
@@ -81,6 +77,7 @@ export function RedirectPage() {
           <div className={styles.buttontext}>Continue</div>
         </button>
       </div>
+      <ShareEmployementCard />
 
       <div className={styles.footer}>
         <div className={isLoggedIn ? styles.shownothing : styles.text5}>
