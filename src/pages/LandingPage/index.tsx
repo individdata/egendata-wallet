@@ -13,6 +13,7 @@ import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
 import FlowBox from '../../components/flowBox';
 import LandingTextBox from '../../components/landingTextBox';
+import AuthPage from '../auth';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -42,24 +43,29 @@ function LandingPage() {
     return <Navigate to={redirect} replace />;
   }
   const redirectState = false;
-  return (
-    <Grid container>
-      <Grid item xs={12}>
-        <div className={styles.main}>
-          <Header {...redirectState} />
-          <div className={styles.body}>
-            <div className={styles.flowBox}>
-              <FlowBox />
+
+  if (request) {
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <div className={styles.main}>
+            <Header {...redirectState} />
+            <div className={styles.body}>
+              <div className={styles.flowBox}>
+                <FlowBox />
+              </div>
+              <div className={styles.text}>
+                <LandingTextBox />
+              </div>
+              <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
             </div>
-            <div className={styles.text}>
-              <LandingTextBox />
-            </div>
-            <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
           </div>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
+
+  return <AuthPage />;
 }
 
 export default LandingPage;
