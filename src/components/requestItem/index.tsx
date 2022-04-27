@@ -3,19 +3,19 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import { RootState } from '../../store';
-import { DataRequest } from '../../pages/direct/inbox';
 import { select } from '../../pages/direct/requestSlice';
 import GetDataBox from '../getDataBox';
 import ShareDataBox from '../shareDataBox';
 import RequestContent from '../requestContent';
 import CertificateBox from '../certificateBox';
+import { InboundDataRequest } from '../../util/oak/datarequest';
 
-function RequestItem(props: DataRequest) {
+function RequestItem(props: InboundDataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy, */
   const {
     id,
   } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests[id]);
   const dispatch = useDispatch();
 
   return (

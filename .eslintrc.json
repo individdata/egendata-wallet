@@ -24,6 +24,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-      "max-len": ["error", {"code": 160}]
+      "max-len": ["error", {"code": 160}],
+      "linebreak-style": [0, "error", "windows"]
     }
 }

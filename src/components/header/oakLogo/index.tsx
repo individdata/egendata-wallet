@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 
 function OakLogo() {
   const user = useSelector((state: RootState) => state.auth.user);

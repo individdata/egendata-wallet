@@ -1,10 +1,10 @@
 import Grid from '@mui/material/Grid';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 import styles from './index.module.css';
 
-function LogoutButton() {
+function RedirectLogoutButton() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
@@ -24,4 +24,4 @@ function LogoutButton() {
   );
 }
 
-export default LogoutButton;
+export default RedirectLogoutButton;

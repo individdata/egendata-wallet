@@ -1,0 +1,32 @@
+.line {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: 'center';
+}
+
+.button {
+  margin-top: 50px;
+  margin-left: 30%;
+  width: 40%;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  display: table-cell;
+  vertical-align: middle;
+  background: #65d36e;
+  border-radius: 48px;
+  border: none;
+
+}
+
+.button .buttonText {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  /* identical to box height, or 200% */
+
+  color: #000;
+}

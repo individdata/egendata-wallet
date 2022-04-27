@@ -2,7 +2,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from './pages/auth/authSlice';
 import tabsReducer from './pages/direct/tabsSlice';
-import requestReducer from './pages/direct/requestSlice';
+import requestReducer from './pages/requests/requestSlice';
 
 export const store = configureStore({
   reducer: {

@@ -1,0 +1,89 @@
+.headline{
+    display: flex;
+    height: 50px;
+    width: 100%;
+}
+
+.logo {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.tabs {
+    margin-left: 25%;
+}
+
+.logout {
+    margin-left: 50%l
+}
+
+.shownothing {
+    display: none;
+}
+
+.login {
+    font-size: 38px;
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.firstline {
+    margin-top: 400px;
+    height: 30px;
+}
+
+.secondline {
+    margin-top: 20px;
+    height: 70px;
+}
+
+.thirdline {
+    height: 30px;
+    margin-top: 16px;
+    margin-left: 38%;
+}
+
+.loginpage1 {
+    display: inline;
+}
+
+.loginpage2 {
+    display: none;
+}
+
+.title {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    color: #FFFFFF;
+}
+
+.tabs {
+    margin-left: 25%;
+}
+
+.logout {
+    margin-left: 50%;
+}
+
+.logo1 {
+    margin-right: 10px;
+    width: 26px;
+    height: 40px;
+    content: url("/public/images/oak-green.png");
+}
+
+.logo2 {
+    margin-right: 10px;
+    width: 26px;
+    height: 40px;
+    content: url("/public/images/oak-white.png");
+}

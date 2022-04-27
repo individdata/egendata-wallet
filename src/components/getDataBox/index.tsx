@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { fetch, fetchInfo } from '../../pages/direct/requestSlice';
 import styles from './index.module.css';
-import { DataRequest } from '../../pages/direct/inbox';
+import { InboundDataRequest } from '../../util/oak/datarequest';
 
-function GetDataBox(props: DataRequest) {
+function GetDataBox(props: InboundDataRequest) {
   /* subject, requestedData, requestedFrom, requestedBy */
   const { id } = props;
-  const requestState = useSelector((state: RootState) => state.requests.find((request) => request.id === id));
+  const requestState = useSelector((state: RootState) => state.requests[id]);
   const [checked, setChecked] = React.useState(false);
   const dispatch = useDispatch();
   const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
