@@ -4,51 +4,9 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import { RootState } from '../../store';
-
-export type Title = {
-  status: string;
-};
-
-export type Logo = {
-  number: string;
-};
-
-export type Text = {
-  text: string;
-};
-
-function FlowTitle(props: Title) {
-  const { status } = props;
-  if (status === 'null') {
-    return (
-      <div className={styles.projectOak}>
-        <div className={styles.project}>
-          Project
-          <div className={styles.oak}>OAK</div>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className={styles.space} />
-  );
-}
-
-function FlowLogo(props: Logo) {
-  const { number } = props;
-  return (
-    <div className={styles.img}>
-      <div className={styles.number}>{number}</div>
-    </div>
-  );
-}
-
-function FlowText(props: Text) {
-  const { text } = props;
-  return (
-    <div className={styles.text}>{text}</div>
-  );
-}
+import {
+  FlowLogo, FlowTitle, FlowArrow, FlowText,
+} from './utils';
 
 function FlowBox() {
   const { id } = useParams();
@@ -63,11 +21,9 @@ function FlowBox() {
         <FlowTitle status={requestState} />
         <div className={styles.flow}>
           <div className={styles.showrow}>
-            <FlowLogo number="1" />
-            <div className={styles.arrowflow}>
-              <img className={styles.arrow} alt="arrow" />
-            </div>
-            <FlowLogo number="2" />
+            <FlowLogo number="1" status={requestState} />
+            <FlowArrow status={requestState} />
+            <FlowLogo number="2" status={requestState} />
           </div>
         </div>
         <div className={styles.texts}>

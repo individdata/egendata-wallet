@@ -61,14 +61,14 @@
     flex-direction: row;
 }
 
-.img {
+.logogrey {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
 }
 
-.img .number {
+.logogrey .number {
     width: 12px;
     height: 27px;
     margin-top: 3px;
@@ -83,11 +83,41 @@
     color: #FFFFFF;
 }
 
-.arrow {
+.logogreen {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #65D36E;
+}
+
+.logogreen .numbergreen {
+    width: 12px;
+    height: 27px;
+    margin-top: 3px;
+    margin-left: 10px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+
+    color: #2D43A5;
+
+}
+
+.greenarrow {
     margin-top: 7px;
     margin-left: 13px;
     margin-right: 13px;
     content: url("/public/images/arrow-flow.png");
+}
+
+.greyarrow {
+    margin-top: 7px;
+    margin-left: 13px;
+    margin-right: 13px;
+    content: url("/public/images/greyarrow.png");
 }
 
 .texts {
