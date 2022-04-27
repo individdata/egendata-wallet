@@ -6,9 +6,10 @@ import LogoutButton from './logoutButton';
 import { RootState } from '../../store';
 import Tabs from './tabs';
 import OakLogo from './oakLogo';
+import { HeaderType } from './types';
 
-function Header(redirect: boolean) {
-  console.log(redirect);
+function Header(props: HeaderType) {
+  const { redirect } = props;
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (

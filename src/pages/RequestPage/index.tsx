@@ -32,7 +32,7 @@ function RequestPage() {
       <Grid container>
         <Grid item xs={12}>
           <div className={styles.main}>
-            <Header {...redirectState} />
+            <Header redirect={redirectState} />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />
