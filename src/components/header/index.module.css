@@ -14,7 +14,12 @@
 }
 
 .logout {
-    margin-left: 50%l
+    position: absolute;
+    top: 24px;
+    width: 120px;
+    height: 50px;
+    right: 10px;
+    color: #FFFFFF;
 }
 
 .shownothing {
