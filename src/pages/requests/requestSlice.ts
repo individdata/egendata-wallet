@@ -49,8 +49,14 @@ export const getRequestsContent = createAsyncThunk<InboundDataRequest[]>(
   async (id, { getState }): Promise<InboundDataRequest[]> => { 
     const state = getState() as RootState;
     const requestsUrl = state.auth.user?.storage + "oak/requests/";
-    console.log('requestsUrl:', requestsUrl);
-    return requestContent(requestsUrl);
+    // console.log('requestsUrl:', requestsUrl);
+    const content = await requestContent(requestsUrl);
+    const filtered: InboundDataRequest[] = [];
+    for (const item of content) {
+      if (!item) continue;
+      filtered.push(item);
+    }
+    return filtered;
   },
 );
 
@@ -98,6 +104,7 @@ export const requestSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getRequestsContent.pending, (state) => {
+      console.log('222');
       for (const itemKey of Object.keys(state)) {
         const item = state[itemKey];
         item.status = 'fetching';
@@ -106,7 +113,9 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(getRequestsContent.fulfilled, (state, action) => {
+      console.log('111');
       for (const request of action.payload) {
+        console.log('whwhhhhhh');
         state[request.id] = {
           status: 'idle',
           error: null,

@@ -12,6 +12,9 @@ async function requestItem(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });
   const thing = getThing(ds, requestUrl) as Thing;
   console.log('my thing:', thing);
+  if (!thing) {
+    return null;
+  }
   const id = getStringNoLocale(thing, 'egendata:id') ?? '';
   const requestorWebId = getStringNoLocale(thing, 'egendata:requestorWebId') ?? '';
   const providerWebId = getStringNoLocale(thing, 'egendata:providerWebId') ?? '';
@@ -33,12 +36,15 @@ async function requestItem(requestUrl: string) {
 
 export async function requestContent(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });
+  console.log("ds", ds);
   const request = getThing(ds, requestUrl) as Thing;
   const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
-  const list = Promise.all(
+  console.log("content", content);
+  const list = await Promise.all(
     content.map(
       async (url) => requestItem(url),
     ),
   );
+  console.log("list", list);
   return list;
 }
