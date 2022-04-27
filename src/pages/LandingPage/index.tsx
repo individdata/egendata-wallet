@@ -11,6 +11,7 @@ import Button from '../../components/ui/Button';
 import { doLogin } from '../auth/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
+import { Footer, Title } from './utils';
 import FlowBox from '../../components/flowBox';
 import LandingTextBox from '../../components/landingTextBox';
 import AuthPage from '../auth';
@@ -43,7 +44,6 @@ function LandingPage() {
       setRedirect(`/request/${decodedRequest.id}`);
     }
   }, []);
-  console.log('redirect----request111', request);
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
@@ -54,6 +54,9 @@ function LandingPage() {
           <div className={styles.main}>
             <Header {...redirectState} />
             <div className={styles.body}>
+              <div className={styles.title}>
+                <Title />
+              </div>
               <div className={styles.flowBox}>
                 <FlowBox />
               </div>
@@ -61,6 +64,9 @@ function LandingPage() {
                 <LandingTextBox />
               </div>
               <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
+            </div>
+            <div className={styles.footer}>
+              <Footer />
             </div>
           </div>
         </Grid>

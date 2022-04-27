@@ -10,10 +10,9 @@
   }
 
 .body {
-    background-color: palevioletred;
     margin-top: 50px;
     display: inline;
-    width: 40%;
+    width: 30%;
     min-width: 480px;
     /* height: 70%; */
     min-width: 580px;
@@ -48,4 +47,41 @@
     display: 'flex';
     align-items: 'center';
     flex-direction: 'column';
+}
+
+.text5 {
+    text-align: center;
+    margin-top: 10%;
+    color: #808080;
+  }
+  
+
+.title {
+    margin-top: 50px;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    flex-grow: 1;
+    height: 40px;
+}
+
+.word1 {
+    display: flex;
+    flex-direction: row;
+    font-style: normal;
+    font-size: 24px;
+    font-weight: 600;
+    color: #acacac;
+}
+  
+.word2 {
+    margin-left: 5px;
+    color: #ffffff;
+}
+
+.footer {
+   width: 54%;
 }

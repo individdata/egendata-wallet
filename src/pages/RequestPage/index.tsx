@@ -9,6 +9,7 @@ import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
+import { Title, Steps } from './utils';
 import ConsentBox from '../../components/consentBox';
 
 function RequestPage() {
@@ -33,14 +34,14 @@ function RequestPage() {
           <div className={styles.main}>
             <Header {...redirectState} />
             <div className={styles.body}>
-              <div className={styles.RequestPage}>
-                {`RequestPage (id: ${id})`}
-                <div>
-                  {requestState.content.documentType}
-                </div>
+              <div className={styles.title}>
+                <Title />
               </div>
               <div className={styles.flowBox}>
                 <FlowBox />
+              </div>
+              <div className={styles.step}>
+                <Steps status={requestState.status} />
               </div>
               <div className={styles.consentBox}>
                 <ConsentBox />
