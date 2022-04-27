@@ -12,7 +12,7 @@ import OakLogo from '../../components/header/oakLogo';
 import LogoutButton from '../../components/header/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox';
-import ShareEmployementCard from '../../components/shareEmployementCard/ShareEmployementCard';
+import ShareEmployementCard from '../../components/consentBox/ShareEmployementCard';
 
 export function RedirectPage() {
   // const [searchParams] = useSearchParams();

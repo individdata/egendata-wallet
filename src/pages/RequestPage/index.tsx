@@ -9,6 +9,7 @@ import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
+import ShareEmployementCard from '../../components/consentBox/ShareEmployementCard';
 
 function RequestPage() {
   const { id } = useParams();
@@ -39,6 +40,7 @@ function RequestPage() {
                   {requestState.content.documentType}
                 </div>
               </div>
+              <ShareEmployementCard />
               <div className={styles.flowBox}>
                 <FlowBox />
               </div>

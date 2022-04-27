@@ -23,7 +23,7 @@ function RequestItem(props: InboundDataRequest) {
       <button
         type="button"
         className={
-          requestState?.status === 'idle' || requestState?.status === 'selected'
+          requestState?.status === 'idle'
             ? styles.requestBox1
             : styles.requestBox2
         }
