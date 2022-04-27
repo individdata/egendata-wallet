@@ -24,11 +24,11 @@ const style2 = {
 function ShareEmployementCard() {
   return (
     <Grid
-      item
       xs={12}
       sx={{
         display: 'flex',
         justifyContent: 'center',
+        width: '100%',
       }}
     >
       <button
@@ -47,25 +47,25 @@ function ShareEmployementCard() {
             backgroundColor: 'transparent',
           }}
         >
-          <Grid item md={6} xs={12} className={styles.smallDevice}>
+          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               <FileLogoComponent />
               <TextFileComponent />
             </Grid>
           </Grid>
-          <Grid item md={6} xs={12} className={styles.smallDevice}>
+          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               {/* takes up half of the screen row 1 col 2 */}
             </Grid>
           </Grid>
 
-          <Grid item md={6} xs={12} className={styles.smallDevice}>
+          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               <AfSourcetitle />
               <AfTitleText />
             </Grid>
           </Grid>
-          <Grid item md={6} xs={12} className={styles.smallDevice}>
+          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
             <GetDataButton />
           </Grid>
         </Grid>
