@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { afterLogin } from './login';
 import { RootState } from '../../store';
+import { createOakContainers } from '../../util/oak/datarequest';
 
 export function HandleLogin() {
   console.log('rendering HandleLogin');
@@ -21,6 +22,10 @@ export function HandleLogin() {
   useEffect(() => {
     console.log('user = ', user);
     if (user) {
+      if (user.storage) {
+        createOakContainers(user.storage);
+      }
+
       const redirectPath = localStorage.getItem('redirectPath');
 
       if (redirectPath) {

@@ -108,3 +108,15 @@ export async function storeInboundDataResponseAcl(id: string, userPod: string, u
     'text/turtle',
   );
 }
+
+export async function createOakContainers(userPod: string) {
+  const urls = [`${userPod}oak/inbox/`, `${userPod}oak/requests/`, `${userPod}oak/responses/`];
+  const promises = urls.map(async (url) => {
+    await putFile(
+      url,
+      { body: '' },
+      'text/turtle',
+    );
+  });
+  return Promise.all(promises);
+}
