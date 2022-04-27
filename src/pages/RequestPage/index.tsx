@@ -22,7 +22,9 @@ function RequestPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRequestsContent());
+    console.log(id);
   }, []);
+
   const redirectState = true;
   if (requestState) {
     return (

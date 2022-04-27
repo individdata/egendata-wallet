@@ -13,6 +13,8 @@ export function HandleLogin() {
   //  const redirectPath = useSelector((state: RootState) => state.auth.redirectPath);
 
   const [redirect, setRedirect] = useState<boolean | string>(false);
+  const url = new URL(window.location.href);
+  const request = url.searchParams.get('request');
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,7 +37,9 @@ export function HandleLogin() {
       // setRedirect("/consent?a=b");
     }
   }, [user]);
+  console.log('redirect redirect redirect');
   console.log('redirect:', redirect);
+  console.log('request', request);
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }

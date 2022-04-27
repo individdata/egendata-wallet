@@ -9,7 +9,7 @@ import { requestContent } from './requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'fetching' | 'selected' | 'unselected' | 'consenting' | 'checkingFetchInfo' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
+  status: 'idle' | 'storingInboundRequest' | 'fetching' | 'consenting' | 'checkingFetchInfo' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -78,16 +78,6 @@ export const requestSlice = createSlice({
         item.status = 'idle';
       }
     },
-    select: (state, currentrequest) => {
-      for (const itemKey of Object.keys(state)) {
-        const item = state[itemKey];
-        if (itemKey === currentrequest.payload) {
-          item.status = 'selected';
-        } else {
-          item.status = 'unselected';
-        }
-      }
-    },
     consent: (state, currentrequest) => {
       const item = state[currentrequest.payload];
       item.status = 'consenting';
@@ -139,7 +129,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, select, consent, fetch, fetchInfo, share,
+  resetRequests, inbox, consent, fetch, fetchInfo, share,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

@@ -24,7 +24,7 @@ export function FlowTitle(props: Title) {
 
 export function FlowLogo(props: Logo) {
   const { number, status } = props;
-  if ((status === 'selected' && number === '1') || (status === 'gotdata' && number === '2')) {
+  if ((status === 'idle' && number === '1') || (status === 'gotdata' && number === '2')) {
     return (
       <div className={styles.logogreen}>
         <div className={styles.numbergreen}>{number}</div>

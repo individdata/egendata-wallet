@@ -36,7 +36,6 @@ async function requestItem(requestUrl: string) {
 
 export async function requestContent(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });
-  console.log("ds", ds);
   const request = getThing(ds, requestUrl) as Thing;
   const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
   console.log("content", content);
@@ -45,6 +44,5 @@ export async function requestContent(requestUrl: string) {
       async (url) => requestItem(url),
     ),
   );
-  console.log("list", list);
   return list;
 }

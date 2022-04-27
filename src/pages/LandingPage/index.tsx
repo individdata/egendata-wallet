@@ -43,7 +43,7 @@ function LandingPage() {
       setRedirect(`/request/${decodedRequest.id}`);
     }
   }, []);
-  console.log('redirect', redirectState);
+  console.log('redirect----request111', request);
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
