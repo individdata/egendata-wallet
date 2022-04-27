@@ -47,25 +47,25 @@ function ShareEmployementCard() {
             backgroundColor: 'transparent',
           }}
         >
-          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               <FileLogoComponent />
               <TextFileComponent />
             </Grid>
           </Grid>
-          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               {/* takes up half of the screen row 1 col 2 */}
             </Grid>
           </Grid>
 
-          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
             <Grid container spacing={3} sx={style2.columnCenter}>
               <AfSourcetitle />
               <AfTitleText />
             </Grid>
           </Grid>
-          <Grid item md={6} xs={12} className={styles.smallDevice} sx={{ paddingTop: '0px' }}>
+          <Grid item md={6} xs={12} className={styles.smallDevice}>
             <GetDataButton />
           </Grid>
         </Grid>
