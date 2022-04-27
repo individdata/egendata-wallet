@@ -12,6 +12,7 @@ import { doLogin } from '../auth/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
 import FlowBox from '../../components/flowBox';
+import LandingTextBox from '../../components/landingTextBox';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -49,6 +50,9 @@ function LandingPage() {
           <div className={styles.body}>
             <div className={styles.flowBox}>
               <FlowBox />
+            </div>
+            <div className={styles.text}>
+              <LandingTextBox />
             </div>
             <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
           </div>

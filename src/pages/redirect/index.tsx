@@ -11,7 +11,7 @@ import { doLogin } from '../auth/login';
 import OakLogo from '../../components/header/oakLogo';
 import LogoutButton from '../../components/header/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
-import LandingTextBox from '../../components/landingTextBox/LandingTextBox';
+import LandingTextBox from '../../components/landingTextBox';
 import ShareEmployementCard from '../../components/shareEmployementCard/ShareEmployementCard';
 
 export function RedirectPage() {
