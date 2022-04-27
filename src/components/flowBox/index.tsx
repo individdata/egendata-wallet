@@ -14,7 +14,6 @@ function FlowBox() {
   if (id) {
     requestState = useSelector((state: RootState) => state.requests[id].status);
   }
-  console.log(requestState);
   return (
     <div className={styles.box}>
       <div className={styles.lines}>

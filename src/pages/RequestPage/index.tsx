@@ -9,7 +9,7 @@ import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
-import ShareEmployementCard from '../../components/consentBox/ShareEmployementCard';
+import ConsentBox from '../../components/consentBox';
 
 function RequestPage() {
   const { id } = useParams();
@@ -23,7 +23,6 @@ function RequestPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRequestsContent());
-    console.log(id);
   }, []);
 
   const redirectState = true;
@@ -40,9 +39,11 @@ function RequestPage() {
                   {requestState.content.documentType}
                 </div>
               </div>
-              <ShareEmployementCard />
               <div className={styles.flowBox}>
                 <FlowBox />
+              </div>
+              <div className={styles.consentBox}>
+                <ConsentBox />
               </div>
             </div>
           </div>

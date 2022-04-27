@@ -9,7 +9,7 @@ import { requestContent } from './requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'fetching' | 'consenting' | 'checkingFetchInfo' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
+  status: 'idle' | 'storingInboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -79,12 +79,9 @@ export const requestSlice = createSlice({
       }
     },
     consent: (state, currentrequest) => {
+      /* for temporary test */
       const item = state[currentrequest.payload];
-      item.status = 'consenting';
-    },
-    fetchInfo: (state, currentrequest) => {
-      const item = state[currentrequest.payload];
-      item.status = 'checkingFetchInfo';
+      item.status = 'gotData';
     },
     fetch: (state, currentrequest) => {
       const item = state[currentrequest.payload];
@@ -129,7 +126,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, consent, fetch, fetchInfo, share,
+  resetRequests, inbox, consent, fetch, share,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

@@ -12,7 +12,7 @@ import OakLogo from '../../components/header/oakLogo';
 import LogoutButton from '../../components/header/logoutButton/redirect';
 import BlueBtnCard from '../../components/requestBluebtnCard/RequestBlueBtncard';
 import LandingTextBox from '../../components/landingTextBox';
-import ShareEmployementCard from '../../components/consentBox/ShareEmployementCard';
+import ConsentBox from '../../components/consentBox';
 
 export function RedirectPage() {
   // const [searchParams] = useSearchParams();
@@ -77,8 +77,7 @@ export function RedirectPage() {
           <div className={styles.buttontext}>Continue</div>
         </button>
       </div>
-      <ShareEmployementCard />
-
+      <ConsentBox />
       <div className={styles.footer}>
         <div className={isLoggedIn ? styles.shownothing : styles.text5}>
           Project Oak is a governmental initiative that allows you to store and
