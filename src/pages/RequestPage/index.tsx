@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router';
 import { RootState } from '../../store';
 import styles from './index.module.css';
+import FlowBox from '../../components/flowBox';
 import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
 
@@ -29,10 +30,15 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header {...redirectState} />
-            <div className={styles.RequestPage}>
-              {`RequestPage (id: ${id})`}
-              <div>
-                {requestState.content.documentType}
+            <div className={styles.body}>
+              <div className={styles.RequestPage}>
+                {`RequestPage (id: ${id})`}
+                <div>
+                  {requestState.content.documentType}
+                </div>
+              </div>
+              <div className={styles.flowBox}>
+                <FlowBox />
               </div>
             </div>
           </div>

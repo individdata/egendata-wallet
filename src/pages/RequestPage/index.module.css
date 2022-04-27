@@ -14,3 +14,28 @@
 .RequestPage {
   background-color: lightblue;
 }
+
+.body {
+  background-color: palevioletred;
+  margin-top: 50px;
+  display: inline;
+  width: 40%;
+  min-width: 480px;
+  /* height: 70%; */
+  min-width: 580px;
+  height: 66%;
+  min-height: 480px;
+  align-items: center;
+  align-content: center;
+}
+
+
+.flowBox {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+  height: 120px;
+}

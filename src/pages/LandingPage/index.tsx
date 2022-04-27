@@ -26,6 +26,11 @@ function LandingPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
 
+  let redirectState = false;
+  if (request) {
+    redirectState = true;
+  }
+
   useEffect(() => {
     if (isLoggedIn && !request) {
       setRedirect('/home');
@@ -38,12 +43,10 @@ function LandingPage() {
       setRedirect(`/request/${decodedRequest.id}`);
     }
   }, []);
-
+  console.log('redirect', redirectState);
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
-  const redirectState = false;
-
   if (request) {
     return (
       <Grid container>
