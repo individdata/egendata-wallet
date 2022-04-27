@@ -23,6 +23,17 @@
     align-content: center;
 }
 
+
+.flowBox {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    flex-grow: 1;
+    height: 120px;
+ }
+
 .button {
     display: 'flex';
     align-items: 'center';

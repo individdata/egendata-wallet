@@ -1,32 +1,105 @@
 .box {
-    position: absolute;
-    width: 100%;
-    height: 117px;
+    width: 40%;
+    min-width: 480px;
+    /* height: 70%; */
+    min-width: 580px;
+    height: 177px;
     background: #2D43A5;
     border-radius: 16px;
 }
 
 .lines {
+    height: 177px;
     display: inline;
     align-items: center;
 }
 
-.line1 {
-    height: 50px;
-    weight: 100%;
-    text-align: center;
+.lines .projectOak {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    flex: 1;
+    flex-grow: 1;
+    height: 20px;
 }
 
-.line1 .project {
-
+.projectOak .project {
+    display: flex;
     font-family: Open Sans;
     font-style: normal;
     font-weight: 800;
-    font-size: 24px;
+    font-size: 22px;
     color: #FFFFFF;
 }
 
 .oak {
     color: #65D36E;;
-  }
+}
+
+.lines .flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    flex-grow: 1;
+    height: 32px;
+}
+
+.showrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.img .number {
+    width: 12px;
+    height: 27px;
+    margin-top: 3px;
+    margin-left: 10px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.arrow {
+    margin-top: 7px;
+    margin-left: 13px;
+    margin-right: 13px;
+    content: url("/public/images/arrow-flow.png");
+}
+
+.texts {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    flex-grow: 1;
+    height: 32px;
+}
+
+.text {
+    width: 226px;
+    height: 36px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
