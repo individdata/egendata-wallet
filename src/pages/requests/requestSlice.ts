@@ -108,7 +108,6 @@ export const requestSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getRequestsContent.pending, (state) => {
-      console.log('222');
       for (const itemKey of Object.keys(state)) {
         const item = state[itemKey];
         item.status = 'fetching';
@@ -117,9 +116,7 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(getRequestsContent.fulfilled, (state, action) => {
-      console.log('111');
       for (const request of action.payload) {
-        console.log('whwhhhhhh');
         state[request.id] = {
           status: 'idle',
           error: null,
