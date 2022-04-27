@@ -6,21 +6,17 @@ import styles from './index.module.css';
 
 function RedirectLogoutButton() {
   const user = useSelector((state: RootState) => state.auth.user);
-  const isLoggedIn = user?.completed;
   return (
-    <div className={(!isLoggedIn) ? styles.logoutavailable1 : styles.logoutavailable2}>
-      <Grid container className={styles.logocontainer}>
-        <Grid item>
-          <div className={styles.items}>
-            <img className={styles.logo} alt="logo" />
-            <div className={styles.logotext}>
-              {user?.name}
-            </div>
+    <Grid container>
+      <Grid item xs={12}>
+        <div className={styles.items}>
+          <img className={styles.logo} alt="logo" />
+          <div className={styles.logotext}>
+            {user?.name}
           </div>
-        </Grid>
+        </div>
       </Grid>
-    </div>
-
+    </Grid>
   );
 }
 

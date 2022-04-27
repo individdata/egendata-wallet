@@ -8,6 +8,7 @@ import Tabs from './tabs';
 import OakLogo from './oakLogo';
 
 function Header(redirect: boolean) {
+  console.log(redirect);
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
@@ -15,13 +16,13 @@ function Header(redirect: boolean) {
       <div className={styles.logo}>
         <OakLogo />
       </div>
-      <div className={(redirect && isLoggedIn) ? styles.tabs : styles.shownothing}>
+      <div className={(redirect === false && isLoggedIn) ? styles.tabs : styles.shownothing}>
         <Tabs />
       </div>
       <div className={(redirect === false && isLoggedIn) ? styles.logout : styles.shownothing}>
         <LogoutButton />
       </div>
-      <div className={(redirect === false && isLoggedIn) ? styles.logout : styles.shownothing}>
+      <div className={(redirect && isLoggedIn) ? styles.logout : styles.shownothing}>
         <RedirectLogoutButton />
       </div>
     </div>
