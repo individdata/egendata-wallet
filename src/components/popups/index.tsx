@@ -8,13 +8,7 @@ import Body from './body';
 
 function ReviewPopupHolder() {
   return (
-    <div
-      className={
-      true
-        ? styles.main1
-        : styles.main2
-    }
-    >
+    <div className={styles.main}>
       <Grid container spacing={3} className={style2.whiteBox} sx={style2.h} />
       <Grid container spacing={3} sx={style2.whiteBox}>
         <Grid item md={3} />
