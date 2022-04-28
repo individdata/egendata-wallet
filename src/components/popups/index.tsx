@@ -2,7 +2,9 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
-import ReviewPopupCard from './ReviewPopupCard';
+import styles2 from './popupcard.module.css';
+import Header from './header';
+import Body from './body';
 
 const style2 = {
   whiteBox: {
@@ -33,7 +35,15 @@ function ReviewPopupHolder() {
           xs={8}
           sx={{ backgroundColor: 'blueviolet', borderRadius: '15px' }}
         >
-          <ReviewPopupCard msg="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat." />
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Header />
+              <Grid className={styles2.pText}>
+                <Body msg="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat." />
+              </Grid>
+            </Grid>
+          </Grid>
+
         </Grid>
         <Grid item md={3} />
       </Grid>
