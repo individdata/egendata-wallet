@@ -2,9 +2,9 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { style4 } from '../../styles';
 import styles from '../../popupcard.module.css';
-import { PropTypes } from '../../types';
+import { BodyTypes } from '../../types';
 
-function info(props: PropTypes) {
+function info(props: BodyTypes) {
   const { msg } = props;
   return (
     <Grid container className={styles.scroll}>
