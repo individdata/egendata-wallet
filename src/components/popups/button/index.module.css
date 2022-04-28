@@ -1,0 +1,47 @@
+.buttongreen {
+    width: 140px;
+    height: 70%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    background: #5cbc64;
+    border-radius: 24px;
+    border: none;
+}
+  
+.buttongreen:hover {
+    background-color: blue;
+}
+
+.buttontextgreen {
+  width: 100%;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.buttondisable {
+    width: 140px;
+    height: 70%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    background: #5cbc64;
+    border-radius: 24px;
+    border: none;
+}
+  
+.button:hover {
+    background-color: blue;
+}
+
+.buttontextdisable {
+  width: 100%;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  color: #1a1a1a;
+}

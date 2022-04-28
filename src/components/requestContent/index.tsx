@@ -23,7 +23,7 @@ function RequestContent(props: InboundDataRequest) {
         <button
           className={styles.button}
           type="button"
-          onClick={() => { dispatch(consent(id)); dispatch(selectTab('consent')); }}
+          onClick={() => { dispatch(fetch(id)); dispatch(selectTab('consent')); }}
         >
           <div className={styles.buttontext}>
             consent

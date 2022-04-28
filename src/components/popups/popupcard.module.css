@@ -67,30 +67,6 @@
     color: #757575;
   }
   
-  .button {
-    width: 130px;
-    height: 70%;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    background: #5cbc64;
-    border-radius: 24px;
-    border: none;
-  }
-  
-  .button:hover {
-    background-color: blue;
-  }
-  
-  .buttontext {
-    width: 100%;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    text-align: center;
-    color: #1a1a1a;
-  }
-  
   .center {
     display: flex;
     justify-content: center;

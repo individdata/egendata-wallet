@@ -26,7 +26,7 @@ export function Title() {
 export function Steps(props: Step) {
   const { status } = props;
   let content = '';
-  if (status === 'idle' || status === 'consenting') {
+  if (status === 'idle' || status === 'fetching') {
     content = '1. Get your document';
   } else if (status === 'gotData') {
     content = '2. View and share your document';

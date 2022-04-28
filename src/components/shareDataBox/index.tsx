@@ -24,7 +24,7 @@ function ShareDataBox(props: InboundDataRequest) {
   let getDataState;
   if (requestState?.status === 'gotData') {
     getDataState = styles.transferbox1;
-  } else if (requestState?.status === 'sharedData' || requestState?.status === 'consenting') {
+  } else if (requestState?.status === 'sharedData' || requestState?.status === 'fetching') {
     getDataState = styles.transferbox2;
   } else {
     getDataState = styles.transferbox3;

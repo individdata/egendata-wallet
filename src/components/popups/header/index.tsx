@@ -17,10 +17,10 @@ function Header() {
   const popupState = useSelector((state: RootState) => state.popup.step);
   return (
     <>
-      {(requestState === 'consenting' && popupState === 'review') && <Title title={reviewGetdataTitle1} />}
-      {(requestState === 'consenting' && popupState === 'review') && <SubTitle title={reviewGetdataTitle2} />}
-      {(requestState === 'consenting' && (popupState === 'check' || popupState === 'agree')) && <Title title={checkGetdataTitle1} />}
-      {(requestState === 'consenting' && (popupState === 'check' || popupState === 'agree')) && <SubTitle title={checkGetdataTitle2} />}
+      {(requestState === 'fetching' && popupState === 'review') && <Title title={reviewGetdataTitle1} />}
+      {(requestState === 'fetching' && popupState === 'review') && <SubTitle title={reviewGetdataTitle2} />}
+      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <Title title={checkGetdataTitle1} />}
+      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <SubTitle title={checkGetdataTitle2} />}
     </>
   );
 }

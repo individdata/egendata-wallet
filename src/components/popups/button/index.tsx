@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { RootState } from '../../../store';
-import { ButtonGreen } from './utils';
+import { ButtonGreen, ButtonDisable } from './utils';
 import { review, check } from '../popupSlice';
 import { reviewGetdataButtonText, checkGetdataButtonText } from '../document';
 
@@ -17,9 +17,11 @@ function ButtonBox() {
   const dispatch = useDispatch();
   return (
     <Grid container>
-      {(requestState === 'consenting' && popupState === 'review')
+      {(requestState === 'fetching' && popupState === 'review')
       && <ButtonGreen onPress={() => dispatch(review())} label={reviewGetdataButtonText} />}
-      {(requestState === 'consenting' && popupState === 'check')
+      {(requestState === 'fetching' && popupState === 'check')
+      && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
+      {(requestState === 'fetching' && popupState === 'agree')
       && <ButtonGreen onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
     </Grid>
   );

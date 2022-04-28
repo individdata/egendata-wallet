@@ -9,7 +9,7 @@ import { requestContent } from './requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharedData' ;
+  status: 'idle' | 'storingInboundRequest' | 'loading' | 'fetching' | 'gotData' | 'sharing' | 'sharedData' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -78,16 +78,20 @@ export const requestSlice = createSlice({
         item.status = 'idle';
       }
     },
-    consent: (state, currentrequest) => {
+    fetch: (state, currentrequest) => {
       /* for temporary test */
       const item = state[currentrequest.payload];
-      item.status = 'consenting';
+      item.status = 'fetching';
     },
-    fetch: (state, currentrequest) => {
+    fetched: (state, currentrequest) => {
       const item = state[currentrequest.payload];
       item.status = 'gotData';
     },
     share: (state, currentrequest) => {
+      const item = state[currentrequest.payload];
+      item.status = 'sharing';
+    },
+    shared: (state, currentrequest) => {
       const item = state[currentrequest.payload];
       item.status = 'sharedData';
     },
@@ -97,7 +101,7 @@ export const requestSlice = createSlice({
     builder.addCase(getRequestsContent.pending, (state) => {
       for (const itemKey of Object.keys(state)) {
         const item = state[itemKey];
-        item.status = 'fetching';
+        item.status = 'loading';
         item.error = null;
       }
     });
@@ -126,7 +130,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, consent, fetch, share,
+  resetRequests, inbox, fetch, fetched, shared,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

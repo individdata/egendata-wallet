@@ -16,7 +16,7 @@ function GetDataBox(props: InboundDataRequest) {
     dispatch(fetchInfo(id));
   };
   let transferBoxState;
-  if (requestState?.status === 'consenting') {
+  if (requestState?.status === 'fetching') {
     transferBoxState = styles.transferbox1;
   } else if (requestState?.status === 'gotData' || requestState?.status === 'sharedData') {
     transferBoxState = styles.transferbox2;

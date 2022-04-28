@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
-import { consent, share } from '../../pages/requests/requestSlice';
+import { fetch, shared } from '../../pages/requests/requestSlice';
 import styles from './index.module.css';
 import {
   People, ButtonProps,
@@ -25,7 +25,7 @@ export function PeopleItem(props: People) {
   const { status } = props;
   const provider = 'Arbetsförmedlingen';
   const requestor = 'BNP Paribas';
-  if (status === 'idle' || status === 'consenting') {
+  if (status === 'idle' || status === 'fetching') {
     return (
       <div className={styles.descript}>
         Get from:
@@ -52,12 +52,12 @@ export function PeopleItem(props: People) {
 export function ConsentButton(props: ButtonProps) {
   const { id, status } = props;
   const dispatch = useDispatch();
-  if (status === 'idle' || status === 'consenting') {
+  if (status === 'idle' || status === 'fetching') {
     return (
       <button
         type="button"
         className={styles.buttonBox1}
-        onClick={() => dispatch(consent(id))}
+        onClick={() => dispatch(fetch(id))}
       >
         <div className={styles.buttonText1}>
           Get data
@@ -71,7 +71,7 @@ export function ConsentButton(props: ButtonProps) {
       <button
         type="button"
         className={styles.buttonBox2}
-        onClick={() => dispatch(share(id))}
+        onClick={() => dispatch(shared(id))}
       >
         <div className={styles.buttonText2}>
           view and share data
