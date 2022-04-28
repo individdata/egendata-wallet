@@ -81,7 +81,7 @@ export const requestSlice = createSlice({
     consent: (state, currentrequest) => {
       /* for temporary test */
       const item = state[currentrequest.payload];
-      item.status = 'gotData';
+      item.status = 'consenting';
     },
     fetch: (state, currentrequest) => {
       const item = state[currentrequest.payload];

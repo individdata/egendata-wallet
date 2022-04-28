@@ -34,7 +34,7 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
-            <Popups />
+            {requestState.status === 'consenting' && <Popups />}
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

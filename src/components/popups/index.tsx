@@ -31,7 +31,6 @@ function ReviewPopupHolder() {
               </Grid>
             </Grid>
           </Grid>
-
         </Grid>
         <Grid item md={3} />
       </Grid>
