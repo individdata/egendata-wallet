@@ -15,7 +15,6 @@ import { Footer, Title } from './utils';
 import FlowBox from '../../components/flowBox';
 import LandingTextBox from '../../components/landingTextBox';
 import AuthPage from '../auth';
-import ConsentDocTransferHolder from '../../components/popups/ConsentDocTransferHolder';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -54,8 +53,6 @@ function LandingPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
-            <ConsentDocTransferHolder />
-
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

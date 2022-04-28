@@ -7,20 +7,17 @@ import { style4 } from '../../styles';
 export function Title(props: TitleTypes) {
   const { title } = props;
   return (
-
     <Grid container sx={style4.centerRow}>
       <Grid xs={6} className={styles.smallText} sx={style4.colorBottom}>
         {title}
       </Grid>
       <Grid xs={6} className={styles.smallText} />
     </Grid>
-
   );
 }
 export function Items(props:ItemsTypes) {
   const { name, status } = props;
   return (
-
     <Grid container className={styles.centerMe} sx={style4.centerRow}>
       <Grid xs={6} className={styles.smallText}>
         {name}
@@ -29,6 +26,5 @@ export function Items(props:ItemsTypes) {
         {status}
       </Grid>
     </Grid>
-
   );
 }
