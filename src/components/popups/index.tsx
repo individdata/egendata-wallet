@@ -6,7 +6,7 @@ import styles2, { style2 } from './styles';
 import Header from './header';
 import Body from './body';
 
-function ReviewPopupHolder() {
+function Popups() {
   return (
     <div className={styles.main}>
       <Grid container spacing={3} className={style2.whiteBox} sx={style2.h} />
@@ -32,4 +32,4 @@ function ReviewPopupHolder() {
   );
 }
 
-export default ReviewPopupHolder;
+export default Popups;
