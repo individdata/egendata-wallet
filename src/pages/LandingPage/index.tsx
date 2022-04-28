@@ -15,7 +15,7 @@ import { Footer, Title } from './utils';
 import FlowBox from '../../components/flowBox';
 import LandingTextBox from '../../components/landingTextBox';
 import AuthPage from '../auth';
-import ReviewPopupHolder from '../../components/popups/ReviewPopupHolder';
+import ReviewPopupHolder from '../../components/popups';
 
 function LandingPage() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import styles from './popup.module.css';
+import styles from './index.module.css';
 import ReviewPopupCard from './ReviewPopupCard';
 
 const style2 = {
