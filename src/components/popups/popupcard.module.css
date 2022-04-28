@@ -1,0 +1,151 @@
+.main1 {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
+  
+  .main2 {
+    display: none;
+  }
+  
+  .box {
+    width: 30%;
+    height: 724px;
+    margin-top: 120px;
+    margin-left: 35%;
+    background: #2c2c2c;
+    border-radius: 24px;
+  }
+  
+  .certificate {
+    width: 40px;
+    height: 40px;
+    margin-top: 20%;
+    content: url("/public/images/check-circle.png");
+  }
+  
+  .text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  .textHeader {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600, Semi Bold;
+    font-size: 23px;
+    color: #ffffff;
+  }
+  
+  .pText {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600, Semi Bold;
+    font-size: 16px;
+    color: #ffffff;
+  }
+  
+  .text2 {
+    padding-left: 5%;
+    margin-top: 10px;
+    width: 85%;
+    height: 70%;
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #757575;
+  }
+  
+  .button {
+    width: 130px;
+    height: 70%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    background: #5cbc64;
+    border-radius: 24px;
+    border: none;
+  }
+  
+  .button:hover {
+    background-color: blue;
+  }
+  
+  .buttontext {
+    width: 100%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: #1a1a1a;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  #danger {
+    font-size: 35px;
+    color: #5cbc64;
+  }
+  
+  .stickyScroll {
+    border-radius: 13px;
+    background-color: #31343b;
+    height: 150px;
+    overflow: auto;
+    width: "80%";
+    margin: 20px;
+    text-align: justify;
+    padding: 20px;
+  }
+  
+  .smallText {
+    font-size: 16px;
+    font-weight: 400, Regular;
+    text-align: center;
+    min-width: 110px;
+    padding-top: 10px;
+  }
+  
+  centerMe {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  centerMe2 {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .scroll {
+      max-height: 80px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+  }
+  
+  @media screen and (min-width: 769px) {
+    .scroll {
+      max-height: 150px;
+      overflow: hidden;
+      overflow-y: hidden;
+    }
+  }
+  

@@ -15,6 +15,7 @@ import { Footer, Title } from './utils';
 import FlowBox from '../../components/flowBox';
 import LandingTextBox from '../../components/landingTextBox';
 import AuthPage from '../auth';
+import ReviewPopupHolder from '../../components/popups/ReviewPopupHolder';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function LandingPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
+            <ReviewPopupHolder />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />
@@ -65,6 +67,7 @@ function LandingPage() {
               </div>
               <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
             </div>
+
             <div className={styles.footer}>
               <Footer />
             </div>
