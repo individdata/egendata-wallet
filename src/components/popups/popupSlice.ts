@@ -15,8 +15,8 @@ export const popupSlice = createSlice({
   initialState,
   reducers: {
     restart: (state) => {
-        state.step = 'review';
-      },
+      state.step = 'review';
+    },
     review: (state) => {
       state.step = 'check';
     },
@@ -35,4 +35,6 @@ export const popupSlice = createSlice({
 
 const { reducer } = popupSlice;
 export default reducer;
-export const { review, restart, check, consent, finish } = popupSlice.actions;
+export const {
+  review, restart, check, consent, finish,
+} = popupSlice.actions;

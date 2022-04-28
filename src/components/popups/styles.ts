@@ -10,4 +10,7 @@ export const style2 = {
   },
 };
 
-export default style2;
+export const style3 = {
+  backgroundColor: 'blueviolet',
+  borderRadius: '15px',
+};
