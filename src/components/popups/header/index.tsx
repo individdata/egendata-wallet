@@ -6,6 +6,7 @@ import { RootState } from '../../../store';
 import {
   reviewGetdataTitle1, reviewGetdataTitle2, checkGetdataTitle1, checkGetdataTitle2,
 } from '../document';
+import style from './index.module.css';
 import { Title, SubTitle } from './utils';
 
 function Header() {
@@ -16,12 +17,12 @@ function Header() {
   }
   const popupState = useSelector((state: RootState) => state.popup.step);
   return (
-    <>
+    <div className={style.headerBox}>
       {(requestState === 'fetching' && popupState === 'review') && <Title title={reviewGetdataTitle1} />}
       {(requestState === 'fetching' && popupState === 'review') && <SubTitle title={reviewGetdataTitle2} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <Title title={checkGetdataTitle1} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <SubTitle title={checkGetdataTitle2} />}
-    </>
+    </div>
   );
 }
 
