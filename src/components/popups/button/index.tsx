@@ -9,7 +9,7 @@ import {
 } from '../popupSlice';
 import { fetched } from '../../../pages/requests/requestSlice';
 import {
-  reviewGetdataButtonText, checkGetdataButtonText, finishGetdataButtonText,
+  reviewGetdataButtonText, checkGetdataButtonText, finishGetdataButtonText, finishSharedataButtonText,
 } from '../document';
 
 function ButtonBox() {
@@ -36,6 +36,14 @@ function ButtonBox() {
       && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'fetching' && popupState === 'result')
       && <ButtonGreen onPress={() => dispatch(finish())} label={finishGetdataButtonText} />}
+      {(requestState === 'sharing' && popupState === 'review')
+      && <ButtonGreen onPress={() => dispatch(review())} label={reviewGetdataButtonText} />}
+      {(requestState === 'sharing' && popupState === 'check')
+      && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
+      {(requestState === 'sharing' && popupState === 'agree')
+      && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
+      {(requestState === 'sharing' && popupState === 'result')
+      && <ButtonGreen onPress={() => dispatch(finish())} label={finishSharedataButtonText} />}
     </Grid>
   );
 }

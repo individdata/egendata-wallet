@@ -28,7 +28,7 @@ export function Steps(props: Step) {
   let content = '';
   if (status === 'idle' || status === 'fetching') {
     content = '1. Get your document';
-  } else if (status === 'gotData') {
+  } else if (status === 'gotData' || status === 'sharing') {
     content = '2. View and share your document';
   }
   return (

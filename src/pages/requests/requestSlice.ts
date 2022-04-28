@@ -145,7 +145,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, fetch, fetched, shared,
+  resetRequests, inbox, fetch, fetched, share, shared,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

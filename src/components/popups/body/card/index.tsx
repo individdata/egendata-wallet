@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../../../store';
 import { Certificate, CheckInfo, SuccessGetDataBox } from './utils';
-import { reviewGetdataBoxItems, checkGetdataInfo, successGetdata } from '../../document';
+import {
+  reviewGetdataBoxItems, checkGetdataInfo, successGetdata, reviewShareddataBoxItems,
+} from '../../document';
 
 function card() {
   const { id } = useParams();
@@ -17,6 +19,9 @@ function card() {
       {(requestState === 'fetching' && popupState === 'review') && <Certificate certificate={reviewGetdataBoxItems} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={checkGetdataInfo} />}
       {(requestState === 'fetching' && (popupState === 'result')) && <SuccessGetDataBox msg={successGetdata} />}
+      {(requestState === 'sharing' && popupState === 'review') && <Certificate certificate={reviewShareddataBoxItems} />}
+      {(requestState === 'sharing' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={checkGetdataInfo} />}
+      {(requestState === 'sharing' && (popupState === 'result')) && <SuccessGetDataBox msg={successGetdata} />}
     </div>
   );
 }

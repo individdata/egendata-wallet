@@ -31,7 +31,7 @@ export function FlowLogo(props: Logo) {
       </div>
     );
   }
-  if ((status === 'gotData' && number === '1') || status === 'sharedData') {
+  if ((status === 'gotData' && number === '1') || status === 'sharing') {
     return (
       <div className={styles.l}>
         <ReactLogo />

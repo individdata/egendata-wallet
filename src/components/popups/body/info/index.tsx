@@ -17,6 +17,8 @@ function info() {
     <div>
       {(requestState === 'fetching' && popupState === 'review') && <ReviewInfoBox msg={reviewGetdataInfo} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckBox items={checkGetdataCheckInfo} />}
+      {(requestState === 'sharing' && popupState === 'review') && <ReviewInfoBox msg={reviewGetdataInfo} />}
+      {(requestState === 'sharing' && (popupState === 'check' || popupState === 'agree')) && <CheckBox items={checkGetdataCheckInfo} />}
     </div>
   );
 }

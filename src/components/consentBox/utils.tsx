@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
-import { fetch, shared } from '../../pages/requests/requestSlice';
+import { fetch, share } from '../../pages/requests/requestSlice';
 import styles from './index.module.css';
 import {
   People, ButtonProps,
@@ -71,7 +71,7 @@ export function ConsentButton(props: ButtonProps) {
       <button
         type="button"
         className={styles.buttonBox2}
-        onClick={() => dispatch(shared(id))}
+        onClick={() => dispatch(share(id))}
       >
         <div className={styles.buttonText2}>
           view and share data
