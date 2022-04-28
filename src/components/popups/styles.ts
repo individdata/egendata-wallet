@@ -26,9 +26,12 @@ export const style4 = {
   centerRow: {
     display: 'flex', flexDirection: 'row', justifyContent: 'center',
   },
+  leftRow: {
+    display: 'flex', flexDirection: 'row',
+  },
   colorBottom: {
     color: '#65D36E',
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
   minColor: {
     color: '#65D36E',

@@ -1,8 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from './ConsentDocTransferCard.module.css';
-import Checkbox from './Checkbox';
-import CheckBoxText from './CheckBoxtext';
+import { Checkbox, CheckBoxText } from './body/card/utils';
 
 export interface RequestType {
   msg: string;

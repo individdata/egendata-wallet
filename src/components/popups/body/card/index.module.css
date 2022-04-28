@@ -1,9 +1,10 @@
 .certificate {
-  width: 40px;
-  height: 40px;
-  margin-top: 60px;
-  content: url("/public/images/check-circle.png");
+    width: 40px;
+    height: 40px;
+    margin-top: 60px;
+    content: url("/public/images/check-circle.png");
 }
+
 .text {
   margin-top: 10px;
   width: 100%;
@@ -42,6 +43,50 @@
   margin-bottom: 10px;
 }
 
+.centerMe {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.titlefield {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.field {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.status {
+  margin-left: 5px;
+  color: #65d36e;;
+  font-size: 18px;
+  font-weight: 800;
+  padding-top: 0px;
+}
+
+.stickyScroll {
+  border-radius: 13px;
+  background-color: #31343b;
+  height: 180px;
+  overflow: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
 @media screen and (max-width: 530px) {
   .button {
     padding-top: 20px;
@@ -71,6 +116,7 @@
   font-size: 13px;
   color: #ffffff;
 }
+
 .checkboxItem {
   margin-left: 50px;
   margin-top: 11px;
@@ -80,6 +126,16 @@
   background-color: transparent;
 }
 
+.stickyScroll {
+  border-radius: 13px;
+  background-color: #31343b;
+  height: 180px;
+  overflow: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+  
 @media screen and (max-width: 768px) {
   .scroll {
     max-height: 80px;
@@ -100,14 +156,12 @@
     background-color: #757575;
   }
 }
-
+  
 @media screen and (min-width: 769px) {
   .scroll {
-    max-height: 150px;
+    max-height: 190px;
     scrollbar-color: #757575;
     overflow: hidden;
     overflow-y: hidden;
   }
 }
-
-

@@ -52,38 +52,13 @@
   }
   
 
-  
+
   #danger {
     font-size: 35px;
     color: #5cbc64;
   }
   
-  .stickyScroll {
-    border-radius: 13px;
-    background-color: #31343b;
-    height: 150px;
-    overflow: auto;
-    width: "80%";
-    margin: 20px;
-    text-align: justify;
-    padding: 20px;
-  }
-  
-  .smallText {
-    font-size: 16px;
-    font-weight: 400, Regular;
-    text-align: center;
-    min-width: 110px;
-    padding-top: 10px;
-  }
-  
-  centerMe {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  centerMe2 {
+  .centerMe2 {
     display: flex;
     flex-direction: row;
     text-align: center;

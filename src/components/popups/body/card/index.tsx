@@ -1,16 +1,21 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import styles from '../../popupcard.module.css';
-import { Title, Items } from './utils';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { RootState } from '../../../../store';
+import { Certificate } from './utils';
+import { reviewGetdataBoxItems } from '../../document';
 
 function card() {
+  const { id } = useParams();
+  let requestState = 'null';
+  if (id) {
+    requestState = useSelector((state: RootState) => state.requests[id].status);
+  }
+  const popupState = useSelector((state: RootState) => state.popup.step);
   return (
-    <Grid className={styles.stickyScroll}>
-      <Title title=" Unmployment certificate" />
-      <Items name="Employment status:" status="XXXX" />
-      <Items name="Employment status start date:" status="XXXX" />
-      <Items name="Employment certificate request date:" status="XXXX" />
-    </Grid>
+    <div>
+      {(requestState === 'fetching' && popupState === 'review') && <Certificate certificate={reviewGetdataBoxItems} />}
+    </div>
   );
 }
 

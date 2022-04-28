@@ -15,3 +15,7 @@ export interface ButtonProps {
   onPress: any,
   label: string,
 }
+
+export interface CertificateProps {
+  certificate: Record<string, string>,
+}
