@@ -10,6 +10,7 @@ import {
 } from '@inrupt/solid-client';
 import { AuthorizedUser } from './types';
 import { resetRequests } from '../direct/requestSlice';
+import { subscribe, unsubscribe } from '../../util/oak/notificationSlice';
 
 const sunetIdp = false;
 
@@ -99,6 +100,8 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
           id: ssn,
           completed: true,
         };
+        console.log('dispatch(subscribe())');
+        dispatch(subscribe(authorizedUser));
         return authorizedUser;
       }
       return undefined;
@@ -113,6 +116,7 @@ export const doLogout = createAsyncThunk<undefined>(
     console.log('doLogout');
     await logout();
     dispatch(resetRequests());
+    dispatch(unsubscribe());
     return undefined;
   },
 );

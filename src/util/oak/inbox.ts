@@ -5,6 +5,7 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { deleteFile } from './solid';
 
 export type DataRequest = {
@@ -23,6 +24,7 @@ export type DataResponse = {
 };
 
 export async function inboxItem(url: string) {
+  console.log('inboxItem url = ', url);
   const ds = await getSolidDataset(url, { fetch });
   // console.log('ds=', ds);
   const item = getThing(ds, url) as Thing;
@@ -90,3 +92,8 @@ export async function inboxClean(inboxUrl: string) {
     },
   );
 }
+
+export const getInboxItem = createAsyncThunk<DataRequest | DataResponse, string>(
+  'inbox/getInboxItem',
+  async (itemUrl): Promise<DataRequest> => inboxItem(itemUrl),
+);

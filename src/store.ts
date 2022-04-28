@@ -4,6 +4,7 @@ import authReducer from './pages/auth/authSlice';
 import tabsReducer from './pages/direct/tabsSlice';
 import requestReducer from './pages/requests/requestSlice';
 import popupReducer from './components/popups/popupSlice';
+import notificationReducer from './util/oak/notificationSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     tabs: tabsReducer,
     requests: requestReducer,
     popup: popupReducer,
+    notification: notificationReducer,
   },
 });
 

@@ -3,13 +3,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
-import { InboundDataRequest, OutboundDataRequest, storeInboundRequest, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
+import { InboundDataRequest, OutboundDataRequest, storeInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
 import { requestContent } from './requests';
 
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'loading' | 'fetching' | 'gotData' | 'sharing' | 'sharedData' ;
+  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharedData' | 'sharing' | 'loading' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -30,21 +30,25 @@ export const storeInboundDataRequest = createAsyncThunk<void, InboundDataRequest
 
 export const createOutboundDataRequest = createAsyncThunk<void,
 {
-  id: string
-  data: OutboundDataRequest
-  sourcePod: string
+  id: string,
+  data: OutboundDataRequest,
+  sourcePod: string,
+  userWebId: string,
+  sourceWebId: string,
 }>(
-  'request/saveInboundDataRequest',
+  'request/createOutboundDataRequest',
   async (request, { getState }): Promise<void> => { 
     const state = getState() as RootState;
     const { user } = state.auth;
     if (user && user.storage) {
       const userPod = user.storage;
-      /* we might call all these in parallell ... Promise.all ? */
-      await storeOutboundRequest(userPod, request.data);
-      await storeOutboundRequestLink(request.id, userPod, request.sourcePod);
-      /* to be continued ... */
-    }
+      await Promise.all([
+        storeOutboundRequest(userPod, request.data),
+        storeOutboundRequestLink(request.id, userPod, request.sourcePod),
+        storeInboundDataResponse(request.id, userPod),
+        storeInboundDataResponseAcl(request.id, userPod, request.userWebId, request.sourceWebId),
+      ]);
+    };
  },
 );
 
@@ -125,6 +129,17 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(storeInboundDataRequest.fulfilled, (state, action) => {
+    });
+    builder.addCase(createOutboundDataRequest.pending, (state, action) => {
+      const itemKey = action.meta.arg.id;
+      const item = state[itemKey];
+      item.status = 'creatingOutboundRequest';
+    });
+
+    builder.addCase(createOutboundDataRequest.fulfilled, (state, action) => {
+      const itemKey = action.meta.arg.id;
+      const item = state[itemKey];
+      item.status = 'fetching';
     });
   },
 });
