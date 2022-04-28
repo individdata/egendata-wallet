@@ -47,6 +47,15 @@ export function Certificate(props: CertificateProps) {
   );
 }
 
+export function CheckInfo(props: BodyTypes) {
+  const { msg } = props;
+  return (
+    <Grid className={styles.stickyScrollHigh}>
+      {msg}
+    </Grid>
+  );
+}
+
 export function Checkbox() {
   const [checked, setChecked] = React.useState(false);
 

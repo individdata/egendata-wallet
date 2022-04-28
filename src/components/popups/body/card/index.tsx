@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../../../store';
-import { Certificate } from './utils';
-import { reviewGetdataBoxItems } from '../../document';
+import { Certificate, CheckInfo } from './utils';
+import { reviewGetdataBoxItems, checkGetdataInfo } from '../../document';
 
 function card() {
   const { id } = useParams();
@@ -15,6 +15,7 @@ function card() {
   return (
     <div>
       {(requestState === 'fetching' && popupState === 'review') && <Certificate certificate={reviewGetdataBoxItems} />}
+      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={checkGetdataInfo} />}
     </div>
   );
 }

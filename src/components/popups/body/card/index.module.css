@@ -81,6 +81,23 @@
   border-radius: 13px;
   background-color: #31343b;
   height: 180px;
+  overflow: scroll;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.stickyScrollHigh {
+  border-radius: 13px;
+  overflow: scroll;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  height: 250px;
   overflow: auto;
   width: 100%;
   margin: 0px;
