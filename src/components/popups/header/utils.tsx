@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { TitleTypes } from '../types';
-import styles from '../popupcard.module.css';
+import styles from './index.module.css';
 import { style4 } from '../styles';
 
 export function Title(props: TitleTypes) {

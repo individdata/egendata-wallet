@@ -4,23 +4,24 @@ export const style2 = {
     display: 'flex',
     justifyContent: 'center',
     textAlign: 'center',
+    height: '680px',
   } as any,
   h: {
-    height: '30%',
+    height: '15%',
   },
 };
 
 export const style3 = {
-  backgroundColor: 'blueviolet',
+  backgroundColor: 'black',
   borderRadius: '15px',
 };
 
 export const style4 = {
   pad10: {
-    padding: '10px', justifyContent: 'center',
+    padding: '10px', justifyContent: 'center', marginTop: '20px',
   },
   pad20: {
-    padding: '20px', justifyContent: 'center',
+    padding: '10px', justifyContent: 'center',
   },
   centerRow: {
     display: 'flex', flexDirection: 'row', justifyContent: 'center',

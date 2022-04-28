@@ -37,22 +37,6 @@
     color: #ffffff;
   }
   
-  .textHeader {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600, Semi Bold;
-    font-size: 23px;
-    color: #ffffff;
-  }
-  
-  .pText {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600, Semi Bold;
-    font-size: 16px;
-    color: #ffffff;
-  }
-  
   .text2 {
     padding-left: 5%;
     margin-top: 10px;
@@ -67,11 +51,7 @@
     color: #757575;
   }
   
-  .center {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
+
   
   #danger {
     font-size: 35px;
