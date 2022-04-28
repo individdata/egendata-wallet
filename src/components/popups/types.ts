@@ -1,6 +1,7 @@
 export type PropTypes = {
   msg: string
 };
+
 export type TitleTypes = {
   title: string
 };

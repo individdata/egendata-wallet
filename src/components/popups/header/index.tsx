@@ -1,27 +1,26 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import styles from '../popupcard.module.css';
-import { style4 } from '../styles';
+// import Grid from '@mui/material/Grid';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { RootState } from '../../../store';
+import {
+  reviewGetdataTitle1, reviewGetdataTitle2, checkGetdataTitle1, checkGetdataTitle2,
+} from '../document';
+import { Title, SubTitle } from './utils';
 
 function Header() {
+  const { id } = useParams();
+  let requestState = 'null';
+  if (id) {
+    requestState = useSelector((state: RootState) => state.requests[id].status);
+  }
+  const popupState = useSelector((state: RootState) => state.popup.step);
   return (
     <>
-      <Grid
-        className={styles.center}
-        sx={style4.pad10}
-      >
-        <Grid md={12} className={styles.textHeader}>
-          Review your document data
-        </Grid>
-      </Grid>
-      <Grid
-        className={styles.center}
-        sx={style4.pad20}
-      >
-        <Grid md={12} className={styles.pText}>
-          You are about to share your Unemployment certificate to BNP Paribas.
-        </Grid>
-      </Grid>
+      {(requestState === 'consenting' && popupState === 'review') && <Title title={reviewGetdataTitle1} />}
+      {(requestState === 'consenting' && popupState === 'review') && <SubTitle title={reviewGetdataTitle2} />}
+      {(requestState === 'consenting' && popupState === 'check') && <Title title={checkGetdataTitle1} />}
+      {(requestState === 'consenting' && popupState === 'check') && <SubTitle title={checkGetdataTitle2} />}
     </>
   );
 }

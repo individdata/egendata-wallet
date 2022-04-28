@@ -4,7 +4,6 @@ import { style4 } from '../../styles';
 import styles from '../../popupcard.module.css';
 import { PropTypes } from '../../types';
 
-
 function info(props: PropTypes) {
   const { msg } = props;
   return (
