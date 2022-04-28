@@ -11,6 +11,7 @@ import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
 import { Title, Steps } from './utils';
 import ConsentBox from '../../components/consentBox';
+import Popups from '../../components/popups';
 
 function RequestPage() {
   const { id } = useParams();
@@ -33,6 +34,7 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
+            <Popups />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />
