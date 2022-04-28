@@ -29,6 +29,7 @@ const style2 = {
 
 function card() {
   return (
+
     <Grid className={styles.stickyScroll}>
       <Grid container sx={style2.centerRow}>
         <Grid xs={6} className={styles.smallText} sx={style2.colorBottom}>

@@ -4,7 +4,6 @@ import styles from './popupcard.module.css';
 import Header from './header';
 import Body from './body';
 import { PropTypes } from './types';
-import Button from './button';
 
 function ReviewPopupCard(props: PropTypes) {
   const { msg } = props;
@@ -15,7 +14,6 @@ function ReviewPopupCard(props: PropTypes) {
         <Header />
         <Grid className={styles.pText}>
           <Body msg={msg} />
-          <Button />
         </Grid>
       </Grid>
     </Grid>

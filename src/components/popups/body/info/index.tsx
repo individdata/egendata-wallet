@@ -1,5 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
+
+import styles from '../../popupcard.module.css';
 import { PropTypes } from '../../types';
 
 const style2 = {
@@ -30,9 +32,12 @@ const style2 = {
 function info(props: PropTypes) {
   const { msg } = props;
   return (
-    <Grid xs={12} sx={style2.pad20}>
-      {msg}
+    <Grid container className={styles.scroll}>
+      <Grid xs={12} sx={style2.pad20}>
+        {msg}
+      </Grid>
     </Grid>
+
   );
 }
 

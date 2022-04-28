@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from '../popupcard.module.css';
+import Button from '../button';
 import Card from './card';
 import Info from './info';
 
@@ -9,13 +10,15 @@ export interface PropTypes {
 }
 
 function Body(props: PropTypes) {
-  // const { msg } = props;
-  console.log(props);
+  const { msg } = props;
+
   return (
-    <Grid container className={styles.scroll}>
+    <Grid className={styles.pText}>
       <Card />
-      <Info msg="hi from jakob" />
+      <Info msg={msg} />
+      <Button />
     </Grid>
+
   );
 }
 
