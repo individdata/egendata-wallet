@@ -1,15 +1,15 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  login, logout, getDefaultSession, handleIncomingRedirect, ISessionInfo,
+  login, logout, handleIncomingRedirect, fetch,
 } from '@inrupt/solid-client-authn-browser';
 import {
-  getSolidDataset, getThing, getStringNoLocale, Thing, getUrl,
+  getSolidDataset, getStringNoLocale, getThing, getUrl, Thing,
 } from '@inrupt/solid-client';
-// import { useDispatch } from 'react-redux';
 import { AuthorizedUser } from './types';
-import { resetRequests, getInboxContent } from '../direct/requestSlice';
+import { resetRequests } from '../direct/requestSlice';
 
 const sunetIdp = false;
 
@@ -45,42 +45,65 @@ export const doLogin = createAsyncThunk<string, string>(
   },
 );
 
+export type ProfileData = {
+  name: string;
+  storage: string;
+  seeAlso: string;
+};
+
+const fetchProfileData = async (webId: string) => {
+  const ds = await getSolidDataset(webId);
+  const profile = getThing(ds, webId) as Thing;
+  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name');
+  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage');
+  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso');
+  return {
+    name: name ?? '',
+    storage: storage ?? '',
+    seeAlso: seeAlso ?? '',
+  };
+};
+
+const fetchSsnData = async (seeAlso: string) => {
+  const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
+  const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
+  const ssn = getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier');
+  return ssn ?? '';
+};
+
 export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
   'auth/afterlogin',
   async (id, { getState, dispatch, requestId }) => {
     console.log('afterlogin');
     const userInfo = await handleIncomingRedirect();
     const webId = userInfo?.webId ? userInfo.webId : '';
-    // console.log('afterLogin getState=', getState());
-    // console.log('afterLogin requestId=', requestId);
-
-    // console.log('afterLogin userInfo=', userInfo);
-    // console.log('afterLogin webId=', webId);
+    console.log('afterLogin webId=', webId);
     if (!webId) {
       return undefined;
     }
-    const ds = await getSolidDataset(webId);
-    const profile = getThing(ds, webId) as Thing;
-    const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name');
-    const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage');
-    // console.log('name=', name);
 
-    // console.log('storage=', storage);
-    const authorizedUser: AuthorizedUser = {
-      webid: userInfo?.webId ? userInfo.webId : '',
-      name: name ?? 'Name',
-      storage: storage ?? '',
-      id: '',
-      completed: true,
-    };
-    // console.log('afterLogin authorizedUser=', authorizedUser);
-    if (userInfo?.isLoggedIn) {
-      // console.log('dispatch(redirectRoot())');
-      // dispatch(redirectRoot());
-      /* re checke lina */
-      // dispatch(getInboxContent());
+    const profileData = await fetchProfileData(webId);
+    if (profileData) {
+      console.log('matched');
+      const u = profileData as ProfileData;
+      console.log('matched userInfo=', userInfo);
+      const ssnData = await fetchSsnData(u.seeAlso);
+      if (ssnData) {
+        console.log('matched seeAlso=', ssnData);
+        const ssn = ssnData as string;
+        console.log('matched ssn=', ssn);
+        const authorizedUser: AuthorizedUser = {
+          webid: userInfo?.webId ? userInfo.webId : '',
+          name: u.name ?? 'Name',
+          storage: u.storage ?? '',
+          id: ssn,
+          completed: true,
+        };
+        return authorizedUser;
+      }
+      return undefined;
     }
-    return authorizedUser;
+    return undefined;
   },
 );
 
