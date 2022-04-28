@@ -18,7 +18,7 @@ function Popups() {
             <Grid item xs={12}>
               <Header />
               <Grid className={style2.whiteBox}>
-                <Body msg="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat." />
+                <Body />
               </Grid>
               <Button />
             </Grid>

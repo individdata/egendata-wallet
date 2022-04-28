@@ -19,3 +19,7 @@ export interface ButtonProps {
 export interface CertificateProps {
   certificate: Record<string, string>,
 }
+
+export interface CheckTypes {
+  items: string[],
+}

@@ -1,18 +1,23 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import { style4 } from '../../styles';
-import styles from '../../popupcard.module.css';
-import { BodyTypes } from '../../types';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { RootState } from '../../../../store';
+import { ReviewInfoBox, CheckBox } from './utils';
+import { reviewGetdataInfo, checkGetdataCheckInfo } from '../../document';
 
-function info(props: BodyTypes) {
-  const { msg } = props;
+function info() {
+  const { id } = useParams();
+  let requestState = 'null';
+  if (id) {
+    requestState = useSelector((state: RootState) => state.requests[id].status);
+  }
+  const popupState = useSelector((state: RootState) => state.popup.step);
+
   return (
-    <Grid container className={styles.scroll}>
-      <Grid xs={12} sx={style4.pad20}>
-        {msg}
-      </Grid>
-    </Grid>
-
+    <div>
+      {(requestState === 'fetching' && popupState === 'review') && <ReviewInfoBox msg={reviewGetdataInfo} />}
+      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckBox items={checkGetdataCheckInfo} />}
+    </div>
   );
 }
 

@@ -3,16 +3,14 @@ import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
 import Card from './card';
 import Info from './info';
-import { BodyTypes } from '../types';
 
-function Body(props: BodyTypes) {
-  const { msg } = props;
+function Body() {
   return (
     <div className={styles.body}>
       <div className={styles.items}>
         <Grid className={styles.pText}>
           <Card />
-          <Info msg={msg} />
+          <Info />
         </Grid>
       </div>
     </div>

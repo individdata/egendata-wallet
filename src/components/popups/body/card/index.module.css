@@ -94,7 +94,7 @@
   color: #FFFFFF;
   font-family: 'Open Sans';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 220;
   font-size: 16px;
   line-height: 22px;
   height: 250px;
@@ -102,6 +102,23 @@
   width: 100%;
   margin: 0px;
   padding: 0px;
+}
+
+.logo {
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  content: url("/public/images/check-circle.png");
+}
+
+.rows {
+  display: inline;
+  align-items: center;
+}
+
+.row {
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 530px) {
@@ -132,15 +149,6 @@
   font-weight: 600;
   font-size: 13px;
   color: #ffffff;
-}
-
-.checkboxItem {
-  margin-left: 50px;
-  margin-top: 11px;
-  height: 18px;
-  min-width: 22px;
-  border-color: #ffffff;
-  background-color: transparent;
 }
 
 .stickyScroll {

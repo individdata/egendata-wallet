@@ -16,11 +16,12 @@ export const reviewShareddataBoxItems = {
 };
 export const reviewGetdataInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 export const reviewGetdataButtonText = 'Continue to get data';
+export const finishGetdataButtonText = 'Go to share data';
 export const checkGetdataInfo = "BNP Paribas will be provided information that you are registered as a job seeker in Arbetsförmedlingen and the date of such registration. For privacy reasons, BNP Paribas will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in Arbetsförmedlingen, the transfer automatically terminates and you will need to provide an additional consent for the 'job-seeker status' final date to be transfered to BNP Paribas.";
+export const successGetdata = 'Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data.';
 export const checkGetdataCheckInfo = [
   'I give my consent for the Project OAK to handle and transfer this information once to BNP Paribas.',
   'I agree that this process removes the confidentiality of the information I choose to share with BNP Paribas.',
-  'I have reviewed the information and confirm that no unwanted information is included in the transfer to Dummy.',
   'I have reviewed the information and confirm that no unwanted information is included in the transfer to Dummy.',
 ];
 export const checkGetdataButtonText = 'Consent and get data';

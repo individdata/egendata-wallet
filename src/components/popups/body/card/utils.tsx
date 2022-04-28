@@ -56,31 +56,17 @@ export function CheckInfo(props: BodyTypes) {
   );
 }
 
-export function Checkbox() {
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = (c: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(c.target.checked);
-  };
-  return (
-    <Grid item xs={12} md={2}>
-      <input
-        type="checkbox"
-        className={styles.checkboxItem}
-        style={{ margin: 'auto' }}
-        checked={checked}
-        onChange={handleChange}
-      />
-    </Grid>
-  );
-}
-
-export function CheckBoxText(props: BodyTypes) {
+export function SuccessGetDataBox(props: BodyTypes) {
   const { msg } = props;
   return (
-    <Grid container xs={12} md={10}>
-      <Grid item xs={12} md={12} sx={{ fontSize: '13px', fontWeight: '600' }}>
-        {msg}
+    <Grid container className={styles.scroll}>
+      <Grid xs={12} sx={style4.pad20}>
+        <div className={styles.rows}>
+          <div className={styles.row}>
+            <img className={styles.logo} />
+          </div>
+          {msg}
+        </div>
       </Grid>
     </Grid>
   );
