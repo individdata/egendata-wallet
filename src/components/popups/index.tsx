@@ -5,6 +5,7 @@ import styles from './index.module.css';
 import { style2, style3 } from './styles';
 import Header from './header';
 import Body from './body';
+import Button from './button';
 
 function Popups() {
   return (
@@ -19,6 +20,7 @@ function Popups() {
               <Grid className={style2.whiteBox}>
                 <Body msg="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat." />
               </Grid>
+              <Button />
             </Grid>
           </Grid>
         </Grid>

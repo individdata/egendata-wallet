@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from '../popupcard.module.css';
-import Button from '../button';
 import Card from './card';
 import Info from './info';
 
@@ -16,7 +15,6 @@ function Body(props: PropTypes) {
     <Grid className={styles.pText}>
       <Card />
       <Info msg={msg} />
-      <Button />
     </Grid>
 
   );
