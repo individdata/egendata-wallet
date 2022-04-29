@@ -9,7 +9,7 @@ import {
   getSolidDataset, getStringNoLocale, getThing, getUrl, Thing,
 } from '@inrupt/solid-client';
 import { AuthorizedUser } from './types';
-import { resetRequests } from '../direct/requestSlice';
+import { resetRequests } from '../requests/requestSlice';
 import { subscribe, unsubscribe } from '../../util/oak/notificationSlice';
 
 const sunetIdp = false;

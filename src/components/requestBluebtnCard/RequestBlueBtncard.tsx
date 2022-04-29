@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
-import GetDataBall from '../getDataBall/GetDataBall';
+import GetDataBall from './getDataBall/GetDataBall';
 import GreenArrowLogo from '../ui/greenArrowLogo/GreenArrowLogo';
 import ShareBall from './shareBall/ShareBall';
 

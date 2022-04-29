@@ -1,5 +1,5 @@
 .left {
-    background-image: url("../../../public/images/login-page.png");
+    background-image: url("/public/images/login-page.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -14,7 +14,7 @@
   }
   
   .leaf .logo {
-    content: url("../../../public/images/oak-white-big.png");
+    content: url("/public/images/oak-white-big.png");
   }
   
   .title {

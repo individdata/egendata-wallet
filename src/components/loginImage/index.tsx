@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import LoginImageText from '../loginImageText/index';
-import LoginImageLogo from '../loginImageLogo';
+import LoginImageText from './loginImageText/index';
+import LoginImageLogo from './loginImageLogo';
 import styles from './index.module.css';
 
 function LoginImage() {
