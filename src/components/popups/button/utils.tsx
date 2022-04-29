@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
+import { AiOutlineClose } from 'react-icons/ai';
 import styles from './index.module.css';
 import { ButtonProps } from '../types';
 import { style5 } from '../styles';
@@ -59,6 +60,30 @@ export function GeneralHideButton(props: ButtonProps) {
       <button type="button" style={style5.hide}>
         <div style={style5.fonts}>{label}</div>
       </button>
+    </Grid>
+  );
+}
+
+export function ExitRow(props:ButtonProps) {
+  const { onPress, label } = props;
+  return (
+
+    <Grid container sx={{ display: 'flex', flexDirection: 'row' }}>
+      <Grid item xs={2} />
+      <Grid item xs={2} />
+      <Grid item xs={2} />
+      <Grid item xs={2} />
+      <Grid item xs={2} />
+      <Grid item xs={2} md={2} style={{ paddingTop: '20px' }}>
+        <button
+          type="button"
+          className={styles.button2}
+          onClick={() => onPress()}
+        >
+          {label}
+          <AiOutlineClose id={styles.exit} />
+        </button>
+      </Grid>
     </Grid>
   );
 }

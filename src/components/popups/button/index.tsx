@@ -12,7 +12,7 @@ import {
 } from '../popupSlice';
 import { fetched } from '../../../pages/requests/requestSlice';
 import {
-  reviewGetdataButtonText, checkGetdataButtonText, finishGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
+  reviewGetdataButtonText, checkGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
 } from '../document';
 
 function ButtonBox() {
@@ -37,8 +37,6 @@ function ButtonBox() {
       && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
       {(requestState === 'fetching' && popupState === 'agree')
       && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
-      {(requestState === 'fetching' && popupState === 'result')
-      && <ButtonGreen onPress={() => dispatch(finish())} label={finishGetdataButtonText} />}
       {(requestState === 'sharing' && (popupState === 'review' || popupState === 'check' || popupState === 'agree'))
       && <GeneralInactiveButton onPress={() => { dispatch(restart()); dispatch(fetched(id)); }} label={reviewShareButtonText} />}
       {(requestState === 'sharing' && popupState === 'check')

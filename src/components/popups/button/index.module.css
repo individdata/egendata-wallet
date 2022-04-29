@@ -46,3 +46,15 @@
   text-align: center;
   color: #ACACAC;
 }
+
+
+
+.button2{
+  background-color: transparent;
+  border: none;
+}
+#exit{
+  color: gray;
+  font-size: 20px;
+}
+
