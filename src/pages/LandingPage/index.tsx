@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
-import { doLogin } from '../auth/login';
+import { doLogin } from '../../util/oak/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';

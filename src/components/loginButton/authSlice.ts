@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { doLogin, afterLogin, doLogout } from '../../pages/auth/login';
+import { doLogin, afterLogin, doLogout } from '../../util/oak/login';
 import { AuthorizedUser } from '../../pages/auth/types';
 
 type AuthState = {

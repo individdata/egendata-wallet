@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
-import { selectTab } from '../../../pages/direct/tabsSlice';
+import { selectTab } from './tabsSlice';
 import { inbox } from '../../../pages/requests/requestSlice';
 
 function Tags() {

@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
-import { doLogout, doLogin } from '../../../pages/auth/login';
+import { doLogout, doLogin } from '../../../util/oak/login';
 
 function LogoutButton() {
   const user = useSelector((state: RootState) => state.auth.user);

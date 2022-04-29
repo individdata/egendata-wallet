@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from '../requestBluebtnCard/index.module.css';
-import Arrow from '../../../util/Arrow';
+import Arrow from './Arrow';
 
 function GreenArrowLogo() {
   return (

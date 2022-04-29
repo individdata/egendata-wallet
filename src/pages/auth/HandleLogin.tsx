@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { afterLogin } from './login';
+import { afterLogin } from '../../util/oak/login';
 import { RootState } from '../../store';
 import { createOakContainers } from '../../util/oak/datarequest';
 
