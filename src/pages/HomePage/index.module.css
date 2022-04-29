@@ -21,3 +21,29 @@
   align-items: center;
   align-content: center;
 }
+
+.login {
+  font-size: 38px;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.firstline {
+  margin-top: 400px;
+  height: 30px;
+}
+
+.thirdline {
+  height: 30px;
+  margin-top: 50px;
+}
+
+.loginpage {
+  width: 80%;
+  display: inline;
+  text-align: center;
+}
