@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
 import { InboundDataRequest, OutboundDataRequest, storeInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
-import { requestContent } from './requests';
+import { requestsContent } from './requests';
 
 // export type InboxContent = string[];
 
@@ -58,7 +58,7 @@ export const getRequestsContent = createAsyncThunk<InboundDataRequest[]>(
     const state = getState() as RootState;
     const requestsUrl = state.auth.user?.storage + "oak/requests/";
     // console.log('requestsUrl:', requestsUrl);
-    const content = await requestContent(requestsUrl);
+    const content = await requestsContent(requestsUrl);
     const filtered: InboundDataRequest[] = [];
     for (const item of content) {
       if (!item) continue;
@@ -81,6 +81,14 @@ export const requestSlice = createSlice({
         const item = state[itemKey];
         item.status = 'idle';
       }
+    },
+    add: (state, currentrequest) => {
+      const request = currentrequest.payload as InboundDataRequest;
+      state[request.id] = {
+        content: request,
+        error: null,
+        status: 'idle',
+      };
     },
     fetch: (state, currentrequest) => {
       /* for temporary test */
@@ -145,7 +153,7 @@ export const requestSlice = createSlice({
 });
 
 export const {
-  resetRequests, inbox, fetch, fetched, share, shared,
+  resetRequests, inbox, add, fetch, fetched, share, shared,
 } = requestSlice.actions;
 
 const { reducer } = requestSlice;

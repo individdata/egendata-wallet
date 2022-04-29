@@ -34,9 +34,9 @@ async function requestItem(requestUrl: string) {
   return dataRequest;
 }
 
-export async function requestContent(requestUrl: string) {
-  const ds = await getSolidDataset(requestUrl, { fetch });
-  const request = getThing(ds, requestUrl) as Thing;
+export async function requestsContent(requestsUrl: string) {
+  const ds = await getSolidDataset(requestsUrl, { fetch });
+  const request = getThing(ds, requestsUrl) as Thing;
   const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
   console.log("content", content);
   const list = await Promise.all(

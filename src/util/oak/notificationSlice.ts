@@ -4,7 +4,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthorizedUser } from '../../pages/auth/types';
-import { storeInboundDataRequest } from '../../pages/requests/requestSlice';
+import { storeInboundDataRequest, add } from '../../pages/requests/requestSlice';
 import { RootState } from '../../store';
 import { InboundDataRequest } from './datarequest';
 import { inboxItem } from './inbox';
@@ -74,6 +74,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
             returnUrl: '',
           };
           dispatch(storeInboundDataRequest(inboundDataRequest));
+          dispatch(add(inboundDataRequest));
         }
       };
 
