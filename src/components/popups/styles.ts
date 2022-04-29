@@ -40,6 +40,16 @@ export const style5 = {
     color: '#65d36e',
     borderRadius: '46px',
   },
+  hide: {
+    minWidth: '117px',
+    width: '80%',
+    height: '54px',
+    background: 'transparent',
+    border: ' 2px solid #ACACAC',
+    color: '#ACACAC',
+    borderRadius: '46px',
+
+  },
 
   active: {
     minWidth: '117px',

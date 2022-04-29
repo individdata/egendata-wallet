@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { RootState } from '../../../store';
 import {
-  ButtonGreen, ButtonDisable, GeneralButton, GeneralInactiveButton,
+  ButtonGreen, ButtonDisable, GeneralButton, GeneralInactiveButton, GeneralHideButton,
 } from './utils';
 import {
   review, check, agree, finish, restart,
@@ -39,16 +39,14 @@ function ButtonBox() {
       && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'fetching' && popupState === 'result')
       && <ButtonGreen onPress={() => dispatch(finish())} label={finishGetdataButtonText} />}
-      {(requestState === 'sharing' && popupState === 'check')
-      && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
       {(requestState === 'sharing' && (popupState === 'review' || popupState === 'check' || popupState === 'agree'))
       && <GeneralInactiveButton onPress={() => { dispatch(restart()); dispatch(fetched(id)); }} label={reviewShareButtonText} />}
       {(requestState === 'sharing' && popupState === 'check')
-      && <GeneralButton onPress={() => dispatch(check())} label={reviewGetdataButtonText2} />}
+      && <GeneralHideButton onPress={() => dispatch(check())} label={reviewGetdataButtonText2} />}
       {(requestState === 'sharing' && popupState === 'review')
       && <GeneralButton onPress={() => dispatch(review())} label={reviewGetdataButtonText2} />}
       {(requestState === 'sharing' && popupState === 'agree')
-      && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
+      && <GeneralButton onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'sharing' && popupState === 'result')
       && <ButtonGreen onPress={() => dispatch(finish())} label={finishSharedataButtonText} />}
     </Grid>

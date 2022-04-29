@@ -52,4 +52,15 @@ export function GeneralInactiveButton(props: ButtonProps) {
   );
 }
 
+export function GeneralHideButton(props: ButtonProps) {
+  const { label } = props;
+  return (
+    <Grid item xs={12} md={6} sx={style5.marginTop}>
+      <button type="button" style={style5.hide}>
+        <div style={style5.fonts}>{label}</div>
+      </button>
+    </Grid>
+  );
+}
+
 export default ButtonGreen;
