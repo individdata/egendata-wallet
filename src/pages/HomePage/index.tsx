@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
 import { RequestBox } from '../../components/requestBox';
 import { getRequestsContent } from '../requests/requestSlice';
 import { doLogin } from '../../util/oak/login';
@@ -12,6 +13,8 @@ import { LogInText, InfoLink } from './utils';
 
 function HomePage() {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const isLoggedIn = user?.completed;
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   useEffect(() => {
@@ -26,7 +29,7 @@ function HomePage() {
           <Header redirect={redirectState} />
           <div className={styles.loginpage}>
             <LogInText />
-            <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />
+            {!isLoggedIn && <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
             <InfoLink />
           </div>
           <div className={styles.body}>
