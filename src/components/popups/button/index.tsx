@@ -1,15 +1,18 @@
+/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { RootState } from '../../../store';
-import { ButtonGreen, ButtonDisable } from './utils';
+import {
+  ButtonGreen, ButtonDisable, GeneralButton, GeneralInactiveButton,
+} from './utils';
 import {
   review, check, agree, finish, restart,
 } from '../popupSlice';
 import { fetched } from '../../../pages/requests/requestSlice';
 import {
-  reviewGetdataButtonText, checkGetdataButtonText, finishGetdataButtonText, finishSharedataButtonText,
+  reviewGetdataButtonText, checkGetdataButtonText, finishGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
 } from '../document';
 
 function ButtonBox() {
@@ -36,10 +39,14 @@ function ButtonBox() {
       && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'fetching' && popupState === 'result')
       && <ButtonGreen onPress={() => dispatch(finish())} label={finishGetdataButtonText} />}
-      {(requestState === 'sharing' && popupState === 'review')
-      && <ButtonGreen onPress={() => dispatch(review())} label={reviewGetdataButtonText} />}
       {(requestState === 'sharing' && popupState === 'check')
       && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
+      {(requestState === 'sharing' && (popupState === 'review' || popupState === 'check' || popupState === 'agree'))
+      && <GeneralInactiveButton onPress={() => { dispatch(restart()); dispatch(fetched(id)); }} label={reviewShareButtonText} />}
+      {(requestState === 'sharing' && popupState === 'check')
+      && <GeneralButton onPress={() => dispatch(check())} label={reviewGetdataButtonText2} />}
+      {(requestState === 'sharing' && popupState === 'review')
+      && <GeneralButton onPress={() => dispatch(review())} label={reviewGetdataButtonText2} />}
       {(requestState === 'sharing' && popupState === 'agree')
       && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'sharing' && popupState === 'result')

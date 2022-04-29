@@ -11,6 +11,45 @@ export const style2 = {
   },
 };
 
+export const style5 = {
+  marginTop: {
+    marginTop: '50px',
+    padding: '20px',
+  },
+  fonts: {
+    fontSize: '15px',
+    fontWeight: '600',
+  },
+  buttonS: {
+    width: '80%',
+    height: '54px',
+    background: '#65D36E',
+    borderRadius: '46px',
+    minWidth: '117px',
+  },
+  center: {
+    display: 'flex', justifyContent: 'center', alignItems: 'center',
+
+  },
+  inActive: {
+    minWidth: '117px',
+    width: '80%',
+    height: '54px',
+    background: 'transparent',
+    border: ' 2px solid #65D36E',
+    color: '#65d36e',
+    borderRadius: '46px',
+  },
+
+  active: {
+    minWidth: '117px',
+    width: '80%',
+    height: '54px',
+    background: '#65D36E',
+    borderRadius: '46px',
+  },
+};
+
 export const style3 = {
   backgroundColor: 'black',
   borderRadius: '15px',
