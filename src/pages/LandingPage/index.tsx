@@ -11,9 +11,8 @@ import Button from '../../components/ui/Button';
 import { doLogin } from '../auth/login';
 import { storeInboundDataRequest } from '../requests/requestSlice';
 import Header from '../../components/header';
-import { Footer, Title } from './utils';
+import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
-import LandingTextBox from '../../components/landingTextBox';
 import AuthPage from '../auth';
 
 function LandingPage() {

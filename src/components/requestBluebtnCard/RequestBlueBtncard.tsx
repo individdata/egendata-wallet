@@ -2,8 +2,8 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
 import GetDataBall from '../getDataBall/GetDataBall';
-import GreenArrowLogo from '../greenArrowLogo/GreenArrowLogo';
-import ShareBall from '../shareBall/ShareBall';
+import GreenArrowLogo from '../ui/greenArrowLogo/GreenArrowLogo';
+import ShareBall from './shareBall/ShareBall';
 
 const style2 = {
   columnCenter: {
