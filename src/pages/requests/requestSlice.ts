@@ -28,25 +28,28 @@ export const storeInboundDataRequest = createAsyncThunk<void, InboundDataRequest
  },
 );
 
-export const createOutboundDataRequest = createAsyncThunk<void,
-{
-  id: string,
-  data: OutboundDataRequest,
-  sourcePod: string,
-  userWebId: string,
-  sourceWebId: string,
-}>(
+export const createOutboundDataRequest = createAsyncThunk<void, string>(
   'request/createOutboundDataRequest',
-  async (request, { getState }): Promise<void> => { 
+  async (id, { getState }): Promise<void> => { 
     const state = getState() as RootState;
     const { user } = state.auth;
+    const request = state.requests[id].content;
+    const sourcePod: string = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/source/'; // the value have to be fetched from the sources profile!!!
+    const userWebId: string = user!.webid;
+    const sourceWebId: string = request.providerWebId;
+  
+    const data: OutboundDataRequest = {
+      id,
+      documentType: '',
+      dataSubjectIdentifier: user!.id,
+    }
     if (user && user.storage) {
       const userPod = user.storage;
       await Promise.all([
-        storeOutboundRequest(userPod, request.data),
-        storeOutboundRequestLink(request.id, userPod, request.sourcePod),
-        storeInboundDataResponse(request.id, userPod),
-        storeInboundDataResponseAcl(request.id, userPod, request.userWebId, request.sourceWebId),
+        storeOutboundRequest(userPod, data),
+        storeInboundDataResponse(id, userPod),
+        storeInboundDataResponseAcl(id, userPod, userWebId, sourceWebId),
+        storeOutboundRequestLink(id, userPod, sourcePod),
       ]);
     };
  },
@@ -139,13 +142,13 @@ export const requestSlice = createSlice({
     builder.addCase(storeInboundDataRequest.fulfilled, (state, action) => {
     });
     builder.addCase(createOutboundDataRequest.pending, (state, action) => {
-      const itemKey = action.meta.arg.id;
+      const itemKey = action.meta.arg;
       const item = state[itemKey];
       item.status = 'creatingOutboundRequest';
     });
 
     builder.addCase(createOutboundDataRequest.fulfilled, (state, action) => {
-      const itemKey = action.meta.arg.id;
+      const itemKey = action.meta.arg;
       const item = state[itemKey];
       item.status = 'fetching';
     });

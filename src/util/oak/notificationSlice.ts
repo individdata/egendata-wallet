@@ -23,7 +23,7 @@ const initialState = {
   unsubscribe_endpoint: undefined,
 } as NotificationState;
 
-let ws: WebSocket | undefined;
+let ws: WebSocket;
 
 type Notification = {
   '@context': string[],
@@ -85,6 +85,12 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
       ws.onerror = (evt: Event) => {
         console.log('ws error: ', { evt });
       };
+
+      let keepAliveId;
+      clearInterval(keepAliveId);
+      keepAliveId = setInterval(() => {
+        ws.send('ping');
+      }, 5000);
 
       console.log('starting webhook handling ...');
       // const target = 'http://localhost:8999/webhook/' + uuid;

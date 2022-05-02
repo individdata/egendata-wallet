@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
-import { fetch, share } from '../../pages/requests/requestSlice';
+import { createOutboundDataRequest, share } from '../../pages/requests/requestSlice';
 import styles from './index.module.css';
 import {
   People, ButtonProps,
@@ -57,7 +57,11 @@ export function ConsentButton(props: ButtonProps) {
       <button
         type="button"
         className={styles.buttonBox1}
-        onClick={() => dispatch(fetch(id))}
+        onClick={() => {
+          if (id) {
+            dispatch(createOutboundDataRequest(id));
+          }
+        }}
       >
         <div className={styles.buttonText1}>
           Get data

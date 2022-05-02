@@ -23,7 +23,7 @@ export function HandleLogin() {
     // console.log('user = ', user);
     if (user) {
       if (user.storage) {
-        createOakContainers(user.storage);
+        createOakContainers(user.webid, user.storage);
       }
 
       const redirectPath = localStorage.getItem('redirectPath');
