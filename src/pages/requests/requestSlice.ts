@@ -3,7 +3,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
-import { InboundDataRequest, OutboundDataRequest, storeInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
+import { InboundDataRequest, OutboundDataRequest, storeInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
+import { fetchProfileData } from '../../util/oak/solid';
 import { requestsContent } from './requests';
 
 // export type InboxContent = string[];
@@ -34,9 +35,10 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
     const state = getState() as RootState;
     const { user } = state.auth;
     const request = state.requests[id].content;
-    const sourcePod: string = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/source/'; // the value have to be fetched from the sources profile!!!
     const userWebId: string = user!.webid;
     const sourceWebId: string = request.providerWebId;
+    const providerProfile = await fetchProfileData(sourceWebId);
+    const providerPodStorage = providerProfile.storage;
   
     const data: OutboundDataRequest = {
       id,
@@ -47,9 +49,10 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
       const userPod = user.storage;
       await Promise.all([
         storeOutboundRequest(userPod, data),
+        storeOutboundDataRequestAcl(id, userPod, userWebId, sourceWebId),
         storeInboundDataResponse(id, userPod),
         storeInboundDataResponseAcl(id, userPod, userWebId, sourceWebId),
-        storeOutboundRequestLink(id, userPod, sourcePod),
+        storeOutboundRequestLink(id, userPod, providerPodStorage),
       ]);
     };
  },

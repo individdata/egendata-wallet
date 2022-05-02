@@ -37,22 +37,46 @@ export type OutboundDataRequest = {
 };
 
 const outboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/consents/request-${id}`);
-const dataLocationUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}.ttl`);
-const outboundDataRequestTurtle = ((id: string, documentType: string, dataSubjectIdentifier: string, dataLocation:string) => `
+const dataLocationUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}`);
+const outboundDataRequestTurtle = ((id: string, documentType: string, dataSubjectIdentifier: string, dataLocation:string, notificationInbox: string) => `
 ${egendataPrefixTurtle}
 <> a <egendata:OutboundDataRequest> ;
   <egendata:id> "${id}" ;
   <egendata:documentType> "${documentType}" ;
   <egendata:dataSubjectIdentifier> "${dataSubjectIdentifier}" ;
-  <egendata:dataLocation> "${dataLocation}" .`);
+  <egendata:dataLocation> "${dataLocation}" ;
+  <egendata:notificationInbox> "${notificationInbox}" .`);
 
 export async function storeOutboundRequest(userPod: string, request: OutboundDataRequest) {
   const requestUrl = outboundDataRequestUrl(userPod, request.id);
   const locationUrl = dataLocationUrl(userPod, request.id);
-  const requestData = outboundDataRequestTurtle(request.id, request.documentType, request.dataSubjectIdentifier, locationUrl);
+  const notificationInbox = `${userPod}oak/inbox/`;
+  const requestData = outboundDataRequestTurtle(request.id, request.documentType, request.dataSubjectIdentifier, locationUrl, notificationInbox);
   await putFile(
     requestUrl,
     { body: requestData },
+    'text/turtle',
+  );
+}
+
+const outboundDataRequestAclUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/consents/request-${id}.acl`);
+const outboundDataRequestAclTurtle = ((userPodUrl: string, id: string, userWebId: string, sourceWebId: string) => `
+<#source> a <http://www.w3.org/ns/auth/acl#Authorization>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/consents/request-${id}>;
+    <http://www.w3.org/ns/auth/acl#agent> <${sourceWebId}>;
+    <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read>.
+<#owner> a <http://www.w3.org/ns/auth/acl#Authorization>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/consents/request-${id}>;
+    <http://www.w3.org/ns/auth/acl#agent> <mailto:sink@example.com>, <${userWebId}>;
+    <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Read>, <http://www.w3.org/ns/auth/acl#Control>.
+`);
+
+export async function storeOutboundDataRequestAcl(id: string, userPod: string, userWebId: string, sourceWebId: string) {
+  const requestAclUrl = outboundDataRequestAclUrl(userPod, id);
+  const requestAclData = outboundDataRequestAclTurtle(userPod, id, userWebId, sourceWebId);
+  await putFile(
+    requestAclUrl,
+    { body: requestAclData },
     'text/turtle',
   );
 }
@@ -62,7 +86,6 @@ const outboundDataRequestLinkTurtle = ((requestUrl: string) => `
 ${egendataPrefixTurtle}
 <> <egendata:OutboundDataRequest> <${requestUrl}>.
 `);
-
 export async function storeOutboundRequestLink(id: string, userPod: string, sourcePod: string) {
   const requestUrl = outboundDataRequestUrl(userPod, id);
   const requestLinkUrl = outboundDataRequestLinkUrl(sourcePod, id);
@@ -90,11 +113,11 @@ export async function storeInboundDataResponse(id: string, userPod: string) {
 const inboundDataResponseAclUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}.acl`);
 const inboundDataResponseAclTurtle = ((userPodUrl: string, id: string, userWebId: string, sourceWebId: string) => `
 <#source> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}/oak/responses/response-${id}>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/responses/response-${id}>;
     <http://www.w3.org/ns/auth/acl#agent> <${sourceWebId}>;
     <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Append>.
 <#owner> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}/oak/responses/response-${id}>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/responses/response-${id}>;
     <http://www.w3.org/ns/auth/acl#agent> <mailto:sink@example.com>, <${userWebId}>;
     <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Read>, <http://www.w3.org/ns/auth/acl#Control>.
 `);

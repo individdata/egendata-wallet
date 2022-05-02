@@ -1,5 +1,12 @@
 /* eslint-disable no-console */
 import {
+  getSolidDataset,
+  getStringNoLocale,
+  getThing,
+  getUrl,
+  Thing,
+} from '@inrupt/solid-client';
+import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
 
@@ -65,4 +72,19 @@ export async function deleteFile(url: RequestInfo) {
   } else {
     console.log(`DELETE: ${deleteResponse.url}`);
   }
+}
+
+export async function fetchProfileData(webId: string) {
+  const ds = await getSolidDataset(webId);
+  const profile = getThing(ds, webId) as Thing;
+  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
+  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
+  return { name, storage, seeAlso };
+}
+
+export async function fetchSsnData(seeAlso: string) {
+  const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
+  const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
+  return getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier') ?? '';
 }

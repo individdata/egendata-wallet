@@ -11,29 +11,14 @@ import {
 import { AuthorizedUser } from '../../pages/auth/types';
 import { resetRequests } from '../../pages/requests/requestSlice';
 import { subscribe, unsubscribe } from './notificationSlice';
+import { fetchProfileData, fetchSsnData } from './solid';
+import config from '../config';
 
-const sunetIdp = false;
-
-const sunet = {
-  oidcIssuer: 'https://solid-proxy.sunet.se',
-  redirectUrl: `${window.location.href}auth/cb`,
-  clientName: 'Digital Wallet',
-  clientId: 'APP-6740D44B-CB41-4FAE-9485-13B0C7849D08',
-};
-
-const inrupt = {
-  oidcIssuer: 'https://broker.pod.inrupt.com',
-  clientName: 'Digital Wallet',
-  redirectUrl: `${window.location.href}auth/cb`,
-};
-
-const css2 = {
-  oidcIssuer: 'https://oak-identity-provider-oak-develop.test.services.jtech.se/',
+const idp = {
+  oidcIssuer: config.idpBaseUrl,
   clientName: 'Digital Wallet',
   redirectUrl: `${window.location.origin}/auth/cb`,
 };
-
-const idp = css2;
 
 export const doLogin = createAsyncThunk<string, string>(
   'auth/login',
@@ -50,26 +35,6 @@ export type ProfileData = {
   name: string;
   storage: string;
   seeAlso: string;
-};
-
-const fetchProfileData = async (webId: string) => {
-  const ds = await getSolidDataset(webId);
-  const profile = getThing(ds, webId) as Thing;
-  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name');
-  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage');
-  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso');
-  return {
-    name: name ?? '',
-    storage: storage ?? '',
-    seeAlso: seeAlso ?? '',
-  };
-};
-
-const fetchSsnData = async (seeAlso: string) => {
-  const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
-  const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
-  const ssn = getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier');
-  return ssn ?? '';
 };
 
 export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
