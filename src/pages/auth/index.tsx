@@ -12,7 +12,12 @@ function AuthPage() {
   return (
 
     <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-      {!isLoggedIn ? (
+      {isLoggedIn && (
+        <Grid xs={12} item>
+          <HomePage />
+        </Grid>
+      )}
+      {!isLoggedIn && (
         <>
           <Grid className={styles.left} item xs={12} md={6}>
             <LoginImage />
@@ -21,11 +26,7 @@ function AuthPage() {
             <HomePage />
           </Grid>
         </>
-      ) : (
-        <Grid xs={12} md={12} item>
-          <HomePage />
-        </Grid>
-      ) }
+      )}
     </Grid>
   );
 }
