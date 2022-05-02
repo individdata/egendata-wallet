@@ -50,10 +50,11 @@
     color: #ffffff;
   }
   
-  .center {
-    display: flex;
+  .textContainer {
     justify-content: center;
     text-align: center;
+    font-size: 28px;
+    font-weight: 400;
   }
   
   .container {
@@ -61,8 +62,8 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    white-space: nowrap;
-    padding: 20px;
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
   
   .header {

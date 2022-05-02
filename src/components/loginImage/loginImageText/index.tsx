@@ -15,22 +15,10 @@ function LoginImageText() {
         container
         spacing={3}
       >
-        <Grid item xs={12} className={styles.center}>
+        <Grid item xs={12} className={styles.textContainer}>
           <p>
-            Project Oak is a governmental service
+            Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations.
           </p>
-        </Grid>
-        <Grid item xs={12} className={styles.center}>
-          <p>Oak is a governmental service</p>
-        </Grid>
-        <Grid item xs={12} className={styles.center}>
-          <p>that allows you to store and transfer</p>
-        </Grid>
-        <Grid item xs={12} className={styles.center}>
-          <p>digital information between public and</p>
-        </Grid>
-        <Grid item xs={12} className={styles.center}>
-          <p>private organtisations.</p>
         </Grid>
       </Grid>
     </Grid>
