@@ -103,7 +103,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
         target,
       };
 
-      const subscription = `${config.podProviderBaseUrl}/subscription`;
+      const subscription = `${config.podProviderBaseUrl}subscription`;
 
       const subscriptionResponse = await postFile(
         subscription,
