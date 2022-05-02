@@ -51,21 +51,13 @@
   }
   
   .textContainer {
+    color: white;
     justify-content: center;
     text-align: center;
     font-size: 28px;
     font-weight: 400;
   }
-  
-  .container {
-    color: white;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
-  
+
   .header {
     display: flex;
     margin-bottom: 30px;
