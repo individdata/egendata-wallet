@@ -1,5 +1,5 @@
 export default {
-  backendBaseUrl: process.env.REACT_APP_BACKEND_BASE_URL || 'http://localhost:3002/',
-  idpBaseUrl: process.env.REACT_APP_IDP_BASE_URL || 'http://localhost:3001/',
-  podProviderBaseUrl: process.env.REACT_APP_POD_PROVIDER_BASE_URL || 'http://localhost:3000/',
+  backendBaseUrl: process.env.REACT_APP_BACKEND_BASE_URL || 'https://digital-wallet-backend-oak-develop.test.services.jtech.se/',
+  idpBaseUrl: process.env.REACT_APP_IDP_BASE_URL || 'https://oak-identity-provider-oak-develop.test.services.jtech.se/',
+  podProviderBaseUrl: process.env.REACT_APP_POD_PROVIDER_BASE_URL || 'https://oak-pod-provider-oak-develop.test.services.jtech.se/',
 };
