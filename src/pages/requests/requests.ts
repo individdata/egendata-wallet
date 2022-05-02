@@ -8,7 +8,6 @@ import {
 import { InboundDataRequest } from '../../util/oak/datarequest';
 
 async function requestItem(requestUrl: string) {
-  // const egendata = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#';
   const ds = await getSolidDataset(requestUrl, { fetch });
   const thing = getThing(ds, requestUrl) as Thing;
   console.log('my thing:', thing);

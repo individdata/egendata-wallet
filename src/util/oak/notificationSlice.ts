@@ -8,8 +8,8 @@ import { storeInboundDataRequest, add } from '../../pages/requests/requestSlice'
 import { RootState } from '../../store';
 import { InboundDataRequest } from './datarequest';
 import { inboxItem } from './inbox';
-
 import { deleteFile, postFile } from './solid';
+import config from '../config';
 
 type NotificationState = {
   status: 'idle' | 'connecting' | 'connected' | 'disconnecting',
@@ -54,7 +54,8 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
       const uuid = uuidv4();
 
       // const wstarget = 'ws://localhost:8999/' + uuid;
-      const wstarget = `wss://digital-wallet-backend-oak-develop.test.services.jtech.se/${uuid}`;
+      const wstarget = `wss://digital-wallet-backend-oak-develop.test.services.jtech.se/${uuid}`; // TODO: Make configurable via environment
+      console.log('Connecting to websocket:', wstarget);
 
       ws = new WebSocket(wstarget);
 
@@ -94,7 +95,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
 
       console.log('starting webhook handling ...');
       // const target = 'http://localhost:8999/webhook/' + uuid;
-      const target = `https://digital-wallet-backend-oak-develop.test.services.jtech.se/webhook/${uuid}`;
+      const target = `${config.backendBaseUrl}webhook/${uuid}`;
       const subscrdata = {
         '@context': ['https://www.w3.org/ns/solid/notification/v1'],
         type: 'WebHookSubscription2021',
@@ -102,8 +103,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
         target,
       };
 
-      // const subscription = `http://localhost:3000/subscription`; // should be taken from well-known ..
-      const subscription = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/subscription';
+      const subscription = `${config.podProviderBaseUrl}/subscription`;
 
       const subscriptionResponse = await postFile(
         subscription,
