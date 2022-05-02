@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
-import HomePage from '../direct';
+import HomePage from '../HomePage';
 import LoginImage from '../../components/loginImage';
 import { RootState } from '../../store';
 
