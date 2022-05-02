@@ -5,6 +5,9 @@ import RequestPage from './RequestPage';
 import HomePage from './HomePage';
 import LandingPage from './LandingPage';
 import { HandleLogin } from './auth/HandleLogin';
+import * as config from '../util/config';
+
+console.log('Launching app with config: ', config);
 
 function App() {
   return (
