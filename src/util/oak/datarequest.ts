@@ -98,14 +98,30 @@ export async function storeOutboundRequestLink(id: string, userPod: string, sour
 }
 
 const inboundDataResponseUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}`);
-const inboundDataResponseTurtle = (() => '');
+const emptyDataResponseTurtle = (() => '');
 
-export async function storeInboundDataResponse(id: string, userPod: string) {
+export async function createInboundDataResponse(id: string, userPod: string) {
   const responseUrl = inboundDataResponseUrl(userPod, id);
-  const responseData = inboundDataResponseTurtle();
+  const responseData = emptyDataResponseTurtle();
   await putFile(
     responseUrl,
     { body: responseData },
+    'text/turtle',
+  );
+}
+
+const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}oak/inbox/response-${id}`);
+const outboundDataResponseLinkTurtle = ((responseUrl: string) => `
+${egendataPrefixTurtle}
+<> <egendata:OutboundDataResponse> <${responseUrl}>.
+`);
+export async function storeOutboundResponseLink(id: string, userPod: string, sinkPod: string) {
+  const responseUrl = inboundDataResponseUrl(userPod, id);
+  const responseLinkUrl = outboundDataResponseLinkUrl(sinkPod, id);
+  const responseLinkData = outboundDataResponseLinkTurtle(responseUrl);
+  await putFile(
+    responseLinkUrl,
+    { body: responseLinkData },
     'text/turtle',
   );
 }
@@ -143,6 +159,7 @@ const inboxAclTurtle = ((userWebId: string, userPod: string) => `
     a acl:Authorization;
     acl:agentClass foaf:Agent;
     acl:accessTo <${userPod}oak/inbox/>;
+    acl:default <${userPod}oak/inbox/>;
     acl:mode acl:Write, acl:Append.
 
 # The owner has full access to the inbox

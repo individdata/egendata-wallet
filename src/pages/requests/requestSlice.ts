@@ -3,14 +3,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
-import { InboundDataRequest, OutboundDataRequest, storeInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink } from '../../util/oak/datarequest';
+import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink } from '../../util/oak/datarequest';
+import { DataResponse } from '../../util/oak/egendata';
 import { fetchProfileData } from '../../util/oak/solid';
 import { requestsContent } from './requests';
 
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharedData' | 'sharing' | 'loading' ;
+  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'sharing' | 'loading' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -50,11 +51,28 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
       await Promise.all([
         storeOutboundRequest(userPod, data),
         storeOutboundDataRequestAcl(id, userPod, userWebId, sourceWebId),
-        storeInboundDataResponse(id, userPod),
+        createInboundDataResponse(id, userPod),
         storeInboundDataResponseAcl(id, userPod, userWebId, sourceWebId),
         storeOutboundRequestLink(id, userPod, providerPodStorage),
       ]);
     };
+ },
+);
+
+export const shareInboundDataResponse = createAsyncThunk<void, DataResponse>(
+  'request/handleOutboundDataResponse',
+  async (response, { getState }): Promise<void> => {
+    const state = getState() as RootState;
+    const { user } = state.auth;
+    if (user && user.storage) {
+      const userPod = user.storage;
+      const state = getState() as RootState;
+      const id = response.requestId;
+      const request = state.requests[id].content;
+      const sinkProfile = await fetchProfileData(request.requestorWebId);
+      const sinkPod = sinkProfile.storage;
+      await storeOutboundResponseLink(id, userPod, sinkPod);
+    }
  },
 );
 
@@ -144,6 +162,7 @@ export const requestSlice = createSlice({
 
     builder.addCase(storeInboundDataRequest.fulfilled, (state, action) => {
     });
+
     builder.addCase(createOutboundDataRequest.pending, (state, action) => {
       const itemKey = action.meta.arg;
       const item = state[itemKey];
@@ -155,6 +174,19 @@ export const requestSlice = createSlice({
       const item = state[itemKey];
       item.status = 'fetching';
     });
+
+    builder.addCase(shareInboundDataResponse.pending, (state, action) => {
+      const response = action.meta.arg;
+      const item = state[response.requestId];
+      item.status = 'sharingData';
+    });
+
+    builder.addCase(shareInboundDataResponse.fulfilled, (state, action) => {
+      const response = action.meta.arg;
+      const item = state[response.requestId];
+      item.status = 'sharedData';
+    });
+
   },
 });
 

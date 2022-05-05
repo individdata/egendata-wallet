@@ -1,15 +1,17 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthorizedUser } from '../../pages/auth/types';
-import { storeInboundDataRequest, add } from '../../pages/requests/requestSlice';
+import { storeInboundDataRequest, add, shareInboundDataResponse } from '../../pages/requests/requestSlice';
 import { RootState } from '../../store';
 import { InboundDataRequest } from './datarequest';
 import { inboxItem } from './inbox';
 import { deleteFile, postFile } from './solid';
 import config from '../config';
+import { DataResponse, RequestItem, ResponseItem } from './egendata';
 
 type NotificationState = {
   status: 'idle' | 'connecting' | 'connected' | 'disconnecting',
@@ -41,6 +43,22 @@ function isCreate(notfication: Notification) {
   return type === 'Create';
 }
 
+function toInboundDataRequest(item: RequestItem): InboundDataRequest {
+  const dataRequest = item.v;
+  return {
+    id: dataRequest.id,
+    requestorWebId: dataRequest.requestedBy,
+    providerWebId: dataRequest.requestedFrom,
+    documentType: dataRequest.type,
+    purpose: '',
+    returnUrl: '',
+  };
+}
+
+function toDataResponse(item: ResponseItem): DataResponse {
+  return item.v;
+}
+
 export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
   'notification/subscribe',
   async (authorizedUser, { dispatch }): Promise<NotificationState> => {
@@ -65,17 +83,20 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
         if (isCreate(notification)) {
           console.log(`link = ${notification.object.id}`);
           // dispatch(getInboxItem(notification.object.id));
-          const dataRequest = await inboxItem(notification.object.id);
-          const inboundDataRequest: InboundDataRequest = {
-            id: dataRequest.id,
-            requestorWebId: dataRequest.requestedBy,
-            providerWebId: dataRequest.requestedFrom,
-            documentType: dataRequest.type,
-            purpose: '',
-            returnUrl: '',
-          };
-          dispatch(storeInboundDataRequest(inboundDataRequest));
-          dispatch(add(inboundDataRequest));
+          const item = await inboxItem(notification.object.id);
+          switch (item.t) {
+            case 'Request':
+              const inboundDataRequest = toInboundDataRequest(item);
+              dispatch(storeInboundDataRequest(inboundDataRequest));
+              dispatch(add(inboundDataRequest));
+              break;
+            case 'Response':
+              const inboundDataResponse = toDataResponse(item);
+              dispatch(shareInboundDataResponse(inboundDataResponse));
+              break;
+              // eslint-disable-next-line no-empty
+            default: {}
+          }
         }
       };
 
