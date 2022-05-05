@@ -9,6 +9,7 @@ import { style4 } from "../../styles";
 import {BarLoader} from "react-spinners"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+
 import {
   BodyTypes,
   CertificateProps,
@@ -20,6 +21,13 @@ import {
 import { MissingUnEmploymentCertBody } from "../info/utils";
 import styles from "./index.module.css";
 import styles2 from "./index2.module.css"
+
+const tryAgainStyle = {
+  marginTop: {
+    marginTop: '50px'
+  },
+
+};
 
 export function Title(props: TitleTypes) {
   const { title } = props;
@@ -153,3 +161,41 @@ export const GeneralInputEmail = (props: PlaceholderTypes ) => {
   );
 
 }
+
+export const TryAgainLaterPopup = (props:BodyTypes) => {
+    const { msg } = props;
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Grid className={styles.center} sx={{ marginTop: '15%' }}>
+          <Grid id={styles.danger}>
+            <AiOutlineExclamationCircle />
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Grid className={styles.center}>
+          <Grid className={styles.text}>
+            {msg}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sx={tryAgainStyle.marginTop}>
+        <button
+          type="button"
+          className={styles.button}
+        >
+          <div className={styles.consent}>ok</div>
+        </button>
+      </Grid>
+
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+    </Grid>
+
+  );
+}
+
+

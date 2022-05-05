@@ -25,6 +25,7 @@ function card() {
       {(requestState === 'sharing' && popupState === 'review') && <Certificate certificate={reviewShareddataBoxItems} />}
       {(requestState === 'sharing' && (popupState === 'result')) && <SuccessGetDataBox msg={successGetdata} />}
 
+      {/* <TryAgainLaterPopup msg={TryAgainlaterText} /> */}
       {/* {(requestState === 'fetching' && popupState === 'review') && <MissingUnEmployementCert text1={MissingCertText1} text2={MissingCertText2} textP={MissingCertTextp} />} */}
       {/* {(requestState === 'fetching' && popupState === 'review') && <FetchingDataPopup msg={FetchingDataText} />} */}
       {/* {(requestState === 'sharing' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={cheGetdataInfo} />} */}
