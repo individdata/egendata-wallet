@@ -1,11 +1,33 @@
 /* eslint-disable */
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import styles from './index.module.css';
+import { css } from "@emotion/react";
+import Grid from "@mui/material/Grid";
+import React from "react";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { MissingUnEmployementButton } from "../../button/utils";
+import { MissingUnEmployementHeader } from "../../header/utils";
+import { style4 } from "../../styles";
+import {BarLoader} from "react-spinners"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+
 import {
-  TitleTypes, ItemsTypes, BodyTypes, CertificateProps,
-} from '../../types';
-import { style4 } from '../../styles';
+  BodyTypes,
+  CertificateProps,
+  ItemsTypes,
+  TitleTypes,
+  CeritificateMissingTypes,
+  PlaceholderTypes,
+} from "../../types";
+import { MissingUnEmploymentCertBody } from "../info/utils";
+import styles from "./index.module.css";
+import styles2 from "./index2.module.css"
+
+const tryAgainStyle = {
+  marginTop: {
+    marginTop: '50px'
+  },
+
+};
 
 export function Title(props: TitleTypes) {
   const { title } = props;
@@ -25,9 +47,7 @@ export function Items(props: ItemsTypes) {
       <Grid container className={styles.centerMe}>
         <Grid xs={12} className={styles.field}>
           {name}
-          <div className={styles.status}>
-            {status}
-          </div>
+          <div className={styles.status}>{status}</div>
         </Grid>
       </Grid>
     </div>
@@ -37,7 +57,7 @@ export function Items(props: ItemsTypes) {
 export function Certificate(props: CertificateProps) {
   const { certificate } = props;
   const items = Object.keys(certificate).map((key) => {
-    return (<Items name={key} status={certificate[key]} />);
+    return <Items name={key} status={certificate[key]} />;
   });
   return (
     <Grid className={styles.stickyScroll}>
@@ -49,11 +69,7 @@ export function Certificate(props: CertificateProps) {
 
 export function CheckInfo(props: BodyTypes) {
   const { msg } = props;
-  return (
-    <Grid className={styles.stickyScrollHigh}>
-      {msg}
-    </Grid>
-  );
+  return <Grid className={styles.stickyScrollHigh}>{msg}</Grid>;
 }
 
 export function SuccessGetDataBox(props: BodyTypes) {
@@ -71,3 +87,115 @@ export function SuccessGetDataBox(props: BodyTypes) {
     </Grid>
   );
 }
+
+export function MissingUnEmployementCert(props: CeritificateMissingTypes) {
+  return (
+    <Grid container spacing={3} sx={{ display: "flex" }}>
+      <Grid item xs={12} />
+      <MissingUnEmployementHeader />
+      <MissingUnEmploymentCertBody {...props} />
+      <MissingUnEmployementButton />
+    </Grid>
+  );
+}
+
+
+export const  FetchingDataPopup= (props: BodyTypes) => {
+  const { msg } = props;
+  const loading = true;
+  const color = '#65D36E';
+
+  const oCss = css`
+     border-radius: 15px
+     ` as any;
+  return (
+
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+      <Grid item xs={12}>
+        <Grid className={styles.center}>
+          <Grid className={styles.text}>
+            {msg}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid className={styles.center} sx={{ marginTop: '5%' }}>
+          <Grid id={styles.danger} />
+          <BarLoader color={color} loading={loading} height={10} width={320} css={oCss} />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+    </Grid>
+
+  );
+}
+export const GeneralInputEmail = (props: PlaceholderTypes ) => {
+  const { placeholder } = props;
+  return (
+  <Grid container className={styles2.center}>
+      <form className={styles2.form}>
+        <Grid item xs={12} md={3}>
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            fontSize="22"
+            className={styles2.emailIcon}
+          />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder={placeholder}
+            className={styles2.inputField}
+          />
+        </Grid>
+      </form>
+    </Grid>
+  );
+
+}
+
+export const TryAgainLaterPopup = (props:BodyTypes) => {
+    const { msg } = props;
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Grid className={styles.center} sx={{ marginTop: '15%' }}>
+          <Grid id={styles.danger}>
+            <AiOutlineExclamationCircle />
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Grid className={styles.center}>
+          <Grid className={styles.text}>
+            {msg}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sx={tryAgainStyle.marginTop}>
+        <button
+          type="button"
+          className={styles.button}
+        >
+          <div className={styles.consent}>ok</div>
+        </button>
+      </Grid>
+
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+    </Grid>
+
+  );
+}
+
+

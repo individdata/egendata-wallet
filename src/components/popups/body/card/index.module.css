@@ -17,6 +17,19 @@
   color: #ffffff;
   max-width: 350px;
 }
+.text2 {
+  padding-left: 5%;
+  margin-top: 10px;
+  width: 85%;
+  height: 70%;
+  text-align: center;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #757575;
+}
 
 .center {
   display: flex;

@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
+import styles2 from "../card/index.module.css"
 import { style4 } from '../../styles';
-import { BodyTypes, CheckTypes } from '../../types';
+import { BodyTypes, CeritificateMissingTypes, CheckTypes } from '../../types';
 import { check } from '../../popupSlice';
 
 export function ReviewInfoBox(props: BodyTypes) {
@@ -70,4 +71,35 @@ export function CheckBox(props: CheckTypes) {
       </Grid>
     </Grid>
   );
+}
+
+export const MissingUnEmploymentCertBody = (props:  CeritificateMissingTypes) => {
+  const {text1 ,text2, textP} = props
+  return (
+  <>
+      <Grid item xs={12}>
+        <Grid className={styles2.center}>
+          <Grid className={styles2.text}>
+            {text1}
+          </Grid>
+        </Grid>
+      </Grid>
+  <Grid item xs={12}>
+  <Grid className={styles2.center}>
+    <Grid sx={{ maxWidth: "400px" }}>
+      <Grid className={styles2.text}>
+      {text2}
+      </Grid>
+    </Grid>
+  </Grid>
+</Grid>
+<Grid item xs={12}>
+  <Grid className={styles2.center}>
+    <Grid sx={{ maxWidth: "550px" }} className={styles2.text2}>
+    {textP}
+    </Grid>
+  </Grid>
+</Grid>
+  </>
+  )
 }
