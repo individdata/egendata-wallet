@@ -1,10 +1,12 @@
 /* eslint-disable */
+import { css } from "@emotion/react";
 import Grid from "@mui/material/Grid";
 import React from "react";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { MissingUnEmployementButton } from "../../button/utils";
 import { MissingUnEmployementHeader } from "../../header/utils";
 import { style4 } from "../../styles";
+import {BarLoader} from "react-spinners"
 import {
   BodyTypes,
   CertificateProps,
@@ -82,5 +84,42 @@ export function MissingUnEmployementCert(props: CeritificateMissingTypes) {
       <MissingUnEmploymentCertBody {...props} />
       <MissingUnEmployementButton />
     </Grid>
+  );
+}
+
+
+export const  FetchingDataPopup= (props: BodyTypes) => {
+  const { msg } = props;
+  const loading = true;
+  const color = '#65D36E';
+
+  const oCss = css`
+     border-radius: 15px
+     ` as any;
+  return (
+
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+      <Grid item xs={12}>
+        <Grid className={styles.center}>
+          <Grid className={styles.text}>
+            {msg}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid className={styles.center} sx={{ marginTop: '5%' }}>
+          <Grid id={styles.danger} />
+          <BarLoader color={color} loading={loading} height={10} width={320} css={oCss} />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <div className={styles.empty} />
+      </Grid>
+    </Grid>
+
   );
 }
