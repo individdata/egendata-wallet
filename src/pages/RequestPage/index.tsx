@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
-import { getRequestsContent } from '../requests/requestSlice';
 import Header from '../../components/header';
 import { Title, Steps } from './utils';
 import ConsentBox from '../../components/consentBox';
@@ -21,12 +20,6 @@ function RequestPage() {
   }
 
   const requestState = useSelector((state: RootState) => state.requests[id]);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getRequestsContent());
-  }, []);
-
   const redirectState = true;
   if (requestState) {
     return (
