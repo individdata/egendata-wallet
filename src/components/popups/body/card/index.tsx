@@ -28,6 +28,7 @@ function card() {
       {/* {(requestState === 'fetching' && popupState === 'review') && <MissingUnEmployementCert text1={MissingCertText1} text2={MissingCertText2} textP={MissingCertTextp} />} */}
       {/* {(requestState === 'fetching' && popupState === 'review') && <FetchingDataPopup msg={FetchingDataText} />} */}
       {/* {(requestState === 'sharing' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={cheGetdataInfo} />} */}
+      {/* <GeneralInputEmail placeholder="example@email.com" /> */}
     </div>
   );
 }

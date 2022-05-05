@@ -30,3 +30,6 @@ export interface CeritificateMissingTypes{
   textP: string
 
 }
+export interface PlaceholderTypes {
+  placeholder: string
+}

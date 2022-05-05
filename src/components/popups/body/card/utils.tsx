@@ -7,15 +7,19 @@ import { MissingUnEmployementButton } from "../../button/utils";
 import { MissingUnEmployementHeader } from "../../header/utils";
 import { style4 } from "../../styles";
 import {BarLoader} from "react-spinners"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
   BodyTypes,
   CertificateProps,
   ItemsTypes,
   TitleTypes,
   CeritificateMissingTypes,
+  PlaceholderTypes,
 } from "../../types";
 import { MissingUnEmploymentCertBody } from "../info/utils";
 import styles from "./index.module.css";
+import styles2 from "./index2.module.css"
 
 export function Title(props: TitleTypes) {
   const { title } = props;
@@ -122,4 +126,30 @@ export const  FetchingDataPopup= (props: BodyTypes) => {
     </Grid>
 
   );
+}
+export const GeneralInputEmail = (props: PlaceholderTypes ) => {
+  const { placeholder } = props;
+  return (
+  <Grid container className={styles2.center}>
+      <form className={styles2.form}>
+        <Grid item xs={12} md={3}>
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            fontSize="22"
+            className={styles2.emailIcon}
+          />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder={placeholder}
+            className={styles2.inputField}
+          />
+        </Grid>
+      </form>
+    </Grid>
+  );
+
 }
