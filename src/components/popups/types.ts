@@ -23,3 +23,10 @@ export interface CertificateProps {
 export interface CheckTypes {
   items: string[],
 }
+
+export interface CeritificateMissingTypes{
+  text1: string,
+  text2: string,
+  textP: string
+
+}

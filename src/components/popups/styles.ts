@@ -58,6 +58,26 @@ export const style5 = {
     background: '#65D36E',
     borderRadius: '46px',
   },
+
+  button: {
+    width: '60%',
+    height: '60%',
+    marginTop: '10px',
+    marginBottom: '40px',
+    background: '#5cbc64',
+    borderRadius: '24px',
+    border: 'none',
+  },
+
+  buttonText: {
+    width: '100%',
+    fontFamily: 'Open Sans',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '16px',
+    textAlign: 'center',
+    color: '#1a1a1a',
+  },
 };
 
 export const style3 = {
@@ -85,5 +105,16 @@ export const style4 = {
   minColor: {
     color: '#65D36E',
     minWidth: '110px',
+  },
+
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+
+  },
+  danger: {
+    fontSize: '35px',
+    color: '#FFFF00',
   },
 };

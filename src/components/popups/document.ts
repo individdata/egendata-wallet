@@ -32,3 +32,7 @@ export const checkGetdataCheckInfo = [
 ];
 export const checkGetdataButtonText = 'Consent and get data';
 export const reviewShareButtonText = 'Share later';
+
+export const MissingCertText1 = "We can't find your employement certificate";
+export const MissingCertText2 = "Make sure you're registeted at Arbetsförmedligen as unemployed.";
+export const MissingCertTextp = "When you've registed in Arbetsförmedligen you can always come back to your Project OAK wallet and continue you process.";
