@@ -64,10 +64,9 @@ export function GeneralHideButton(props: ButtonProps) {
   );
 }
 
-export function ExitRow(props:ButtonProps) {
+export function ExitRow(props: ButtonProps) {
   const { onPress, label } = props;
   return (
-
     <Grid container sx={{ display: 'flex', flexDirection: 'row' }}>
       <Grid item xs={2} />
       <Grid item xs={2} />
@@ -84,6 +83,22 @@ export function ExitRow(props:ButtonProps) {
           <AiOutlineClose id={styles.exit} />
         </button>
       </Grid>
+    </Grid>
+  );
+}
+
+export function MissingUnEmployementButton() {
+  return (
+    <Grid item xs={12} sx={{ marginBottom: '25px' }}>
+      <button style={style5.button} type="button">
+        <Grid sx={style5.buttonText}>
+          Go to Arbetsförmedlingens website
+          <i
+            className="fa-solid fa-arrow-up-right-from-square"
+            style={{ marginLeft: '15px' }}
+          />
+        </Grid>
+      </button>
     </Grid>
   );
 }

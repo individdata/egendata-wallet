@@ -1,3 +1,4 @@
+import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { TitleTypes } from '../types';
@@ -27,6 +28,18 @@ export function SubTitle(props: TitleTypes) {
     >
       <Grid md={12} className={styles.pText}>
         {title}
+      </Grid>
+    </Grid>
+  );
+}
+
+export function MissingUnEmployementHeader() {
+  return (
+    <Grid item xs={12}>
+      <Grid style={{ marginTop: '15%' }} sx={style4.center}>
+        <Grid style={style4.danger}>
+          <AiOutlineExclamationCircle />
+        </Grid>
       </Grid>
     </Grid>
   );

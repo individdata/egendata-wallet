@@ -35,7 +35,6 @@ function Header() {
       && (
       <ExitRow label="close" onPress={() => dispatch(finish())} />
       )}
-
       {(requestState === 'fetching' && popupState === 'review') && <Title title={reviewGetdataTitle1} />}
       {(requestState === 'fetching' && popupState === 'review') && <SubTitle title={reviewGetdataTitle2} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <Title title={checkGetdataTitle1} />}

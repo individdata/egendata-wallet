@@ -1,8 +1,11 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../../../store';
-import { Certificate, CheckInfo, SuccessGetDataBox } from './utils';
+import {
+  Certificate, CheckInfo, SuccessGetDataBox,
+} from './utils';
 import {
   reviewGetdataBoxItems, checkGetdataInfo, successGetdata, reviewShareddataBoxItems,
 } from '../../document';

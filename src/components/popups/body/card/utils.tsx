@@ -1,11 +1,19 @@
 /* eslint-disable */
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import styles from './index.module.css';
+import Grid from "@mui/material/Grid";
+import React from "react";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { MissingUnEmployementButton } from "../../button/utils";
+import { MissingUnEmployementHeader } from "../../header/utils";
+import { style4 } from "../../styles";
 import {
-  TitleTypes, ItemsTypes, BodyTypes, CertificateProps,
-} from '../../types';
-import { style4 } from '../../styles';
+  BodyTypes,
+  CertificateProps,
+  ItemsTypes,
+  TitleTypes,
+  CeritificateMissingTypes,
+} from "../../types";
+import { MissingUnEmploymentCertBody } from "../info/utils";
+import styles from "./index.module.css";
 
 export function Title(props: TitleTypes) {
   const { title } = props;
@@ -25,9 +33,7 @@ export function Items(props: ItemsTypes) {
       <Grid container className={styles.centerMe}>
         <Grid xs={12} className={styles.field}>
           {name}
-          <div className={styles.status}>
-            {status}
-          </div>
+          <div className={styles.status}>{status}</div>
         </Grid>
       </Grid>
     </div>
@@ -37,7 +43,7 @@ export function Items(props: ItemsTypes) {
 export function Certificate(props: CertificateProps) {
   const { certificate } = props;
   const items = Object.keys(certificate).map((key) => {
-    return (<Items name={key} status={certificate[key]} />);
+    return <Items name={key} status={certificate[key]} />;
   });
   return (
     <Grid className={styles.stickyScroll}>
@@ -49,11 +55,7 @@ export function Certificate(props: CertificateProps) {
 
 export function CheckInfo(props: BodyTypes) {
   const { msg } = props;
-  return (
-    <Grid className={styles.stickyScrollHigh}>
-      {msg}
-    </Grid>
-  );
+  return <Grid className={styles.stickyScrollHigh}>{msg}</Grid>;
 }
 
 export function SuccessGetDataBox(props: BodyTypes) {
@@ -68,6 +70,17 @@ export function SuccessGetDataBox(props: BodyTypes) {
           {msg}
         </div>
       </Grid>
+    </Grid>
+  );
+}
+
+export function MissingUnEmployementCert(props: CeritificateMissingTypes) {
+  return (
+    <Grid container spacing={3} sx={{ display: "flex" }}>
+      <Grid item xs={12} />
+      <MissingUnEmployementHeader />
+      <MissingUnEmploymentCertBody {...props} />
+      <MissingUnEmployementButton />
     </Grid>
   );
 }
