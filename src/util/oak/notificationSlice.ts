@@ -112,6 +112,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
       clearInterval(keepAliveId);
       keepAliveId = setInterval(() => {
         ws.send('ping');
+        // console.log('ping', new Date());
       }, 5000);
 
       console.log('starting webhook handling ...');

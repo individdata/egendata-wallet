@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { finish } from '../../components/popups/popupSlice';
 
 import { RootState } from '../../store';
 import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink } from '../../util/oak/datarequest';
@@ -59,19 +60,20 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
  },
 );
 
-export const shareInboundDataResponse = createAsyncThunk<void, DataResponse>(
+export const shareInboundDataResponse = createAsyncThunk<void, string>(
   'request/shareInboundDataResponse',
-  async (response, { getState }): Promise<void> => {
+  async (requestId, { getState, dispatch }): Promise<void> => {
     const state = getState() as RootState;
     const { user } = state.auth;
     if (user && user.storage) {
       const userPod = user.storage;
       const state = getState() as RootState;
-      const id = response.requestId;
-      const request = state.requests[id].content;
+      const request = state.requests[requestId].content;
       const sinkProfile = await fetchProfileData(request.requestorWebId);
       const sinkPod = sinkProfile.storage;
-      await storeOutboundResponseLink(id, userPod, sinkPod);
+      await storeOutboundResponseLink(requestId, userPod, sinkPod);
+      // also add requestor to the .acl fo the response!!
+      dispatch(finish());
     }
  },
 );
@@ -176,14 +178,14 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(shareInboundDataResponse.pending, (state, action) => {
-      const response = action.meta.arg;
-      const item = state[response.requestId];
+      const requestId = action.meta.arg;
+      const item = state[requestId];
       item.status = 'sharingData';
     });
 
     builder.addCase(shareInboundDataResponse.fulfilled, (state, action) => {
-      const response = action.meta.arg;
-      const item = state[response.requestId];
+      const requestId = action.meta.arg;
+      const item = state[requestId];
       item.status = 'sharedData';
     });
 

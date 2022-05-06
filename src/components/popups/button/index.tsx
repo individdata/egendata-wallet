@@ -10,7 +10,7 @@ import {
 import {
   review, check, agree, finish, restart,
 } from '../popupSlice';
-import { fetched, createOutboundDataRequest } from '../../../pages/requests/requestSlice';
+import { fetched, createOutboundDataRequest, shareInboundDataResponse } from '../../../pages/requests/requestSlice';
 import {
   reviewGetdataButtonText, checkGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
 } from '../document';
@@ -46,7 +46,7 @@ function ButtonBox() {
       {(requestState === 'sharing' && popupState === 'agree')
       && <GeneralButton onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
       {(requestState === 'sharing' && popupState === 'result')
-      && <ButtonGreen onPress={() => dispatch(finish())} label={finishSharedataButtonText} />}
+      && <ButtonGreen onPress={() => dispatch(shareInboundDataResponse(id!))} label={finishSharedataButtonText} />}
     </Grid>
   );
 }
