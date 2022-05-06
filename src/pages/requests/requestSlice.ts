@@ -172,7 +172,7 @@ export const requestSlice = createSlice({
     builder.addCase(createOutboundDataRequest.fulfilled, (state, action) => {
       const itemKey = action.meta.arg;
       const item = state[itemKey];
-      item.status = 'fetching';
+      item.status = 'gotData';
     });
 
     builder.addCase(shareInboundDataResponse.pending, (state, action) => {

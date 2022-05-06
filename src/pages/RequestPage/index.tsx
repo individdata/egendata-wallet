@@ -22,6 +22,7 @@ function RequestPage() {
     return <Navigate to="/home" replace />;
   }
   const requestState = useSelector((state: RootState) => state.requests[id]);
+  const popupState = useSelector((state: RootState) => state.popup.step);
 
   useEffect(() => {
     dispatch(getRequestsContent());
@@ -34,10 +35,7 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
-            {(requestState.status === 'fetching'
-            || requestState.status === 'creatingOutboundRequest'
-            || requestState.status === 'gotData'
-            || requestState.status === 'sharing') && <Popups />}
+            {(popupState !== 'idle') && <Popups />}
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

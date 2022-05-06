@@ -3,11 +3,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export type PopupState = {
-  step: 'review' | 'check' | 'agree' | 'result' | 'finished';
+  step: 'idle' | 'review' | 'check' | 'agree' | 'result' | 'finished';
 };
 
 const initialState = {
-  step: 'review',
+  step: 'idle',
 } as PopupState;
 
 export const popupSlice = createSlice({
@@ -15,6 +15,9 @@ export const popupSlice = createSlice({
   initialState,
   reducers: {
     restart: (state) => {
+      state.step = 'idle';
+    },
+    start: (state) => {
       state.step = 'review';
     },
     review: (state) => {
@@ -36,5 +39,5 @@ export const popupSlice = createSlice({
 const { reducer } = popupSlice;
 export default reducer;
 export const {
-  review, restart, check, agree, finish,
+  start, review, restart, check, agree, finish,
 } = popupSlice.actions;

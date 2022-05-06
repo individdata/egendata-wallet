@@ -58,7 +58,7 @@ export function CheckBox(props: CheckTypes) {
   const { items } = props;
   const checks = items.map((key) => {
     return (
-      <div className={styles.check}>
+      <div key={key} className={styles.check}>
         <Checkbox />
         <CheckBoxText msg={key} />
       </div>

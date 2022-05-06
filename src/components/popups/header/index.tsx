@@ -31,7 +31,7 @@ function Header() {
   return (
     <div className={style.headerBox}>
 
-      {(requestState === 'fetching' && popupState === 'result')
+      {(requestState === 'gotData' && popupState === 'agree')
       && (
       <ExitRow label="close" onPress={() => dispatch(finish())} />
       )}

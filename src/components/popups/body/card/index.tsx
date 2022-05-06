@@ -21,7 +21,7 @@ function card() {
     <div>
       {(requestState === 'fetching' && popupState === 'review') && <Certificate certificate={reviewGetdataBoxItems} />}
       {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckInfo msg={checkGetdataInfo} />}
-      {(requestState === 'fetching' && (popupState === 'result')) && <SuccessGetDataBox msg={successGetdata} />}
+      {(requestState === 'gotData' && (popupState === 'agree')) && <SuccessGetDataBox msg={successGetdata} />}
       {(requestState === 'creatingOutboundRequest' && (popupState === 'agree')) && <FecthingBar />}
       {(requestState === 'sharing' && popupState === 'review') && <Certificate certificate={reviewShareddataBoxItems} />}
       {(requestState === 'sharing' && (popupState === 'result')) && <SuccessGetDataBox msg={successGetdata} />}

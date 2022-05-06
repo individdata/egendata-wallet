@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
 import { fetch, share } from '../../pages/requests/requestSlice';
+import { start } from '../popups/popupSlice';
 import styles from './index.module.css';
 import {
   People, ButtonProps,
@@ -59,6 +60,7 @@ export function ConsentButton(props: ButtonProps) {
         className={styles.buttonBox1}
         onClick={() => {
           if (id) {
+            dispatch(start());
             dispatch(fetch(id));
           }
         }}
@@ -75,7 +77,10 @@ export function ConsentButton(props: ButtonProps) {
       <button
         type="button"
         className={styles.buttonBox2}
-        onClick={() => dispatch(share(id))}
+        onClick={() => {
+          dispatch(start());
+          dispatch(share(id));
+        }}
       >
         <div className={styles.buttonText2}>
           view and share data
