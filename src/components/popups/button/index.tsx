@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import {
 import {
   review, check, agree, finish, restart,
 } from '../popupSlice';
-import { fetched } from '../../../pages/requests/requestSlice';
+import { fetched, createOutboundDataRequest } from '../../../pages/requests/requestSlice';
 import {
   reviewGetdataButtonText, checkGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
 } from '../document';
@@ -36,7 +36,7 @@ function ButtonBox() {
       {(requestState === 'fetching' && popupState === 'check')
       && <ButtonDisable onPress={() => dispatch(check())} label={checkGetdataButtonText} />}
       {(requestState === 'fetching' && popupState === 'agree')
-      && <ButtonGreen onPress={() => dispatch(agree())} label={checkGetdataButtonText} />}
+      && <ButtonGreen onPress={() => dispatch(createOutboundDataRequest(id!))} label={checkGetdataButtonText} />}
       {(requestState === 'sharing' && (popupState === 'review' || popupState === 'check' || popupState === 'agree'))
       && <GeneralInactiveButton onPress={() => { dispatch(restart()); dispatch(fetched(id)); }} label={reviewShareButtonText} />}
       {(requestState === 'sharing' && popupState === 'check')
