@@ -11,7 +11,7 @@ import { requestsContent } from './requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'sharing' | 'loading' ;
+  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'responseAvailable' | 'sharing' | 'loading' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -60,7 +60,7 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
 );
 
 export const shareInboundDataResponse = createAsyncThunk<void, DataResponse>(
-  'request/handleOutboundDataResponse',
+  'request/shareInboundDataResponse',
   async (response, { getState }): Promise<void> => {
     const state = getState() as RootState;
     const { user } = state.auth;

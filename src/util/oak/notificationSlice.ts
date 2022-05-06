@@ -5,7 +5,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthorizedUser } from '../../pages/auth/types';
-import { storeInboundDataRequest, add, shareInboundDataResponse } from '../../pages/requests/requestSlice';
+import { storeInboundDataRequest, add, fetched } from '../../pages/requests/requestSlice';
 import { RootState } from '../../store';
 import { InboundDataRequest } from './datarequest';
 import { inboxItem } from './inbox';
@@ -92,7 +92,7 @@ export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
               break;
             case 'Response':
               const inboundDataResponse = toDataResponse(item);
-              dispatch(shareInboundDataResponse(inboundDataResponse));
+              dispatch(fetched(inboundDataResponse.requestId));
               break;
               // eslint-disable-next-line no-empty
             default: {}
