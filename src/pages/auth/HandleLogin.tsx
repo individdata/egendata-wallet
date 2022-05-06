@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { afterLogin } from '../../util/oak/login';
+import { getRequestsContent } from '../requests/requestSlice';
 import { RootState } from '../../store';
 import { createOakContainers } from '../../util/oak/datarequest';
 
@@ -35,6 +36,11 @@ export function HandleLogin() {
       // setRedirect("/consent?a=b");
     }
   }, [user]);
+
+  useEffect(() => {
+    dispatch(getRequestsContent());
+  });
+
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }

@@ -3,11 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  login, logout, handleIncomingRedirect, fetch,
+  login, logout, handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import {
-  getSolidDataset, getStringNoLocale, getThing, getUrl, Thing,
-} from '@inrupt/solid-client';
 import { AuthorizedUser } from '../../pages/auth/types';
 import { resetRequests } from '../../pages/requests/requestSlice';
 import { subscribe, unsubscribe } from './notificationSlice';
