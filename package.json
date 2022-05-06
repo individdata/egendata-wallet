@@ -43,7 +43,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "e2e" : "cypress open"
+    "e2e" : "cypress open",
+    "e2e-stage" : "cypress open --config-file ./cypress-staging.json"
 
   },
   "eslintConfig": {
