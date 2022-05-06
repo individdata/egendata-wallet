@@ -1,4 +1,7 @@
 {
     "baseUrl": "http://localhost:3000/",
-    "expirementalStudio": "true"
+    "expirementalStudio": "true",
+    "env": {
+        "home" : "HomePage_main__Io9UL" 
+    }
 }
