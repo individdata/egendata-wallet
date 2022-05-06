@@ -10,7 +10,7 @@ import { InboundDataRequest } from '../../util/oak/datarequest';
 async function requestItem(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });
   const thing = getThing(ds, requestUrl) as Thing;
-  console.log('my thing:', thing);
+  // console.log('my thing:', thing);
   if (!thing) {
     return null;
   }
