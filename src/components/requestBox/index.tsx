@@ -18,7 +18,9 @@ export function RequestBox() {
     if (request.content.documentType === 'http://egendata.se/schema/core/v1#UnemploymentCertificate') {
       const content = request.content as InboundDataRequest;
       return (
-        <RequestItem {...content} />
+        <div key={requestKey}>
+          <RequestItem {...content} />
+        </div>
       );
     }
     return null;
