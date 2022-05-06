@@ -20,7 +20,6 @@ import {
 } from "../../types";
 import { MissingUnEmploymentCertBody } from "../info/utils";
 import styles from "./index.module.css";
-import styles2 from "./index2.module.css"
 
 const tryAgainStyle = {
   marginTop: {
@@ -138,13 +137,13 @@ export const  FetchingDataPopup= (props: BodyTypes) => {
 export const GeneralInputEmail = (props: PlaceholderTypes ) => {
   const { placeholder } = props;
   return (
-  <Grid container className={styles2.center}>
-      <form className={styles2.form}>
+  <Grid container className={styles.center}>
+      <form className={styles.form}>
         <Grid item xs={12} md={3}>
           <FontAwesomeIcon
             icon={faEnvelope}
             fontSize="22"
-            className={styles2.emailIcon}
+            className={styles.emailIcon}
           />
         </Grid>
         <Grid item xs={12} md={9}>
@@ -153,7 +152,7 @@ export const GeneralInputEmail = (props: PlaceholderTypes ) => {
             id="email"
             name="email"
             placeholder={placeholder}
-            className={styles2.inputField}
+            className={styles.inputField}
           />
         </Grid>
       </form>
@@ -198,4 +197,11 @@ export const TryAgainLaterPopup = (props:BodyTypes) => {
   );
 }
 
-
+export function FecthingBar() {
+  return <Grid>
+    <div className={styles.fetchColumn}>
+      <div className={styles.fecthText}>Fetching data ...</div>
+      <div className={styles.ldsring}><div></div><div></div><div></div><div></div></div>
+    </div>
+  </Grid>;
+}

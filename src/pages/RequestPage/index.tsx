@@ -34,7 +34,10 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
-            {(requestState.status === 'fetching' || requestState.status === 'sharing') && <Popups />}
+            {(requestState.status === 'fetching'
+            || requestState.status === 'creatingOutboundRequest'
+            || requestState.status === 'gotData'
+            || requestState.status === 'sharing') && <Popups />}
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />
