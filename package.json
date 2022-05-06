@@ -42,7 +42,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e" : "cypress open",
+    "e2e-stage" : "cypress open --config-file ./cypress-staging.json",
+    "e2e-cli" :"cypress run"
+
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -63,6 +67,7 @@
     "@types/validator": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
+    "cypress": "^9.6.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.4",

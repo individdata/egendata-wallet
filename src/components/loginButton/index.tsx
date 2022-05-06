@@ -13,6 +13,7 @@ function LoginButton() {
       className={styles.button}
       type="button"
       onClick={() => dispatch(doLogin('/'))}
+      id="landingPage-login"
     >
       <div className={styles.buttontext}>
         login

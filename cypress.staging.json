@@ -1,0 +1,8 @@
+{
+    "baseUrl": "http://localhost:3000/stage",
+    "expirementalStudio": "true",
+    "env": {
+        "home" : "HomePage_main__Io9UL" ,
+        "liBtn" : "Button_button__t7agX"
+    }
+}
