@@ -25,7 +25,7 @@ function HomePage() {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <div className={styles.main}>
+        <div className={styles.main} id="landingPage">
           <Header redirect={redirectState} />
           <div className={styles.loginpage}>
             <LogInText />
