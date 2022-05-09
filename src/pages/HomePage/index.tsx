@@ -6,7 +6,7 @@ import { RootState } from '../../store';
 import { RequestBox } from '../../components/requestBox';
 import { doLogin } from '../../slices/authSlice';
 import Button from '../../components/ui/Button';
-import { getRequestsContent } from '../../slices/requestSlice';
+import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import styles from './index.module.css';
 import { LogInText, InfoLink } from './utils';

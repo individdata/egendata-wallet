@@ -5,7 +5,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthorizedUser } from '../pages/auth/types';
-import { storeInboundDataRequest, add, fetched } from './requestSlice';
+import { storeInboundDataRequest, add, fetched } from './requestsSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
@@ -180,6 +180,11 @@ export const notificationSlice = createSlice({
     builder.addCase(subscribe.fulfilled, (state, { payload }) => {
       state.status = 'connected';
       state.uuid = payload.uuid;
+      state.unsubscribe_endpoint = payload.unsubscribe_endpoint;
+    });
+
+    builder.addCase(subscribe.rejected, (state) => {
+      state.status = 'idle';
     });
 
     builder.addCase(unsubscribe.pending, (state) => {
@@ -189,6 +194,7 @@ export const notificationSlice = createSlice({
     builder.addCase(unsubscribe.fulfilled, (state) => {
       state.status = 'idle';
       state.uuid = undefined;
+      state.unsubscribe_endpoint = undefined;
     });
   },
 });

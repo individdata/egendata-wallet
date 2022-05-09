@@ -9,7 +9,7 @@ import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
-import { storeInboundDataRequest } from '../../slices/requestSlice';
+import { storeInboundDataRequest } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';

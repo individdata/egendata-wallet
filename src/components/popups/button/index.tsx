@@ -10,7 +10,7 @@ import {
 import {
   review, check, agree, finish, restart,
 } from '../../../slices/popupSlice';
-import { fetched, createOutboundDataRequest, shareInboundDataResponse } from '../../../slices/requestSlice';
+import { fetched, createOutboundDataRequest, shareInboundDataResponse } from '../../../slices/requestsSlice';
 import {
   reviewGetdataButtonText, checkGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
 } from '../document';

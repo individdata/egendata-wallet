@@ -20,7 +20,7 @@ type RequestState = {
 export type RequestsState = Record<string, RequestState>;
 
 export const storeInboundDataRequest = createAsyncThunk<void, InboundDataRequest>(
-  'request/saveInboundDataRequest',
+  'requests/saveInboundDataRequest',
   async (request, { getState }): Promise<void> => { 
     const state = getState() as RootState;
     const { user } = state.auth;
@@ -32,7 +32,7 @@ export const storeInboundDataRequest = createAsyncThunk<void, InboundDataRequest
 );
 
 export const createOutboundDataRequest = createAsyncThunk<void, string>(
-  'request/createOutboundDataRequest',
+  'requests/createOutboundDataRequest',
   async (id, { getState }): Promise<void> => { 
     const state = getState() as RootState;
     const { user } = state.auth;
@@ -61,7 +61,7 @@ export const createOutboundDataRequest = createAsyncThunk<void, string>(
 );
 
 export const shareInboundDataResponse = createAsyncThunk<void, string>(
-  'request/shareInboundDataResponse',
+  'requests/shareInboundDataResponse',
   async (requestId, { getState, dispatch }): Promise<void> => {
     const state = getState() as RootState;
     const { user } = state.auth;

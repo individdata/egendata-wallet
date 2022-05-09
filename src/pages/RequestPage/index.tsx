@@ -9,7 +9,7 @@ import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import Header from '../../components/header';
 import { Title, Steps } from './utils';
-import { getRequestsContent } from '../../slices/requestSlice';
+import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
 import Popups from '../../components/popups';
 

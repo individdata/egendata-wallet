@@ -10,7 +10,7 @@ import { AuthorizedUser } from '../pages/auth/types';
 import config from '../util/config';
 import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import { subscribe, unsubscribe } from './notificationSlice';
-import { resetRequests } from './requestSlice';
+import { resetRequests } from './requestsSlice';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
