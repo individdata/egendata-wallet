@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../../../store';
-import { ReviewInfoBox, CheckBox } from './utils';
+import { ReviewInfoBox, CheckBox, MultiCheckMarkBox } from './utils';
 import { reviewGetdataInfo, checkGetdataCheckInfo } from '../../document';
 
 function info() {
@@ -16,7 +16,7 @@ function info() {
   return (
     <div>
       {(requestState === 'fetching' && popupState === 'review') && <ReviewInfoBox msg={reviewGetdataInfo} />}
-      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <CheckBox items={checkGetdataCheckInfo} />}
+      {(requestState === 'fetching' && (popupState === 'check' || popupState === 'agree')) && <MultiCheckMarkBox />}
       {(requestState === 'sharing' && popupState === 'review') && <ReviewInfoBox msg={reviewGetdataInfo} />}
       {(requestState === 'sharing' && (popupState === 'check' || popupState === 'agree')) && <CheckBox items={checkGetdataCheckInfo} />}
     </div>
