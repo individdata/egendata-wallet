@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: left;
+  align-items: top;
+  color: white;
+  padding: 16px 32px;
+  overflow-y: auto;
+  font-size: 20px;
+}
