@@ -1,28 +1,57 @@
-const HOME = Cypress.env("home")
-const LOGINBUTTON = Cypress.env("liBtn")
+// const  LOGINBUTTON = Cypress.env("liBtn");
+// const  HOME = Cypress.env("home")
+ const  SSN = Cypress.env("ssn")
+
+
+
 
 describe("renders the landing page", () => {
 
-   beforeEach(() => {
-    //  cy.visit("/");
-    cy.setCookie("_session.legacy.sig", "n1YU9qshIZGfgBIhzJRQgJlQlWA");
-    cy.setCookie("_session.sig", "fRcq8m2i23fbvFl93lzDpQwnA_Q");
-    cy.setCookie("_session.legacy", "jae62XElHSb-B_0uOWdVb");
-    cy.setCookie("_session", "fRcq8m2i23fbvFl93lzDpQwnA_Q");
-    cy.setCookie("fRcq8m2i23fbvFl93lzDpQwnA_Q", "fRcq8m2i23fbvFl93lzDpQwnA_Q");
-    // cy.setItem("redirectPath",localStorage.getItem()
-   });
-
-  it("should render the landingPage", () => {
-    cy.visit("/");
-    cy.get("#landingPage");
-    cy.get("div").and("have.class", HOME); });
-
-  it("test if loginbutton is clickable", () => {
-     cy.get("button").and("have.class", LOGINBUTTON )
-      .click({multiple:true, force:true})
-    //  cy.visit("https://oak-identity-provider-oak-develop.test.services.jtech.se/idp/consent/");
+  it("should render share your data with bnp page", () => {
+    cy.visit("/")
+    cy.get("div").and("have.class", "LandingPage_word1__k2PgZ");
   });
 
+  it("should render a clickable login button", () => {
+    cy.get("button")
+      .and("have.class", "Button_button__t7agX")
+      .click({ multiple: true, force: true });
+  });
+
+
+  it("solid css login flow", () => {
+    cy.visit("/")
+
+    cy.get("button")
+      .and("have.class", "Button_button__t7agX")
+      .click({ multiple: true, force: true });
+
+    cy.get("h1").contains("Community Solid Server")
+
+    cy.get('#pno').clear();
+
+    
+    // change to your ssn in cypress.json
+    cy.get('#pno').type(SSN);
+
+
+
+    cy.get("button")
+      .click({ multiple: true, force: true });
+
+
+    /* 
+      HAVE YOUR TEST-BANKID 
+      READY AND DO A MANUAL LOGIN
+    */
+
+    cy.wait(7000)
+    
+    cy.get("button")
+      .click({ multiple: true, force: true });
+
+
+
+  });
 
 });

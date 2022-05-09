@@ -13,7 +13,7 @@ export function Footer() {
 
 export function Title() {
   return (
-    <div className={styles.word1}>
+    <div className={styles.word1} id="bnpTitle">
       Share your data with
       <div className={styles.word2}> BNP Paribas</div>
     </div>
