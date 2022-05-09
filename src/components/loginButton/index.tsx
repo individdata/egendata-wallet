@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
-import { doLogin } from '../../util/oak/login';
+import { doLogin } from '../../slices/authSlice';
 
 function LoginButton() {
   // const isLoggedIn = user?.completed;

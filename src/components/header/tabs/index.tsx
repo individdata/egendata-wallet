@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
-import { selectTab } from './tabsSlice';
-import { inbox } from '../../../pages/requests/requestSlice';
+import { selectTab } from '../../../slices/tabsSlice';
+import { inbox } from '../../../slices/requestSlice';
 
 function Tags() {
   const user = useSelector((state: RootState) => state.auth.user);

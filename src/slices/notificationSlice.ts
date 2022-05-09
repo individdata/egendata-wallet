@@ -4,14 +4,14 @@
 /* eslint-disable no-console */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { AuthorizedUser } from '../../pages/auth/types';
-import { storeInboundDataRequest, add, fetched } from '../../pages/requests/requestSlice';
-import { RootState } from '../../store';
-import { InboundDataRequest } from './datarequest';
-import { inboxItem } from './inbox';
-import { deleteFile, postFile } from './solid';
-import config from '../config';
-import { DataResponse, RequestItem, ResponseItem } from './egendata';
+import { AuthorizedUser } from '../pages/auth/types';
+import { storeInboundDataRequest, add, fetched } from './requestSlice';
+import { RootState } from '../store';
+import { InboundDataRequest } from '../util/oak/datarequest';
+import { inboxItem } from '../util/oak/inbox';
+import { deleteFile, postFile } from '../util/oak/solid';
+import config from '../util/config';
+import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
 
 type NotificationState = {
   status: 'idle' | 'connecting' | 'connected' | 'disconnecting',

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
-import { fetch, share } from '../../pages/requests/requestSlice';
+import { fetch, share } from '../../slices/requestSlice';
 import { start } from '../popups/popupSlice';
 import styles from './index.module.css';
 import {

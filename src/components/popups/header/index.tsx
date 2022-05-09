@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetched } from '../../../pages/requests/requestSlice';
+import { fetched } from '../../../slices/requestSlice';
 import { RootState } from '../../../store';
 import { ExitRow } from '../button/utils';
 import {

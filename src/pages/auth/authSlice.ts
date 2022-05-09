@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   doLogin, afterLogin, doLogout,
-} from '../../util/oak/login';
+} from '../../slices/authSlice';
 import { AuthorizedUser } from './types';
 
 type AuthState = {

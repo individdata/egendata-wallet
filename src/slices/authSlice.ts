@@ -1,15 +1,16 @@
-/* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { createAsyncThunk } from '@reduxjs/toolkit';
+/* eslint-disable no-param-reassign */
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
-  login, logout, handleIncomingRedirect,
+  login,
+  logout,
+  handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import { AuthorizedUser } from '../../pages/auth/types';
-import { resetRequests } from '../../pages/requests/requestSlice';
+import { AuthorizedUser } from '../pages/auth/types';
+import config from '../util/config';
+import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import { subscribe, unsubscribe } from './notificationSlice';
-import { fetchProfileData, fetchSsnData } from './solid';
-import config from '../config';
+import { resetRequests } from './requestSlice';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -36,7 +37,7 @@ export type ProfileData = {
 
 export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
   'auth/afterlogin',
-  async (id, { getState, dispatch, requestId }) => {
+  async (id, { dispatch }) => {
     console.log('afterlogin');
     const userInfo = await handleIncomingRedirect();
     const webId = userInfo?.webId ? userInfo.webId : '';
@@ -82,3 +83,69 @@ export const doLogout = createAsyncThunk<undefined>(
     return undefined;
   },
 );
+
+type AuthState = {
+  status: 'authorizing' | 'handleredirect' | 'handlingredirect' | 'loggedin' | 'error' | 'idle' | 'unauthorizing';
+  error: string | null;
+  user: AuthorizedUser | undefined;
+};
+
+const initialState = {
+  status: 'idle',
+  error: null,
+  user: undefined,
+} as AuthState;
+
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder.addCase(doLogin.pending, (state) => {
+      state.status = 'authorizing';
+      state.error = null;
+    });
+
+    builder.addCase(
+      doLogin.fulfilled,
+      (state) => {
+        state.status = 'handleredirect';
+      },
+    );
+
+    // When a server responses with an error:
+    builder.addCase(
+      doLogin.rejected,
+      (state, { payload }) => {
+        if (payload) state.error = payload as string;
+        state.status = 'error';
+      },
+    );
+
+    builder.addCase(afterLogin.pending, (state) => {
+      state.status = 'handlingredirect';
+      state.error = null;
+    });
+
+    builder.addCase(
+      afterLogin.fulfilled,
+      (state, { payload }) => {
+        state.status = 'loggedin';
+        state.user = payload;
+      },
+    );
+    builder.addCase(doLogout.pending, (state) => {
+      state.status = 'unauthorizing';
+    });
+    builder.addCase(doLogout.fulfilled, (state, { payload }) => {
+      state.status = 'idle';
+      state.error = null;
+      state.user = payload;
+    });
+  },
+});
+
+const { reducer } = authSlice;
+// export const { save } = actions;
+export default reducer;
