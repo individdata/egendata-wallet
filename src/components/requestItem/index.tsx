@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import styles from './index.module.css';
-import { InboundDataRequest } from '../../util/oak/datarequest';
+import { InboundDataRequest } from '../../util/oak/templates';
 
 function RequestItem(props: InboundDataRequest) {
   const [redirect, setRedirect] = useState<boolean | string>(false);

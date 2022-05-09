@@ -5,7 +5,7 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
-import { InboundDataRequest } from '../../util/oak/datarequest';
+import { InboundDataRequest } from './templates';
 
 async function requestItem(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import RequestItem from '../requestItem';
-import { InboundDataRequest } from '../../util/oak/datarequest';
+import { InboundDataRequest } from '../../util/oak/templates';
 
 export function RequestBox() {
   const user = useSelector((state: RootState) => state.auth.user);

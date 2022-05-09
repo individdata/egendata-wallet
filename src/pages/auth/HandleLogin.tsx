@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { afterLogin } from '../../slices/authSlice';
 import { RootState } from '../../store';
-import { createOakContainers } from '../../util/oak/datarequest';
+import { createOakContainers } from '../../util/oak/templates';
 
 export function HandleLogin() {
   console.log('rendering HandleLogin');

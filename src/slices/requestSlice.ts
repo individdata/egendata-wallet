@@ -1,13 +1,13 @@
 /* eslint-disable */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { finish } from '../components/popups/popupSlice';
+import { finish } from './popupSlice';
 
 import { RootState } from '../store';
-import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink } from '../util/oak/datarequest';
+import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink } from '../util/oak/templates';
 import { DataResponse } from '../util/oak/egendata';
 import { fetchProfileData } from '../util/oak/solid';
-import { requestsContent } from '../pages/requests/requests';
+import { requestsContent } from '../util/oak/requests';
 
 // export type InboxContent = string[];
 

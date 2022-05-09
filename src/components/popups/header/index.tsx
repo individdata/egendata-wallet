@@ -8,7 +8,7 @@ import {
   reviewGetdataTitle1, reviewGetdataTitle2, checkGetdataTitle1, checkGetdataTitle2, reviewSharedataTitle1,
   reviewSharedataTitle2, checkSharedataTitle1, checkSharedataTitle2,
 } from '../document';
-import { finish, restart } from '../popupSlice';
+import { finish, restart } from '../../../slices/popupSlice';
 import style from './index.module.css';
 import { Title, SubTitle } from './utils';
 

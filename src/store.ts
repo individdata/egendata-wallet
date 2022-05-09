@@ -1,9 +1,9 @@
 /* eslint-disable import/no-cycle */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import authReducer from './pages/auth/authSlice';
+import authReducer from './slices/authSlice';
 import tabsReducer from './slices/tabsSlice';
 import requestReducer from './slices/requestSlice';
-import popupReducer from './components/popups/popupSlice';
+import popupReducer from './slices/popupSlice';
 import notificationReducer from './slices/notificationSlice';
 
 export const store = configureStore({

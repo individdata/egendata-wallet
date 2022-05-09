@@ -6,7 +6,7 @@ import styles from './index.module.css';
 import styles2 from "../card/index.module.css"
 import { style4 } from '../../styles';
 import { BodyTypes, CeritificateMissingTypes, CheckTypes } from '../../types';
-import { check } from '../../popupSlice';
+import { check } from '../../../../slices/popupSlice';
 
 export function ReviewInfoBox(props: BodyTypes) {
   const { msg } = props;

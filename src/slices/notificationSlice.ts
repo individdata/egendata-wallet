@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AuthorizedUser } from '../pages/auth/types';
 import { storeInboundDataRequest, add, fetched } from './requestSlice';
 import { RootState } from '../store';
-import { InboundDataRequest } from '../util/oak/datarequest';
+import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
 import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';

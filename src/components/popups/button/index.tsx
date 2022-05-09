@@ -9,7 +9,7 @@ import {
 } from './utils';
 import {
   review, check, agree, finish, restart,
-} from '../popupSlice';
+} from '../../../slices/popupSlice';
 import { fetched, createOutboundDataRequest, shareInboundDataResponse } from '../../../slices/requestSlice';
 import {
   reviewGetdataButtonText, checkGetdataButtonText, finishSharedataButtonText, reviewShareButtonText, reviewGetdataButtonText2,
