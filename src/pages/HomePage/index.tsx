@@ -22,6 +22,7 @@ function HomePage() {
   }, [user]);
 
   const redirectState = false;
+  const popupState = useSelector((state: RootState) => state.popup.step);
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -32,7 +33,12 @@ function HomePage() {
             {!isLoggedIn && <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
             <InfoLink />
           </div>
-          <div className={styles.body}>
+          <div className={
+            popupState === 'idle'
+              ? styles.body2
+              : styles.body
+          }
+          >
             <RequestBox />
           </div>
         </div>

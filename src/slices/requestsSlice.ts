@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { finish } from './popupSlice';
 
 import { RootState } from '../store';
-import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink } from '../util/oak/templates';
+import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink, storeOutboundResponseAcl } from '../util/oak/templates';
 import { DataResponse } from '../util/oak/egendata';
 import { fetchProfileData } from '../util/oak/solid';
 import { requestsContent } from '../util/oak/requests';
@@ -66,13 +66,17 @@ export const shareInboundDataResponse = createAsyncThunk<void, string>(
     const state = getState() as RootState;
     const { user } = state.auth;
     if (user && user.storage) {
+      const userWebId = user.webid;
       const userPod = user.storage;
       const state = getState() as RootState;
       const request = state.requests[requestId].content;
-      const sinkProfile = await fetchProfileData(request.requestorWebId);
+      const requestorWebId = request.requestorWebId;
+      const sinkProfile = await fetchProfileData(requestorWebId);
       const sinkPod = sinkProfile.storage;
-      await storeOutboundResponseLink(requestId, userPod, sinkPod);
-      // also add requestor to the .acl fo the response!!
+      await Promise.all([
+        await storeOutboundResponseLink(requestId, userPod, sinkPod),
+        await storeOutboundResponseAcl(requestId, userPod, userWebId, requestorWebId),
+      ]);
       dispatch(finish());
     }
  },

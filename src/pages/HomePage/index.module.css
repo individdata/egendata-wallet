@@ -22,6 +22,10 @@
   align-content: center;
 }
 
+.body2{
+display: none;
+}
+
 .login {
   font-size: 38px;
   text-align: center;
