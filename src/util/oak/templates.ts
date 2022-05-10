@@ -110,7 +110,7 @@ export async function createInboundDataResponse(id: string, userPod: string) {
   );
 }
 
-const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}oak/inbox/response-${id}`);
+const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}oak/inbox/response-link-${id}`);
 const outboundDataResponseLinkTurtle = ((responseUrl: string) => `
 ${egendataPrefixTurtle}
 <> <egendata:OutboundDataResponse> <${responseUrl}>.
@@ -148,6 +148,35 @@ export async function storeInboundDataResponseAcl(id: string, userPod: string, u
   );
 }
 
+const outboundDataResponseAclTurtle = ((userPod: string, id: string, userWebId: string, sinkWebId: string) => `
+# ACL resource for the oak inbox
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+
+# The inbox can be written to by the public, but not read.
+<#sink>
+    a acl:Authorization;
+    acl:accessTo <${userPod}oak/responses/response-${id}>;
+    acl:agent <${sinkWebId}>;
+    acl:mode acl:Read.
+
+# The owner has full access to the inbox
+<#owner>
+    a acl:Authorization;
+    acl:agent <${userWebId}>;
+    acl:accessTo <${userPod}oak/responses/response-${id}>;
+    acl:mode acl:Read, acl:Write, acl:Control.
+`);
+
+export async function storeOutboundResponseAcl(id: string, userPod: string, userWebId: string, sinkWebId: string) {
+  const responseAclUrl = inboundDataResponseAclUrl(userPod, id);
+  const responseAclData = outboundDataResponseAclTurtle(userPod, id, userWebId, sinkWebId);
+  await putFile(
+    responseAclUrl,
+    { body: responseAclData },
+    'text/turtle',
+  );
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inboxAclTurtle = ((userWebId: string, userPod: string) => `
 # ACL resource for the oak inbox
@@ -169,19 +198,6 @@ const inboxAclTurtle = ((userWebId: string, userPod: string) => `
     acl:accessTo <${userPod}oak/inbox/>;
     acl:default <${userPod}oak/inbox/>;
     acl:mode acl:Read, acl:Write, acl:Control.
-`);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const inboxAclTurtle1 = ((userWebId: string) => `
-<#owner> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <https://oak-pod-provider-oak-develop.test.services.jtech.se/195310021935/oak/inbox/>;
-    <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Read>, <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Control>;
-    <http://www.w3.org/ns/auth/acl#agent> <${userWebId}>.
-<#public> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <https://oak-pod-provider-oak-develop.test.services.jtech.se/195310021935/oak/inbox/>;
-    <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Append>;
-    <http://www.w3.org/ns/auth/acl#default> <https://oak-pod-provider-oak-develop.test.services.jtech.se/195310021935/oak/inbox/>;
-    <http://www.w3.org/ns/auth/acl#agentClass> <http://xmlns.com/foaf/0.1/Agent>.
 `);
 
 export async function createOakContainers(userWebId: string, userPod: string) {
