@@ -52,7 +52,7 @@ function ShareLegalPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title={`Consent document transfer (requestId: ${requestId})`}
+        title="Consent document transfer"
         subtitle="You are about to share your Unemployment certificate to BNP Paribas."
       />
       <PopupContent>
