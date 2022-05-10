@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchDetailPreview.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { Certificate } from '../../popups/body/card/utils';
-import { reviewGetdataBoxItems, reviewGetdataInfo } from '../../popups/document';
-import { ReviewInfoBox } from '../../popups/body/info/utils';
+import { reviewGetdataBoxItems, reviewGetdataInfo } from '../../../util/document';
+import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
@@ -43,7 +42,7 @@ function FetchDetailPreview(props: Props) {
       />
       <PopupContent>
         <Certificate certificate={reviewGetdataBoxItems} />
-        <ReviewInfoBox msg={reviewGetdataInfo} />
+        <p>{reviewGetdataInfo}</p>
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

@@ -6,7 +6,7 @@ import styles from './index.module.css';
 import {
   People, ButtonProps,
 } from './types';
-import { setPopupData } from '../../slices/popup2Slice';
+import { setPopupData } from '../../slices/popupSlice';
 
 export function Document() {
   return (

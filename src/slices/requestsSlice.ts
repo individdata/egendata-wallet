@@ -1,8 +1,6 @@
 /* eslint-disable */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { finish } from './popupSlice';
-
 import { RootState } from '../store';
 import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink, storeOutboundResponseAcl } from '../util/oak/templates';
 import { DataResponse } from '../util/oak/egendata';
@@ -77,7 +75,6 @@ export const shareInboundDataResponse = createAsyncThunk<void, string>(
         await storeOutboundResponseLink(requestId, userPod, sinkPod),
         await storeOutboundResponseAcl(requestId, userPod, userWebId, requestorWebId),
       ]);
-      dispatch(finish());
     }
  },
 );

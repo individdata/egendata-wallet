@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData, unsetPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './ShareLegalPreview.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { checkGetdataCheckInfo, checkGetdataInfo } from '../../popups/document';
+import { checkGetdataCheckInfo, checkGetdataInfo } from '../../../util/document';
 import Checkbox from '../../ui/Checkbox';
 import { shareInboundDataResponse } from '../../../slices/requestsSlice';
 

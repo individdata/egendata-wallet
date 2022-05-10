@@ -17,15 +17,21 @@ function Header(props: HeaderType) {
       <div className={styles.logo}>
         <OakLogo />
       </div>
-      <div className={(redirect === false && isLoggedIn) ? styles.tabs : styles.shownothing}>
-        <Tabs />
-      </div>
-      <div className={(redirect === false && isLoggedIn) ? styles.logout : styles.shownothing}>
-        <LogoutButton />
-      </div>
-      <div className={(redirect && isLoggedIn) ? styles.logout : styles.shownothing}>
-        <RedirectLogoutButton />
-      </div>
+      {!redirect && isLoggedIn && (
+        <div className={styles.tabs}>
+          <Tabs />
+        </div>
+      )}
+      {!redirect && isLoggedIn && (
+        <div className={styles.logout}>
+          <LogoutButton />
+        </div>
+      )}
+      {redirect && isLoggedIn && (
+        <div className={styles.logout}>
+          <RedirectLogoutButton />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { FecthingBar } from '../../popups/body/card/utils';
 import { RootState } from '../../../store';
+import FetchingBar from '../../fetchingBar';
 
 type Props = {
   requestId: string,
@@ -48,7 +48,7 @@ function FetchInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FecthingBar />
+        <FetchingBar label="Fetching data..." />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, unsetPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './FetchComplete.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { successGetdata } from '../../popups/document';
+import { successGetdata } from '../../../util/document';
 
 type Props = {
   requestId: string,

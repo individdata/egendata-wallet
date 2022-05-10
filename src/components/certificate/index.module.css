@@ -1,0 +1,20 @@
+.stickyScroll {
+  border-radius: 13px;
+  background-color: #31343b;
+  width: 100%;
+  padding: 16px;
+}
+
+.title {
+  font-weight: 700;
+  color: rgb(101, 211, 110);
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+}
+
+.lineValue {
+  color: rgb(101, 211, 110);
+}

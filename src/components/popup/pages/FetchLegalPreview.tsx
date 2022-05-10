@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchLegalPreview.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { CheckInfo } from '../../popups/body/card/utils';
-import { checkGetdataCheckInfo, checkGetdataInfo } from '../../popups/document';
+import { checkGetdataCheckInfo, checkGetdataInfo } from '../../../util/document';
 import Checkbox from '../../ui/Checkbox';
 import { createOutboundDataRequest } from '../../../slices/requestsSlice';
 
@@ -50,7 +49,7 @@ function FetchLegalPreview(props: Props) {
         subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
       />
       <PopupContent>
-        <CheckInfo msg={checkGetdataInfo} />
+        <p>{checkGetdataInfo}</p>
         <Checkbox label={checkGetdataCheckInfo[0]} onChange={(evt) => setCheckbox1(evt.target.checked)} />
         <Checkbox label={checkGetdataCheckInfo[1]} onChange={(evt) => setCheckbox2(evt.target.checked)} />
         <Checkbox label={checkGetdataCheckInfo[2]} onChange={(evt) => setCheckbox3(evt.target.checked)} />

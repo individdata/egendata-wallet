@@ -33,3 +33,7 @@
   color: #5CBC64;
   font-size: 20px;
 }
+
+.formContainer {
+  justify-content: center;
+}

@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData, unsetPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './ShareDetailPreview.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { Certificate } from '../../popups/body/card/utils';
 import {
   reviewGetdataButtonText2,
   reviewGetdataInfo,
@@ -14,8 +13,8 @@ import {
   reviewSharedataTitle1,
   reviewSharedataTitle2,
   reviewShareddataBoxItems,
-} from '../../popups/document';
-import { ReviewInfoBox } from '../../popups/body/info/utils';
+} from '../../../util/document';
+import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
@@ -58,7 +57,7 @@ function ShareDetailPreview(props: Props) {
       />
       <PopupContent>
         <Certificate certificate={reviewShareddataBoxItems} />
-        <ReviewInfoBox msg={reviewGetdataInfo} />
+        <p>{reviewGetdataInfo}</p>
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

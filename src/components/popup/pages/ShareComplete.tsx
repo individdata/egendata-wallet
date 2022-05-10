@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, unsetPopupData } from '../../../slices/popup2Slice';
+import { Grid } from '@mui/material';
+import { PopupButton, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './ShareComplete.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
+import TextField from '../../ui/TextField';
 
 type Props = {
   requestId: string,
@@ -44,12 +46,18 @@ function ShareComplete(props: Props) {
           <div className={styles.noteText}>
             Just enter your Email address
           </div>
-          <div>
-            <input type="text" placeholder="example@email.com" />
-          </div>
-          <div>
-            <input type="text" placeholder="telephone number" />
-          </div>
+          <Grid container spacing={1} className={styles.formContainer}>
+            <Grid item xs={12} sm={10} md={8} lg={6}>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <TextField type="email" placeholder="example@email.com" />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField type="phone" placeholder="telephone number" />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </div>
       </PopupContent>
       <PopupButtons buttons={buttons} />
