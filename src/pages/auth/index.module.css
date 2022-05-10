@@ -33,3 +33,11 @@
     background-color: #222429;
     height: 100%;
   }
+
+  .loginpage {
+    width: 100%;
+    display: inline;
+    text-align: center;
+  }
+
+
