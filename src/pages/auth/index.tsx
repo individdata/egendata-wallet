@@ -19,17 +19,26 @@ function AuthPage() {
 
   const dispatch = useDispatch();
   return (
-
-    <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+    <Grid
+      container
+      spacing={3}
+      className="App"
+      sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}
+    >
       {isLoggedIn && (
         <Grid xs={12} item>
           <Header redirect={redirectState} />
           <div className={styles.loginpage}>
             <LogInText />
-            {!isLoggedIn && <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
+            {!isLoggedIn && (
+              <Button
+                type="primary"
+                onPress={() => dispatch(doLogin(currentPath))}
+                label="Login"
+              />
+            )}
             <InfoLink />
           </div>
-
         </Grid>
       )}
       {!isLoggedIn && (
