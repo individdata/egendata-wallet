@@ -2,12 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
-import { fetch, share } from '../../slices/requestsSlice';
-import { start } from '../../slices/popupSlice';
 import styles from './index.module.css';
 import {
   People, ButtonProps,
 } from './types';
+import { setPopupData } from '../../slices/popup2Slice';
 
 export function Document() {
   return (
@@ -60,8 +59,7 @@ export function ConsentButton(props: ButtonProps) {
         className={styles.buttonBox1}
         onClick={() => {
           if (id) {
-            dispatch(start());
-            dispatch(fetch(id));
+            dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId: id } }));
           }
         }}
       >
@@ -78,8 +76,7 @@ export function ConsentButton(props: ButtonProps) {
         type="button"
         className={styles.buttonBox2}
         onClick={() => {
-          dispatch(start());
-          dispatch(share(id));
+          dispatch(setPopupData({ component: 'ShareDetailPreview', props: { requestId: id } }));
         }}
       >
         <div className={styles.buttonText2}>

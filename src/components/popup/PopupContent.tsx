@@ -11,7 +11,7 @@ function PopupContent(props: Props) {
 
   return (
     <Grid container className={styles.container}>
-      <Grid item xs={12}>
+      <Grid item xs={12} className={styles.item}>
         {children}
       </Grid>
     </Grid>

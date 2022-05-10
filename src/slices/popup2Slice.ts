@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export type PopupButton = {
   uuid: string,
+  type: 'primary' | 'secondary',
   label: string,
   onPress: () => void,
+  disabled?: boolean,
 };
 
 export type PopupData = {

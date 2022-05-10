@@ -1,11 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData, unsetPopupData } from '../../../slices/popup2Slice';
+import { PopupButton, setPopupData, unsetPopupData } from '../../../slices/popup2Slice';
 import styles from './ShareDetailPreview.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
+import { Certificate } from '../../popups/body/card/utils';
+import {
+  reviewGetdataButtonText2,
+  reviewGetdataInfo,
+  reviewShareButtonText,
+  reviewSharedataTitle1,
+  reviewSharedataTitle2,
+  reviewShareddataBoxItems,
+} from '../../popups/document';
+import { ReviewInfoBox } from '../../popups/body/info/utils';
 
 type Props = {
   requestId: string,
@@ -16,17 +26,19 @@ function ShareDetailPreview(props: Props) {
 
   const dispatch = useDispatch();
 
-  const buttons = [
+  const buttons: PopupButton[] = [
     {
       uuid: uuid(),
-      label: 'Share later',
+      type: 'secondary',
+      label: reviewShareButtonText,
       onPress: () => {
         dispatch(unsetPopupData());
       },
     },
     {
       uuid: uuid(),
-      label: 'Next',
+      type: 'primary',
+      label: reviewGetdataButtonText2,
       onPress: () => {
         dispatch(setPopupData({
           component: 'ShareLegalPreview',
@@ -41,14 +53,12 @@ function ShareDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title={`Review your document data (requestId: ${requestId})`}
-        subtitle="Review your Unemployment certificate data to be shared with BNP Paribas."
+        title={reviewSharedataTitle1}
+        subtitle={reviewSharedataTitle2}
       />
       <PopupContent>
-        <p>
-          If you don&apos;t think the data is correct or have any
-          objections you should contact Arbetsförmedlingen.
-        </p>
+        <Certificate certificate={reviewShareddataBoxItems} />
+        <ReviewInfoBox msg={reviewGetdataInfo} />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

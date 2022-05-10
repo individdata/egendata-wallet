@@ -201,7 +201,7 @@ export function FecthingBar() {
   return <Grid>
     <div className={styles.fetchColumn}>
       <div className={styles.fecthText}>Fetching data ...</div>
-      <div className={styles.ldsring}><div></div><div></div><div></div><div></div></div>
+      <div className={styles.ldsring}><div></div></div>
     </div>
   </Grid>;
 }

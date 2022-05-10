@@ -29,7 +29,7 @@ function HomePage() {
           <Header redirect={redirectState} />
           <div className={styles.loginpage}>
             <LogInText />
-            {!isLoggedIn && <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
+            {!isLoggedIn && <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
             <InfoLink />
           </div>
           <div className={styles.body}>
