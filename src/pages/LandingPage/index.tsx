@@ -39,10 +39,15 @@ function LandingPage() {
     if (isLoggedIn && request) {
       const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
       decodedRequest.id = uuid();
-      dispatch(storeInboundDataRequest(decodedRequest));
-      setRedirect(`/request/${decodedRequest.id}`);
+      if (decodedRequest) {
+        dispatch(storeInboundDataRequest(decodedRequest));
+        setRedirect(`/request/${decodedRequest.id}`);
+      } else {
+        console.warn('Decoded request is somehow empty?');
+      }
     }
-  }, []);
+  }, [isLoggedIn]);
+
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }

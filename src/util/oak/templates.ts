@@ -12,13 +12,13 @@ export type InboundDataRequest = {
 const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/requests/request-${id}`);
 const inboundDataRequestTurtle = ((dataRequest: InboundDataRequest) => `
 ${egendataPrefixTurtle}
-<> a <egendata:InboundDataRequest> ;
-  <egendata:id> "${dataRequest.id}" ;
-  <egendata:requestorWebId> "${dataRequest.requestorWebId}" ;
-  <egendata:providerWebId> "${dataRequest.providerWebId}" ;
-  <egendata:documentType> "${dataRequest.documentType}" ;
-  <egendata:purpose> "${dataRequest.purpose}" ;
-  <egendata:returnUrl> "${dataRequest.returnUrl}" .`);
+<> a egendata:InboundDataRequest ;
+  egendata:id "${dataRequest.id}" ;
+  egendata:requestorWebId "${dataRequest.requestorWebId}" ;
+  egendata:providerWebId "${dataRequest.providerWebId}" ;
+  egendata:documentType "${dataRequest.documentType}" ;
+  egendata:purpose "${dataRequest.purpose}" ;
+  egendata:returnUrl "${dataRequest.returnUrl}" .`);
 
 export async function storeInboundRequest(userPod: string, request: InboundDataRequest) {
   const requestUrl = inboundDataRequestUrl(userPod, request.id);
@@ -40,12 +40,12 @@ const outboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUr
 const dataLocationUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}`);
 const outboundDataRequestTurtle = ((id: string, documentType: string, dataSubjectIdentifier: string, dataLocation:string, notificationInbox: string) => `
 ${egendataPrefixTurtle}
-<> a <egendata:OutboundDataRequest> ;
-  <egendata:id> "${id}" ;
-  <egendata:documentType> "${documentType}" ;
-  <egendata:dataSubjectIdentifier> "${dataSubjectIdentifier}" ;
-  <egendata:dataLocation> "${dataLocation}" ;
-  <egendata:notificationInbox> "${notificationInbox}" .`);
+<> a egendata:OutboundDataRequest ;
+  egendata:id "${id}" ;
+  egendata:documentType "${documentType}" ;
+  egendata:dataSubjectIdentifier "${dataSubjectIdentifier}" ;
+  egendata:dataLocation "${dataLocation}" ;
+  egendata:notificationInbox "${notificationInbox}" .`);
 
 export async function storeOutboundRequest(userPod: string, request: OutboundDataRequest) {
   const requestUrl = outboundDataRequestUrl(userPod, request.id);
@@ -84,7 +84,7 @@ export async function storeOutboundDataRequestAcl(id: string, userPod: string, u
 const outboundDataRequestLinkUrl = ((sourcePodUrl: string, id: string) => `${sourcePodUrl}oak/inbox/request-${id}`);
 const outboundDataRequestLinkTurtle = ((requestUrl: string) => `
 ${egendataPrefixTurtle}
-<> <egendata:OutboundDataRequest> <${requestUrl}>.
+<> egendata:OutboundDataRequest <${requestUrl}>.
 `);
 export async function storeOutboundRequestLink(id: string, userPod: string, sourcePod: string) {
   const requestUrl = outboundDataRequestUrl(userPod, id);
@@ -113,7 +113,7 @@ export async function createInboundDataResponse(id: string, userPod: string) {
 const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}oak/inbox/response-link-${id}`);
 const outboundDataResponseLinkTurtle = ((responseUrl: string) => `
 ${egendataPrefixTurtle}
-<> <egendata:OutboundDataResponse> <${responseUrl}>.
+<> egendata:OutboundDataResponse <${responseUrl}>.
 `);
 export async function storeOutboundResponseLink(id: string, userPod: string, sinkPod: string) {
   const responseUrl = inboundDataResponseUrl(userPod, id);

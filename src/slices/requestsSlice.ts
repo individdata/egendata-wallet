@@ -10,7 +10,7 @@ import { requestsContent } from '../util/oak/requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'sentOutboundRequest' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'responseAvailable' | 'sharing' | 'loading' ;
+  status: 'idle' | 'storingInboundRequest' | 'storedInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'sentOutboundRequest' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'responseAvailable' | 'sharing' | 'loading' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -164,6 +164,9 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(storeInboundDataRequest.fulfilled, (state, action) => {
+      const { id } = action.meta.arg;
+      state[id].status = 'storedInboundRequest';
+      state[id].error = null;
     });
 
     builder.addCase(createOutboundDataRequest.pending, (state, action) => {
