@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData } from '../../../slices/popupSlice';
-import styles from './FetchInProgress.module.css';
+import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
+import styles from './FetchTimeout.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import { RootState } from '../../../store';
@@ -14,48 +14,19 @@ type Props = {
   requestId: string,
 };
 
-function FetchInProgress(props: Props) {
+function FetchTimeout(props: Props) {
   const { requestId } = props;
 
   const dispatch = useDispatch();
   const request = useSelector((state: RootState) => state.requests[requestId]);
 
-  const expired = useTimeout(5000);
-
-  useEffect(() => {
-    if (request.status === 'gotData') {
-      dispatch(setPopupData({
-        component: 'FetchComplete',
-        props: {
-          requestId,
-        },
-      }));
-    }
-  }, [request]);
-
-  useEffect(() => {
-    if (expired) {
-      dispatch(setPopupData({
-        component: 'FetchTimeout',
-        props: {
-          requestId,
-        },
-      }));
-    }
-  }, [expired]);
-
   const buttons: PopupButton[] = [
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Continue to get data',
+      label: 'Close',
       onPress: () => {
-        dispatch(setPopupData({
-          component: 'FetchLegalPreview',
-          props: {
-            requestId,
-          },
-        }));
+        dispatch(unsetPopupData());
       },
     },
   ];
@@ -63,11 +34,13 @@ function FetchInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar label="Fetching data..." />
+        <div className={styles.content}>
+          Your fetching is under proceed get notified when it&apos;s ready.
+        </div>
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>
   );
 }
 
-export default FetchInProgress;
+export default FetchTimeout;

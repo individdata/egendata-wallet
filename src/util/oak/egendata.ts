@@ -57,8 +57,8 @@ export function getDataRequest(thing: Thing): RequestItem {
 
 export function getDataResponse(thing: Thing): ResponseItem {
   const requestId = getStringNoLocale(thing, `${egendataSchema}requestId`) ?? '';
-  const providerWebId = getUrl(thing, `${egendataSchema}providerWebId`) ?? '';
-  const document = getUrl(thing, `${egendataSchema}document`) ?? '';
+  const providerWebId = getStringNoLocale(thing, `${egendataSchema}providerWebId`) ?? '';
+  const document = getStringNoLocale(thing, `${egendataSchema}document`) ?? '';
   const dataResponse = {
     requestId,
     providerWebId,
