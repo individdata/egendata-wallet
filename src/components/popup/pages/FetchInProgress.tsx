@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchInProgress.module.css';
-import PopupButtons from '../PopupButtons';
+import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import { RootState } from '../../../store';
 import FetchingBar from '../../fetchingBar';

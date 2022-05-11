@@ -4,7 +4,7 @@ import styles from './PopupButtons.module.css';
 import popupStyles from './Popup.module.css';
 import Button from '../ui/Button';
 
-type PopupButton = {
+export type PopupButton = {
   uuid: string,
   type: 'primary' | 'secondary',
   label: string,

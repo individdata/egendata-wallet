@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, unsetPopupData } from '../../../slices/popupSlice';
+import { unsetPopupData } from '../../../slices/popupSlice';
 import styles from './FetchComplete.module.css';
-import PopupButtons from '../PopupButtons';
+import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import { successGetdata } from '../../../util/document';
 

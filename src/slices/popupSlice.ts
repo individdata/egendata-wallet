@@ -1,14 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-export type PopupButton = {
-  uuid: string,
-  type: 'primary' | 'secondary',
-  label: string,
-  onPress: () => void,
-  disabled?: boolean,
-};
-
 export type PopupData = {
   component: string,
   props: any,

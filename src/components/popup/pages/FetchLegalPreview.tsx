@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { PopupButton, setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchLegalPreview.module.css';
-import PopupButtons from '../PopupButtons';
+import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import { checkGetdataCheckInfo, checkGetdataInfo } from '../../../util/document';
