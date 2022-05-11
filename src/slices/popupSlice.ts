@@ -20,8 +20,8 @@ export type PopupState = {
 
 const initialState = {} as PopupState;
 
-export const popup2Slice = createSlice({
-  name: 'popup2',
+export const popupSlice = createSlice({
+  name: 'popup',
   initialState,
   reducers: {
     setPopupData: (state, { payload }) => {
@@ -33,11 +33,11 @@ export const popup2Slice = createSlice({
   },
 });
 
-const { reducer } = popup2Slice;
+const { reducer } = popupSlice;
 
 export default reducer;
 
 export const {
   setPopupData,
   unsetPopupData,
-} = popup2Slice.actions;
+} = popupSlice.actions;

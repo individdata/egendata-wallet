@@ -3,7 +3,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import tabsReducer from './slices/tabsSlice';
 import requestReducer from './slices/requestsSlice';
-import popup2Reducer from './slices/popupSlice';
+import popupReducer from './slices/popupSlice';
 import notificationReducer from './slices/notificationSlice';
 
 export const store = configureStore({
@@ -11,7 +11,7 @@ export const store = configureStore({
     auth: authReducer,
     tabs: tabsReducer,
     requests: requestReducer,
-    popup2: popup2Reducer,
+    popup: popupReducer,
     notification: notificationReducer,
   },
 });

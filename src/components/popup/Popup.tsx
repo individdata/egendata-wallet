@@ -14,7 +14,7 @@ import ShareLegalPreview from './pages/ShareLegalPreview';
 import styles from './Popup.module.css';
 
 function Popup() {
-  const popupData = useSelector((state: RootState) => state.popup2.popupData);
+  const popupData = useSelector((state: RootState) => state.popup.popupData);
   if (!popupData) return <div />;
 
   const { component, props } = popupData;
