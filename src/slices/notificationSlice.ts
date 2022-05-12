@@ -6,7 +6,9 @@ import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { storeInboundDataRequest, add, fetched } from './requestsSlice';
+import {
+  storeInboundDataRequest, add, fetched, getRequestsContent,
+} from './requestsSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
@@ -36,7 +38,7 @@ type Notification = {
   id: string,
   type: string[],
   object: {
-    topic?: string,
+    topic: string,
     id: string
   },
   published: string,
@@ -97,9 +99,6 @@ async function subscribeTopic(topic: string, subscriptionEndpoint: string, targe
 export const handleInboxNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
   console.log('handleInboxNotification: notification = ', notification);
   const { topic } = notification.object;
-  if (!topic) {
-    throw new Error('Cannot handle notification without a topic');
-  }
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
     const item = await inboxItem(topic);
@@ -123,16 +122,15 @@ export const handleInboxNotification = async (notification: Notification, dispat
 export const handleRequestsNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
   console.log('handleRequestsNotification: notification = ', notification);
   const { topic } = notification.object;
-  if (!topic) {
-    throw new Error('Cannot handle notification without a topic');
-  }
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
     const item = await requestItem(topic);
     console.log('requestItem = ', item);
+    dispatch(getRequestsContent());
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ensureNotificationContainsTopic(notification: Notification, subscriptions: Record<string, SubscriptionState>, topic: string): Notification {
   const { topic: objectTopic } = notification.object;
   const { id: resourceId } = notification.object;
@@ -141,6 +139,8 @@ function ensureNotificationContainsTopic(notification: Notification, subscriptio
     const expandedTopicsSet = new Set([...topics, topic]);
     const expandedTopics = Array.from(expandedTopicsSet);
     const foundSubscriptionTopic = expandedTopics.find((subscriptionTopic) => resourceId.startsWith(subscriptionTopic));
+    console.log('expandedTopics = ', expandedTopics);
+    console.log('resourceId = ', resourceId);
     if (!foundSubscriptionTopic) {
       throw new Error(`Received notification ${resourceId} but could not find corresponding subscription in cache`);
     }
@@ -157,7 +157,7 @@ export const subscribe = createAsyncThunk<string, { topic: string, onMessage: On
   async (arg, { dispatch, getState }): Promise<string> => {
     const state = getState() as RootState;
     const notificationState = state.notification;
-    const { uuid, subscriptions } = notificationState;
+    const { uuid } = notificationState;
     const websocketState = state.websocket;
     const target = `${config.backendWsUrl}${uuid}`;
 
@@ -167,7 +167,8 @@ export const subscribe = createAsyncThunk<string, { topic: string, onMessage: On
       await dispatch(connect({
         target,
         onMessage: async (evt: MessageEvent) => {
-          const notification = ensureNotificationContainsTopic(JSON.parse(evt.data), subscriptions, arg.topic);
+          // const notification = ensureNotificationContainsTopic(JSON.parse(evt.data), subscriptions, arg.topic);
+          const notification = JSON.parse(evt.data);
           dispatchNotification(notification, dispatch);
         },
       }));
