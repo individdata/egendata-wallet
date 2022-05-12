@@ -13,7 +13,7 @@ import { RootState } from '../store';
 console.log('Launching app with config: ', config);
 
 function App() {
-  const popup = useSelector((state: RootState) => state.popup2);
+  const popup = useSelector((state: RootState) => state.popup);
 
   return (
     <div>

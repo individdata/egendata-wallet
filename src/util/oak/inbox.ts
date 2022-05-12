@@ -14,11 +14,9 @@ import { deleteFile } from './solid';
 export async function inboxItem(url: string): Promise<InboxItem> {
   console.log('inboxItem url = ', url);
   const ds = await getSolidDataset(url, { fetch });
-  // console.log('ds=', ds);
   const item = getThing(ds, url) as Thing;
   const requestUrl = getUrl(item, 'https://oak.se/dataRequest');
   const responseUrl = getUrl(item, `${egendataSchema}InboundDataResponse`);
-  // console.log('requestUrl=', requestUrl);
 
   if (requestUrl) {
     const thing = await fetchThing(requestUrl);

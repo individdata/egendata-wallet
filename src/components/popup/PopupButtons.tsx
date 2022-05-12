@@ -4,9 +4,11 @@ import styles from './PopupButtons.module.css';
 import popupStyles from './Popup.module.css';
 import Button from '../ui/Button';
 
-type PopupButton = {
+export type PopupButton = {
   uuid: string,
+  type: 'primary' | 'secondary',
   label: string,
+  disabled?: boolean,
   onPress: () => void,
 };
 
@@ -21,7 +23,7 @@ function PopupButtons(props: Props) {
 
   const renderedButtons = buttons.map((button) => (
     <Grid key={button.uuid} item xs={12} sm={cols}>
-      <Button label={button.label} onPress={button.onPress} />
+      <Button type={button.type} label={button.label} onPress={button.onPress} disabled={button.disabled} />
     </Grid>
   ));
 

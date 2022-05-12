@@ -1,43 +1,35 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-export type PopupState = {
-  step: 'idle' | 'review' | 'check' | 'agree' | 'result' | 'finished';
+export type PopupData = {
+  component: string,
+  props: any,
 };
 
-const initialState = {
-  step: 'idle',
-} as PopupState;
+export type PopupState = {
+  popupData?: PopupData,
+};
+
+const initialState = {} as PopupState;
 
 export const popupSlice = createSlice({
   name: 'popup',
   initialState,
   reducers: {
-    restart: (state) => {
-      state.step = 'idle';
+    setPopupData: (state, { payload }) => {
+      state.popupData = payload;
     },
-    start: (state) => {
-      state.step = 'review';
-    },
-    review: (state) => {
-      state.step = 'check';
-    },
-    check: (state) => {
-      state.step = 'agree';
-    },
-    agree: (state) => {
-      state.step = 'result';
-    },
-    finish: (state) => {
-      /* if successful otherwise do action rest */
-      state.step = 'finished';
+    unsetPopupData: (state) => {
+      state.popupData = undefined;
     },
   },
 });
 
 const { reducer } = popupSlice;
+
 export default reducer;
+
 export const {
-  start, review, restart, check, agree, finish,
+  setPopupData,
+  unsetPopupData,
 } = popupSlice.actions;

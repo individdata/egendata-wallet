@@ -11,7 +11,6 @@ import Header from '../../components/header';
 import { Title, Steps } from './utils';
 import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
-import Popups from '../../components/popups';
 
 function RequestPage() {
   const { id } = useParams();
@@ -22,7 +21,6 @@ function RequestPage() {
     return <Navigate to="/home" replace />;
   }
   const requestState = useSelector((state: RootState) => state.requests[id]);
-  const popupState = useSelector((state: RootState) => state.popup.step);
 
   useEffect(() => {
     dispatch(getRequestsContent());
@@ -35,7 +33,6 @@ function RequestPage() {
         <Grid item xs={12}>
           <div className={styles.main}>
             <Header redirect={redirectState} />
-            {(popupState !== 'idle') && <Popups />}
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

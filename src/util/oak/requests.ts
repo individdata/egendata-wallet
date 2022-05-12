@@ -5,6 +5,7 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
+import { egendataSchema } from './egendata';
 import { InboundDataRequest } from './templates';
 
 export async function requestItem(requestUrl: string) {
@@ -14,12 +15,12 @@ export async function requestItem(requestUrl: string) {
   if (!thing) {
     return null;
   }
-  const id = getStringNoLocale(thing, 'egendata:id') ?? '';
-  const requestorWebId = getStringNoLocale(thing, 'egendata:requestorWebId') ?? '';
-  const providerWebId = getStringNoLocale(thing, 'egendata:providerWebId') ?? '';
-  const documentType = getStringNoLocale(thing, 'egendata:documentType') ?? '';
-  const purpose = getStringNoLocale(thing, 'egendata:purpose') ?? '';
-  const returnUrl = getStringNoLocale(thing, 'egendata:returnUrl') ?? '';
+  const id = getStringNoLocale(thing, `${egendataSchema}id`) ?? '';
+  const requestorWebId = getStringNoLocale(thing, `${egendataSchema}requestorWebId`) ?? '';
+  const providerWebId = getStringNoLocale(thing, `${egendataSchema}providerWebId`) ?? '';
+  const documentType = getStringNoLocale(thing, `${egendataSchema}documentType`) ?? '';
+  const purpose = getStringNoLocale(thing, `${egendataSchema}purpose`) ?? '';
+  const returnUrl = getStringNoLocale(thing, `${egendataSchema}returnUrl`) ?? '';
 
   const dataRequest: InboundDataRequest = {
     id,

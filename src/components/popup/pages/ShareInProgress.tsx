@@ -1,22 +1,33 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData } from '../../../slices/popupSlice';
-import styles from './FetchDetailPreview.module.css';
+import styles from './ShareInProgress.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import PopupHeader from '../PopupHeader';
-import { reviewGetdataBoxItems, reviewGetdataInfo } from '../../../util/document';
-import Certificate from '../../certificate';
+import { RootState } from '../../../store';
+import FetchingBar from '../../fetchingBar';
 
 type Props = {
   requestId: string,
 };
 
-function FetchDetailPreview(props: Props) {
+function ShareInProgress(props: Props) {
   const { requestId } = props;
 
   const dispatch = useDispatch();
+  const request = useSelector((state: RootState) => state.requests[requestId]);
+
+  useEffect(() => {
+    if (request) {
+      dispatch(setPopupData({
+        component: 'ShareComplete',
+        props: {
+          requestId,
+        },
+      }));
+    }
+  }, [request]);
 
   const buttons: PopupButton[] = [
     {
@@ -36,17 +47,12 @@ function FetchDetailPreview(props: Props) {
 
   return (
     <div className={styles.container}>
-      <PopupHeader
-        title="Consent document transfer"
-        subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
-      />
       <PopupContent>
-        <Certificate certificate={reviewGetdataBoxItems} />
-        <p>{reviewGetdataInfo}</p>
+        <FetchingBar label="Sharing data..." />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>
   );
 }
 
-export default FetchDetailPreview;
+export default ShareInProgress;

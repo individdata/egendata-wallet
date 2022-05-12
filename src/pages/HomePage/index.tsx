@@ -22,7 +22,7 @@ function HomePage() {
   }, [user]);
 
   const redirectState = false;
-  const popupState = useSelector((state: RootState) => state.popup.step);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -30,15 +30,10 @@ function HomePage() {
           <Header redirect={redirectState} />
           <div className={styles.loginpage}>
             <LogInText />
-            {!isLoggedIn && <Button onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
+            {!isLoggedIn && <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} label="Login" />}
             <InfoLink />
           </div>
-          <div className={
-            popupState === 'idle'
-              ? styles.body2
-              : styles.body
-          }
-          >
+          <div className={styles.body}>
             <RequestBox />
           </div>
         </div>

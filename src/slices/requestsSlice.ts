@@ -1,8 +1,6 @@
 /* eslint-disable */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { finish } from './popupSlice';
-
 import { RootState } from '../store';
 import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink, storeOutboundResponseAcl } from '../util/oak/templates';
 import { DataResponse } from '../util/oak/egendata';
@@ -12,7 +10,7 @@ import { requestsContent } from '../util/oak/requests';
 // export type InboxContent = string[];
 
 type RequestState = {
-  status: 'idle' | 'storingInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'responseAvailable' | 'sharing' | 'loading' ;
+  status: 'idle' | 'storingInboundRequest' | 'storedInboundRequest' | 'creatingOutboundRequest' | 'fetching' | 'consenting' | 'sentOutboundRequest' | 'gotData' | 'gotShareInfo' | 'sharingData' | 'sharedData' | 'responseAvailable' | 'sharing' | 'loading' ;
   error: string | null;
   content: InboundDataRequest;
 };
@@ -77,7 +75,6 @@ export const shareInboundDataResponse = createAsyncThunk<void, string>(
         await storeOutboundResponseLink(requestId, userPod, sinkPod),
         await storeOutboundResponseAcl(requestId, userPod, userWebId, requestorWebId),
       ]);
-      dispatch(finish());
     }
  },
 );
@@ -167,6 +164,9 @@ export const requestSlice = createSlice({
     });
 
     builder.addCase(storeInboundDataRequest.fulfilled, (state, action) => {
+      const { id } = action.meta.arg;
+      state[id].status = 'storedInboundRequest';
+      state[id].error = null;
     });
 
     builder.addCase(createOutboundDataRequest.pending, (state, action) => {
@@ -178,7 +178,7 @@ export const requestSlice = createSlice({
     builder.addCase(createOutboundDataRequest.fulfilled, (state, action) => {
       const itemKey = action.meta.arg;
       const item = state[itemKey];
-      item.status = 'gotData';
+      item.status = 'sentOutboundRequest';
     });
 
     builder.addCase(shareInboundDataResponse.pending, (state, action) => {

@@ -4,7 +4,6 @@ import authReducer from './slices/authSlice';
 import tabsReducer from './slices/tabsSlice';
 import requestReducer from './slices/requestsSlice';
 import popupReducer from './slices/popupSlice';
-import popup2Reducer from './slices/popup2Slice';
 import notificationReducer from './slices/notificationSlice';
 import websockerReducer from './slices/websocketSlice';
 
@@ -14,7 +13,6 @@ export const store = configureStore({
     tabs: tabsReducer,
     requests: requestReducer,
     popup: popupReducer,
-    popup2: popup2Reducer,
     notification: notificationReducer,
     websocket: websockerReducer,
   },

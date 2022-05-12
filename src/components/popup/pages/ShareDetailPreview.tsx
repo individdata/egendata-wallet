@@ -1,11 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData, unsetPopupData } from '../../../slices/popup2Slice';
+import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './ShareDetailPreview.module.css';
-import PopupButtons from '../PopupButtons';
+import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
+import {
+  reviewGetdataButtonText2,
+  reviewGetdataInfo,
+  reviewShareButtonText,
+  reviewSharedataTitle1,
+  reviewSharedataTitle2,
+  reviewShareddataBoxItems,
+} from '../../../util/document';
+import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
@@ -16,17 +25,19 @@ function ShareDetailPreview(props: Props) {
 
   const dispatch = useDispatch();
 
-  const buttons = [
+  const buttons: PopupButton[] = [
     {
       uuid: uuid(),
-      label: 'Share later',
+      type: 'secondary',
+      label: reviewShareButtonText,
       onPress: () => {
         dispatch(unsetPopupData());
       },
     },
     {
       uuid: uuid(),
-      label: 'Next',
+      type: 'primary',
+      label: reviewGetdataButtonText2,
       onPress: () => {
         dispatch(setPopupData({
           component: 'ShareLegalPreview',
@@ -41,14 +52,12 @@ function ShareDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title={`Review your document data (requestId: ${requestId})`}
-        subtitle="Review your Unemployment certificate data to be shared with BNP Paribas."
+        title={reviewSharedataTitle1}
+        subtitle={reviewSharedataTitle2}
       />
       <PopupContent>
-        <p>
-          If you don&apos;t think the data is correct or have any
-          objections you should contact Arbetsförmedlingen.
-        </p>
+        <Certificate certificate={reviewShareddataBoxItems} />
+        <p>{reviewGetdataInfo}</p>
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

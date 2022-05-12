@@ -1,21 +1,24 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { unsetPopupData } from '../../../slices/popupSlice';
-import styles from './FetchComplete.module.css';
+import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
+import styles from './FetchTimeout.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { successGetdata } from '../../../util/document';
+import { RootState } from '../../../store';
+import FetchingBar from '../../fetchingBar';
+import useTimeout from '../../../hooks/useTimeout';
 
 type Props = {
   requestId: string,
 };
 
-function FetchComplete(props: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function FetchTimeout(props: Props) {
   const { requestId } = props;
 
   const dispatch = useDispatch();
+  const request = useSelector((state: RootState) => state.requests[requestId]);
 
   const buttons: PopupButton[] = [
     {
@@ -32,8 +35,7 @@ function FetchComplete(props: Props) {
     <div className={styles.container}>
       <PopupContent>
         <div className={styles.content}>
-          <img className={styles.logoSuccess} alt="Success logo" />
-          {successGetdata}
+          Your fetching is under proceed get notified when it&apos;s ready.
         </div>
       </PopupContent>
       <PopupButtons buttons={buttons} />
@@ -41,4 +43,4 @@ function FetchComplete(props: Props) {
   );
 }
 
-export default FetchComplete;
+export default FetchTimeout;

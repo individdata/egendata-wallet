@@ -1,20 +1,44 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import HomePage from '../HomePage';
 import LoginImage from '../../components/loginImage';
 import { RootState } from '../../store';
+import Header from '../../components/header';
+import { InfoLink, LogInText } from '../HomePage/utils';
+import Button from '../../components/ui/Button';
+import { doLogin } from '../../slices/authSlice';
 
 function AuthPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
-  return (
+  const url = new URL(window.location.href);
+  const currentPath = url.pathname + url.search;
+  const redirectState = false;
 
-    <Grid container spacing={3} className="App" sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+  const dispatch = useDispatch();
+  return (
+    <Grid
+      container
+      spacing={3}
+      className="App"
+      sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}
+    >
       {isLoggedIn && (
         <Grid xs={12} item>
-          <HomePage />
+          <Header redirect={redirectState} />
+          <div className={styles.loginpage}>
+            <LogInText />
+            {!isLoggedIn && (
+              <Button
+                type="primary"
+                onPress={() => dispatch(doLogin(currentPath))}
+                label="Login"
+              />
+            )}
+            <InfoLink />
+          </div>
         </Grid>
       )}
       {!isLoggedIn && (
