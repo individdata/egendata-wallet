@@ -9,8 +9,11 @@ import {
 import { AuthorizedUser } from '../pages/auth/types';
 import config from '../util/config';
 import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
-import { subscribe, unsubscribe } from './notificationSlice';
+import {
+  handleInboxNotification, handleRequestsNotification, subscribe, unsubscribe,
+} from './notificationSlice';
 import { resetRequests } from './requestsSlice';
+import { RootState } from '../store';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -64,7 +67,14 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
           completed: true,
         };
         console.log('dispatch(subscribe())');
-        dispatch(subscribe(authorizedUser));
+
+        const { storage } = authorizedUser;
+        if (storage) {
+          const inboxUrl = `${storage}oak/inbox/`;
+          dispatch(subscribe({ topic: inboxUrl, onMessage: handleInboxNotification }));
+          const requestsUrl = `${storage}oak/requests/`;
+          dispatch(subscribe({ topic: requestsUrl, onMessage: handleRequestsNotification }));
+        }
         return authorizedUser;
       }
       return undefined;
@@ -75,11 +85,16 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
 
 export const doLogout = createAsyncThunk<undefined>(
   'auth/logout',
-  async (id, { dispatch }) => {
+  async (id, { dispatch, getState }) => {
+    const state = getState() as RootState;
+    const storage = state.auth.user?.storage;
+    const inboxUrl = `${storage}oak/inbox/`;
     console.log('doLogout');
     await logout();
     dispatch(resetRequests());
-    dispatch(unsubscribe());
+    if (storage) {
+      dispatch(unsubscribe(inboxUrl));
+    }
     return undefined;
   },
 );

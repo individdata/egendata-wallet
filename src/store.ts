@@ -6,6 +6,7 @@ import requestReducer from './slices/requestsSlice';
 import popupReducer from './slices/popupSlice';
 import popup2Reducer from './slices/popup2Slice';
 import notificationReducer from './slices/notificationSlice';
+import websockerReducer from './slices/websocketSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     popup: popupReducer,
     popup2: popup2Reducer,
     notification: notificationReducer,
+    websocket: websockerReducer,
   },
 });
 

@@ -7,7 +7,7 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { InboundDataRequest } from './templates';
 
-async function requestItem(requestUrl: string) {
+export async function requestItem(requestUrl: string) {
   const ds = await getSolidDataset(requestUrl, { fetch });
   const thing = getThing(ds, requestUrl) as Thing;
   // console.log('my thing:', thing);

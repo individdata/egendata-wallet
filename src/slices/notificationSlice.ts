@@ -2,9 +2,10 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
+} from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { AuthorizedUser } from '../pages/auth/types';
 import { storeInboundDataRequest, add, fetched } from './requestsSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
@@ -12,30 +13,47 @@ import { inboxItem } from '../util/oak/inbox';
 import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
 import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
+import { connect } from './websocketSlice';
+import { requestItem } from '../util/oak/requests';
 
-type NotificationState = {
-  status: 'idle' | 'connecting' | 'connected' | 'disconnecting',
-  uuid: string | undefined,
-  unsubscribe_endpoint: string | undefined,
+type SubscriptionState = {
+  unsubscribeEndpoint: string,
+
+};
+
+export type NotificationState = {
+  uuid: string,
+  subscriptions: Record<string, SubscriptionState>,
 };
 
 const initialState = {
-  status: 'idle',
-  uuid: undefined,
-  unsubscribe_endpoint: undefined,
+  uuid: uuidv4(),
+  subscriptions: {},
 } as NotificationState;
-
-let ws: WebSocket;
 
 type Notification = {
   '@context': string[],
   id: string,
   type: string[],
   object: {
+    topic?: string,
     id: string
   },
   published: string,
   unsubscribe_endpoint: string
+};
+
+type OnNotificationType = (notfication: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => Promise<void>;
+
+const onNotificationHandlers: Record<string, OnNotificationType> = {};
+
+const dispatchNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+  const { topic } = notification.object;
+  if (!topic) {
+    throw new Error('Cannot handle notification without a topic');
+  }
+  const handle = onNotificationHandlers[topic];
+  handle(notification, dispatch);
 };
 
 function isCreate(notfication: Notification) {
@@ -59,111 +77,141 @@ function toDataResponse(item: ResponseItem): DataResponse {
   return item.v;
 }
 
-export const subscribe = createAsyncThunk<NotificationState, AuthorizedUser>(
-  'notification/subscribe',
-  async (authorizedUser, { dispatch }): Promise<NotificationState> => {
-  // async (authorizedUser): Promise<NotificationState> => {
-    const { storage } = authorizedUser;
-    console.log('notification/subscribe ', { authorizedUser });
-    if (storage) {
-      const inboxUrl = `${storage}oak/inbox/`;
-      console.log(`inboxUrl = ${inboxUrl}`);
+async function subscribeTopic(topic: string, subscriptionEndpoint: string, target: string) {
+  const subscrdata = {
+    '@context': ['https://www.w3.org/ns/solid/notification/v1'],
+    type: 'WebHookSubscription2021',
+    topic,
+    target,
+  };
 
-      const uuid = uuidv4();
+  const subscriptionResponse = await postFile(
+    subscriptionEndpoint,
+    { body: JSON.stringify(subscrdata) },
+    'application/json',
+  );
 
-      // const wstarget = 'ws://localhost:8999/' + uuid;
-      const wstarget = `wss://digital-wallet-backend-oak-develop.test.services.jtech.se/${uuid}`; // TODO: Make configurable via environment
-      console.log('Connecting to websocket:', wstarget);
+  return subscriptionResponse;
+}
 
-      ws = new WebSocket(wstarget);
-
-      ws.onmessage = async (evt: MessageEvent) => {
-        const notification: Notification = JSON.parse(evt.data);
-        console.log(`notification = ${{ evt }}`);
-        if (isCreate(notification)) {
-          console.log(`link = ${notification.object.id}`);
-          // dispatch(getInboxItem(notification.object.id));
-          const item = await inboxItem(notification.object.id);
-          switch (item.t) {
-            case 'Request':
-              const inboundDataRequest = toInboundDataRequest(item);
-              dispatch(storeInboundDataRequest(inboundDataRequest));
-              dispatch(add(inboundDataRequest));
-              break;
-            case 'Response':
-              const inboundDataResponse = toDataResponse(item);
-              dispatch(fetched(inboundDataResponse.requestId));
-              break;
-              // eslint-disable-next-line no-empty
-            default: {}
-          }
-        }
-      };
-
-      ws.onclose = (evt: CloseEvent) => {
-        console.log('ws closed: ', { evt });
-      };
-
-      ws.onerror = (evt: Event) => {
-        console.log('ws error: ', { evt });
-      };
-
-      let keepAliveId;
-      clearInterval(keepAliveId);
-      keepAliveId = setInterval(() => {
-        ws.send('ping');
-        // console.log('ping', new Date());
-      }, 5000);
-
-      console.log('starting webhook handling ...');
-      // const target = 'http://localhost:8999/webhook/' + uuid;
-      const target = `${config.backendBaseUrl}webhook/${uuid}`;
-      const subscrdata = {
-        '@context': ['https://www.w3.org/ns/solid/notification/v1'],
-        type: 'WebHookSubscription2021',
-        topic: inboxUrl,
-        target,
-      };
-
-      const subscription = `${config.podProviderBaseUrl}subscription`;
-
-      const subscriptionResponse = await postFile(
-        subscription,
-        { body: JSON.stringify(subscrdata) },
-        'application/json',
-      );
-      console.log('webhook subscription started.');
-
-      const subscriptionResponseJson = JSON.parse(subscriptionResponse.data);
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      const { unsubscribe_endpoint } = subscriptionResponseJson;
-
-      console.log('uuid = ', uuid);
-
-      console.log('ws = ', { ws });
-
-      return {
-        status: 'connected',
-        uuid,
-        unsubscribe_endpoint,
-      };
+export const handleInboxNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+  console.log('handleInboxNotification: notification = ', notification);
+  const { topic } = notification.object;
+  if (!topic) {
+    throw new Error('Cannot handle notification without a topic');
+  }
+  if (isCreate(notification)) {
+    console.log(`topic = ${topic}`);
+    const item = await inboxItem(topic);
+    switch (item.t) {
+      case 'Request':
+        const inboundDataRequest = toInboundDataRequest(item);
+        dispatch(storeInboundDataRequest(inboundDataRequest));
+        dispatch(add(inboundDataRequest));
+        break;
+      case 'Response':
+        const inboundDataResponse = toDataResponse(item);
+        dispatch(fetched(inboundDataResponse.requestId));
+        break;
+        // eslint-disable-next-line no-empty
+      default: {}
     }
-    return {
-      status: 'connecting',
-      uuid: undefined,
-      unsubscribe_endpoint: undefined,
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const handleRequestsNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+  console.log('handleRequestsNotification: notification = ', notification);
+  const { topic } = notification.object;
+  if (!topic) {
+    throw new Error('Cannot handle notification without a topic');
+  }
+  if (isCreate(notification)) {
+    console.log(`topic = ${topic}`);
+    const item = await requestItem(topic);
+    console.log('requestItem = ', item);
+  }
+};
+
+function ensureNotificationContainsTopic(notification: Notification, subscriptions: Record<string, SubscriptionState>, topic: string): Notification {
+  const { topic: objectTopic } = notification.object;
+  const { id: resourceId } = notification.object;
+  if (!objectTopic) {
+    const topics = Object.keys(subscriptions);
+    const expandedTopicsSet = new Set([...topics, topic]);
+    const expandedTopics = Array.from(expandedTopicsSet);
+    const foundSubscriptionTopic = expandedTopics.find((subscriptionTopic) => resourceId.startsWith(subscriptionTopic));
+    if (!foundSubscriptionTopic) {
+      throw new Error(`Received notification ${resourceId} but could not find corresponding subscription in cache`);
+    }
+    const newNotification = {
+      ...notification,
     };
+    newNotification.object.topic = foundSubscriptionTopic;
+  }
+  return notification;
+}
+
+export const subscribe = createAsyncThunk<string, { topic: string, onMessage: OnNotificationType }>(
+  'notification/subscribe',
+  async (arg, { dispatch, getState }): Promise<string> => {
+    const state = getState() as RootState;
+    const notificationState = state.notification;
+    const { uuid, subscriptions } = notificationState;
+    const websocketState = state.websocket;
+    const target = `${config.backendWsUrl}${uuid}`;
+
+    onNotificationHandlers[arg.topic] = arg.onMessage;
+
+    if (['closed', 'closing'].includes(websocketState.status)) {
+      await dispatch(connect({
+        target,
+        onMessage: async (evt: MessageEvent) => {
+          const notification = ensureNotificationContainsTopic(JSON.parse(evt.data), subscriptions, arg.topic);
+          dispatchNotification(notification, dispatch);
+        },
+      }));
+      console.log('websocketState = ', websocketState);
+    }
+
+    console.log('start webhook subscription ...');
+    const subscriptionUrl = `${config.podProviderBaseUrl}subscription`;
+    const targetUrl = `${config.backendBaseUrl}webhook/${uuid}`;
+    const subscriptionResponse = await subscribeTopic(arg.topic, subscriptionUrl, targetUrl);
+    console.log('webhook subscription started.');
+
+    const subscriptionResponseJson = JSON.parse(subscriptionResponse.data);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { unsubscribe_endpoint } = subscriptionResponseJson;
+    return unsubscribe_endpoint;
   },
 );
 
-export const unsubscribe = createAsyncThunk<void>(
+export const unsubscribe = createAsyncThunk<void, string>(
+  'notification/unsubscribe',
+  async (topic, { getState }): Promise<void> => {
+    const { notification } = getState() as RootState;
+    const { subscriptions } = notification;
+    const endpoint = subscriptions[topic].unsubscribeEndpoint;
+    if (endpoint) {
+      await deleteFile(endpoint);
+    }
+    // ws?.close();
+  },
+);
+
+export const unsubscribeAll = createAsyncThunk<void>(
   'notification/unsubscribe',
   async (_, { getState }): Promise<void> => {
     const { notification } = getState() as RootState;
-    if (notification.unsubscribe_endpoint) {
-      await deleteFile(notification.unsubscribe_endpoint);
-    }
-    ws?.close();
+    const { subscriptions } = notification;
+    Object.keys(subscriptions).forEach(async (key) => {
+      const endpoint = subscriptions[key].unsubscribeEndpoint;
+      if (endpoint) {
+        await deleteFile(endpoint);
+      }
+    });
+    // ws?.close();
   },
 );
 
@@ -173,28 +221,16 @@ export const notificationSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(subscribe.pending, (state) => {
-      state.status = 'connecting';
+    builder.addCase(subscribe.fulfilled, (state, action) => {
+      const { arg } = action.meta;
+      state.subscriptions[arg.topic] = {
+        unsubscribeEndpoint: action.payload,
+      };
     });
 
-    builder.addCase(subscribe.fulfilled, (state, { payload }) => {
-      state.status = 'connected';
-      state.uuid = payload.uuid;
-      state.unsubscribe_endpoint = payload.unsubscribe_endpoint;
-    });
-
-    builder.addCase(subscribe.rejected, (state) => {
-      state.status = 'idle';
-    });
-
-    builder.addCase(unsubscribe.pending, (state) => {
-      state.status = 'disconnecting';
-    });
-
-    builder.addCase(unsubscribe.fulfilled, (state) => {
-      state.status = 'idle';
-      state.uuid = undefined;
-      state.unsubscribe_endpoint = undefined;
+    builder.addCase(unsubscribe.fulfilled, (state, action) => {
+      const itemKey = action.meta.arg;
+      delete state.subscriptions[itemKey];
     });
   },
 });
