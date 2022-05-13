@@ -98,10 +98,10 @@ async function subscribeTopic(topic: string, subscriptionEndpoint: string, targe
 
 export const handleInboxNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
   console.log('handleInboxNotification: notification = ', notification);
-  const { topic } = notification.object;
+  const { topic, id } = notification.object;
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
-    const item = await inboxItem(topic);
+    const item = await inboxItem(id);
     switch (item.t) {
       case 'Request':
         const inboundDataRequest = toInboundDataRequest(item);
