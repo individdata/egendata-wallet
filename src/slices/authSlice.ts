@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -10,10 +11,9 @@ import { AuthorizedUser } from '../pages/auth/types';
 import config from '../util/config';
 import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import {
-  handleInboxNotification, handleRequestsNotification, subscribe, unsubscribe,
+  handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
 import { resetRequests } from './requestsSlice';
-import { RootState } from '../store';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -85,16 +85,11 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
 
 export const doLogout = createAsyncThunk<undefined>(
   'auth/logout',
-  async (id, { dispatch, getState }) => {
-    const state = getState() as RootState;
-    const storage = state.auth.user?.storage;
-    const inboxUrl = `${storage}oak/inbox/`;
+  async (id, { dispatch }) => {
     console.log('doLogout');
     await logout();
     dispatch(resetRequests());
-    if (storage) {
-      dispatch(unsubscribe(inboxUrl));
-    }
+    dispatch(unsubscribeAll());
     return undefined;
   },
 );

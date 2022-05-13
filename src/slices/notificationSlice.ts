@@ -15,7 +15,7 @@ import { inboxItem } from '../util/oak/inbox';
 import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
 import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
-import { connect } from './websocketSlice';
+import { connect, disconnect } from './websocketSlice';
 import { requestItem } from '../util/oak/requests';
 
 type SubscriptionState = {
@@ -197,22 +197,24 @@ export const unsubscribe = createAsyncThunk<void, string>(
     if (endpoint) {
       await deleteFile(endpoint);
     }
-    // ws?.close();
   },
 );
 
 export const unsubscribeAll = createAsyncThunk<void>(
-  'notification/unsubscribe',
-  async (_, { getState }): Promise<void> => {
+  'notification/unsubscribeAll',
+  async (_, { getState, dispatch }): Promise<void> => {
     const { notification } = getState() as RootState;
     const { subscriptions } = notification;
+    console.log('unsubscribe subscriptions: ', subscriptions);
     Object.keys(subscriptions).forEach(async (key) => {
       const endpoint = subscriptions[key].unsubscribeEndpoint;
       if (endpoint) {
         await deleteFile(endpoint);
       }
     });
-    // ws?.close();
+    // disconnect websocket
+    console.log('disconnect websocket ');
+    dispatch(disconnect());
   },
 );
 
@@ -232,6 +234,10 @@ export const notificationSlice = createSlice({
     builder.addCase(unsubscribe.fulfilled, (state, action) => {
       const itemKey = action.meta.arg;
       delete state.subscriptions[itemKey];
+    });
+
+    builder.addCase(unsubscribeAll.fulfilled, (state) => {
+      state.subscriptions = {};
     });
   },
 });

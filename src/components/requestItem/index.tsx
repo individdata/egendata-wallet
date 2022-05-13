@@ -9,7 +9,7 @@ function RequestItem(props: InboundDataRequest) {
   const {
     id,
   } = props;
-  const requestor = 'BNP Parbas';
+  const requestor = 'BNP Paribas';
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
