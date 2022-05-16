@@ -27,6 +27,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-intl": "^5.25.1",
     "react-redux": "^7.2.6",
     "react-router": "^6.2.2",
     "react-router-dom": "^6.2.2",
@@ -34,7 +35,7 @@
     "react-spinners": "^0.11.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
-    "typescript": "~4.1.5",
+    "typescript": "~4.1.5 || 4.5",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
   },
@@ -43,10 +44,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "e2e" : " PORT=3005 cypress open",
-    "e2e-stage" : "cypress open --config-file ./cypress-staging.json",
-    "e2e-cli" :"cypress run"
-
+    "e2e": " PORT=3005 cypress open",
+    "e2e-stage": "cypress open --config-file ./cypress-staging.json",
+    "e2e-cli": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
