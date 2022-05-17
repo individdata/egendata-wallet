@@ -6,8 +6,7 @@ import styles from './index.module.css';
 export function Footer() {
   return (
     <div className={styles.text5}>
-      Project Oak is a governmental initiative that allows you to store and
-      transfer digital information between public and private organtisations.
+      <FormattedMessage id="landingpage_footer" />
     </div>
   );
 }
