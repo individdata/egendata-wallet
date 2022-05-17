@@ -1,4 +1,7 @@
-import { egendataPrefixTurtle } from './egendata';
+import {
+  consumerConsentsPath,
+  dataPath, egendataPrefixTurtle, inboxPath, providerConsentsPath, providerRequestsPath, subjectRequestsPath,
+} from './egendata';
 import { putFile } from './solid';
 
 export type InboundDataRequest = {
@@ -207,6 +210,13 @@ export async function createOakContainers(userWebId: string, userPod: string) {
     { url: `${userPod}oak/responses/`, body: '' },
     { url: `${userPod}oak/inbox/`, body: '' },
     { url: `${userPod}oak/inbox/.acl`, body: inboxAclTurtle(userWebId, userPod) },
+    { url: `${userPod}${subjectRequestsPath}`, body: '' },
+    { url: `${userPod}${providerRequestsPath}`, body: '' },
+    { url: `${userPod}${dataPath}`, body: '' },
+    { url: `${userPod}${inboxPath}`, body: '' },
+    { url: `${userPod}${providerConsentsPath}`, body: '' },
+    { url: `${userPod}${consumerConsentsPath}`, body: '' },
+    { url: `${userPod}${inboxPath}.acl`, body: inboxAclTurtle(userWebId, userPod) },
   ];
   const promises = resources.map(async (resource) => {
     await putFile(

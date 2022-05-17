@@ -9,6 +9,30 @@ import {
 import { putFile } from './solid';
 import config from '../config';
 
+/*
+# Pod structure
+/egendata
+-- /requests
+---- /subject
+---- /provider
+-- /consents
+---- /provider
+---- /consumer
+-- /data
+-- /inbox
+*/
+
+// omit leading slash and add trailing slash to caontainers
+export const infraPath = 'egendata/';
+export const requestsPath = `${infraPath}requests/`;
+export const subjectRequestsPath = `${requestsPath}subject/`;
+export const providerRequestsPath = `${requestsPath}provider/`;
+export const consentsPath = `${infraPath}consents/`;
+export const providerConsentsPath = `${consentsPath}provider/`;
+export const consumerConsentsPath = `${consentsPath}consumer/`;
+export const dataPath = `${infraPath}data/`;
+export const inboxPath = `${infraPath}inbox/`;
+
 export const egendataSchema = `${config.podProviderBaseUrl}schema/core/v1#`;
 export const egendataPrefixTurtle = `@prefix egendata: <${egendataSchema}> .`;
 export const classNamespace = (className: string) => `${egendataSchema}${className}`;
