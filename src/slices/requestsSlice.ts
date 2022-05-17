@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { InboundDataRequest, OutboundDataRequest, createInboundDataResponse, storeInboundDataResponseAcl, storeInboundRequest, storeOutboundDataRequestAcl, storeOutboundRequest, storeOutboundRequestLink, storeOutboundResponseLink, storeOutboundResponseAcl } from '../util/oak/templates';
-import { DataResponse } from '../util/oak/egendata';
+import { subjectRequestsPath } from '../util/oak/egendata';
 import { fetchProfileData } from '../util/oak/solid';
 import { requestsContent } from '../util/oak/requests';
 
@@ -83,7 +83,7 @@ export const getRequestsContent = createAsyncThunk<InboundDataRequest[]>(
   'requests/getRequestsContent',
   async (id, { getState }): Promise<InboundDataRequest[]> => { 
     const state = getState() as RootState;
-    const requestsUrl = state.auth.user?.storage + "oak/requests/";
+    const requestsUrl = `${state.auth.user?.storage}${subjectRequestsPath}`;
     // console.log('requestsUrl:', requestsUrl);
     const content = await requestsContent(requestsUrl);
     const filtered: InboundDataRequest[] = [];

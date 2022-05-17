@@ -12,7 +12,7 @@ export type InboundDataRequest = {
   purpose: string,
   returnUrl: string,
 };
-const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/requests/request-${id}`);
+const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${subjectRequestsPath}${id}`);
 const inboundDataRequestTurtle = ((dataRequest: InboundDataRequest) => `
 ${egendataPrefixTurtle}
 <> a egendata:InboundDataRequest ;
@@ -205,7 +205,6 @@ const inboxAclTurtle = ((userWebId: string, userPod: string) => `
 
 export async function createOakContainers(userWebId: string, userPod: string) {
   const resources = [
-    { url: `${userPod}oak/requests/`, body: '' },
     { url: `${userPod}oak/consents/`, body: '' },
     { url: `${userPod}oak/responses/`, body: '' },
     { url: `${userPod}oak/inbox/`, body: '' },
@@ -213,9 +212,9 @@ export async function createOakContainers(userWebId: string, userPod: string) {
     { url: `${userPod}${subjectRequestsPath}`, body: '' },
     { url: `${userPod}${providerRequestsPath}`, body: '' },
     { url: `${userPod}${dataPath}`, body: '' },
-    { url: `${userPod}${inboxPath}`, body: '' },
     { url: `${userPod}${providerConsentsPath}`, body: '' },
     { url: `${userPod}${consumerConsentsPath}`, body: '' },
+    { url: `${userPod}${inboxPath}`, body: '' },
     { url: `${userPod}${inboxPath}.acl`, body: inboxAclTurtle(userWebId, userPod) },
   ];
   const promises = resources.map(async (resource) => {
