@@ -40,7 +40,7 @@ export type OutboundDataRequest = {
 };
 
 const outboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${providerRequestsPath}${id}`);
-const dataLocationUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}`);
+const dataLocationUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${dataPath}${id}`);
 const outboundDataRequestTurtle = ((id: string, documentType: string, dataSubjectIdentifier: string, dataLocation:string, notificationInbox: string) => `
 ${egendataPrefixTurtle}
 <> a egendata:OutboundDataRequest ;
@@ -100,7 +100,7 @@ export async function storeOutboundRequestLink(id: string, userPod: string, sour
   );
 }
 
-const inboundDataResponseUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}`);
+const inboundDataResponseUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${dataPath}${id}`);
 const emptyDataResponseTurtle = (() => '');
 
 export async function createInboundDataResponse(id: string, userPod: string) {
@@ -129,14 +129,14 @@ export async function storeOutboundResponseLink(id: string, userPod: string, sin
   );
 }
 
-const inboundDataResponseAclUrl = ((userPodUrl: string, id: string) => `${userPodUrl}oak/responses/response-${id}.acl`);
+const inboundDataResponseAclUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${dataPath}${id}.acl`);
 const inboundDataResponseAclTurtle = ((userPodUrl: string, id: string, userWebId: string, sourceWebId: string) => `
 <#source> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/responses/response-${id}>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}${dataPath}${id}>;
     <http://www.w3.org/ns/auth/acl#agent> <${sourceWebId}>;
     <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Append>.
 <#owner> a <http://www.w3.org/ns/auth/acl#Authorization>;
-    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}oak/responses/response-${id}>;
+    <http://www.w3.org/ns/auth/acl#accessTo> <${userPodUrl}${dataPath}${id}>;
     <http://www.w3.org/ns/auth/acl#agent> <mailto:sink@example.com>, <${userWebId}>;
     <http://www.w3.org/ns/auth/acl#mode> <http://www.w3.org/ns/auth/acl#Write>, <http://www.w3.org/ns/auth/acl#Read>, <http://www.w3.org/ns/auth/acl#Control>.
 `);
@@ -158,7 +158,7 @@ const outboundDataResponseAclTurtle = ((userPod: string, id: string, userWebId: 
 # The inbox can be written to by the public, but not read.
 <#sink>
     a acl:Authorization;
-    acl:accessTo <${userPod}oak/responses/response-${id}>;
+    acl:accessTo <${userPod}${dataPath}${id}>;
     acl:agent <${sinkWebId}>;
     acl:mode acl:Read.
 
@@ -166,7 +166,7 @@ const outboundDataResponseAclTurtle = ((userPod: string, id: string, userWebId: 
 <#owner>
     a acl:Authorization;
     acl:agent <${userWebId}>;
-    acl:accessTo <${userPod}oak/responses/response-${id}>;
+    acl:accessTo <${userPod}${dataPath}${id}>;
     acl:mode acl:Read, acl:Write, acl:Control.
 `);
 
@@ -205,7 +205,6 @@ const inboxAclTurtle = ((userWebId: string, userPod: string) => `
 
 export async function createOakContainers(userWebId: string, userPod: string) {
   const resources = [
-    { url: `${userPod}oak/responses/`, body: '' },
     { url: `${userPod}oak/inbox/`, body: '' },
     { url: `${userPod}oak/inbox/.acl`, body: inboxAclTurtle(userWebId, userPod) },
     { url: `${userPod}${subjectRequestsPath}`, body: '' },
