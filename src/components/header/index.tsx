@@ -6,6 +6,7 @@ import LogoutButton from './logoutButton';
 import { RootState } from '../../store';
 import Tabs from './tabs';
 import OakLogo from './oakLogo';
+import LangButton from './langButton';
 import { HeaderType } from './types';
 
 function Header(props: HeaderType) {
@@ -22,6 +23,9 @@ function Header(props: HeaderType) {
           <Tabs />
         </div>
       )}
+      <div className={styles.langButton}>
+        <LangButton />
+      </div>
       {!redirect && isLoggedIn && (
         <div className={styles.logout}>
           <LogoutButton />

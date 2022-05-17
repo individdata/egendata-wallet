@@ -1,5 +1,6 @@
 .headline{
     display: flex;
+    flex-direction: row;
     height: 50px;
     width: 100%;
 }
@@ -7,6 +8,14 @@
 .logo {
     margin-left: 20px;
     margin-top: 20px;
+}
+
+.langButton {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+    width: 100px;
+    text-align: right;
 }
 
 .tabs {
