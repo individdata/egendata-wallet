@@ -63,7 +63,7 @@ function FetchInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar label="Fetching data..." />
+        <FetchingBar id="popup_fetch_data_text" />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

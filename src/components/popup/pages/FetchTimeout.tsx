@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
@@ -35,7 +36,7 @@ function FetchTimeout(props: Props) {
     <div className={styles.container}>
       <PopupContent>
         <div className={styles.content}>
-          Your fetching is under proceed get notified when it&apos;s ready.
+          <FormattedMessage id="popup_under_proceed_text" />
         </div>
       </PopupContent>
       <PopupButtons buttons={buttons} />
