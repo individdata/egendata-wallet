@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
@@ -6,7 +7,6 @@ import styles from './ShareLegalPreview.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { checkGetdataCheckInfo, checkGetdataInfo } from '../../../util/document';
 import Checkbox from '../../ui/Checkbox';
 import { shareInboundDataResponse } from '../../../slices/requestsSlice';
 
@@ -27,7 +27,7 @@ function ShareLegalPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'secondary',
-      label: 'Share later',
+      id: 'share_later_button',
       onPress: () => {
         dispatch(unsetPopupData());
       },
@@ -35,7 +35,7 @@ function ShareLegalPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Next',
+      id: 'next_button',
       disabled: !(checkbox1 && checkbox2 && checkbox3),
       onPress: () => {
         dispatch(shareInboundDataResponse(requestId));
@@ -52,14 +52,14 @@ function ShareLegalPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title="Consent document transfer"
-        subtitle="You are about to share your Unemployment certificate to BNP Paribas."
+        titleId="popup_consent_title"
+        subtitleId="popup_consent_subtitle"
       />
       <PopupContent>
-        <p>{checkGetdataInfo}</p>
-        <Checkbox label={checkGetdataCheckInfo[0]} onChange={(evt) => setCheckbox1(evt.target.checked)} />
-        <Checkbox label={checkGetdataCheckInfo[1]} onChange={(evt) => setCheckbox2(evt.target.checked)} />
-        <Checkbox label={checkGetdataCheckInfo[2]} onChange={(evt) => setCheckbox3(evt.target.checked)} />
+        <FormattedMessage id="popup_check_get_data_info_text" />
+        <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />
+        <Checkbox id="popup_check_get_data_text_2" onChange={(evt) => setCheckbox2(evt.target.checked)} />
+        <Checkbox id="popup_check_get_data_text_3" onChange={(evt) => setCheckbox3(evt.target.checked)} />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

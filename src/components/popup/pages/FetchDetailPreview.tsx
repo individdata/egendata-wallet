@@ -22,7 +22,7 @@ function FetchDetailPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Continue to get data',
+      id: 'continue_to_get_data_button',
       onPress: () => {
         dispatch(setPopupData({
           component: 'FetchLegalPreview',
@@ -37,8 +37,8 @@ function FetchDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title="Consent document transfer"
-        subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
+        titleId="popup_consent_title"
+        subtitleId="popup_consent_subtitle"
       />
       <PopupContent>
         <Certificate certificate={reviewGetdataBoxItems} />

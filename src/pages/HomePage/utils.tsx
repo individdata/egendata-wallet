@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import { RootState } from '../../store';
@@ -9,7 +10,9 @@ export function LogInText() {
   if (!isLoggedIn) {
     return (
       <div className={styles.firstline}>
-        <p className={styles.login}>Log in</p>
+        <p className={styles.login}>
+          <FormattedMessage id="log_in_text" />
+        </p>
       </div>
     );
   }
@@ -22,7 +25,9 @@ export function InfoLink() {
   if (!isLoggedIn) {
     return (
       <div className={styles.thirdline}>
-        <a href="http://w3schools.com" className={styles.how}>How do I log in with Freja eID?</a>
+        <a href="http://w3schools.com" className={styles.how}>
+          <FormattedMessage id="home_page_link" />
+        </a>
       </div>
     );
   }

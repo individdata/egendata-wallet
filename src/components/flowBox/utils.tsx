@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { ReactComponent as ReactLogo } from '../../images/checkMark.svg';
 import styles from './index.module.css';
 import {
@@ -46,9 +47,11 @@ export function FlowLogo(props: Logo) {
 }
 
 export function FlowText(props: Text) {
-  const { text } = props;
+  const { id } = props;
   return (
-    <div className={styles.text}>{text}</div>
+    <div className={styles.text}>
+      <FormattedMessage id={id} />
+    </div>
   );
 }
 

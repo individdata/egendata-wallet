@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import Grid from '@mui/material/Grid';
 import styles from './index.module.css';
 
@@ -7,12 +8,14 @@ function LoginImageText() {
     <Grid container>
       <Grid className={styles.header} item xs={12}>
         <Grid sx={{ maxWidth: '340px' }}>
-          <p className={styles.first}>Your data in your control</p>
+          <p className={styles.first}>
+            <FormattedMessage id="image_page_title" />
+          </p>
         </Grid>
       </Grid>
       <Grid item xs={12} className={styles.textContainer}>
         <p>
-          Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations.
+          <FormattedMessage id="image_page_description" />
         </p>
       </Grid>
     </Grid>

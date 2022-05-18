@@ -33,7 +33,7 @@ function ShareInProgress(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Continue to get data',
+      id: 'continue_to_get_data_button',
       onPress: () => {
         dispatch(setPopupData({
           component: 'FetchLegalPreview',
@@ -48,7 +48,7 @@ function ShareInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar label="Sharing data..." />
+        <FetchingBar id="popup_share_data_text" />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

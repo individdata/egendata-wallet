@@ -7,11 +7,7 @@ import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import {
-  reviewGetdataButtonText2,
   reviewGetdataInfo,
-  reviewShareButtonText,
-  reviewSharedataTitle1,
-  reviewSharedataTitle2,
   reviewShareddataBoxItems,
 } from '../../../util/document';
 import Certificate from '../../certificate';
@@ -29,7 +25,7 @@ function ShareDetailPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'secondary',
-      label: reviewShareButtonText,
+      id: 'share_later_button',
       onPress: () => {
         dispatch(unsetPopupData());
       },
@@ -37,7 +33,7 @@ function ShareDetailPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: reviewGetdataButtonText2,
+      id: 'continue_to_share_data_button',
       onPress: () => {
         dispatch(setPopupData({
           component: 'ShareLegalPreview',
@@ -52,8 +48,8 @@ function ShareDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title={reviewSharedataTitle1}
-        subtitle={reviewSharedataTitle2}
+        titleId="popup_review_share_data_title"
+        subtitleId="popup_review_share_data_subtitle"
       />
       <PopupContent>
         <Certificate certificate={reviewShareddataBoxItems} />

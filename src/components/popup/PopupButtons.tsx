@@ -7,7 +7,7 @@ import Button from '../ui/Button';
 export type PopupButton = {
   uuid: string,
   type: 'primary' | 'secondary',
-  label: string,
+  id: string,
   disabled?: boolean,
   onPress: () => void,
 };
@@ -23,7 +23,7 @@ function PopupButtons(props: Props) {
 
   const renderedButtons = buttons.map((button) => (
     <Grid key={button.uuid} item xs={12} sm={cols}>
-      <Button type={button.type} label={button.label} onPress={button.onPress} disabled={button.disabled} />
+      <Button type={button.type} id={button.id} onPress={button.onPress} disabled={button.disabled} />
     </Grid>
   ));
 

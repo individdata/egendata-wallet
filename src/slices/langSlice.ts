@@ -13,12 +13,16 @@ export const langSlice = createSlice({
   name: 'lang',
   initialState,
   reducers: {
-    selectLang: (state, newTab) => {
-      state.lang = newTab.payload;
+    changeLang: (state) => {
+      if (state.lang === 'en') {
+        state.lang = 'sv';
+      } else {
+        state.lang = 'en';
+      }
     },
   },
 });
 
 const { reducer } = langSlice;
 export default reducer;
-export const { selectLang } = langSlice.actions;
+export const { changeLang } = langSlice.actions;

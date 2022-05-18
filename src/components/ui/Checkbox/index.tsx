@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Grid } from '@mui/material';
 import React, { ChangeEvent, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import styles from './index.module.css';
 
 interface CheckboxProps {
   onChange?: (evt: ChangeEvent<HTMLInputElement>) => void,
-  label: string,
+  id: string,
   checked?: boolean,
   disabled?: boolean,
 }
@@ -13,7 +15,7 @@ interface CheckboxProps {
 function Checkbox(props: CheckboxProps) {
   const {
     onChange,
-    label,
+    id,
     checked,
     disabled,
   } = props;
@@ -38,7 +40,9 @@ function Checkbox(props: CheckboxProps) {
           disabled={disabled}
         />
         <label htmlFor={inputId}>
-          <div className={styles.label}>{label}</div>
+          <div className={styles.label}>
+            <FormattedMessage id={id} />
+          </div>
         </label>
       </Grid>
     </Grid>

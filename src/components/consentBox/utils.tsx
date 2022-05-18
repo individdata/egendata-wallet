@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
@@ -28,7 +29,7 @@ export function PeopleItem(props: People) {
   if (status === 'idle' || status === 'fetching') {
     return (
       <div className={styles.descript}>
-        Get from:
+        <FormattedMessage id="get_from_text" />
         <div className={styles.from}>{provider}</div>
       </div>
     );
@@ -36,14 +37,14 @@ export function PeopleItem(props: People) {
   if (status === 'gotData') {
     return (
       <div className={styles.descript}>
-        Share with:
+        <FormattedMessage id="share_with_text" />
         <div className={styles.from}>{requestor}</div>
       </div>
     );
   }
   return (
     <div className={styles.descript}>
-      Shared with:
+      <FormattedMessage id="share_with_text" />
       <div className={styles.from}>{requestor}</div>
     </div>
   );
@@ -64,7 +65,7 @@ export function ConsentButton(props: ButtonProps) {
         }}
       >
         <div className={styles.buttonText1}>
-          Get data
+          <FormattedMessage id="get_data_button" />
           <div className={styles.buttonArrow}><ImArrowUpRight2 /></div>
         </div>
       </button>
@@ -80,7 +81,7 @@ export function ConsentButton(props: ButtonProps) {
         }}
       >
         <div className={styles.buttonText2}>
-          view and share data
+          <FormattedMessage id="view_and_share_data_button" />
           <div className={styles.buttonArrow}><ImArrowUpRight2 /></div>
         </div>
       </button>

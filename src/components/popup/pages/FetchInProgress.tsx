@@ -48,7 +48,7 @@ function FetchInProgress(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Continue to get data',
+      id: 'continue_to_get_data_button',
       onPress: () => {
         dispatch(setPopupData({
           component: 'FetchLegalPreview',
@@ -63,7 +63,7 @@ function FetchInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar label="Fetching data..." />
+        <FetchingBar id="popup_fetch_data_text" />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
@@ -35,7 +36,7 @@ function LogoutButton() {
                   onClick={handleClick}
                 >
                   <div className={styles.doprdownbuttontext}>
-                    Log Out
+                    <FormattedMessage id="log_out_button" />
                   </div>
                 </button>
               </div>

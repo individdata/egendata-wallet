@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styles from './index.module.css';
 
 interface ButtonProps {
   onPress: any,
-  label: string,
+  id: string,
   disabled?: boolean,
   type: 'primary' | 'secondary',
 }
@@ -12,7 +13,7 @@ interface ButtonProps {
 function Button(props: ButtonProps) {
   const {
     onPress,
-    label,
+    id,
     disabled,
     type,
   } = props;
@@ -25,7 +26,7 @@ function Button(props: ButtonProps) {
         onClick={() => onPress()}
         disabled={disabled}
       >
-        {label}
+        <FormattedMessage id={id} />
       </button>
     </div>
   );

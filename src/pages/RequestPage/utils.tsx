@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styles from './index.module.css';
 import { Step } from './types';
 
@@ -8,13 +9,13 @@ export function Title() {
   return (
     <div className={styles.word1}>
       <div className={styles.word2}>
-        Share your
+        <FormattedMessage id="share_your_text" />
       </div>
       <div className={styles.word3}>
         {certificateName}
       </div>
       <div className={styles.word2}>
-        with
+        <FormattedMessage id="with_text" />
       </div>
       <div className={styles.word2}>
         {requestor}
@@ -25,15 +26,15 @@ export function Title() {
 
 export function Steps(props: Step) {
   const { status } = props;
-  let content = '';
+  let contentId = '';
   if (status === 'idle' || status === 'fetching') {
-    content = '1. Get your document';
+    contentId = 'first_get_your_document_text';
   } else if (status === 'gotData' || status === 'sharing') {
-    content = '2. View and share your document';
+    contentId = 'second_view_and_share_your_document_text';
   }
   return (
     <div className={styles.word4}>
-      {content}
+      <FormattedMessage id={contentId} />
     </div>
   );
 }
