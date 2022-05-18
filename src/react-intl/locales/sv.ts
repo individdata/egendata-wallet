@@ -10,6 +10,8 @@ export default {
   share_later_button: '(sv) Share later',
   next_button: '(sv) Next',
   close_button: '(sv) Close',
+  get_data_button: '(sv) Get data',
+  view_and_share_data_button: '(sv) view and share data',
   continue_to_get_data_button: '(sv) Continue to get data',
   continue_to_share_data_button: '(sv) Continue to share data',
   return_to_requesting_service_button: '(sv) Return to requesting service',
@@ -23,4 +25,6 @@ export default {
   inbox_text: '(sv) Inbox',
   consents_text: '(sv) Consents',
   my_data_text: '(sv) My data',
+  get_from_text: '(sv) Get from: ',
+  share_with_text: '(sv) Share with: ',
 };
