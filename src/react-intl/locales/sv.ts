@@ -4,7 +4,7 @@ export default {
   landingpage_line1: 'Påbörja din dataöverföring genom att identifiera dig nedan.',
   landingpage_line2: 'Ett användarkonto skapas automatiskt när du loggar in första gången.',
   landingpage_link: 'Project OAK allmänna villkor',
-  landingpage_footer: 'Project OAK är en myndighetstjänst som gör det möjligt för personer att lagra och skicka sin egna data mellan statliga och privata aktörer.',
+  landingpage_footer: 'Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer.',
   login_button: 'Logga in',
   log_out_button: 'Logga ut',
   share_later_button: 'Dela senare',
