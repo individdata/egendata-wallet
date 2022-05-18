@@ -37,8 +37,8 @@ function FetchDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title="Consent document transfer"
-        subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
+        title_id="popup_consent_title"
+        subtitle_id="popup_consent_subtitle"
       />
       <PopupContent>
         <Certificate certificate={reviewGetdataBoxItems} />

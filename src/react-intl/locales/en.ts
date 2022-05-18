@@ -31,4 +31,6 @@ export default {
   second_view_and_share_your_document_text: '2. View and share your document',
   share_your_text: 'Share your ',
   with_text: 'with ',
+  popup_consent_title: 'Consent document transfer',
+  popup_consent_subtitle: 'ou are about to fetch your Unemployment certificate from Arbetsförmedlingen.',
 };
