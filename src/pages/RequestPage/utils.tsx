@@ -9,13 +9,13 @@ export function Title() {
   return (
     <div className={styles.word1}>
       <div className={styles.word2}>
-        Share your
+        <FormattedMessage id="share_your_text" />
       </div>
       <div className={styles.word3}>
         {certificateName}
       </div>
       <div className={styles.word2}>
-        with
+        <FormattedMessage id="with_text" />
       </div>
       <div className={styles.word2}>
         {requestor}

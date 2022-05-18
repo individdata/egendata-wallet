@@ -27,6 +27,8 @@ export default {
   my_data_text: '(sv) My data',
   get_from_text: '(sv) Get from: ',
   share_with_text: '(sv) Share with: ',
-  first_get_your_document_text: '1. Get your document',
-  second_view_and_share_your_document_text: '2. View and share your document',
+  first_get_your_document_text: '(sv) 1. Get your document',
+  second_view_and_share_your_document_text: '(sv) 2. View and share your document',
+  share_your_text: '(sv) Share your ',
+  with_text: '(sv) with ',
 };

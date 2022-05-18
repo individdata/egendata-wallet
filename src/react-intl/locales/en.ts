@@ -29,4 +29,6 @@ export default {
   share_with_text: 'Share with: ',
   first_get_your_document_text: '1. Get your document',
   second_view_and_share_your_document_text: '2. View and share your document',
+  share_your_text: 'Share your ',
+  with_text: 'with ',
 };
