@@ -12,7 +12,7 @@ function Certificate(props: Props) {
   const renderedLines = Object.keys(certificate).map((key) => (
     <div key={key}>
       <Grid container>
-        <Grid xs={12} className={styles.line}>
+        <Grid item xs={12} className={styles.line}>
           {key}
           &nbsp;
           <div className={styles.lineValue}>{certificate[key]}</div>
@@ -22,7 +22,7 @@ function Certificate(props: Props) {
   ));
 
   return (
-    <Grid className={styles.stickyScroll}>
+    <Grid container className={styles.stickyScroll}>
       <div className={styles.title}>Unemployment certificate</div>
       {renderedLines}
     </Grid>

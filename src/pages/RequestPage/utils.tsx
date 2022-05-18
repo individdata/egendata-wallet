@@ -26,7 +26,7 @@ export function Title() {
 
 export function Steps(props: Step) {
   const { status } = props;
-  let contentId = '';
+  let contentId;
   if (status === 'idle' || status === 'fetching') {
     contentId = 'first_get_your_document_text';
   } else if (status === 'gotData' || status === 'sharing') {
@@ -34,7 +34,7 @@ export function Steps(props: Step) {
   }
   return (
     <div className={styles.word4}>
-      <FormattedMessage id={contentId} />
+      {contentId && <FormattedMessage id={contentId} />}
     </div>
   );
 }
