@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styles from './index.module.css';
 import { Step } from './types';
 
@@ -25,15 +26,15 @@ export function Title() {
 
 export function Steps(props: Step) {
   const { status } = props;
-  let content = '';
+  let content_id = '';
   if (status === 'idle' || status === 'fetching') {
-    content = '1. Get your document';
+    content_id = 'first_get_your_document_text';
   } else if (status === 'gotData' || status === 'sharing') {
-    content = '2. View and share your document';
+    content_id = 'second_view_and_share_your_document_text';
   }
   return (
     <div className={styles.word4}>
-      {content}
+      <FormattedMessage id={content_id} />
     </div>
   );
 }
