@@ -14,7 +14,7 @@ import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
 import { resetRequests } from './requestsSlice';
-import { subjectRequestsPath } from '../util/oak/egendata';
+import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -71,7 +71,7 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
 
         const { storage } = authorizedUser;
         if (storage) {
-          const inboxUrl = `${storage}oak/inbox/`;
+          const inboxUrl = `${storage}${inboxPath}`;
           dispatch(subscribe({ topic: inboxUrl, onMessage: handleInboxNotification }));
           const requestsUrl = `${storage}${subjectRequestsPath}`;
           dispatch(subscribe({ topic: requestsUrl, onMessage: handleRequestsNotification }));

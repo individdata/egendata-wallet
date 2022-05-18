@@ -53,7 +53,7 @@ ${egendataPrefixTurtle}
 export async function storeOutboundRequest(userPod: string, request: OutboundDataRequest) {
   const requestUrl = outboundDataRequestUrl(userPod, request.id);
   const locationUrl = dataLocationUrl(userPod, request.id);
-  const notificationInbox = `${userPod}oak/inbox/`;
+  const notificationInbox = `${userPod}${inboxPath}`;
   const requestData = outboundDataRequestTurtle(request.id, request.documentType, request.dataSubjectIdentifier, locationUrl, notificationInbox);
   await putFile(
     requestUrl,
@@ -84,7 +84,7 @@ export async function storeOutboundDataRequestAcl(id: string, userPod: string, u
   );
 }
 
-const outboundDataRequestLinkUrl = ((sourcePodUrl: string, id: string) => `${sourcePodUrl}oak/inbox/request-${id}`);
+const outboundDataRequestLinkUrl = ((sourcePodUrl: string, id: string) => `${sourcePodUrl}${inboxPath}${id}`);
 const outboundDataRequestLinkTurtle = ((requestUrl: string) => `
 ${egendataPrefixTurtle}
 <> egendata:OutboundDataRequest <${requestUrl}>.
@@ -113,7 +113,7 @@ export async function createInboundDataResponse(id: string, userPod: string) {
   );
 }
 
-const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}oak/inbox/response-link-${id}`);
+const outboundDataResponseLinkUrl = ((sinkPod: string, id: string) => `${sinkPod}${inboxPath}${id}`);
 const outboundDataResponseLinkTurtle = ((responseUrl: string) => `
 ${egendataPrefixTurtle}
 <> egendata:OutboundDataResponse <${responseUrl}>.
@@ -190,23 +190,23 @@ const inboxAclTurtle = ((userWebId: string, userPod: string) => `
 <#public>
     a acl:Authorization;
     acl:agentClass foaf:Agent;
-    acl:accessTo <${userPod}oak/inbox/>;
-    acl:default <${userPod}oak/inbox/>;
+    acl:accessTo <${userPod}${inboxPath}>;
+    acl:default <${userPod}${inboxPath}>;
     acl:mode acl:Write, acl:Append.
 
 # The owner has full access to the inbox
 <#owner>
     a acl:Authorization;
     acl:agent <${userWebId}>;
-    acl:accessTo <${userPod}oak/inbox/>;
-    acl:default <${userPod}oak/inbox/>;
+    acl:accessTo <${userPod}${inboxPath}>;
+    acl:default <${userPod}${inboxPath}>;
     acl:mode acl:Read, acl:Write, acl:Control.
 `);
 
 export async function createOakContainers(userWebId: string, userPod: string) {
   const resources = [
-    { url: `${userPod}oak/inbox/`, body: '' },
-    { url: `${userPod}oak/inbox/.acl`, body: inboxAclTurtle(userWebId, userPod) },
+    { url: `${userPod}${inboxPath}`, body: '' },
+    { url: `${userPod}${inboxPath}.acl`, body: inboxAclTurtle(userWebId, userPod) },
     { url: `${userPod}${subjectRequestsPath}`, body: '' },
     { url: `${userPod}${providerRequestsPath}`, body: '' },
     { url: `${userPod}${dataPath}`, body: '' },

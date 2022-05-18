@@ -33,7 +33,7 @@ export const consumerConsentsPath = `${consentsPath}consumer/`;
 export const dataPath = `${infraPath}data/`;
 export const inboxPath = `${infraPath}inbox/`;
 
-export const egendataSchema = `${config.podProviderBaseUrl}schema/core/v1#`;
+export const egendataSchema = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#';
 export const egendataPrefixTurtle = `@prefix egendata: <${egendataSchema}> .`;
 export const classNamespace = (className: string) => `${egendataSchema}${className}`;
 
