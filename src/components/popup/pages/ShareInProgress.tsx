@@ -48,7 +48,7 @@ function ShareInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar label="Sharing data..." />
+        <FetchingBar id="popup_share_data_text" />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

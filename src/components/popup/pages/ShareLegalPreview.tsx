@@ -52,14 +52,14 @@ function ShareLegalPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title="Consent document transfer"
-        subtitle="You are about to share your Unemployment certificate to BNP Paribas."
+        title_id="popup_consent_title"
+        subtitle_id="popup_consent_subtitle"
       />
       <PopupContent>
         <p>{checkGetdataInfo}</p>
-        <Checkbox label={checkGetdataCheckInfo[0]} onChange={(evt) => setCheckbox1(evt.target.checked)} />
-        <Checkbox label={checkGetdataCheckInfo[1]} onChange={(evt) => setCheckbox2(evt.target.checked)} />
-        <Checkbox label={checkGetdataCheckInfo[2]} onChange={(evt) => setCheckbox3(evt.target.checked)} />
+        <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />
+        <Checkbox id="popup_check_get_data_text_2" onChange={(evt) => setCheckbox2(evt.target.checked)} />
+        <Checkbox id="popup_check_get_data_text_3" onChange={(evt) => setCheckbox3(evt.target.checked)} />
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

@@ -34,6 +34,7 @@ export default {
   popup_consent_title: 'Consent document transfer',
   popup_consent_subtitle: 'You are about to fetch your Unemployment certificate from Arbetsförmedlingen.',
   popup_fetch_data_text: 'Fetching data...',
+  popup_share_data_text: 'Sharing data...',
   popup_check_get_data_info_text: 'BNP Paribas will be provided information that you are registered as a job seeker in Arbetsförmedlingen and the date of such registration. For privacy reasons, BNP Paribas will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in Arbetsförmedlingen, the transfer automatically terminates and you will need to provide an additional consent for the "job-seeker status" final date to be transfered to BNP Paribas.',
   popup_check_get_data_text_1: 'I give my consent for the Project OAK to handle and transfer this information once to BNP Paribas.',
   popup_check_get_data_text_2: 'I agree that this process removes the confidentiality of the information I choose to share with BNP Paribas.',
@@ -43,4 +44,6 @@ export default {
   popup_success_share_subtitle: 'You can always revoke your consent under Consents.',
   popup_success_share_description: 'Stay up to date on all your data matters.',
   popup_success_share_sub_description: 'Just enter your Email address',
+  popup_review_share_data_title: 'Review your document data',
+  popup_review_share_data_subtitle: 'Review your Unemployment certificate data to be shared with BNP Paribas.',
 };
