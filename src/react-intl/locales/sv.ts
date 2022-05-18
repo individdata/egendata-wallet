@@ -39,4 +39,8 @@ export default {
   popup_check_get_data_text_2: '(sv) I agree that this process removes the confidentiality of the information I choose to share with BNP Paribas.',
   popup_check_get_data_text_3: '(sv) I have reviewed the information and confirm that no unwanted information is included in the transfer to Dummy.',
   popup_under_proceed_text: '(sv) Your fetching is under proceed get notified when it&apos;s ready.',
+  popup_success_share_title: '(sv) Your unemployement certificate is now being shared with BNP Paribas.',
+  popup_success_share_subtitle: '(sv) You can always revoke your consent under Consents.',
+  popup_success_share_description: '(sv) Stay up to date on all your data matters.',
+  popup_success_share_sub_description: '(sv) Just enter your Email address',
 };

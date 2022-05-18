@@ -38,5 +38,9 @@ export default {
   popup_check_get_data_text_1: 'I give my consent for the Project OAK to handle and transfer this information once to BNP Paribas.',
   popup_check_get_data_text_2: 'I agree that this process removes the confidentiality of the information I choose to share with BNP Paribas.',
   popup_check_get_data_text_3: 'I have reviewed the information and confirm that no unwanted information is included in the transfer to Dummy.',
-  popup_under_proceed_text: '(sv) Your fetching is under proceed get notified when it&apos;s ready.',
+  popup_under_proceed_text: 'Your fetching is under proceed get notified when it&apos;s ready.',
+  popup_success_share_title: 'Your unemployement certificate is now being shared with BNP Paribas.',
+  popup_success_share_subtitle: 'You can always revoke your consent under Consents.',
+  popup_success_share_description: 'Stay up to date on all your data matters.',
+  popup_success_share_sub_description: 'Just enter your Email address',
 };

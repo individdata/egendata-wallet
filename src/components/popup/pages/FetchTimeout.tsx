@@ -3,13 +3,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
+import { unsetPopupData } from '../../../slices/popupSlice';
 import styles from './FetchTimeout.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import { RootState } from '../../../store';
-import FetchingBar from '../../fetchingBar';
-import useTimeout from '../../../hooks/useTimeout';
 
 type Props = {
   requestId: string,

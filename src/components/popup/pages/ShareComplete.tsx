@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { Grid } from '@mui/material';
@@ -35,16 +36,16 @@ function ShareComplete(props: Props) {
         <div className={styles.content}>
           <img className={styles.logoSuccess} alt="Success logo" />
           <div className={styles.titleText}>
-            Your unemployement certificate is now being shared with BNP Paribas.
+            <FormattedMessage id="popup_success_share_title" />
           </div>
           <div className={styles.noteText}>
-            You can always revoke your consent under Consents.
+            <FormattedMessage id="popup_success_share_subtitle" />
           </div>
           <div className={styles.ctaText}>
-            Stay up to date on all your data matters.
+            <FormattedMessage id="popup_success_share_description" />
           </div>
           <div className={styles.noteText}>
-            Just enter your Email address
+            <FormattedMessage id="popup_success_share_sub_description" />
           </div>
           <Grid container spacing={1} className={styles.formContainer}>
             <Grid item xs={12} sm={10} md={8} lg={6}>
