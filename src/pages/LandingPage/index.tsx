@@ -67,7 +67,7 @@ function LandingPage() {
               <div className={styles.text}>
                 <LandingTextBox />
               </div>
-              <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} label="Login" />
+              <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} id="login_button" />
             </div>
             <div className={styles.footer}>
               <Footer />

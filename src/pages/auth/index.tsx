@@ -34,7 +34,7 @@ function AuthPage() {
               <Button
                 type="primary"
                 onPress={() => dispatch(doLogin(currentPath))}
-                label="Login"
+                id="login_button"
               />
             )}
             <InfoLink />

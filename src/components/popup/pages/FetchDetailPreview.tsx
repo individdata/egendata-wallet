@@ -22,7 +22,7 @@ function FetchDetailPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Continue to get data',
+      id: 'continue_to_get_data_button',
       onPress: () => {
         dispatch(setPopupData({
           component: 'FetchLegalPreview',

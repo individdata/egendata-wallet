@@ -27,7 +27,7 @@ function ShareLegalPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'secondary',
-      label: 'Share later',
+      id: 'share_later_button',
       onPress: () => {
         dispatch(unsetPopupData());
       },
@@ -35,7 +35,7 @@ function ShareLegalPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Next',
+      id: 'next_button',
       disabled: !(checkbox1 && checkbox2 && checkbox3),
       onPress: () => {
         dispatch(shareInboundDataResponse(requestId));

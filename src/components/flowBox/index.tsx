@@ -27,8 +27,8 @@ function FlowBox() {
         </div>
         <div className={styles.texts}>
           <div className={styles.showrow}>
-            <FlowText text="Get your data" />
-            <FlowText text="Share your data" />
+            <FlowText id="get_your_data_text" />
+            <FlowText id="share_your_data_text" />
           </div>
         </div>
       </div>

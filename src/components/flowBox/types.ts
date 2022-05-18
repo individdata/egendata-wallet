@@ -8,7 +8,7 @@ export type Logo = {
 };
 
 export type Text = {
-  text: string;
+  id: string;
 };
 
 export type Arrow = {

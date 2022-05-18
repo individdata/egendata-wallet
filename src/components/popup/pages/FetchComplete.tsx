@@ -21,7 +21,7 @@ function FetchComplete(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Close',
+      id: 'close_button',
       onPress: () => {
         dispatch(unsetPopupData());
       },

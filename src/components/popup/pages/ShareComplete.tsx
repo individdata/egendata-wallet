@@ -22,7 +22,7 @@ function ShareComplete(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Return to requesting service',
+      id: 'return_to_requesting_service_button',
       onPress: () => {
         dispatch(unsetPopupData());
       },

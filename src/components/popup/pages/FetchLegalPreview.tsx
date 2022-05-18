@@ -28,7 +28,7 @@ function FetchLegalPreview(props: Props) {
     {
       uuid: uuid(),
       type: 'primary',
-      label: 'Consent and get data',
+      id: 'consent_and_get_data_button',
       disabled: !(checkbox1 && checkbox2 && checkbox3),
       onPress: () => {
         dispatch(createOutboundDataRequest(requestId));
