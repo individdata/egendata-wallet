@@ -6,6 +6,7 @@ export default {
   landingpage_link: 'Project OAK allmänna villkor',
   landingpage_footer: 'Project OAK är en myndighetstjänst som gör det möjligt för personer att lagra och skicka sina egna data mellan statliga och privata aktörer.',
   login_button: '(sv) Login ',
+  log_out_button: '(sv) Log out',
   share_later_button: '(sv) Share later',
   next_button: '(sv) Next',
   close_button: '(sv) Close',

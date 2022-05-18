@@ -6,6 +6,7 @@ export default {
   landingpage_link: 'Project OAK terms & conditions',
   landingpage_footer: 'Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.',
   login_button: 'Login',
+  log_out_button: 'Log out',
   share_later_button: 'Share later',
   next_button: 'Next',
   close_button: 'Close',
