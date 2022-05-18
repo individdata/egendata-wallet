@@ -8,8 +8,6 @@ import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import {
   reviewGetdataInfo,
-  reviewSharedataTitle1,
-  reviewSharedataTitle2,
   reviewShareddataBoxItems,
 } from '../../../util/document';
 import Certificate from '../../certificate';

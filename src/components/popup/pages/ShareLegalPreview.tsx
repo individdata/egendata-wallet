@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
@@ -6,7 +7,6 @@ import styles from './ShareLegalPreview.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
-import { checkGetdataCheckInfo, checkGetdataInfo } from '../../../util/document';
 import Checkbox from '../../ui/Checkbox';
 import { shareInboundDataResponse } from '../../../slices/requestsSlice';
 
@@ -56,7 +56,7 @@ function ShareLegalPreview(props: Props) {
         subtitle_id="popup_consent_subtitle"
       />
       <PopupContent>
-        <p>{checkGetdataInfo}</p>
+        <FormattedMessage id="popup_check_get_data_info_text" />
         <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />
         <Checkbox id="popup_check_get_data_text_2" onChange={(evt) => setCheckbox2(evt.target.checked)} />
         <Checkbox id="popup_check_get_data_text_3" onChange={(evt) => setCheckbox3(evt.target.checked)} />

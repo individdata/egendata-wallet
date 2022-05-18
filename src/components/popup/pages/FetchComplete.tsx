@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { unsetPopupData } from '../../../slices/popupSlice';
@@ -33,7 +34,7 @@ function FetchComplete(props: Props) {
       <PopupContent>
         <div className={styles.content}>
           <img className={styles.logoSuccess} alt="Success logo" />
-          {successGetdata}
+          <FormattedMessage id="popup_success_fetch_data_text" />
         </div>
       </PopupContent>
       <PopupButtons buttons={buttons} />
