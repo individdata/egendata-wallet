@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
@@ -28,7 +29,7 @@ function Tags() {
             <div
               className={(tabState === 'inbox') ? styles.buttontext1 : styles.buttontext2}
             >
-              Inbox
+              <FormattedMessage id="inbox_text" />
             </div>
           </button>
           <button
@@ -40,7 +41,7 @@ function Tags() {
             <div
               className={(tabState === 'consent') ? styles.buttontext1 : styles.buttontext2}
             >
-              Consents
+              <FormattedMessage id="consents_text" />
             </div>
           </button>
           <button
@@ -52,7 +53,7 @@ function Tags() {
             <div
               className={(tabState === 'mydata') ? styles.buttontext1 : styles.buttontext2}
             >
-              My data
+              <FormattedMessage id="my_data_text" />
             </div>
           </button>
         </div>

@@ -19,4 +19,7 @@ export default {
   home_page_link: '(sv) How do I log in with Freja eID?',
   image_page_title: '(sv) Your data in your control',
   image_page_description: '(sv) Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations.',
+  inbox_text: '(sv) Inbox',
+  consents_text: '(sv) Consents',
+  my_data_text: '(sv) My data',
 };
