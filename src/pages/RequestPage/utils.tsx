@@ -26,15 +26,15 @@ export function Title() {
 
 export function Steps(props: Step) {
   const { status } = props;
-  let content_id = '';
+  let contentId = '';
   if (status === 'idle' || status === 'fetching') {
-    content_id = 'first_get_your_document_text';
+    contentId = 'first_get_your_document_text';
   } else if (status === 'gotData' || status === 'sharing') {
-    content_id = 'second_view_and_share_your_document_text';
+    contentId = 'second_view_and_share_your_document_text';
   }
   return (
     <div className={styles.word4}>
-      <FormattedMessage id={content_id} />
+      <FormattedMessage id={contentId} />
     </div>
   );
 }

@@ -52,8 +52,8 @@ function ShareLegalPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title_id="popup_consent_title"
-        subtitle_id="popup_consent_subtitle"
+        titleId="popup_consent_title"
+        subtitleId="popup_consent_subtitle"
       />
       <PopupContent>
         <FormattedMessage id="popup_check_get_data_info_text" />

@@ -6,7 +6,6 @@ import { unsetPopupData } from '../../../slices/popupSlice';
 import styles from './FetchComplete.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { successGetdata } from '../../../util/document';
 
 type Props = {
   requestId: string,

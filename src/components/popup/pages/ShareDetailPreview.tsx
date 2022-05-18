@@ -48,8 +48,8 @@ function ShareDetailPreview(props: Props) {
   return (
     <div className={styles.container}>
       <PopupHeader
-        title_id="popup_review_share_data_title"
-        subtitle_id="popup_review_share_data_subtitle"
+        titleId="popup_review_share_data_title"
+        subtitleId="popup_review_share_data_subtitle"
       />
       <PopupContent>
         <Certificate certificate={reviewShareddataBoxItems} />
