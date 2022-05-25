@@ -1,68 +1,49 @@
 .main {
-    background-image: url("/public/images/login-page.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-    flex: 1;
-    padding-left: 4vw;
-    padding-right: 4vw;
+    height: auto;
+    text-align: center;
 }
 
 .leaf {
-    height: 150px;
-    margin-left: 45%;
+    height: 10%;
+    width: 10%;
+    padding-top: 10%;
+    padding-left: 45%;
+}
+  
+.leaf .logo {
+  width: auto;
+  height: auto;
+  content: url("/public/images/oak-white-big.png");
 }
 
-.logo {
-    margin-top: 100px;
-    content: url("/public/images/oak-white-big.png");
+.titleContainer {
+    height: 50%;
+    padding-left: 25%;
+    width: 48%;
+    text-align: center;
 }
 
-.title {
-    height: 380px;
-    width: 50%;
-    margin-left: 25%;
-}
-
-.first { 
+.titleContainer .title {
     font-family: Open Sans;
     font-style: normal;
     font-weight: 530;
-    font-size: 96px;
+    font-size: 7vw;
     line-height: 93px;
     text-align: center;
+    color: #ffffff;
+}
 
-    color: #FFFFFF;
+.textContainer {
+   height: 30%;
+   width: 80%;
+   padding-left: 10%;
+   padding-bottom: 20%;
 }
 
 .text {
-    height: 260px;
-    margin-top: 10px;
-}
-
-.description {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 150;
-    font-size: 24px;
-    line-height: 2px;
+    color: white;
+    justify-content: center;
     text-align: center;
-
-    color: #FFFFFF;
-}
-
-.paragraph {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 150;
-    font-size: 24px;
-    line-height: 2px;
-    text-align: center;
-    margin-top: 2.8 rem;
-    color: #FFFFFF;
-}
-
-.bgMe{
-
+    font-size: 2vw;
+    font-weight: 400;
 }

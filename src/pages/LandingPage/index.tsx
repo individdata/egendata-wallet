@@ -13,7 +13,7 @@ import { storeInboundDataRequest } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
-import AuthPage from '../auth';
+import AuthPage from '../AuthPage';
 
 function LandingPage() {
   const dispatch = useDispatch();

@@ -118,3 +118,11 @@
     margin-top: 20px;
     color: #ACACAC;;
 }
+
+body {
+    background: url("/public/images/login-page.png") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 50% 100%;
+}

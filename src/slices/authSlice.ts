@@ -7,7 +7,7 @@ import {
   logout,
   handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import { AuthorizedUser } from '../pages/auth/types';
+import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
 import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import {
