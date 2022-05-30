@@ -15,24 +15,24 @@ function Header(props: HeaderType) {
   const isLoggedIn = user?.completed;
   return (
     <div className={styles.headline}>
-      <div className={styles.logo}>
+      <div className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
         <OakLogo />
       </div>
       {!redirect && isLoggedIn && (
-        <div className={styles.tabs}>
+        <div className={styles.tabsContiner}>
           <Tabs />
         </div>
       )}
-      <div className={styles.langButton}>
+      <div className={(isLoggedIn) ? styles.langContiner1 : styles.langContiner2}>
         <LangButton />
       </div>
       {!redirect && isLoggedIn && (
-        <div className={styles.logout}>
+        <div className={styles.logoutContiner}>
           <LogoutButton />
         </div>
       )}
       {redirect && isLoggedIn && (
-        <div className={styles.logout}>
+        <div className={styles.logoutContiner}>
           <RedirectLogoutButton />
         </div>
       )}
