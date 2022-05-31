@@ -10,15 +10,20 @@ import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import styles from './index.module.css';
 import { LogInText, InfoLink } from './utils';
+import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
 
 function HomePage() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  const storage = useSelector((state: RootState) => state.auth.user?.storage);
   const isLoggedIn = user?.completed;
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   useEffect(() => {
     dispatch(getRequestsContent());
+    if (user) {
+      dispatch(subjectRequestThunks.getContent(storage ?? ''));
+    }
   }, [user]);
 
   const redirectState = false;

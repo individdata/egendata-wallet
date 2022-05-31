@@ -35,6 +35,7 @@ export const inboxPath = `${infraPath}inbox/`;
 
 export const egendataSchema = 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#';
 export const egendataPrefixTurtle = `@prefix egendata: <${egendataSchema}> .`;
+export const dcPrefixTurtle = '@prefix dcterm: <http://purl.org/dc/terms/> .';
 export const classNamespace = (className: string) => `${egendataSchema}${className}`;
 
 export type DataRequest = {

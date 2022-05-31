@@ -7,6 +7,11 @@ import popupReducer from './slices/popupSlice';
 import langReducer from './slices/langSlice';
 import notificationReducer from './slices/notificationSlice';
 import websockerReducer from './slices/websocketSlice';
+import subjectRequestsReducer from './slices/requests/subjectRequestsSlice';
+import providerRequestsReducer from './slices/requests/providerRequestsSlice';
+import dataReducer from './slices/dataSlice';
+import providerConsentReducer from './slices/consents/providerConsentSlice';
+import consumerConsentReducer from './slices/consents/consumerConsentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +22,11 @@ export const store = configureStore({
     lang: langReducer,
     notification: notificationReducer,
     websocket: websockerReducer,
+    subjectRequests: subjectRequestsReducer,
+    providerRequests: providerRequestsReducer,
+    data: dataReducer,
+    providerConsents: providerConsentReducer,
+    consumerConsents: consumerConsentReducer,
   },
 });
 

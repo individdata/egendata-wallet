@@ -10,10 +10,12 @@ import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import { storeInboundDataRequest } from '../../slices/requestsSlice';
+import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
 import AuthPage from '../auth';
+import { inboundDataRequestUrl } from '../../util/oak/templates';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -41,6 +43,8 @@ function LandingPage() {
       decodedRequest.id = uuid();
       if (decodedRequest) {
         dispatch(storeInboundDataRequest(decodedRequest));
+        const requestUrl = inboundDataRequestUrl(user.storage ?? '', decodedRequest.id);
+        dispatch(subjectRequestThunks.create({ resourceUrl: requestUrl, resource: decodedRequest }));
         setRedirect(`/request/${decodedRequest.id}`);
       } else {
         console.warn('Decoded request is somehow empty?');

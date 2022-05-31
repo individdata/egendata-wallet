@@ -1,8 +1,34 @@
+import { AccessMode, ACL } from '../thunkCreator';
 import {
   consumerConsentsPath,
   dataPath, egendataPrefixTurtle, inboxPath, providerConsentsPath, providerRequestsPath, subjectRequestsPath,
 } from './egendata';
 import { putFile } from './solid';
+
+function accessMode(modes: AccessMode[]): string {
+  return modes.map((mode) => `ac:${mode}`).join(', ');
+}
+
+export const aclTurtle = ((resourceUrl: string, acls: ACL[]) => {
+  const turtle = acls.map((acl) => `
+<#${acl.label}> a acl:Authorization;
+    acl:accessTo <${resourceUrl}>;
+    acl:agent <${acl.webId}>;
+    acl:mode ${accessMode(acl.mode)}.
+`);
+  return `
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+
+${turtle}`;
+});
+
+export async function storeTurtle(resourceUrl: string, body: string) {
+  await putFile(
+    resourceUrl,
+    { body },
+    'text/turtle',
+  );
+}
 
 export type InboundDataRequest = {
   id: string,
@@ -12,7 +38,7 @@ export type InboundDataRequest = {
   purpose: string,
   returnUrl: string,
 };
-const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${subjectRequestsPath}${id}`);
+export const inboundDataRequestUrl = ((userPodUrl: string, id: string) => `${userPodUrl}${subjectRequestsPath}${id}`);
 const inboundDataRequestTurtle = ((dataRequest: InboundDataRequest) => `
 ${egendataPrefixTurtle}
 <> a egendata:InboundDataRequest ;
