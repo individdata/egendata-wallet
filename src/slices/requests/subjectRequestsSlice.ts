@@ -22,7 +22,7 @@ import {
 
 export type SubjectRequest = {
   id: string,
-  created: Date, // iso8601 timestamp
+  created: string, // iso8601 timestamp
   requestorWebId: string,
   providerWebId: string,
   documentType: string,
@@ -46,7 +46,7 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
   const ds = await getSolidDataset(resourceUrl, { fetch });
   const thing = getThing(ds, resourceUrl) as Thing;
   const id = getStringNoLocale(thing, `${egendataSchema}id`) ?? '';
-  const created = getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(); // TODO: how to handle non existent timestamps?
+  const now = getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(); // TODO: how to handle non existent timestamps?
   const requestorWebId = getStringNoLocale(thing, `${egendataSchema}requestorWebId`) ?? '';
   const providerWebId = getStringNoLocale(thing, `${egendataSchema}providerWebId`) ?? '';
   const documentType = getStringNoLocale(thing, `${egendataSchema}documentType`) ?? '';
@@ -57,7 +57,7 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
     resourceUrl,
     resource: {
       id,
-      created,
+      created: now.toISOString(),
       requestorWebId,
       providerWebId,
       documentType,
@@ -68,6 +68,7 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
 }
 
 const createRequest: CreateFunction<SubjectRequest> = async (namedResource: NamedOptionalResource<SubjectRequest>) => {
+  console.log(`createRequest: ${namedResource.resourceUrl}`);
   storeTurtle(namedResource.resourceUrl, requestBody(namedResource.resource));
 };
 

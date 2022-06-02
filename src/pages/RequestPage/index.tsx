@@ -9,9 +9,10 @@ import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import Header from '../../components/header';
 import { Title, Steps } from './utils';
-import { getRequestsContent } from '../../slices/requestsSlice';
+// import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
 import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
+import { subjectRequestsPath } from '../../util/oak/egendata';
 
 function RequestPage() {
   const { id } = useParams();
@@ -22,18 +23,22 @@ function RequestPage() {
   if (!id) {
     return <Navigate to="/home" replace />;
   }
-  const requestState = useSelector((state: RootState) => state.requests[id]);
-  const subjectRequestState = useSelector((state: RootState) => state.subjectRequests);
+  const resourceKey = storage + subjectRequestsPath + id;
+  console.log(`resourceKey: ${resourceKey}`);
+  const subjectRequest = useSelector((state: RootState) => state.subjectRequests.items[resourceKey]);
+  console.log(`subjectRequest: ${subjectRequest}`);
+  const processState = useSelector((state: RootState) => state.process[id]);
+  console.log(`processState: ${processState}`);
 
   useEffect(() => {
-    dispatch(getRequestsContent());
+    // dispatch(getRequestsContent());
     if (user) {
-      dispatch(subjectRequestThunks.getContent(storage ?? ''));
+      dispatch(subjectRequestThunks.fetch({ resourceName: resourceKey }));
     }
   }, [user]);
 
   const redirectState = true;
-  if (subjectRequestState) {
+  if (subjectRequest && processState) {
     return (
       <Grid container>
         <Grid item xs={12}>
@@ -47,7 +52,7 @@ function RequestPage() {
                 <FlowBox />
               </div>
               <div className={styles.step}>
-                <Steps status={requestState.status} />
+                <Steps state={processState.state} />
               </div>
               <div className={styles.consentBox}>
                 <ConsentBox />

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
@@ -27,11 +28,12 @@ export type ShareConsent = {
   consentDocument: string,
 };
 
-type ProcessState = {
-  status: 'idle' | 'fetching' | 'sharing' | 'error',
+export type RequestState = 'void' | 'received' | 'fetching' | 'available' | 'shared';
+
+export type ProcessState = {
+  status: 'pending' | 'success' | 'error',
   requestId: string,
-  fetched: boolean,
-  shared: boolean,
+  state: RequestState,
 };
 
 export type ProcessesState = Record<string, ProcessState>;
@@ -40,6 +42,7 @@ export const saveIncomingRequest = createAsyncThunk<void, InboundDataRequest>(
   'requests/saveInboundDataRequest',
   async (request, { getState, dispatch }): Promise<void> => {
     const state = getState() as RootState;
+    console.log(`saveIncomingRequest, state = ${state}`);
     const { user } = state.auth;
     if (user && user.storage) {
       const userPod = user.storage;
@@ -48,7 +51,7 @@ export const saveIncomingRequest = createAsyncThunk<void, InboundDataRequest>(
         resourceUrl,
         resource: {
           id: request.id,
-          created: new Date(),
+          created: new Date().toISOString(),
           documentType: request.documentType,
           requestorWebId: request.requestorWebId,
           providerWebId: request.providerWebId,
@@ -56,6 +59,7 @@ export const saveIncomingRequest = createAsyncThunk<void, InboundDataRequest>(
           returnUrl: request.returnUrl,
         },
       };
+      console.log(`saveIncomingRequest: ${resource}`);
       await dispatch(subjectRequestThunks.create(resource));
     }
   },
@@ -159,42 +163,43 @@ export const processesSlice = createSlice({
   reducers: {
     fetched: (state, currentrequest) => {
       const item = state[currentrequest.payload];
-      item.status = 'idle';
-      item.fetched = true;
+      item.state = 'available';
     },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(saveIncomingRequest.fulfilled, (state, action) => {
-      const { requestId } = action.meta;
+    builder.addCase(saveIncomingRequest.pending, (state, action) => {
+      const { id } = action.meta.arg;
+      console.log(`saveIncomingRequest.pending, requestId = ${id}`);
       const item: ProcessState = {
-        status: 'idle',
-        requestId,
-        fetched: false,
-        shared: false,
+        status: 'pending',
+        requestId: id,
+        state: 'void',
       };
-      state[requestId] = item;
+      state[id] = item;
+    });
+    builder.addCase(saveIncomingRequest.fulfilled, (state, action) => {
+      const { id } = action.meta.arg;
+      console.log(`saveIncomingRequest.fulfilled, requestId = ${id}`);
+      const item = state[id];
+      item.status = 'success';
+      item.state = 'received';
     });
     builder.addCase(saveIncomingRequest.rejected, (state, action) => {
-      const { requestId } = action.meta;
-      const item: ProcessState = {
-        status: 'error',
-        requestId,
-        fetched: false,
-        shared: false,
-      };
-      state[requestId] = item;
+      const { id } = action.meta.arg;
+      const item = state[id];
+      item.status = 'error';
     });
     builder.addCase(consentFetch.pending, (state, action) => {
       const { requestId } = action.meta;
       const item = state[requestId];
-      item.status = 'fetching';
+      item.status = 'pending';
     });
     builder.addCase(consentFetch.fulfilled, (state, action) => {
       const { requestId } = action.meta;
       const item = state[requestId];
-      item.status = 'idle';
-      item.fetched = true;
+      item.status = 'success';
+      item.state = 'fetching';
     });
     builder.addCase(consentFetch.rejected, (state, action) => {
       const { requestId } = action.meta;
@@ -204,13 +209,13 @@ export const processesSlice = createSlice({
     builder.addCase(consentShare.pending, (state, action) => {
       const { requestId } = action.meta;
       const item = state[requestId];
-      item.status = 'sharing';
+      item.status = 'pending';
     });
     builder.addCase(consentShare.fulfilled, (state, action) => {
       const { requestId } = action.meta;
       const item = state[requestId];
-      item.status = 'idle';
-      item.shared = true;
+      item.status = 'success';
+      item.state = 'shared';
     });
     builder.addCase(consentShare.rejected, (state, action) => {
       const { requestId } = action.meta;

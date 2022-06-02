@@ -20,8 +20,8 @@ function HomePage() {
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   useEffect(() => {
-    dispatch(getRequestsContent());
     if (user) {
+      dispatch(getRequestsContent());
       dispatch(subjectRequestThunks.getContent(storage ?? ''));
     }
   }, [user]);

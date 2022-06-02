@@ -23,6 +23,7 @@ ${turtle}`;
 });
 
 export async function storeTurtle(resourceUrl: string, body: string) {
+  console.log(`storeTurtle resourceUrl: ${resourceUrl}`);
   await putFile(
     resourceUrl,
     { body },

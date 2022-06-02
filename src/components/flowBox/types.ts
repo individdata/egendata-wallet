@@ -1,7 +1,7 @@
 export type Title = {
   status: string;
 };
-  
+
 export type Logo = {
   number: string;
   status: string;
@@ -13,4 +13,4 @@ export type Text = {
 
 export type Arrow = {
   status: string;
-}
+};

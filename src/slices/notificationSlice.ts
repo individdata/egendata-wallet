@@ -6,9 +6,8 @@ import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  storeInboundDataRequest, add, fetched, getRequestsContent,
-} from './requestsSlice';
+import { getRequestsContent } from './requestsSlice';
+import { saveIncomingRequest, fetched } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
@@ -105,8 +104,8 @@ export const handleInboxNotification = async (notification: Notification, dispat
     switch (item.t) {
       case 'Request':
         const inboundDataRequest = toInboundDataRequest(item);
-        dispatch(storeInboundDataRequest(inboundDataRequest));
-        dispatch(add(inboundDataRequest));
+        dispatch(saveIncomingRequest(inboundDataRequest));
+        // dispatch(add(inboundDataRequest));
         break;
       case 'Response':
         const inboundDataResponse = toDataResponse(item);
@@ -124,9 +123,11 @@ export const handleRequestsNotification = async (notification: Notification, dis
   const { topic } = notification.object;
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
-    const item = await requestItem(topic);
-    console.log('requestItem = ', item);
-    dispatch(getRequestsContent());
+    if (!topic.endsWith('/')) {
+      const item = await requestItem(topic);
+      console.log('requestItem = ', item);
+      dispatch(getRequestsContent());
+    }
   }
 };
 

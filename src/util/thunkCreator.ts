@@ -44,6 +44,7 @@ export async function containerContent<T>(
   const ds = await getSolidDataset(containerUrl, { fetch });
   const request = getThing(ds, containerUrl) as Thing;
   const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+  console.log(`containerContent: ${content}`);
   const list = await Promise.all(
     content.map(
       async (url) => fetchFunction(url),

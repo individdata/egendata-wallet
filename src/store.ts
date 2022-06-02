@@ -12,6 +12,7 @@ import providerRequestsReducer from './slices/requests/providerRequestsSlice';
 import dataReducer from './slices/dataSlice';
 import providerConsentReducer from './slices/consents/providerConsentSlice';
 import consumerConsentReducer from './slices/consents/consumerConsentSlice';
+import processReducer from './slices/processesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     data: dataReducer,
     providerConsents: providerConsentReducer,
     consumerConsents: consumerConsentReducer,
+    process: processReducer,
   },
 });
 
