@@ -57,13 +57,15 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
       const u = profileData as ProfileData;
       console.log('matched userInfo=', userInfo);
       const ssnData = await fetchSsnData(u.seeAlso);
+      console.log('ssnData=', userInfo);
       if (ssnData) {
         console.log('matched seeAlso=', ssnData);
-        const ssn = ssnData as string;
+        const ssn = ssnData.ssn as string;
+        const fullname = ssnData.fullname as string;
         console.log('matched ssn=', ssn);
         const authorizedUser: AuthorizedUser = {
           webid: userInfo?.webId ? userInfo.webId : '',
-          name: u.name ?? 'Name',
+          name: fullname ?? 'Name',
           storage: u.storage ?? '',
           id: ssn,
           completed: true,
