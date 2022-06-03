@@ -24,7 +24,9 @@ function LandingPage() {
   const request = url.searchParams.get('request');
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const isLoggedIn = user?.completed;
+  console.log('user = ', user);
+  const isLoggedIn = Object.keys(user).length !== 0;
+  console.log('isLoggedIn = ', isLoggedIn);
 
   let redirectState = false;
   if (request) {
@@ -32,6 +34,7 @@ function LandingPage() {
   }
 
   useEffect(() => {
+    console.log('############ request = ', request);
     if (isLoggedIn && !request) {
       setRedirect('/home');
     }

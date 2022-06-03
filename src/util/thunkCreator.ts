@@ -21,7 +21,7 @@ export type NamedResource<T> = { resourceUrl: ResourcePath, resource: T, acl?: A
 export type NamedOptionalResource<T> = { resourceUrl: ResourcePath, resource: T | undefined, acl?: ACL[] };
 export type NamedResourceArray<T> = NamedResource<T>[];
 export type FetchFunction<T> = (resourceUrl: ResourcePath) => Promise<T>;
-export type CreateFunction<T> = (resource: NamedOptionalResource<T>) => Promise<void>;
+export type CreateFunction<T> = (resource: NamedOptionalResource<T>) => Promise<NamedOptionalResource<T>>;
 export type NamedFetchFunction<T> = (resourceUrl: ResourcePath) => Promise<NamedResource<T>>;
 export type ContentFunction<T> = (containerUrl: ContainerPath, fetchFunction: FetchFunction<T>) => Promise<NamedResourceArray<T>>;
 
@@ -32,7 +32,7 @@ export type ContainerFunctions<T> = {
 };
 
 type ContainerThunkFunctions<T> = {
-  create: AsyncThunk<void, NamedOptionalResource<T>, Record<ResourcePath, unknown>>,
+  create: AsyncThunk<NamedOptionalResource<T>, NamedOptionalResource<T>, Record<ResourcePath, unknown>>,
   fetch: AsyncThunk<T, { resourceName: ResourceName }, Record<ResourcePath, unknown>>,
   getContent: AsyncThunk<NamedResourceArray<T>, ResourceUrl, Record<ResourcePath, unknown>>,
 };
@@ -55,9 +55,9 @@ export async function containerContent<T>(
 
 export function createContainerThunks<T>(containerUrl: ContainerPath, containerFunctions: ContainerFunctions<T>) {
   return {
-    create: createAsyncThunk<void, NamedOptionalResource<T>>(
+    create: createAsyncThunk<NamedOptionalResource<T>, NamedOptionalResource<T>>(
       `${containerUrl}store`,
-      async (resource): Promise<void> => containerFunctions.create(resource),
+      async (resource): Promise<NamedOptionalResource<T>> => containerFunctions.create(resource),
     ),
     fetch: createAsyncThunk<T, { resourceName: string }>(
       `${containerUrl}fetch`,

@@ -60,6 +60,7 @@ const createRequest: CreateFunction<Data> = async (namedResource: NamedOptionalR
     storeTurtle(namedResource.resourceUrl, namedResource.resource ? requestBody(namedResource.resource) : ''),
     (namedResource.acl) ? storeTurtle(`${namedResource.resourceUrl}.acl`, aclTurtle(namedResource.resourceUrl, namedResource.acl)) : undefined,
   ]);
+  return namedResource;
 };
 
 const fetchRequest: FetchFunction<Data> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;

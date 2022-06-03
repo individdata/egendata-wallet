@@ -6,7 +6,7 @@ import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
 import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../../util/oak/egendata';
-import { storeTurtle } from '../../util/oak/templates';
+import { InboundDataRequest, storeTurtle } from '../../util/oak/templates';
 import {
   containerContent,
   ContainerPath,
@@ -28,6 +28,22 @@ export type SubjectRequest = {
   documentType: string,
   purpose: string,
   returnUrl: string,
+};
+
+export const subjectRequest = (userPod: string, request: InboundDataRequest): NamedResource<SubjectRequest> => {
+  const resourceUrl = userPod + subjectRequestsPath + request.id;
+  return {
+    resourceUrl,
+    resource: {
+      id: request.id,
+      created: new Date().toISOString(),
+      documentType: request.documentType,
+      requestorWebId: request.requestorWebId,
+      providerWebId: request.providerWebId,
+      purpose: request.purpose,
+      returnUrl: request.returnUrl,
+    },
+  };
 };
 
 const requestBody = ((request: SubjectRequest | undefined) => (request ? `
@@ -69,7 +85,8 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
 
 const createRequest: CreateFunction<SubjectRequest> = async (namedResource: NamedOptionalResource<SubjectRequest>) => {
   console.log(`createRequest: ${namedResource.resourceUrl}`);
-  storeTurtle(namedResource.resourceUrl, requestBody(namedResource.resource));
+  await storeTurtle(namedResource.resourceUrl, requestBody(namedResource.resource));
+  return namedResource;
 };
 
 const fetchRequest: FetchFunction<SubjectRequest> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;

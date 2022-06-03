@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, SliceCaseReducers } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import {
   consumerConsentsPath, dataPath, inboxPath, subjectRequestsPath,
@@ -10,7 +10,7 @@ import { consumerConsentThunks, ConsumerConsent } from './consents/consumerConse
 import { providerConsentThunks, ProviderConsent } from './consents/providerConsentSlice';
 import { providerRequestThunks, ProviderRequest } from './requests/providerRequestsSlice';
 import { dataThunks, Data } from './dataSlice';
-import { subjectRequestThunks, SubjectRequest } from './requests/subjectRequestsSlice';
+import { subjectRequestThunks, subjectRequest, SubjectRequest } from './requests/subjectRequestsSlice';
 import { NamedOptionalResource, NamedResource } from '../util/thunkCreator';
 import {
   InboundDataRequest, storeOutboundRequestLink, storeOutboundResponseAcl, storeOutboundResponseLink,
@@ -38,35 +38,23 @@ export type ProcessState = {
 
 export type ProcessesState = Record<string, ProcessState>;
 
-export const saveIncomingRequest = createAsyncThunk<void, InboundDataRequest>(
-  'requests/saveInboundDataRequest',
-  async (request, { getState, dispatch }): Promise<void> => {
+export const saveIncomingRequest = createAsyncThunk<SubjectRequest, InboundDataRequest>(
+  'requests/saveIncomingRequest',
+  async (request, { getState, dispatch }): Promise<SubjectRequest> => {
     const state = getState() as RootState;
     console.log(`saveIncomingRequest, state = ${state}`);
     const { user } = state.auth;
-    if (user && user.storage) {
-      const userPod = user.storage;
-      const resourceUrl = userPod + subjectRequestsPath + request.id;
-      const resource: NamedResource<SubjectRequest> = {
-        resourceUrl,
-        resource: {
-          id: request.id,
-          created: new Date().toISOString(),
-          documentType: request.documentType,
-          requestorWebId: request.requestorWebId,
-          providerWebId: request.providerWebId,
-          purpose: request.purpose,
-          returnUrl: request.returnUrl,
-        },
-      };
-      console.log(`saveIncomingRequest: ${resource}`);
-      await dispatch(subjectRequestThunks.create(resource));
-    }
+    const userPod = user.storage;
+    const resource = subjectRequest(userPod, request);
+    console.log(`saveIncomingRequest: ${resource}`);
+    const createAction = await dispatch(subjectRequestThunks.create(resource));
+    const { payload } = createAction;
+    return (payload as NamedResource<SubjectRequest>).resource;
   },
 );
 
 export const consentFetch = createAsyncThunk<void, FetchConsent>(
-  'requests/createOutboundDataRequest',
+  'requests/consentFetch',
   async (consent, { getState, dispatch }): Promise<void> => {
     const state = getState() as RootState;
     const { items } = state.subjectRequests;
@@ -124,7 +112,7 @@ export const consentFetch = createAsyncThunk<void, FetchConsent>(
 );
 
 export const consentShare = createAsyncThunk<void, ShareConsent>(
-  'requests/shareInboundDataResponse',
+  'requests/consentShare',
   async (consent, { getState, dispatch }): Promise<void> => {
     const state = getState() as RootState;
 
@@ -157,7 +145,7 @@ export const consentShare = createAsyncThunk<void, ShareConsent>(
   },
 );
 
-export const processesSlice = createSlice({
+export const processesSlice = createSlice<ProcessesState, SliceCaseReducers<ProcessesState>, string>({
   name: 'requests',
   initialState: {} as ProcessesState,
   reducers: {

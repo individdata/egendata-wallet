@@ -67,8 +67,8 @@ const createRequest: CreateFunction<ProviderRequest> = async (namedResource: Nam
   await Promise.all([
     storeTurtle(namedResource.resourceUrl, namedResource.resource ? requestBody(namedResource.resource) : ''),
     (namedResource.acl) ? storeTurtle(`${namedResource.resourceUrl}.acl`, aclTurtle(namedResource.resourceUrl, namedResource.acl)) : undefined,
-  //    storeOutboundRequestLink(id, userPod, providerPodStorage),
   ]);
+  return namedResource;
 };
 
 const fetchRequest: FetchFunction<ProviderRequest> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;

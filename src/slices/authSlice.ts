@@ -39,7 +39,7 @@ export type ProfileData = {
   seeAlso: string;
 };
 
-export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
+export const afterLogin = createAsyncThunk<AuthorizedUser>(
   'auth/afterlogin',
   async (id, { dispatch }) => {
     console.log('afterlogin');
@@ -47,7 +47,7 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
     const webId = userInfo?.webId ? userInfo.webId : '';
     console.log('afterLogin webId=', webId);
     if (!webId) {
-      return undefined;
+      return {};
     }
 
     const profileData = await fetchProfileData(webId);
@@ -78,27 +78,27 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
         }
         return authorizedUser;
       }
-      return undefined;
+      return {};
     }
-    return undefined;
+    return {};
   },
 );
 
-export const doLogout = createAsyncThunk<undefined>(
+export const doLogout = createAsyncThunk<AuthorizedUser>(
   'auth/logout',
   async (id, { dispatch }) => {
     console.log('doLogout');
     await logout();
     dispatch(resetRequests());
     dispatch(unsubscribeAll());
-    return undefined;
+    return {};
   },
 );
 
 type AuthState = {
   status: 'authorizing' | 'handleredirect' | 'handlingredirect' | 'loggedin' | 'error' | 'idle' | 'unauthorizing';
   error: string | null;
-  user: AuthorizedUser | undefined;
+  user: AuthorizedUser;
   redirect: boolean;
   redirectPath: string;
 };
@@ -106,7 +106,7 @@ type AuthState = {
 const initialState = {
   status: 'idle',
   error: null,
-  user: undefined,
+  user: {},
   redirect: false,
   redirectPath: '/',
 } as AuthState;

@@ -62,6 +62,7 @@ const createRequest: CreateFunction<ConsumerConsent> = async (namedResource: Nam
   await Promise.all([
     storeTurtle(namedResource.resourceUrl, namedResource.resource ? requestBody(namedResource.resource) : ''),
   ]);
+  return namedResource;
 };
 
 const fetchRequest: FetchFunction<ConsumerConsent> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;

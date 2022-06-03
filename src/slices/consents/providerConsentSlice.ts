@@ -64,6 +64,7 @@ const createRequest: CreateFunction<ProviderConsent> = async (namedResource: Nam
   await Promise.all([
     storeTurtle(namedResource.resourceUrl, namedResource.resource ? requestBody(namedResource.resource) : ''),
   ]);
+  return namedResource;
 };
 
 const fetchRequest: FetchFunction<ProviderConsent> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;

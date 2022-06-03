@@ -1,7 +1,7 @@
 export type AuthorizedUser = {
   webid: string;
   name: string;
-  storage?: string;
+  storage: string;
   id: string;
   completed: boolean;
-};
+} | Record<string, never>;
