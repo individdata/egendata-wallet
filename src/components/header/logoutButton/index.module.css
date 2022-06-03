@@ -1,19 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-.logoutavailable1 {
-    display: none;
-}
   
-.logoutavailable2 {
-    display: flex;
-    
-}
-  
-.logout {   
-    width: 500px;
-    margin-right: 10px;
-    margin-top: 20px;
-    display: flex;
+.logoutItem {   
+    width: 180px;
 }
   
 .logo {
@@ -49,14 +37,13 @@
     
 .dropdown .dropdowncontent {
     display: none;
-    position: absolute;
     min-width: 160px;
     box-shadow: 100x 280px 260px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
     
 .dropdowncontent .dropdownbutton {
-    margin-left: 60px;
+    margin-left: 0px;
     background-color: transparent;
     border: none;
 }
@@ -68,7 +55,9 @@
     font-size: 16px;
 }
   
-.dropdowncontent .dropdownbutton:hover {background-color: #ccc}
+.dropdowncontent .dropdownbutton:hover {
+    background-color: #ccc
+}
     
 .dropdown:hover .dropdowncontent {
     display: block;
@@ -78,30 +67,3 @@
     background-color: #2980B9;
 }
 
-.logoutItem {   
-    /* width: 300px; */
-    margin-right: 150px;
-    margin-top: 20px;
-    display: flex;
-}
-
-
-.center{
-    display: flex;
-    justify-content: center;
-}
-
-.items {   
-    display: flex;
-    width: 120px;
-}
-
-.logotext {
-    margin-top: 4px;
-    margin-left: 8px;
-    width: 120px;
-    font-family: Open Sans;
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
-}

@@ -37,13 +37,12 @@ function RequestPage() {
     }
   }, [user]);
 
-  const redirectState = true;
   if (subjectRequest && processState) {
     return (
       <Grid container>
         <Grid item xs={12}>
           <div className={styles.main}>
-            <Header redirect={redirectState} />
+            <Header />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

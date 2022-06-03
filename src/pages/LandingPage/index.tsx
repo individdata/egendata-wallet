@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,10 +10,12 @@ import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import { saveIncomingRequest } from '../../slices/processesSlice';
+import { storeInboundDataRequest } from '../../slices/requestsSlice';
+import { redirectUpdate } from '../../slices/redirectSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
-import AuthPage from '../auth';
+import AuthPage from '../AuthPage';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -21,25 +23,28 @@ function LandingPage() {
 
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
-  const request = url.searchParams.get('request');
+  const request = url.searchParams.get('request') ?? '';
 
   const user = useSelector((state: RootState) => state.auth.user);
   console.log('user = ', user);
   const isLoggedIn = Object.keys(user).length !== 0;
   console.log('isLoggedIn = ', isLoggedIn);
 
-  let redirectState = false;
-  if (request) {
-    redirectState = true;
-  }
+  const doRedirect= useSelector((state: RootState) => state.redirect.status);
+
+  useEffect(() => {
+    if (request) {
+      dispatch(redirectUpdate());
+    }
+  });
 
   useEffect(() => {
     console.log('############ request = ', request);
-    if (isLoggedIn && !request) {
+    if (isLoggedIn && !doRedirect) {
       setRedirect('/home');
     }
 
-    if (isLoggedIn && request) {
+    if (isLoggedIn && doRedirect) {
       const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
       decodedRequest.id = uuid();
       if (decodedRequest) {
@@ -49,7 +54,7 @@ function LandingPage() {
         console.warn('Decoded request is somehow empty?');
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, doRedirect]);
 
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
@@ -59,7 +64,7 @@ function LandingPage() {
       <Grid container>
         <Grid item xs={12}>
           <div className={styles.main}>
-            <Header redirect={redirectState} />
+            <Header />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

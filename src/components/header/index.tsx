@@ -7,32 +7,31 @@ import { RootState } from '../../store';
 import Tabs from './tabs';
 import OakLogo from './oakLogo';
 import LangButton from './langButton';
-import { HeaderType } from './types';
 
-function Header(props: HeaderType) {
-  const { redirect } = props;
+function Header() {
+  const redirect = useSelector((state: RootState) => state.redirect.status);
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (
     <div className={styles.headline}>
-      <div className={styles.logo}>
+      <div className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
         <OakLogo />
       </div>
       {!redirect && isLoggedIn && (
-        <div className={styles.tabs}>
+        <div className={styles.tabsContiner}>
           <Tabs />
         </div>
       )}
-      <div className={styles.langButton}>
+      <div className={(isLoggedIn) ? styles.langContiner1 : styles.langContiner2}>
         <LangButton />
       </div>
       {!redirect && isLoggedIn && (
-        <div className={styles.logout}>
+        <div className={styles.logoutContiner}>
           <LogoutButton />
         </div>
       )}
       {redirect && isLoggedIn && (
-        <div className={styles.logout}>
+        <div className={styles.logoutContiner}>
           <RedirectLogoutButton />
         </div>
       )}

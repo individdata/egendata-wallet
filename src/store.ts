@@ -13,6 +13,7 @@ import dataReducer from './slices/dataSlice';
 import providerConsentReducer from './slices/consents/providerConsentSlice';
 import consumerConsentReducer from './slices/consents/consumerConsentSlice';
 import processReducer from './slices/processesSlice';
+import redirectReducer from './slices/redirectSlice';
 
 export const store = configureStore({
   reducer: {
@@ -29,6 +30,7 @@ export const store = configureStore({
     providerConsents: providerConsentReducer,
     consumerConsents: consumerConsentReducer,
     process: processReducer,
+    redirect: redirectReducer,
   },
 });
 
