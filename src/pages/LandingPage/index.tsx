@@ -10,6 +10,7 @@ import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import { storeInboundDataRequest } from '../../slices/requestsSlice';
+import { redirectUpdate } from '../../slices/redirectSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
@@ -26,10 +27,11 @@ function LandingPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
 
-  let redirectState = false;
-  if (request) {
-    redirectState = true;
-  }
+  useEffect(() => {
+    if (request) {
+      dispatch(redirectUpdate());
+    }
+  });
 
   useEffect(() => {
     if (isLoggedIn && !request) {
@@ -56,7 +58,7 @@ function LandingPage() {
       <Grid container>
         <Grid item xs={12}>
           <div className={styles.main}>
-            <Header redirect={redirectState} />
+            <Header />
             <div className={styles.body}>
               <div className={styles.title}>
                 <Title />

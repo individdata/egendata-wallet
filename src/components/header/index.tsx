@@ -7,10 +7,9 @@ import { RootState } from '../../store';
 import Tabs from './tabs';
 import OakLogo from './oakLogo';
 import LangButton from './langButton';
-import { HeaderType } from './types';
 
-function Header(props: HeaderType) {
-  const { redirect } = props;
+function Header() {
+  const redirect = useSelector((state: RootState) => state.redirect.status);
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   return (

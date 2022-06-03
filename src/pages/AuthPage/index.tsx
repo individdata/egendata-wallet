@@ -13,7 +13,6 @@ function AuthPage() {
   const isLoggedIn = user?.completed;
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
-  const redirectState = false;
 
   const dispatch = useDispatch();
   return (
@@ -22,7 +21,7 @@ function AuthPage() {
         <LoginImage />
       </div>
       <div className={styles.right}>
-        <Header redirect={redirectState} />
+        <Header />
         <div className={styles.loginContiner}>
           <div className={styles.loginbody}>
             <div className={styles.line}>

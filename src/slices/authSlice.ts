@@ -44,6 +44,7 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
   async (id, { dispatch }) => {
     console.log('afterlogin');
     const userInfo = await handleIncomingRedirect();
+    console.log('afterlogin111');
     const webId = userInfo?.webId ? userInfo.webId : '';
     console.log('afterLogin webId=', webId);
     if (!webId) {

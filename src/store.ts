@@ -7,6 +7,7 @@ import popupReducer from './slices/popupSlice';
 import langReducer from './slices/langSlice';
 import notificationReducer from './slices/notificationSlice';
 import websockerReducer from './slices/websocketSlice';
+import redirectReducer from './slices/redirectSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     lang: langReducer,
     notification: notificationReducer,
     websocket: websockerReducer,
+    redirect: redirectReducer,
   },
 });
 

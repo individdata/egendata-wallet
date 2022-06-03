@@ -15,13 +15,11 @@ function HomePage() {
     dispatch(getRequestsContent());
   }, [user]);
 
-  const redirectState = false;
-
   return (
     <Grid container>
       <Grid item xs={12}>
         <div className={styles.main} id="landingPage">
-          <Header redirect={redirectState} />
+          <Header />
           <div className={styles.body}>
             <RequestBox />
           </div>
