@@ -86,5 +86,9 @@ export async function fetchProfileData(webId: string) {
 export async function fetchSsnData(seeAlso: string) {
   const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
   const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
-  return getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const ssn = getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const firstname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
+  const lastname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
+  const fullname = `${firstname}  ${lastname}`;
+  return { ssn, fullname };
 }

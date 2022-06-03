@@ -1,99 +1,49 @@
 .headline{
     display: flex;
     flex-direction: row;
-    height: 50px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
     width: 100%;
 }
 
-.logo {
-    margin-left: 20px;
-    margin-top: 20px;
-}
-
-.langButton {
-    position: absolute;
-    right: 10px;
-    top: 25px;
-    width: 100px;
-    text-align: right;
-}
-
-.tabs {
-    margin-left: 25%;
-}
-
-.logout {
-    position: absolute;
-    top: 24px;
-    width: 120px;
-    height: 50px;
-    right: 10px;
-    color: #FFFFFF;
-}
-
-.login {
-    font-size: 38px;
-    text-align: center;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    text-align: center;
-    color: #FFFFFF;
-}
-
-.firstline {
-    margin-top: 400px;
-    height: 30px;
-}
-
-.secondline {
-    margin-top: 20px;
-    height: 70px;
-}
-
-.thirdline {
-    height: 30px;
-    margin-top: 16px;
-    margin-left: 38%;
-}
-
-.loginpage1 {
-    display: inline;
-}
-
-.loginpage2 {
-    display: none;
-}
-
-.title {
-    display: flex;
-    margin-left: 20px;
-    margin-top: 20px;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    color: #FFFFFF;
-}
-
-.tabs {
-    margin-left: 25%;
-}
-
-.logout {
-    margin-left: 50%;
-}
-
 .logo1 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-green.png");
+    position: absolute;
+    left: 51%;
+    top: 20px;
 }
 
 .logo2 {
-    margin-right: 10px;
-    width: 26px;
-    height: 40px;
-    content: url("/public/images/oak-white.png");
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.langContiner1 {
+    position: absolute;
+    right: 200px;
+    top: 25px;
+}
+
+.langContiner2 {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    width: 50px;
+    text-align: right;
+}
+
+.tabsContiner {
+    margin-top: 0px;
+    width: 400px;
+    height: 50px;
+}
+
+.logoutContiner {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    width: 180px;
+    height: 30px;
+    color: #FFFFFF;
 }
