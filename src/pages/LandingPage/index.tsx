@@ -23,7 +23,7 @@ function LandingPage() {
 
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
-  const request = url.searchParams.get('request') ?? '';
+  const request = url.searchParams.get('request');
 
   const user = useSelector((state: RootState) => state.auth.user);
   console.log('user = ', user);
@@ -36,25 +36,29 @@ function LandingPage() {
     if (request) {
       dispatch(redirectUpdate());
     }
-  });
+  }, []);
 
   useEffect(() => {
+    console.log('############ isLoggedIn = ', isLoggedIn);
+    console.log('############ doRedirect = ', doRedirect);
     console.log('############ request = ', request);
-    if (isLoggedIn && !doRedirect) {
+    if (isLoggedIn && !request) {
+      console.log('############ setRedirect -> /home', isLoggedIn);
       setRedirect('/home');
     }
 
-    if (isLoggedIn && doRedirect) {
+    if (isLoggedIn && request) {
       const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
       decodedRequest.id = uuid();
       if (decodedRequest) {
+        console.log('############ setRedirect -> ', `/request/${decodedRequest.id}`);
         dispatch(saveIncomingRequest(decodedRequest));
         setRedirect(`/request/${decodedRequest.id}`);
       } else {
         console.warn('Decoded request is somehow empty?');
       }
     }
-  }, [isLoggedIn, doRedirect]);
+  }, [isLoggedIn]);
 
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;

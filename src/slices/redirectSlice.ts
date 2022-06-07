@@ -14,6 +14,7 @@ export const redirectSlice = createSlice({
   initialState,
   reducers: {
     redirectUpdate: (state) => {
+      console.log('############ redirectUpdate');
       state.status = true;
     },
   },

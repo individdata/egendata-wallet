@@ -10,26 +10,27 @@ import { createOakContainers } from '../../util/oak/templates';
 export function HandleLogin() {
   console.log('rendering HandleLogin');
   const user = useSelector((state: RootState) => state.auth.user);
+  const isLoggedIn = Object.keys(user).length !== 0;
   //  const redirectPath = useSelector((state: RootState) => state.auth.redirectPath);
 
   const [redirect, setRedirect] = useState<boolean | string>(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('HandleLogin, dispatch(afterLogin()) ');
     dispatch(afterLogin());
   }, []);
 
   useEffect(() => {
-    // console.log('user = ', user);
-    if (user) {
+    console.log('HandleLogin user = ', user);
+    if (isLoggedIn) {
       if (user.storage) {
         createOakContainers(user.webid, user.storage);
       }
 
       const redirectPath = localStorage.getItem('redirectPath');
-
       if (redirectPath) {
-        // console.log('redirectPath = ', redirectPath);
+        console.log('setRedirect, redirectPath = ', redirectPath);
         setRedirect(redirectPath);
       }
       console.log(redirectPath);
@@ -38,6 +39,7 @@ export function HandleLogin() {
   }, [user]);
 
   if (redirect && typeof (redirect) === 'string') {
+    console.log('Navigate redirect, redirect = ', redirect);
     return <Navigate to={redirect} replace />;
   }
   return null;

@@ -7,12 +7,13 @@ import { RootState } from '../../store';
 import {
   Document, PeopleItem, ConsentButton,
 } from './utils';
+import { RequestState } from '../../slices/processesSlice';
 
 function ConsentBox() {
   const { id } = useParams();
-  let requestState = 'null';
+  let requestState: RequestState = 'void';
   if (id) {
-    requestState = useSelector((state: RootState) => state.requests[id].status);
+    requestState = useSelector((state: RootState) => state.process[id].state);
   }
   return (
     <div className={styles.box}>
