@@ -6,7 +6,7 @@ import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getRequestsContent } from './requestsSlice';
+// import { getRequestsContent } from './requestsSlice';
 import { saveIncomingRequest, fetched } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
@@ -15,7 +15,9 @@ import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
 import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
 import { connect, disconnect } from './websocketSlice';
-import { requestItem } from '../util/oak/requests';
+import { subjectRequestThunks } from './requests/subjectRequestsSlice';
+import { ResourceUrl } from '../util/thunkCreator';
+// import { requestItem } from '../util/oak/requests';
 
 type SubscriptionState = {
   unsubscribeEndpoint: string,
@@ -44,22 +46,33 @@ type Notification = {
   unsubscribe_endpoint: string
 };
 
-type OnNotificationType = (notfication: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => Promise<void>;
+type OnNotificationType = (storage: string,
+  currentResources: ResourceUrl[], notfication: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => Promise<void>;
 
 const onNotificationHandlers: Record<string, OnNotificationType> = {};
 
-const dispatchNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+const dispatchNotification = async (
+  storage: string,
+  currentResources: ResourceUrl[],
+  notification: Notification,
+  dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+) => {
   const { topic } = notification.object;
   if (!topic) {
     throw new Error('Cannot handle notification without a topic');
   }
   const handle = onNotificationHandlers[topic];
-  handle(notification, dispatch);
+  handle(storage, currentResources, notification, dispatch);
 };
 
 function isCreate(notfication: Notification) {
   const type = notfication.type[0];
   return type === 'Create';
+}
+
+function isUpdate(notfication: Notification) {
+  const type = notfication.type[0];
+  return type === 'Update';
 }
 
 function toInboundDataRequest(item: RequestItem): InboundDataRequest {
@@ -95,7 +108,12 @@ async function subscribeTopic(topic: string, subscriptionEndpoint: string, targe
   return subscriptionResponse;
 }
 
-export const handleInboxNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+export const handleInboxNotification = async (
+  _storage: string,
+  _currentResources: ResourceUrl[],
+  notification: Notification,
+  dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+) => {
   console.log('handleInboxNotification: notification = ', notification);
   const { topic, id } = notification.object;
   if (isCreate(notification)) {
@@ -118,16 +136,22 @@ export const handleInboxNotification = async (notification: Notification, dispat
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const handleRequestsNotification = async (notification: Notification, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+export const handleRequestsNotification = async (
+  storage: string,
+  currentResources: ResourceUrl[],
+  notification: Notification,
+  dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+) => {
   console.log('handleRequestsNotification: notification = ', notification);
-  const { topic } = notification.object;
-  if (isCreate(notification)) {
-    console.log(`topic = ${topic}`);
-    if (!topic.endsWith('/')) {
-      const item = await requestItem(topic);
-      console.log('requestItem = ', item);
-      dispatch(getRequestsContent());
-    }
+  // const { topic } = notification.object;
+  if (isCreate(notification) || isUpdate(notification)) {
+    // console.log(`Create, topic = ${topic}`);
+    // if (!topic.endsWith('/')) {
+    dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
+    // const item = await dispatch(subjectRequestThunks.fetch(topic));
+    // console.log('handleRequestsNotification: requestItem = ', item);
+    // dispatch(getRequestsContent());
+    // }
   }
 };
 
@@ -153,16 +177,19 @@ function ensureNotificationContainsTopic(notification: Notification, subscriptio
   return notification;
 }
 
-export const subscribe = createAsyncThunk<string, { topic: string, onMessage: OnNotificationType }>(
+export const subscribe = createAsyncThunk<string, { storage: string, topic: string, onMessage: OnNotificationType }>(
   'notification/subscribe',
   async (arg, { dispatch, getState }): Promise<string> => {
     const state = getState() as RootState;
     const notificationState = state.notification;
+    const subjectRequests = Object.keys(state.subjectRequests.items);
     const { uuid } = notificationState;
     const websocketState = state.websocket;
     const target = `${config.backendWsUrl}${uuid}`;
+    const { storage } = arg;
 
     onNotificationHandlers[arg.topic] = arg.onMessage;
+    console.log('subscribe, subjectRequests = ', subjectRequests);
 
     if (['closed', 'closing'].includes(websocketState.status)) {
       await dispatch(connect({
@@ -170,7 +197,7 @@ export const subscribe = createAsyncThunk<string, { topic: string, onMessage: On
         onMessage: async (evt: MessageEvent) => {
           // const notification = ensureNotificationContainsTopic(JSON.parse(evt.data), subscriptions, arg.topic);
           const notification = JSON.parse(evt.data);
-          dispatchNotification(notification, dispatch);
+          dispatchNotification(storage, subjectRequests, notification, dispatch);
         },
       }));
       console.log('websocketState = ', websocketState);

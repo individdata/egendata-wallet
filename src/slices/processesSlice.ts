@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, SliceCaseReducers } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import {
-  consumerConsentsPath, dataPath, inboxPath, subjectRequestsPath,
+  consumerConsentsPath, dataPath, inboxPath, providerConsentsPath, providerRequestsPath,
 } from '../util/oak/egendata';
 import { fetchProfileData } from '../util/oak/solid';
 import { consumerConsentThunks, ConsumerConsent } from './consents/consumerConsentSlice';
@@ -45,7 +46,7 @@ export const saveIncomingRequest = createAsyncThunk<SubjectRequest, InboundDataR
     console.log(`saveIncomingRequest, state = ${state}`);
     const { user } = state.auth;
     const userPod = user.storage;
-    const resource = subjectRequest(userPod, request);
+    const resource = subjectRequest(userPod, user.webid, request);
     console.log(`saveIncomingRequest: ${resource}`);
     const createAction = await dispatch(subjectRequestThunks.create(resource));
     const { payload } = createAction;
@@ -68,10 +69,12 @@ export const consentFetch = createAsyncThunk<void, FetchConsent>(
 
     const userWebId = user.webid;
     const userPod = user.storage;
-    const providerRequestResourceUrl = userPod + subjectRequestsPath + request.id;
+    const providerRequestResourceUrl = userPod + providerRequestsPath + request.id;
+    const providerConsentResourceUrl = userPod + providerConsentsPath + request.id;
     const dataResourceUrl = userPod + dataPath + request.id;
     const inboxUrl = userPod + inboxPath;
     const dataResource: NamedOptionalResource<Data> = {
+      resourceId: request.id,
       resourceUrl: dataResourceUrl,
       resource: undefined,
       acl: [
@@ -80,10 +83,11 @@ export const consentFetch = createAsyncThunk<void, FetchConsent>(
       ],
     };
     const providerRequestResource: NamedResource<ProviderRequest> = {
+      resourceId: request.id,
       resourceUrl: providerRequestResourceUrl,
       resource: {
         id: request.id,
-        created: new Date(),
+        created: (new Date()).toISOString(),
         documentType: request.documentType,
         dataSubjectIdentifier: userWebId,
         notificationInbox: inboxUrl,
@@ -95,9 +99,10 @@ export const consentFetch = createAsyncThunk<void, FetchConsent>(
       ],
     };
     const providerConsentResource: NamedResource<ProviderConsent> = {
-      resourceUrl: providerRequestResourceUrl,
+      resourceId: request.id,
+      resourceUrl: providerConsentResourceUrl,
       resource: {
-        created: new Date(),
+        created: new Date().toISOString(),
         requestId: request.id,
         providerRequest: providerRequestResourceUrl,
         providerWebId,
@@ -127,7 +132,7 @@ export const consentShare = createAsyncThunk<void, ShareConsent>(
     const requestorPod = requestorProfile.storage;
 
     const consumerConsent: ConsumerConsent = {
-      created: new Date(), // iso8601 timestamp
+      created: new Date().toISOString(), // iso8601 timestamp
       requestId,
       sharedData: dataUrl,
       consumerWebId: consent.requestorWebId,
@@ -135,6 +140,7 @@ export const consentShare = createAsyncThunk<void, ShareConsent>(
     };
     const consumerConsentUrl = userPod + consumerConsentsPath + requestId;
     const consumerConsentResource: NamedResource<ConsumerConsent> = {
+      resourceId: requestId,
       resourceUrl: consumerConsentUrl,
       resource: consumerConsent,
     };
@@ -179,34 +185,34 @@ export const processesSlice = createSlice<ProcessesState, SliceCaseReducers<Proc
       item.status = 'error';
     });
     builder.addCase(consentFetch.pending, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'pending';
     });
     builder.addCase(consentFetch.fulfilled, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'success';
       item.state = 'fetching';
     });
     builder.addCase(consentFetch.rejected, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'error';
     });
     builder.addCase(consentShare.pending, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'pending';
     });
     builder.addCase(consentShare.fulfilled, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'success';
       item.state = 'shared';
     });
     builder.addCase(consentShare.rejected, (state, action) => {
-      const { requestId } = action.meta;
+      const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'error';
     });

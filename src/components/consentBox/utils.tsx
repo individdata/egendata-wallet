@@ -53,7 +53,7 @@ export function PeopleItem({ status }: { status: RequestState }) {
 export function ConsentButton(props: ButtonProps) {
   const { id, status } = props;
   const dispatch = useDispatch();
-  if (status === 'idle' || status === 'fetching') {
+  if (status === 'received' || status === 'fetching') {
     return (
       <button
         type="button"
@@ -71,7 +71,7 @@ export function ConsentButton(props: ButtonProps) {
       </button>
     );
   }
-  if (status === 'gotData' || 'gotShareInfo') {
+  if (status === 'available') {
     return (
       <button
         type="button"

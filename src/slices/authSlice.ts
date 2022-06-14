@@ -13,7 +13,6 @@ import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
-import { resetRequests } from './requestsSlice';
 import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
 
 const idp = {
@@ -75,9 +74,9 @@ export const afterLogin = createAsyncThunk<AuthorizedUser>(
         const { storage } = authorizedUser;
         if (storage) {
           const inboxUrl = `${storage}${inboxPath}`;
-          dispatch(subscribe({ topic: inboxUrl, onMessage: handleInboxNotification }));
+          dispatch(subscribe({ storage, topic: inboxUrl, onMessage: handleInboxNotification }));
           const requestsUrl = `${storage}${subjectRequestsPath}`;
-          dispatch(subscribe({ topic: requestsUrl, onMessage: handleRequestsNotification }));
+          dispatch(subscribe({ storage, topic: requestsUrl, onMessage: handleRequestsNotification }));
         }
         return authorizedUser;
       }
@@ -92,7 +91,7 @@ export const doLogout = createAsyncThunk<AuthorizedUser>(
   async (id, { dispatch }) => {
     console.log('doLogout');
     await logout();
-    dispatch(resetRequests());
+    // dispatch(resetRequests());
     dispatch(unsubscribeAll());
     return {};
   },

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 import {
   getDatetime,
   getSolidDataset, getStringNoLocale, getThing, Thing,
@@ -5,19 +7,16 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../../util/oak/egendata';
-import { InboundDataRequest, storeTurtle } from '../../util/oak/templates';
+import { aclTurtle, InboundDataRequest, storeTurtle } from '../../util/oak/templates';
 import {
-  containerContent,
-  ContainerPath,
-  ContentFunction,
   createContainerSlice,
   createContainerThunks,
-  FetchFunction,
   NamedResource,
-  ResourcePath,
   CreateFunction,
   NamedOptionalResource,
+  ResourceUrl,
 } from '../../util/thunkCreator';
 
 export type SubjectRequest = {
@@ -30,9 +29,10 @@ export type SubjectRequest = {
   returnUrl: string,
 };
 
-export const subjectRequest = (userPod: string, request: InboundDataRequest): NamedResource<SubjectRequest> => {
+export const subjectRequest = (userPod: string, userWebId: string, request: InboundDataRequest): NamedResource<SubjectRequest> => {
   const resourceUrl = userPod + subjectRequestsPath + request.id;
   return {
+    resourceId: request.id,
     resourceUrl,
     resource: {
       id: request.id,
@@ -43,6 +43,9 @@ export const subjectRequest = (userPod: string, request: InboundDataRequest): Na
       purpose: request.purpose,
       returnUrl: request.returnUrl,
     },
+    acl: [
+      { label: 'owner', webId: userWebId, mode: ['Read', 'Write', 'Append', 'Control'] },
+    ],
   };
 };
 
@@ -58,11 +61,20 @@ ${egendataPrefixTurtle}
   : '')
 );
 
-async function fetchResource(resourceUrl: string): Promise<NamedResource<SubjectRequest>> {
+const createFunction: CreateFunction<SubjectRequest> = async (namedResource: NamedOptionalResource<SubjectRequest>) => {
+  console.log(`createFunction: ${namedResource.resourceUrl}`);
+  Promise.all([
+    storeTurtle(namedResource.resourceUrl, requestBody(namedResource.resource)),
+    (namedResource.acl) ? storeTurtle(`${namedResource.resourceUrl}.acl`, aclTurtle(namedResource.resourceUrl, namedResource.acl)) : undefined,
+  ]);
+  return namedResource;
+};
+
+async function fetchFunction(resourceUrl: string): Promise<NamedResource<SubjectRequest>> {
   const ds = await getSolidDataset(resourceUrl, { fetch });
   const thing = getThing(ds, resourceUrl) as Thing;
   const id = getStringNoLocale(thing, `${egendataSchema}id`) ?? '';
-  const now = getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(); // TODO: how to handle non existent timestamps?
+  const created = getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(); // TODO: how to handle non existent timestamps?
   const requestorWebId = getStringNoLocale(thing, `${egendataSchema}requestorWebId`) ?? '';
   const providerWebId = getStringNoLocale(thing, `${egendataSchema}providerWebId`) ?? '';
   const documentType = getStringNoLocale(thing, `${egendataSchema}documentType`) ?? '';
@@ -70,10 +82,11 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
   const returnUrl = getStringNoLocale(thing, `${egendataSchema}returnUrl`) ?? '';
 
   return {
+    resourceId: id,
     resourceUrl,
     resource: {
       id,
-      created: now.toISOString(),
+      created: created.toISOString(),
       requestorWebId,
       providerWebId,
       documentType,
@@ -83,23 +96,27 @@ async function fetchResource(resourceUrl: string): Promise<NamedResource<Subject
   };
 }
 
-const createRequest: CreateFunction<SubjectRequest> = async (namedResource: NamedOptionalResource<SubjectRequest>) => {
-  console.log(`createRequest: ${namedResource.resourceUrl}`);
-  await storeTurtle(namedResource.resourceUrl, requestBody(namedResource.resource));
-  return namedResource;
-};
+export const subjectRequestThunks = createContainerThunks<SubjectRequest>(
+  subjectRequestsPath,
+  {
+    createFunction,
+    fetchFunction,
+  },
+);
 
-const fetchRequest: FetchFunction<SubjectRequest> = async (resourceUrl: ResourcePath) => (await fetchResource(resourceUrl)).resource;
-
-const contentRequest: ContentFunction<SubjectRequest> = async (containereUrl: ContainerPath) => containerContent<SubjectRequest>(containereUrl, fetchResource);
-
-export const subjectRequestThunks = createContainerThunks<SubjectRequest>(subjectRequestsPath, {
-  create: createRequest,
-  fetch: fetchRequest,
-  getContent: contentRequest,
+const slice = createContainerSlice<SubjectRequest>({
+  name: 'subjectRequestSlice',
+  containerURL: subjectRequestsPath,
+  thunks: subjectRequestThunks,
+  reducers: {
+    remove(state, action: PayloadAction<ResourceUrl>) {
+      const resourceUrl = action.payload;
+      const resourceId = state.lookup[resourceUrl];
+      delete state.items[resourceId];
+    },
+  },
 });
 
-const slice = createContainerSlice<SubjectRequest>({ containerURL: subjectRequestsPath, thunks: subjectRequestThunks });
-
+export const { remove } = slice.actions;
 const { reducer } = slice;
 export default reducer;

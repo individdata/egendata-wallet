@@ -12,18 +12,18 @@ import { Title, Steps } from './utils';
 // import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
 import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
-import { subjectRequestsPath } from '../../util/oak/egendata';
 
 function RequestPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const storage = useSelector((state: RootState) => state.auth.user?.storage);
+  const subjectRequests = useSelector((state: RootState) => state.subjectRequests);
 
   if (!id) {
     return <Navigate to="/home" replace />;
   }
-  const resourceKey = storage + subjectRequestsPath + id;
+  const resourceKey = id;
   console.log(`resourceKey: ${resourceKey}`);
   const subjectRequest = useSelector((state: RootState) => state.subjectRequests.items[resourceKey]);
   console.log(`subjectRequest: ${subjectRequest}`);
@@ -33,7 +33,7 @@ function RequestPage() {
   useEffect(() => {
     // dispatch(getRequestsContent());
     if (user) {
-      dispatch(subjectRequestThunks.fetch({ resourceName: resourceKey }));
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests) }));
     }
   }, [user]);
 

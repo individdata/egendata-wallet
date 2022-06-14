@@ -9,14 +9,16 @@ import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
-import { createOutboundDataRequest } from '../../../slices/requestsSlice';
+// import { createOutboundDataRequest } from '../../../slices/requestsSlice';
+import { consentFetch } from '../../../slices/processesSlice';
 
 type Props = {
   requestId: string,
+  providerWebId: string,
 };
 
 function FetchLegalPreview(props: Props) {
-  const { requestId } = props;
+  const { requestId, providerWebId } = props;
 
   const dispatch = useDispatch();
 
@@ -31,7 +33,11 @@ function FetchLegalPreview(props: Props) {
       id: 'consent_and_get_data_button',
       disabled: !(checkbox1 && checkbox2 && checkbox3),
       onPress: () => {
-        dispatch(createOutboundDataRequest(requestId));
+        dispatch(consentFetch({
+          requestId,
+          providerWebId,
+          consentDocument: 'consent text ...',
+        }));
         dispatch(setPopupData({
           component: 'FetchInProgress',
           props: {

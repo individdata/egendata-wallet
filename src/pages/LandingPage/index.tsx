@@ -10,7 +10,7 @@ import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import { saveIncomingRequest } from '../../slices/processesSlice';
-import { storeInboundDataRequest } from '../../slices/requestsSlice';
+// import { storeInboundDataRequest } from '../../slices/requestsSlice';
 import { redirectUpdate } from '../../slices/redirectSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';

@@ -12,8 +12,10 @@ import { RequestState } from '../../slices/processesSlice';
 function ConsentBox() {
   const { id } = useParams();
   let requestState: RequestState = 'void';
+  let providerWebId = '';
   if (id) {
     requestState = useSelector((state: RootState) => state.process[id].state);
+    providerWebId = useSelector((state: RootState) => state.subjectRequests.items[id].providerWebId);
   }
   return (
     <div className={styles.box}>
@@ -28,7 +30,7 @@ function ConsentBox() {
         </div>
         <div className={styles.buttoncolumn}>
           <div className={styles.buttonbox}>
-            <ConsentButton id={id} status={requestState} />
+            <ConsentButton id={id} status={requestState} providerWebId={providerWebId} />
           </div>
         </div>
       </div>

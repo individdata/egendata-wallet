@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { AccessMode, ACL } from '../thunkCreator';
 import {
   consumerConsentsPath,
@@ -6,7 +7,7 @@ import {
 import { putFile } from './solid';
 
 function accessMode(modes: AccessMode[]): string {
-  return modes.map((mode) => `ac:${mode}`).join(', ');
+  return modes.map((mode) => `acl:${mode}`).join(', ');
 }
 
 export const aclTurtle = ((resourceUrl: string, acls: ACL[]) => {
@@ -18,12 +19,12 @@ export const aclTurtle = ((resourceUrl: string, acls: ACL[]) => {
 `);
   return `
 @prefix acl: <http://www.w3.org/ns/auth/acl#>.
-
-${turtle}`;
+${turtle.join('\n')}`;
 });
 
 export async function storeTurtle(resourceUrl: string, body: string) {
   console.log(`storeTurtle resourceUrl: ${resourceUrl}`);
+  console.log(`storeTurtle body: ${body}`);
   await putFile(
     resourceUrl,
     { body },

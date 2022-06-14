@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import {
@@ -13,75 +14,94 @@ import {
 export type AccessMode = 'Control' | 'Read' | 'Write' | 'Append';
 export type ACL = { label: string, webId: string, mode: AccessMode[] };
 
+export type ResourceId = string;
 export type ResourceName = string;
 export type ResourcePath = string;
 export type ResourceUrl = string; // including protocol e.g. https://localhost:3000/
 export type ContainerPath = string;
-export type NamedResource<T> = { resourceUrl: ResourcePath, resource: T, acl?: ACL[] };
-export type NamedOptionalResource<T> = { resourceUrl: ResourcePath, resource: T | undefined, acl?: ACL[] };
+export type NamedResource<T> = { resourceId: string, resourceUrl: ResourcePath, resource: T, acl?: ACL[] };
+export type NamedOptionalResource<T> = { resourceId: string, resourceUrl: ResourcePath, resource: T | undefined, acl?: ACL[] };
 export type NamedResourceArray<T> = NamedResource<T>[];
-export type FetchFunction<T> = (resourceUrl: ResourcePath) => Promise<T>;
+export type ContentThunkArgs = { storage: ResourceUrl, currentResources: ResourceUrl[] };
+export type ContentValues<T> = { addList: NamedResourceArray<T>, deleteList: ResourceUrl[] };
+export type FetchFunction<T> = (resourceUrl: ResourceUrl) => Promise<NamedResource<T>>;
 export type CreateFunction<T> = (resource: NamedOptionalResource<T>) => Promise<NamedOptionalResource<T>>;
 export type NamedFetchFunction<T> = (resourceUrl: ResourcePath) => Promise<NamedResource<T>>;
-export type ContentFunction<T> = (containerUrl: ContainerPath, fetchFunction: FetchFunction<T>) => Promise<NamedResourceArray<T>>;
+export type ContentFunction<T> = (containerUrl: ContainerPath, fetchFunction: FetchFunction<T>, currentResources: ResourceUrl[]) => Promise<ContentValues<T>>;
 
 export type ContainerFunctions<T> = {
-  create: CreateFunction<T>,
-  fetch: FetchFunction<T>,
-  getContent: ContentFunction<T>,
+  createFunction: CreateFunction<T>,
+  fetchFunction: NamedFetchFunction<T>,
 };
 
 type ContainerThunkFunctions<T> = {
-  create: AsyncThunk<NamedOptionalResource<T>, NamedOptionalResource<T>, Record<ResourcePath, unknown>>,
-  fetch: AsyncThunk<T, { resourceName: ResourceName }, Record<ResourcePath, unknown>>,
-  getContent: AsyncThunk<NamedResourceArray<T>, ResourceUrl, Record<ResourcePath, unknown>>,
+  create: AsyncThunk<NamedOptionalResource<T>, NamedOptionalResource<T>, Record<ResourceId, unknown>>,
+  fetch: AsyncThunk<NamedResource<T>, ResourceUrl, Record<ResourceId, unknown>>,
+  getContent: AsyncThunk<ContentValues<T>, ContentThunkArgs, Record<ResourceId, unknown>>,
 };
 
-export async function containerContent<T>(
+// const setDifference = (a: Set<string>, b: Set<string>) => new Set(Array.from(a).filter((x) => !b.has(x)));
+
+const difference = (a: string[], b: string[]): string[] => Array.from(new Set(Array.from(new Set(a)).filter((x) => !new Set(b).has(x))));
+
+async function contentFunction<T>(
   containerUrl: ContainerPath,
   fetchFunction: NamedFetchFunction<T>,
-): Promise<NamedResourceArray<T>> {
+  currentResources: ResourceUrl[],
+): Promise<ContentValues<T>> {
+  console.log(`currentResources: ${currentResources}`);
   const ds = await getSolidDataset(containerUrl, { fetch });
   const request = getThing(ds, containerUrl) as Thing;
   const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
-  console.log(`containerContent: ${content}`);
-  const list = await Promise.all(
-    content.map(
+  const fetchList = difference(content, currentResources);
+  console.log(`resources to fetch: ${fetchList}`);
+  const deleteList = difference(currentResources, content);
+  console.log(`resources to delete: ${deleteList}`);
+  const addList = await Promise.all(
+    fetchList.map(
       async (url) => fetchFunction(url),
     ),
   );
-  return list;
+  return { addList, deleteList };
 }
 
 export function createContainerThunks<T>(containerUrl: ContainerPath, containerFunctions: ContainerFunctions<T>) {
   return {
     create: createAsyncThunk<NamedOptionalResource<T>, NamedOptionalResource<T>>(
       `${containerUrl}store`,
-      async (resource): Promise<NamedOptionalResource<T>> => containerFunctions.create(resource),
+      async (resource): Promise<NamedOptionalResource<T>> => containerFunctions.createFunction(resource),
     ),
-    fetch: createAsyncThunk<T, { resourceName: string }>(
+    fetch: createAsyncThunk<NamedResource<T>, ResourceUrl>(
       `${containerUrl}fetch`,
-      async (resourceName): Promise<T> => containerFunctions.fetch(containerUrl + resourceName),
+      async (resourceUrl): Promise<NamedResource<T>> => containerFunctions.fetchFunction(resourceUrl),
     ),
-    getContent: createAsyncThunk<NamedResourceArray<T>, ResourceUrl>(
+    getContent: createAsyncThunk<ContentValues<T>, ContentThunkArgs>(
       `${containerUrl}getContent`,
-      async (storage: ResourceUrl): Promise<NamedResourceArray<T>> => containerFunctions.getContent(storage + containerUrl, containerFunctions.fetch),
+      async (arg: ContentThunkArgs): Promise<ContentValues<T>> => contentFunction(
+        arg.storage + containerUrl,
+        containerFunctions.fetchFunction,
+        arg.currentResources,
+      ),
     ),
   };
 }
 
 type State<T> = {
   status: 'idle' | 'storing' | 'fetching',
-  items: Record<ResourcePath, T>,
-  error: Record<ResourcePath, string>,
+  items: Record<ResourceId, T>,
+  lookup: Record<ResourceUrl, ResourceId>,
+  // error: Record<ResourcePath, string>,
 };
 
 export function createContainerSlice<T>(
-  arg: { containerURL: ContainerPath, thunks: ContainerThunkFunctions<T>, reducers?: ValidateSliceCaseReducers<State<T>, SliceCaseReducers<State<T>>> },
+  arg: { name: string,
+    containerURL: ContainerPath,
+    thunks: ContainerThunkFunctions<T>,
+    reducers?: ValidateSliceCaseReducers<State<T>, SliceCaseReducers<State<T>>> },
 ) {
   return createSlice({
-    name: arg.containerURL,
-    initialState: { status: 'idle', items: {}, error: {} } as State<T>,
+    name: arg.name,
+    initialState: { status: 'idle', items: {}, lookup: {} } as State<T>,
     reducers: arg.reducers ?? {},
     extraReducers: (builder) => {
       builder.addCase(arg.thunks.fetch.pending, (state) => {
@@ -89,16 +109,18 @@ export function createContainerSlice<T>(
       });
 
       builder.addCase(arg.thunks.fetch.fulfilled, (state, action) => {
-        const resourceKey = arg.containerURL + action.meta.arg.resourceName;
-        const resource = action.payload;
+        const resourceUrl = action.meta.arg;
+        const { resourceId, resource } = action.payload;
         state.status = 'idle';
-        state.items[resourceKey] = resource as Draft<T>;
+        state.items[resourceId] = resource as Draft<T>;
+        state.lookup[resourceUrl] = resourceId;
       });
 
       builder.addCase(arg.thunks.fetch.rejected, (state, action) => {
-        const resourceKey = arg.containerURL + action.meta.arg.resourceName;
         const { error } = action;
-        state.error[resourceKey] = error.message ?? `error fetching resource: ${resourceKey}`;
+        const resource = action.meta.arg;
+        const msg = error.message ?? `error fetching resource: ${resource}`;
+        console.log(`fetch error: ${msg}`);
       });
 
       builder.addCase(arg.thunks.create.pending, (state) => {
@@ -106,16 +128,17 @@ export function createContainerSlice<T>(
       });
 
       builder.addCase(arg.thunks.create.fulfilled, (state, action) => {
-        const resourceKey = action.meta.arg.resourceUrl;
-        const { resource } = action.meta.arg;
+        const { resource, resourceId, resourceUrl } = action.meta.arg;
         state.status = 'idle';
-        state.items[resourceKey] = resource as Draft<T>;
+        state.items[resourceId] = resource as Draft<T>;
+        state.lookup[resourceUrl] = resourceId;
       });
 
       builder.addCase(arg.thunks.create.rejected, (state, action) => {
-        const resourceKey = action.meta.arg.resourceUrl;
         const { error } = action;
-        state.error[resourceKey] = error.message ?? `error storing resource: ${resourceKey}`;
+        const resource = action.meta.arg;
+        const msg = error.message ?? `error storing resource: ${resource}`;
+        console.log(`create error: ${msg}`);
       });
 
       builder.addCase(arg.thunks.getContent.pending, (state) => {
@@ -123,10 +146,15 @@ export function createContainerSlice<T>(
       });
 
       builder.addCase(arg.thunks.getContent.fulfilled, (state, action) => {
-        action.payload.forEach((item) => {
-          const resourceKey = item.resourceUrl;
-          const { resource } = item;
-          state.items[resourceKey] = resource as Draft<T>;
+        action.payload.addList.forEach((item) => {
+          const { resource, resourceId, resourceUrl } = item;
+          state.items[resourceId] = resource as Draft<T>;
+          state.lookup[resourceUrl] = resourceId;
+        });
+        action.payload.deleteList.forEach((resourceUrl) => {
+          const resourceId = state.lookup[resourceUrl];
+          delete state.items[resourceId];
+          delete state.lookup[resourceUrl];
         });
       });
     },

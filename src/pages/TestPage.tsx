@@ -19,7 +19,7 @@ export function TestPage() {
 
   useEffect(() => {
     if (user) {
-      dispatch(subjectRequestThunks.getContent(storage ?? ''));
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: [] }));
     }
   }, [user]);
   const requests = subjectRequestState.items;
