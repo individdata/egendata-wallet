@@ -17,7 +17,7 @@ function HomePage() {
   useEffect(() => {
     if (user) {
       // dispatch(getRequestsContent());
-      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests) }));
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests.items) }));
     }
   }, [user]);
 

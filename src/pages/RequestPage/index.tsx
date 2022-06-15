@@ -33,7 +33,7 @@ function RequestPage() {
   useEffect(() => {
     // dispatch(getRequestsContent());
     if (user) {
-      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests) }));
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests.items) }));
     }
   }, [user]);
 

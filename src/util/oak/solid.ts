@@ -4,6 +4,7 @@ import {
   getStringNoLocale,
   getThing,
   getUrl,
+  getUrlAll,
   Thing,
 } from '@inrupt/solid-client';
 import {
@@ -74,9 +75,24 @@ export async function deleteFile(url: RequestInfo) {
   }
 }
 
+export async function fetchContainerContent(containerUrl: string) {
+  const ds = await getSolidDataset(containerUrl, { fetch });
+  const request = getThing(ds, containerUrl) as Thing;
+  return getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+}
+
 export async function fetchProfileData(webId: string) {
   const ds = await getSolidDataset(webId);
   const profile = getThing(ds, webId) as Thing;
+  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
+  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
+  return { name, storage, seeAlso };
+}
+
+export async function gendataContainerExists(egendataUrl: string) {
+  const ds = await getSolidDataset(egendataUrl);
+  const profile = getThing(ds, egendataUrl) as Thing;
   const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
   const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
   const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';

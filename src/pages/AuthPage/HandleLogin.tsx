@@ -24,7 +24,7 @@ export function HandleLogin() {
   useEffect(() => {
     console.log('HandleLogin user = ', user);
     if (isLoggedIn) {
-      if (user.storage) {
+      if (user.storage && !user.egendataDefined) {
         createOakContainers(user.webid, user.storage);
       }
 

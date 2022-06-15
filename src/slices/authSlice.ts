@@ -9,11 +9,11 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
-import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
+import { fetchContainerContent, fetchProfileData, fetchSsnData } from '../util/oak/solid';
 import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
-import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
+import { inboxPath, infraPath, subjectRequestsPath } from '../util/oak/egendata';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -62,23 +62,25 @@ export const afterLogin = createAsyncThunk<AuthorizedUser>(
         const ssn = ssnData.ssn as string;
         const fullname = ssnData.fullname as string;
         console.log('matched ssn=', ssn);
-        const authorizedUser: AuthorizedUser = {
-          webid: userInfo?.webId ? userInfo.webId : '',
-          name: fullname ?? 'Name',
-          storage: u.storage ?? '',
-          id: ssn,
-          completed: true,
-        };
-        console.log('dispatch(subscribe())');
-
-        const { storage } = authorizedUser;
-        if (storage) {
+        if (u.storage) {
+          const { storage } = u;
+          const egendataUrl = `${storage}${infraPath}`;
+          const egendata = await fetchContainerContent(egendataUrl);
+          const authorizedUser: AuthorizedUser = {
+            webid: userInfo?.webId ? userInfo.webId : '',
+            name: fullname ?? 'Name',
+            storage: u.storage,
+            id: ssn,
+            completed: true,
+            egendataDefined: egendata.length > 0,
+          };
           const inboxUrl = `${storage}${inboxPath}`;
           dispatch(subscribe({ storage, topic: inboxUrl, onMessage: handleInboxNotification }));
           const requestsUrl = `${storage}${subjectRequestsPath}`;
           dispatch(subscribe({ storage, topic: requestsUrl, onMessage: handleRequestsNotification }));
+          return authorizedUser;
         }
-        return authorizedUser;
+        return {};
       }
       return {};
     }

@@ -2,14 +2,9 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import {
-  getSolidDataset, getThing, getUrlAll, Thing,
-} from '@inrupt/solid-client';
-import {
-  fetch,
-} from '@inrupt/solid-client-authn-browser';
-import {
   AsyncThunk, createAsyncThunk, createSlice, Draft, SliceCaseReducers, ValidateSliceCaseReducers,
 } from '@reduxjs/toolkit';
+import { fetchContainerContent } from './oak/solid';
 
 export type AccessMode = 'Control' | 'Read' | 'Write' | 'Append';
 export type ACL = { label: string, webId: string, mode: AccessMode[] };
@@ -50,9 +45,9 @@ async function contentFunction<T>(
   currentResources: ResourceUrl[],
 ): Promise<ContentValues<T>> {
   console.log(`currentResources: ${currentResources}`);
-  const ds = await getSolidDataset(containerUrl, { fetch });
-  const request = getThing(ds, containerUrl) as Thing;
-  const content: Array<string> = getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+  const content = await fetchContainerContent(containerUrl);
+  console.log(`container: ${containerUrl}`);
+  console.log({ content });
   const fetchList = difference(content, currentResources);
   console.log(`resources to fetch: ${fetchList}`);
   const deleteList = difference(currentResources, content);

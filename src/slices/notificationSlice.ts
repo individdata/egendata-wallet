@@ -147,6 +147,8 @@ export const handleRequestsNotification = async (
   if (isCreate(notification) || isUpdate(notification)) {
     // console.log(`Create, topic = ${topic}`);
     // if (!topic.endsWith('/')) {
+    console.log('handleRequestsNotification: getContent');
+    console.log('currentResources:', currentResources);
     dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
     // const item = await dispatch(subjectRequestThunks.fetch(topic));
     // console.log('handleRequestsNotification: requestItem = ', item);
@@ -203,7 +205,7 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
       console.log('websocketState = ', websocketState);
     }
 
-    console.log('start webhook subscription ...');
+    console.log(`start webhook subscription of ${arg.topic}`);
     const subscriptionUrl = `${config.podProviderBaseUrl}subscription`;
     const targetUrl = `${config.backendBaseUrl}webhook/${uuid}`;
     const subscriptionResponse = await subscribeTopic(arg.topic, subscriptionUrl, targetUrl);

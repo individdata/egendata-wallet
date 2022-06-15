@@ -4,4 +4,5 @@ export type AuthorizedUser = {
   storage: string;
   id: string;
   completed: boolean;
+  egendataDefined: boolean;
 } | Record<string, never>;
