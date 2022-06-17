@@ -37,6 +37,7 @@ export type InboundDataRequest = {
   requestorWebId: string,
   providerWebId: string,
   documentType: string,
+  documentTitle: string,
   purpose: string,
   returnUrl: string,
 };

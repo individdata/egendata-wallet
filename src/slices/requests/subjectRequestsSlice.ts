@@ -25,6 +25,7 @@ export type SubjectRequest = {
   requestorWebId: string,
   providerWebId: string,
   documentType: string,
+  documentTitle: string,
   purpose: string,
   returnUrl: string,
 };
@@ -38,6 +39,7 @@ export const subjectRequest = (userPod: string, userWebId: string, request: Inbo
       id: request.id,
       created: new Date().toISOString(),
       documentType: request.documentType,
+      documentTitle: request.documentTitle,
       requestorWebId: request.requestorWebId,
       providerWebId: request.providerWebId,
       purpose: request.purpose,
@@ -56,6 +58,7 @@ ${egendataPrefixTurtle}
   egendata:requestorWebId "${request.requestorWebId}" ;
   egendata:providerWebId "${request.providerWebId}" ;
   egendata:documentType "${request.documentType}" ;
+  egendata:documentTitle "${request.documentTitle}" ;
   egendata:purpose "${request.purpose}" ;
   egendata:returnUrl "${request.returnUrl}" .`
   : '')
@@ -78,6 +81,7 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Subject
   const requestorWebId = getStringNoLocale(thing, `${egendataSchema}requestorWebId`) ?? '';
   const providerWebId = getStringNoLocale(thing, `${egendataSchema}providerWebId`) ?? '';
   const documentType = getStringNoLocale(thing, `${egendataSchema}documentType`) ?? '';
+  const documentTitle = getStringNoLocale(thing, `${egendataSchema}documentTitle`) ?? '';
   const purpose = getStringNoLocale(thing, `${egendataSchema}purpose`) ?? '';
   const returnUrl = getStringNoLocale(thing, `${egendataSchema}returnUrl`) ?? '';
 
@@ -90,6 +94,7 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Subject
       requestorWebId,
       providerWebId,
       documentType,
+      documentTitle,
       purpose,
       returnUrl,
     },
