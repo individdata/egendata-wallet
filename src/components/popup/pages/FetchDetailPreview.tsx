@@ -11,10 +11,11 @@ import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
+  providerWebId: string,
 };
 
 function FetchDetailPreview(props: Props) {
-  const { requestId } = props;
+  const { requestId, providerWebId } = props;
 
   const dispatch = useDispatch();
 
@@ -28,6 +29,7 @@ function FetchDetailPreview(props: Props) {
           component: 'FetchLegalPreview',
           props: {
             requestId,
+            providerWebId,
           },
         }));
       },

@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { unsetPopupData } from '../../../slices/popupSlice';
 import styles from './FetchTimeout.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { RootState } from '../../../store';
+// import { RootState } from '../../../store';
 
-type Props = {
-  requestId: string,
-};
-
-function FetchTimeout(props: Props) {
-  const { requestId } = props;
+function FetchTimeout() {
+  // const { requestId } = props;
 
   const dispatch = useDispatch();
-  const request = useSelector((state: RootState) => state.requests[requestId]);
+  // const request = useSelector((state: RootState) => state.process[requestId]);
 
   const buttons: PopupButton[] = [
     {

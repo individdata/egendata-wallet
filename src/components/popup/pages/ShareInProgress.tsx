@@ -10,13 +10,14 @@ import FetchingBar from '../../fetchingBar';
 
 type Props = {
   requestId: string,
+  providerWebId: string,
 };
 
 function ShareInProgress(props: Props) {
-  const { requestId } = props;
+  const { requestId, providerWebId } = props;
 
   const dispatch = useDispatch();
-  const request = useSelector((state: RootState) => state.requests[requestId]);
+  const request = useSelector((state: RootState) => state.process[requestId]);
 
   useEffect(() => {
     if (request) {
@@ -39,6 +40,7 @@ function ShareInProgress(props: Props) {
           component: 'FetchLegalPreview',
           props: {
             requestId,
+            providerWebId,
           },
         }));
       },

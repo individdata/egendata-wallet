@@ -11,6 +11,7 @@ import * as config from '../util/config';
 import Popup from '../components/popup/Popup';
 import { LOCALES } from '../react-intl/locales';
 import { RootState } from '../store';
+import { TestPage } from './TestPage';
 
 console.log('Launching app with config: ', config);
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/request/:id" element={<RequestPage />} />
           <Route path="/auth/cb" element={<HandleLogin />} />
+          <Route path="/test" element={<TestPage />} />
         </Routes>
         { popup.popupData && <Popup /> }
       </IntlProvider>

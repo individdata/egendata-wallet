@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { SubjectRequest } from '../../slices/requests/subjectRequestsSlice';
 import styles from './index.module.css';
-import { InboundDataRequest } from '../../util/oak/templates';
 
-function RequestItem(props: InboundDataRequest) {
+function RequestItem(props: SubjectRequest) {
   const [redirect, setRedirect] = useState<boolean | string>(false);
   const {
     id,

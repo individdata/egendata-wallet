@@ -1,14 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ReactComponent as ReactLogo } from '../../images/checkMark.svg';
+import { ReactComponent as Checked } from '../../images/checkMark.svg';
+import { RequestState } from '../../slices/processesSlice';
 import styles from './index.module.css';
 import {
-  Title, Logo, Text, Arrow,
+  Text,
 } from './types';
 
-export function FlowTitle(props: Title) {
-  const { status } = props;
-  if (status === 'null') {
+export function FlowTitle({ state }: { state: RequestState }) {
+  if (state === 'shared') {
     return (
       <div className={styles.projectOak}>
         <div className={styles.project}>
@@ -23,25 +23,24 @@ export function FlowTitle(props: Title) {
   );
 }
 
-export function FlowLogo(props: Logo) {
-  const { number, status } = props;
-  if ((status === 'idle' && number === '1') || (status === 'gotData' && number === '2')) {
+export function FlowLogo({ step, state }: { step: number, state: RequestState }) {
+  if ((state === 'received' && step === 1) || (state === 'available' && step === 2)) {
     return (
       <div className={styles.logogreen}>
-        <div className={styles.numbergreen}>{number}</div>
+        <div className={styles.numbergreen}>{step}</div>
       </div>
     );
   }
-  if ((status === 'gotData' && number === '1') || status === 'sharing') {
+  if ((state === 'available' && step === 1) || state === 'shared') {
     return (
       <div className={styles.l}>
-        <ReactLogo />
+        <Checked />
       </div>
     );
   }
   return (
     <div className={styles.logogrey}>
-      <div className={styles.number}>{number}</div>
+      <div className={styles.number}>{step}</div>
     </div>
   );
 }
@@ -55,11 +54,10 @@ export function FlowText(props: Text) {
   );
 }
 
-export function FlowArrow(props: Arrow) {
-  const { status } = props;
+export function FlowArrow({ state }: { state: RequestState }) {
   return (
     <div className={styles.arrowflow}>
-      <img className={(status === 'null') ? styles.greenarrow : styles.greyarrow} alt="arrow" />
+      <img className={(state === 'received') ? styles.greenarrow : styles.greyarrow} alt="arrow" />
     </div>
   );
 }

@@ -12,18 +12,20 @@ import useTimeout from '../../../hooks/useTimeout';
 
 type Props = {
   requestId: string,
+  providerWebId: string,
 };
 
 function FetchInProgress(props: Props) {
-  const { requestId } = props;
+  const { requestId, providerWebId } = props;
 
   const dispatch = useDispatch();
-  const request = useSelector((state: RootState) => state.requests[requestId]);
+  // const request = useSelector((state: RootState) => state.requests[requestId]);
+  const requestState = useSelector((state: RootState) => state.process[requestId].state);
 
   const expired = useTimeout(5000);
 
   useEffect(() => {
-    if (request.status === 'gotData') {
+    if (requestState === 'available') {
       dispatch(setPopupData({
         component: 'FetchComplete',
         props: {
@@ -31,7 +33,7 @@ function FetchInProgress(props: Props) {
         },
       }));
     }
-  }, [request]);
+  }, [requestState]);
 
   useEffect(() => {
     if (expired) {
@@ -54,6 +56,7 @@ function FetchInProgress(props: Props) {
           component: 'FetchLegalPreview',
           props: {
             requestId,
+            providerWebId,
           },
         }));
       },

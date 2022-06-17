@@ -5,9 +5,10 @@ import { AiOutlineFileText } from 'react-icons/ai';
 import { ImArrowUpRight2 } from 'react-icons/im';
 import styles from './index.module.css';
 import {
-  People, ButtonProps,
+  ButtonProps,
 } from './types';
 import { setPopupData } from '../../slices/popupSlice';
+import { RequestState } from '../../slices/processesSlice';
 
 export function Document() {
   return (
@@ -22,11 +23,10 @@ export function Document() {
   );
 }
 
-export function PeopleItem(props: People) {
-  const { status } = props;
+export function PeopleItem({ status }: { status: RequestState }) {
   const provider = 'Arbetsförmedlingen';
   const requestor = 'BNP Paribas';
-  if (status === 'idle' || status === 'fetching') {
+  if (status === 'received' || status === 'fetching') {
     return (
       <div className={styles.descript}>
         <FormattedMessage id="get_from_text" />
@@ -34,7 +34,7 @@ export function PeopleItem(props: People) {
       </div>
     );
   }
-  if (status === 'gotData') {
+  if (status === 'available') {
     return (
       <div className={styles.descript}>
         <FormattedMessage id="share_with_text" />
@@ -53,7 +53,7 @@ export function PeopleItem(props: People) {
 export function ConsentButton(props: ButtonProps) {
   const { id, status } = props;
   const dispatch = useDispatch();
-  if (status === 'idle' || status === 'fetching') {
+  if (status === 'received' || status === 'fetching') {
     return (
       <button
         type="button"
@@ -71,7 +71,7 @@ export function ConsentButton(props: ButtonProps) {
       </button>
     );
   }
-  if (status === 'gotData' || 'gotShareInfo') {
+  if (status === 'available') {
     return (
       <button
         type="button"
