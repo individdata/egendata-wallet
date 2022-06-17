@@ -148,7 +148,9 @@ export function createContainerSlice<T>(
         });
         action.payload.deleteList.forEach((resourceUrl) => {
           const resourceId = state.lookup[resourceUrl];
+          console.log(`delete item with reourceId: ${resourceId}`);
           delete state.items[resourceId];
+          console.log(`delete lookup for resourceUrl: ${resourceUrl}`);
           delete state.lookup[resourceUrl];
         });
       });

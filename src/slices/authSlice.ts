@@ -9,7 +9,7 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
-import { fetchContainerContent, fetchProfileData, fetchSsnData } from '../util/oak/solid';
+import { fetchContainerContent, fetchProfileData, fetchPrivateData } from '../util/oak/solid';
 import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
@@ -52,32 +52,42 @@ export const afterLogin = createAsyncThunk<AuthorizedUser>(
 
     const profileData = await fetchProfileData(webId);
     if (profileData) {
-      console.log('matched');
+      // console.log('matched');
       const u = profileData as ProfileData;
-      console.log('matched userInfo=', userInfo);
-      const ssnData = await fetchSsnData(u.seeAlso);
-      console.log('ssnData=', userInfo);
-      if (ssnData) {
-        console.log('matched seeAlso=', ssnData);
-        const ssn = ssnData.ssn as string;
-        const fullname = ssnData.fullname as string;
+      // console.log('matched userInfo=', userInfo);
+      const { ssn, fullname, uuid } = await fetchPrivateData(u.seeAlso);
+      // console.log('ssnData=', userInfo);
+      if (ssn) {
         console.log('matched ssn=', ssn);
+        console.log('matched uuid=', uuid);
         if (u.storage) {
           const { storage } = u;
           const egendataUrl = `${storage}${infraPath}`;
-          const egendata = await fetchContainerContent(egendataUrl);
+          let egendata: string[];
+          try {
+            egendata = await fetchContainerContent(egendataUrl);
+          } catch (error) {
+            egendata = [];
+          }
+
+          console.log('egendata=', egendata);
           const authorizedUser: AuthorizedUser = {
             webid: userInfo?.webId ? userInfo.webId : '',
             name: fullname ?? 'Name',
             storage: u.storage,
             id: ssn,
+            uuid,
             completed: true,
             egendataDefined: egendata.length > 0,
           };
           const inboxUrl = `${storage}${inboxPath}`;
-          dispatch(subscribe({ storage, topic: inboxUrl, onMessage: handleInboxNotification }));
+          dispatch(subscribe({
+            storage, topic: inboxUrl, uuid, onMessage: handleInboxNotification,
+          }));
           const requestsUrl = `${storage}${subjectRequestsPath}`;
-          dispatch(subscribe({ storage, topic: requestsUrl, onMessage: handleRequestsNotification }));
+          dispatch(subscribe({
+            storage, topic: requestsUrl, uuid, onMessage: handleRequestsNotification,
+          }));
           return authorizedUser;
         }
         return {};

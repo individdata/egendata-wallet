@@ -3,6 +3,7 @@ export type AuthorizedUser = {
   name: string;
   storage: string;
   id: string;
+  uuid: string;
   completed: boolean;
   egendataDefined: boolean;
 } | Record<string, never>;

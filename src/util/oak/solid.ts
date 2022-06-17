@@ -77,8 +77,11 @@ export async function deleteFile(url: RequestInfo) {
 
 export async function fetchContainerContent(containerUrl: string) {
   const ds = await getSolidDataset(containerUrl, { fetch });
-  const request = getThing(ds, containerUrl) as Thing;
-  return getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+  if (ds) {
+    const request = getThing(ds, containerUrl) as Thing;
+    return getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+  }
+  return [];
 }
 
 export async function fetchProfileData(webId: string) {
@@ -99,12 +102,13 @@ export async function gendataContainerExists(egendataUrl: string) {
   return { name, storage, seeAlso };
 }
 
-export async function fetchSsnData(seeAlso: string) {
+export async function fetchPrivateData(seeAlso: string) {
   const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
   const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
-  const ssn = getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const ssn = getStringNoLocale(privateMe, 'https://egendata-test.egendata.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const uuid = getStringNoLocale(privateMe, 'https://egendata-test.egendata.se/schema/core/v1#uuid') ?? '';
   const firstname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
   const lastname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
   const fullname = `${firstname}  ${lastname}`;
-  return { ssn, fullname };
+  return { ssn, fullname, uuid };
 }

@@ -5,7 +5,6 @@
 import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 // import { getRequestsContent } from './requestsSlice';
 import { saveIncomingRequest, fetched } from './processesSlice';
 import { RootState } from '../store';
@@ -25,12 +24,10 @@ type SubscriptionState = {
 };
 
 export type NotificationState = {
-  uuid: string,
   subscriptions: Record<string, SubscriptionState>,
 };
 
 const initialState = {
-  uuid: uuidv4(),
   subscriptions: {},
 } as NotificationState;
 
@@ -56,13 +53,17 @@ const dispatchNotification = async (
   currentResources: ResourceUrl[],
   notification: Notification,
   dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
+  getState: () => unknown,
 ) => {
+  const state = getState() as RootState;
+  const subjectRequests = Object.keys(state.subjectRequests.lookup);
+  console.log('dispatchNotification subjectRequests:', subjectRequests);
   const { topic } = notification.object;
   if (!topic) {
     throw new Error('Cannot handle notification without a topic');
   }
   const handle = onNotificationHandlers[topic];
-  handle(storage, currentResources, notification, dispatch);
+  handle(storage, subjectRequests, notification, dispatch);
 };
 
 function isCreate(notfication: Notification) {
@@ -179,15 +180,13 @@ function ensureNotificationContainsTopic(notification: Notification, subscriptio
   return notification;
 }
 
-export const subscribe = createAsyncThunk<string, { storage: string, topic: string, onMessage: OnNotificationType }>(
+export const subscribe = createAsyncThunk<string, { storage: string, topic: string, uuid: string, onMessage: OnNotificationType }>(
   'notification/subscribe',
   async (arg, { dispatch, getState }): Promise<string> => {
     const state = getState() as RootState;
-    const notificationState = state.notification;
     const subjectRequests = Object.keys(state.subjectRequests.items);
-    const { uuid } = notificationState;
     const websocketState = state.websocket;
-    const target = `${config.backendWsUrl}${uuid}`;
+    const target = `${config.backendWsUrl}${arg.uuid}`;
     const { storage } = arg;
 
     onNotificationHandlers[arg.topic] = arg.onMessage;
@@ -199,7 +198,7 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
         onMessage: async (evt: MessageEvent) => {
           // const notification = ensureNotificationContainsTopic(JSON.parse(evt.data), subscriptions, arg.topic);
           const notification = JSON.parse(evt.data);
-          dispatchNotification(storage, subjectRequests, notification, dispatch);
+          dispatchNotification(storage, subjectRequests, notification, dispatch, getState);
         },
       }));
       console.log('websocketState = ', websocketState);
@@ -207,9 +206,10 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
 
     console.log(`start webhook subscription of ${arg.topic}`);
     const subscriptionUrl = `${config.podProviderBaseUrl}subscription`;
-    const targetUrl = `${config.backendBaseUrl}webhook/${uuid}`;
+    const targetUrl = `${config.backendBaseUrl}webhook/${arg.uuid}`;
+    console.log(`webhook targetUrl: ${targetUrl}`);
     const subscriptionResponse = await subscribeTopic(arg.topic, subscriptionUrl, targetUrl);
-    console.log('webhook subscription started.');
+    console.log('webhook subscription started: ', { subscriptionResponse });
 
     const subscriptionResponseJson = JSON.parse(subscriptionResponse.data);
     // eslint-disable-next-line @typescript-eslint/naming-convention

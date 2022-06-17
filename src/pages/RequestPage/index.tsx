@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
 import React, { useEffect } from 'react';
