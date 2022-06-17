@@ -83,6 +83,7 @@ function toInboundDataRequest(item: RequestItem): InboundDataRequest {
     requestorWebId: dataRequest.requestedBy,
     providerWebId: dataRequest.requestedFrom,
     documentType: dataRequest.type,
+    documentTitle: 'fix later',
     purpose: '',
     returnUrl: '',
   };
