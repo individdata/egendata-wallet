@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
 import styles from './ShareLegalPreview.module.css';
@@ -9,18 +9,18 @@ import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
 import { consentShare } from '../../../slices/processesSlice';
+import { RootState } from '../../../store';
 // import { shareInboundDataResponse } from '../../../slices/requestsSlice';
 
 type Props = {
   requestId: string,
-  requestorWebId: string,
-  providerName: string,
 };
 
 function ShareLegalPreview(props: Props) {
-  const { requestId, requestorWebId, providerName } = props;
+  const { requestId } = props;
 
   const dispatch = useDispatch();
+  const { requestorWebId } = useSelector((state: RootState) => state.subjectRequests.items[requestId]);
 
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
@@ -51,8 +51,6 @@ function ShareLegalPreview(props: Props) {
           component: 'ShareInProgress',
           props: {
             requestId,
-            // providerWebId,
-            providerName,
           },
         }));
       },
@@ -69,7 +67,7 @@ function ShareLegalPreview(props: Props) {
         <FormattedMessage
           id="popup_check_get_data_info_text"
           values={{
-            providerName,
+            providerName: '{TODO_PROVIDER_NAME}',
           }}
         />
         <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />

@@ -14,11 +14,10 @@ import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
-  providerWebId: string,
 };
 
 function ShareDetailPreview(props: Props) {
-  const { requestId, providerWebId } = props;
+  const { requestId } = props;
 
   const dispatch = useDispatch();
 
@@ -40,7 +39,6 @@ function ShareDetailPreview(props: Props) {
           component: 'ShareLegalPreview',
           props: {
             requestId,
-            providerWebId,
           },
         }));
       },

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchLegalPreview.module.css';
@@ -11,16 +11,17 @@ import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
 // import { createOutboundDataRequest } from '../../../slices/requestsSlice';
 import { consentFetch } from '../../../slices/processesSlice';
+import { RootState } from '../../../store';
 
 type Props = {
   requestId: string,
-  providerWebId: string,
 };
 
 function FetchLegalPreview(props: Props) {
-  const { requestId, providerWebId } = props;
+  const { requestId } = props;
 
   const dispatch = useDispatch();
+  const { providerWebId } = useSelector((state: RootState) => state.subjectRequests.items[requestId]);
 
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);

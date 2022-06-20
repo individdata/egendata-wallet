@@ -12,11 +12,10 @@ import useTimeout from '../../../hooks/useTimeout';
 
 type Props = {
   requestId: string,
-  providerWebId: string,
 };
 
 function FetchInProgress(props: Props) {
-  const { requestId, providerWebId } = props;
+  const { requestId } = props;
 
   const dispatch = useDispatch();
   // const request = useSelector((state: RootState) => state.requests[requestId]);
@@ -46,29 +45,12 @@ function FetchInProgress(props: Props) {
     }
   }, [expired]);
 
-  const buttons: PopupButton[] = [
-    {
-      uuid: uuid(),
-      type: 'primary',
-      id: 'continue_to_get_data_button',
-      onPress: () => {
-        dispatch(setPopupData({
-          component: 'FetchLegalPreview',
-          props: {
-            requestId,
-            providerWebId,
-          },
-        }));
-      },
-    },
-  ];
-
   return (
     <div className={styles.container}>
       <PopupContent>
         <FetchingBar id="popup_fetch_data_text" />
       </PopupContent>
-      <PopupButtons buttons={buttons} />
+      <PopupButtons buttons={[]} />
     </div>
   );
 }
