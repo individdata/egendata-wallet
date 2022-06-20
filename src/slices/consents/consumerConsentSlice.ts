@@ -9,7 +9,7 @@ import {
   dcPrefixTurtle,
   egendataPrefixTurtle,
   egendataSchema,
-  subjectRequestsPath,
+  consumerConsentsPath,
   xsdPrefixTurtle,
 } from '../../util/oak/egendata';
 import { storeTurtle } from '../../util/oak/templates';
@@ -69,12 +69,12 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Consume
   };
 }
 
-export const consumerConsentThunks = createContainerThunks<ConsumerConsent>(subjectRequestsPath, {
+export const consumerConsentThunks = createContainerThunks<ConsumerConsent>(consumerConsentsPath, {
   createFunction,
   fetchFunction,
 });
 
-const slice = createContainerSlice<ConsumerConsent>({ name: 'consumerConsentSlice', containerURL: subjectRequestsPath, thunks: consumerConsentThunks });
+const slice = createContainerSlice<ConsumerConsent>({ name: 'consumerConsentSlice', containerURL: consumerConsentsPath, thunks: consumerConsentThunks });
 
 const { reducer } = slice;
 export default reducer;
