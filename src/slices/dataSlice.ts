@@ -5,7 +5,11 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
-import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../util/oak/egendata';
+import {
+  egendataPrefixTurtle,
+  egendataSchema,
+  dataPath,
+} from '../util/oak/egendata';
 import { aclTurtle, storeTurtle } from '../util/oak/templates';
 import {
   createContainerSlice,
@@ -59,12 +63,12 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Data>> 
   };
 }
 
-export const dataThunks = createContainerThunks<Data>(subjectRequestsPath, {
+export const dataThunks = createContainerThunks<Data>(dataPath, {
   createFunction,
   fetchFunction,
 });
 
-const slice = createContainerSlice<Data>({ name: 'dataSlice', containerURL: subjectRequestsPath, thunks: dataThunks });
+const slice = createContainerSlice<Data>({ name: 'dataSlice', containerURL: dataPath, thunks: dataThunks });
 
 const { reducer } = slice;
 export default reducer;
