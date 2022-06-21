@@ -47,4 +47,7 @@ export default {
   popup_review_share_data_title: '(sv) Review your document data',
   popup_review_share_data_subtitle: '(sv) Review your Unemployment certificate data to be shared with BNP Paribas.',
   popup_success_fetch_data_text: '(sv) Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data.',
+  sort_button_date: '(sv) Date',
+  sort_button_title: '(sv) Title',
+  sort_button_requestor: '(sv) Requestor',
 };

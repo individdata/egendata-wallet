@@ -23,7 +23,7 @@ function RequestItem(props: InboundDataRequest) {
         <img className={styles.logo} alt="logo" />
         <div className={styles.name}>{requestor}</div>
         <div className={styles.brief}>{id}</div>
-        <div className={styles.date}>date</div>
+        <div className={styles.date}>2022-06-10</div>
       </button>
     </div>
   );
