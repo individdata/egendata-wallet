@@ -1,12 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../store';
 import styles from './index.module.css';
 import { selectTab } from '../../../slices/tabsSlice';
+
 // import { inbox } from '../../../slices/requestsSlice';
 
 function Tags() {
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   const tabState = useSelector((state: RootState) => state.tabs.tab);
@@ -25,6 +28,7 @@ function Tags() {
             onClick={
                 () => {
                   dispatch(selectTab('inbox'));
+                  navigate('/home');
                 }
             }
           >

@@ -151,6 +151,38 @@ export const consentShare = createAsyncThunk<void, ShareConsent>(
   },
 );
 
+function toState(shared: boolean, available: boolean, fetching: boolean): RequestState {
+  if (shared) return 'shared';
+  if (available) return 'available';
+  if (fetching) return 'fetching';
+  return 'received';
+}
+
+export const syncStateFromPod = createAsyncThunk<{ id: string, state: RequestState }[], string>(
+  'syncStateFromPod',
+  async (storage: string, { getState, dispatch }): Promise<{ id: string, state: RequestState }[]> => {
+    const state = getState() as RootState;
+    await Promise.all([
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(state.subjectRequests.items) })),
+      dispatch(providerRequestThunks.getContent({ storage, currentResources: Object.keys(state.providerRequests.items) })),
+      dispatch(providerConsentThunks.getContent({ storage, currentResources: Object.keys(state.providerConsents.items) })),
+      dispatch(consumerConsentThunks.getContent({ storage, currentResources: Object.keys(state.consumerConsents.items) })),
+      dispatch(dataThunks.getContent({ storage, currentResources: Object.keys(state.data.items) })),
+    ]);
+
+    const updatedState = getState() as RootState;
+    const requests = Object.keys(updatedState.subjectRequests.items);
+    const processesState = requests.map((id) => {
+      const shared = updatedState.consumerConsents.items[id] !== undefined;
+      const available = updatedState.data.items[id] !== undefined;
+      const fetching = updatedState.providerConsents.items[id] !== undefined;
+      const requestState: RequestState = toState(shared, available, fetching);
+      return { id, state: requestState };
+    });
+    return processesState;
+  },
+);
+
 export const processesSlice = createSlice<ProcessesState, SliceCaseReducers<ProcessesState>, string>({
   name: 'requests',
   initialState: {} as ProcessesState,
@@ -215,6 +247,17 @@ export const processesSlice = createSlice<ProcessesState, SliceCaseReducers<Proc
       const { requestId } = action.meta.arg;
       const item = state[requestId];
       item.status = 'error';
+    });
+    builder.addCase(syncStateFromPod.fulfilled, (state, action) => {
+      const processesState = action.payload;
+      processesState.forEach((process) => {
+        const item: ProcessState = {
+          status: 'success',
+          requestId: process.id,
+          state: process.state,
+        };
+        state[process.id] = item;
+      });
     });
   },
 });
