@@ -4,15 +4,21 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { RequestBox } from '../../components/requestBox';
-import { getRequestsContent } from '../../slices/requestsSlice';
+// import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import styles from './index.module.css';
+import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
 
 function HomePage() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  const storage = useSelector((state: RootState) => state.auth.user?.storage);
+  const subjectRequests = useSelector((state: RootState) => state.subjectRequests);
   useEffect(() => {
-    dispatch(getRequestsContent());
+    if (user) {
+      // dispatch(getRequestsContent());
+      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests.items) }));
+    }
   }, [user]);
 
   return (

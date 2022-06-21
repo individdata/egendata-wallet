@@ -5,18 +5,17 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import RequestItem from '../requestItem';
-import { InboundDataRequest } from '../../util/oak/templates';
+import { SubjectRequest } from '../../slices/requests/subjectRequestsSlice';
 
 export function RequestBox() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
-  const requests = useSelector((state: RootState) => state.requests);
-  console.log('requests:', requests);
-  // console.log('inboxContent=', requests);
+  const requests = useSelector((state: RootState) => state.subjectRequests.items);
+
   const inbox = Object.keys(requests).map((requestKey) => {
     const request = requests[requestKey];
-    if (request.content.documentType === 'http://egendata.se/schema/core/v1#UnemploymentCertificate') {
-      const content = request.content as InboundDataRequest;
+    if (request.documentType === 'http://egendata.se/schema/core/v1#UnemploymentCertificate') {
+      const content = request as SubjectRequest;
       return (
         <div key={requestKey}>
           <RequestItem {...content} />

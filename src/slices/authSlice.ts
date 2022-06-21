@@ -9,12 +9,11 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
-import { fetchProfileData, fetchSsnData } from '../util/oak/solid';
+import { fetchContainerContent, fetchProfileData, fetchPrivateData } from '../util/oak/solid';
 import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
 } from './notificationSlice';
-import { resetRequests } from './requestsSlice';
-import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
+import { inboxPath, infraPath, subjectRequestsPath } from '../util/oak/egendata';
 
 const idp = {
   oidcIssuer: config.idpBaseUrl,
@@ -39,7 +38,7 @@ export type ProfileData = {
   seeAlso: string;
 };
 
-export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
+export const afterLogin = createAsyncThunk<AuthorizedUser>(
   'auth/afterlogin',
   async (id, { dispatch }) => {
     console.log('afterlogin');
@@ -48,60 +47,72 @@ export const afterLogin = createAsyncThunk<AuthorizedUser | undefined>(
     const webId = userInfo?.webId ? userInfo.webId : '';
     console.log('afterLogin webId=', webId);
     if (!webId) {
-      return undefined;
+      return {};
     }
 
     const profileData = await fetchProfileData(webId);
     if (profileData) {
-      console.log('matched');
+      // console.log('matched');
       const u = profileData as ProfileData;
-      console.log('matched userInfo=', userInfo);
-      const ssnData = await fetchSsnData(u.seeAlso);
-      console.log('ssnData=', userInfo);
-      if (ssnData) {
-        console.log('matched seeAlso=', ssnData);
-        const ssn = ssnData.ssn as string;
-        const fullname = ssnData.fullname as string;
+      // console.log('matched userInfo=', userInfo);
+      const { ssn, fullname, uuid } = await fetchPrivateData(u.seeAlso);
+      // console.log('ssnData=', userInfo);
+      if (ssn) {
         console.log('matched ssn=', ssn);
-        const authorizedUser: AuthorizedUser = {
-          webid: userInfo?.webId ? userInfo.webId : '',
-          name: fullname ?? 'Name',
-          storage: u.storage ?? '',
-          id: ssn,
-          completed: true,
-        };
-        console.log('dispatch(subscribe())');
+        console.log('matched uuid=', uuid);
+        if (u.storage) {
+          const { storage } = u;
+          const egendataUrl = `${storage}${infraPath}`;
+          let egendata: string[];
+          try {
+            egendata = await fetchContainerContent(egendataUrl);
+          } catch (error) {
+            egendata = [];
+          }
 
-        const { storage } = authorizedUser;
-        if (storage) {
+          console.log('egendata=', egendata);
+          const authorizedUser: AuthorizedUser = {
+            webid: userInfo?.webId ? userInfo.webId : '',
+            name: fullname ?? 'Name',
+            storage: u.storage,
+            id: ssn,
+            uuid,
+            completed: true,
+            egendataDefined: egendata.length > 0,
+          };
           const inboxUrl = `${storage}${inboxPath}`;
-          dispatch(subscribe({ topic: inboxUrl, onMessage: handleInboxNotification }));
+          dispatch(subscribe({
+            storage, topic: inboxUrl, uuid, onMessage: handleInboxNotification,
+          }));
           const requestsUrl = `${storage}${subjectRequestsPath}`;
-          dispatch(subscribe({ topic: requestsUrl, onMessage: handleRequestsNotification }));
+          dispatch(subscribe({
+            storage, topic: requestsUrl, uuid, onMessage: handleRequestsNotification,
+          }));
+          return authorizedUser;
         }
-        return authorizedUser;
+        return {};
       }
-      return undefined;
+      return {};
     }
-    return undefined;
+    return {};
   },
 );
 
-export const doLogout = createAsyncThunk<undefined>(
+export const doLogout = createAsyncThunk<AuthorizedUser>(
   'auth/logout',
   async (id, { dispatch }) => {
     console.log('doLogout');
     await logout();
-    dispatch(resetRequests());
+    // dispatch(resetRequests());
     dispatch(unsubscribeAll());
-    return undefined;
+    return {};
   },
 );
 
 type AuthState = {
   status: 'authorizing' | 'handleredirect' | 'handlingredirect' | 'loggedin' | 'error' | 'idle' | 'unauthorizing';
   error: string | null;
-  user: AuthorizedUser | undefined;
+  user: AuthorizedUser;
   redirect: boolean;
   redirectPath: string;
 };
@@ -109,7 +120,7 @@ type AuthState = {
 const initialState = {
   status: 'idle',
   error: null,
-  user: undefined,
+  user: {},
   redirect: false,
   redirectPath: '/',
 } as AuthState;

@@ -9,7 +9,8 @@ import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
-import { storeInboundDataRequest } from '../../slices/requestsSlice';
+import { saveIncomingRequest } from '../../slices/processesSlice';
+// import { storeInboundDataRequest } from '../../slices/requestsSlice';
 import { redirectUpdate } from '../../slices/redirectSlice';
 import Header from '../../components/header';
 import { Footer, Title, LandingTextBox } from './utils';
@@ -25,16 +26,24 @@ function LandingPage() {
   const request = url.searchParams.get('request');
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const isLoggedIn = user?.completed;
+  console.log('user = ', user);
+  const isLoggedIn = Object.keys(user).length !== 0;
+  console.log('isLoggedIn = ', isLoggedIn);
+
+  const doRedirect= useSelector((state: RootState) => state.redirect.status);
 
   useEffect(() => {
     if (request) {
       dispatch(redirectUpdate());
     }
-  });
+  }, []);
 
   useEffect(() => {
+    console.log('############ isLoggedIn = ', isLoggedIn);
+    console.log('############ doRedirect = ', doRedirect);
+    console.log('############ request = ', request);
     if (isLoggedIn && !request) {
+      console.log('############ setRedirect -> /home', isLoggedIn);
       setRedirect('/home');
     }
 
@@ -42,7 +51,8 @@ function LandingPage() {
       const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
       decodedRequest.id = uuid();
       if (decodedRequest) {
-        dispatch(storeInboundDataRequest(decodedRequest));
+        console.log('############ setRedirect -> ', `/request/${decodedRequest.id}`);
+        dispatch(saveIncomingRequest(decodedRequest));
         setRedirect(`/request/${decodedRequest.id}`);
       } else {
         console.warn('Decoded request is somehow empty?');

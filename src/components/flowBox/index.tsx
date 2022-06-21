@@ -7,22 +7,23 @@ import { RootState } from '../../store';
 import {
   FlowLogo, FlowTitle, FlowArrow, FlowText,
 } from './utils';
+import { RequestState } from '../../slices/processesSlice';
 
 function FlowBox() {
   const { id } = useParams();
-  let requestState = 'null';
+  let state: RequestState = 'void';
   if (id) {
-    requestState = useSelector((state: RootState) => state.requests[id].status);
+    state = useSelector((rootState: RootState) => rootState.process[id].state);
   }
   return (
     <div className={styles.box}>
       <div className={styles.lines}>
-        <FlowTitle status={requestState} />
+        <FlowTitle state={state} />
         <div className={styles.flow}>
           <div className={styles.showrow}>
-            <FlowLogo number="1" status={requestState} />
-            <FlowArrow status={requestState} />
-            <FlowLogo number="2" status={requestState} />
+            <FlowLogo step={1} state={state} />
+            <FlowArrow state={state} />
+            <FlowLogo step={2} state={state} />
           </div>
         </div>
         <div className={styles.texts}>

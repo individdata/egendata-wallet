@@ -4,6 +4,7 @@ import {
   getStringNoLocale,
   getThing,
   getUrl,
+  getUrlAll,
   Thing,
 } from '@inrupt/solid-client';
 import {
@@ -74,6 +75,15 @@ export async function deleteFile(url: RequestInfo) {
   }
 }
 
+export async function fetchContainerContent(containerUrl: string) {
+  const ds = await getSolidDataset(containerUrl, { fetch });
+  if (ds) {
+    const request = getThing(ds, containerUrl) as Thing;
+    return getUrlAll(request, 'http://www.w3.org/ns/ldp#contains');
+  }
+  return [];
+}
+
 export async function fetchProfileData(webId: string) {
   const ds = await getSolidDataset(webId);
   const profile = getThing(ds, webId) as Thing;
@@ -83,12 +93,22 @@ export async function fetchProfileData(webId: string) {
   return { name, storage, seeAlso };
 }
 
-export async function fetchSsnData(seeAlso: string) {
+export async function gendataContainerExists(egendataUrl: string) {
+  const ds = await getSolidDataset(egendataUrl);
+  const profile = getThing(ds, egendataUrl) as Thing;
+  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
+  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
+  return { name, storage, seeAlso };
+}
+
+export async function fetchPrivateData(seeAlso: string) {
   const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
   const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
-  const ssn = getStringNoLocale(privateMe, 'https://oak-pod-provider-oak-develop.test.services.jtech.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const ssn = getStringNoLocale(privateMe, 'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+  const uuid = getStringNoLocale(privateMe, 'https://pod-test.egendata.se/schema/core/v1#uuid') ?? '';
   const firstname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
   const lastname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
   const fullname = `${firstname}  ${lastname}`;
-  return { ssn, fullname };
+  return { ssn, fullname, uuid };
 }

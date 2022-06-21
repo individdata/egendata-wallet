@@ -65,6 +65,9 @@ export const connect = createAsyncThunk<void, WebsocketConfig>(
       if (wsConfig.onClose) {
         await wsConfig.onClose(evt, dispatch);
       }
+      // try to reconnect ...
+      console.log('try to reconnect ws ...');
+      await dispatch(connect(wsConfig));
     };
 
     ws.onerror = async (evt: Event) => {

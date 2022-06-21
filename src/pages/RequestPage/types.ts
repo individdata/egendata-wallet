@@ -1,3 +1,3 @@
 export type Step = {
-    status: string;
-  };
+  status: string;
+};

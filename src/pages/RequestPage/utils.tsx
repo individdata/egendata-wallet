@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { RequestState } from '../../slices/processesSlice';
 import styles from './index.module.css';
-import { Step } from './types';
 
 export function Title() {
   const certificateName = ' Unemployment certificate';
@@ -24,12 +24,11 @@ export function Title() {
   );
 }
 
-export function Steps(props: Step) {
-  const { status } = props;
+export function Steps({ state }: { state: RequestState }) {
   let contentId;
-  if (status === 'idle' || status === 'fetching') {
+  if (state === 'received') {
     contentId = 'first_get_your_document_text';
-  } else if (status === 'gotData' || status === 'sharing') {
+  } else if (state === 'available') {
     contentId = 'second_view_and_share_your_document_text';
   }
   return (

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { setPopupData } from '../../../slices/popupSlice';
 import styles from './FetchLegalPreview.module.css';
@@ -9,7 +9,9 @@ import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
-import { createOutboundDataRequest } from '../../../slices/requestsSlice';
+// import { createOutboundDataRequest } from '../../../slices/requestsSlice';
+import { consentFetch } from '../../../slices/processesSlice';
+import { RootState } from '../../../store';
 
 type Props = {
   requestId: string,
@@ -19,6 +21,7 @@ function FetchLegalPreview(props: Props) {
   const { requestId } = props;
 
   const dispatch = useDispatch();
+  const { providerWebId } = useSelector((state: RootState) => state.subjectRequests.items[requestId]);
 
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
@@ -31,7 +34,11 @@ function FetchLegalPreview(props: Props) {
       id: 'consent_and_get_data_button',
       disabled: !(checkbox1 && checkbox2 && checkbox3),
       onPress: () => {
-        dispatch(createOutboundDataRequest(requestId));
+        dispatch(consentFetch({
+          requestId,
+          providerWebId,
+          consentDocument: 'consent text ...',
+        }));
         dispatch(setPopupData({
           component: 'FetchInProgress',
           props: {

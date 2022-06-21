@@ -5,4 +5,5 @@ export type People = {
 export interface ButtonProps {
   id: string | undefined;
   status: string;
+  providerWebId: string,
 }

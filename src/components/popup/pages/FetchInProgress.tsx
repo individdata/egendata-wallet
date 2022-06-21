@@ -18,12 +18,13 @@ function FetchInProgress(props: Props) {
   const { requestId } = props;
 
   const dispatch = useDispatch();
-  const request = useSelector((state: RootState) => state.requests[requestId]);
+  // const request = useSelector((state: RootState) => state.requests[requestId]);
+  const requestState = useSelector((state: RootState) => state.process[requestId].state);
 
   const expired = useTimeout(5000);
 
   useEffect(() => {
-    if (request.status === 'gotData') {
+    if (requestState === 'available') {
       dispatch(setPopupData({
         component: 'FetchComplete',
         props: {
@@ -31,7 +32,7 @@ function FetchInProgress(props: Props) {
         },
       }));
     }
-  }, [request]);
+  }, [requestState]);
 
   useEffect(() => {
     if (expired) {
@@ -44,28 +45,12 @@ function FetchInProgress(props: Props) {
     }
   }, [expired]);
 
-  const buttons: PopupButton[] = [
-    {
-      uuid: uuid(),
-      type: 'primary',
-      id: 'continue_to_get_data_button',
-      onPress: () => {
-        dispatch(setPopupData({
-          component: 'FetchLegalPreview',
-          props: {
-            requestId,
-          },
-        }));
-      },
-    },
-  ];
-
   return (
     <div className={styles.container}>
       <PopupContent>
         <FetchingBar id="popup_fetch_data_text" />
       </PopupContent>
-      <PopupButtons buttons={buttons} />
+      <PopupButtons buttons={[]} />
     </div>
   );
 }
