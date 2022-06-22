@@ -20,7 +20,7 @@ import {
 } from '../util/thunkCreator';
 
 export type Data = {
-  created: Date, // iso8601 timestamp
+  created: string, // iso8601 timestamp
   requestId: string,
   providerWebId: string,
   document: string,
@@ -55,7 +55,7 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Data>> 
     resourceId: requestId,
     resourceUrl,
     resource: {
-      created,
+      created: created.toISOString(),
       requestId,
       providerWebId,
       document,

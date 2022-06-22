@@ -6,7 +6,7 @@ import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
 // import { getRequestsContent } from './requestsSlice';
-import { saveIncomingRequest, fetched } from './processesSlice';
+import { saveIncomingRequest, fetched, syncStateFromPod } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
@@ -14,7 +14,6 @@ import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
 import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
 import { connect, disconnect } from './websocketSlice';
-import { subjectRequestThunks } from './requests/subjectRequestsSlice';
 import { ResourceUrl } from '../util/thunkCreator';
 // import { requestItem } from '../util/oak/requests';
 
@@ -151,7 +150,8 @@ export const handleRequestsNotification = async (
     // if (!topic.endsWith('/')) {
     console.log('handleRequestsNotification: getContent');
     console.log('currentResources:', currentResources);
-    dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
+    // dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
+    dispatch(syncStateFromPod(storage));
     // const item = await dispatch(subjectRequestThunks.fetch(topic));
     // console.log('handleRequestsNotification: requestItem = ', item);
     // dispatch(getRequestsContent());

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router';
 import { RootState } from '../../store';
@@ -12,14 +12,9 @@ import Header from '../../components/header';
 import { Title, Steps } from './utils';
 // import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
-import { subjectRequestThunks } from '../../slices/requests/subjectRequestsSlice';
 
 function RequestPage() {
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
-  const storage = useSelector((state: RootState) => state.auth.user?.storage);
-  const subjectRequests = useSelector((state: RootState) => state.subjectRequests);
 
   if (!id) {
     return <Navigate to="/home" replace />;
@@ -30,13 +25,6 @@ function RequestPage() {
   console.log(`subjectRequest: ${subjectRequest}`);
   const processState = useSelector((state: RootState) => state.process[id]);
   console.log(`processState: ${processState}`);
-
-  useEffect(() => {
-    // dispatch(getRequestsContent());
-    if (user) {
-      dispatch(subjectRequestThunks.getContent({ storage, currentResources: Object.keys(subjectRequests.items) }));
-    }
-  }, [user]);
 
   if (subjectRequest && processState) {
     return (
