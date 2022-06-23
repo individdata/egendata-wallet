@@ -13,6 +13,7 @@ function RequestItem(props: SubjectRequest) {
   if (redirect && typeof (redirect) === 'string') {
     return <Navigate to={redirect} replace />;
   }
+  console.log('___________', redirect);
   return (
     <div key={id} className={styles.shape}>
       <button

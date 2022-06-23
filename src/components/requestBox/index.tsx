@@ -11,9 +11,13 @@ export function RequestBox() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = user?.completed;
   const requests = useSelector((state: RootState) => state.subjectRequests.items);
+  const processes = useSelector((state: RootState) => state.process);
+  console.log(processes);
 
-  const inbox = Object.keys(requests).map((requestKey) => {
+  const sharedInbox = Object.keys(requests).map((requestKey) => {
     const request = requests[requestKey];
+    const process = processes[requestKey];
+    console.log(process.state);
     if (request.documentType === 'http://egendata.se/schema/core/v1#UnemploymentCertificate') {
       const content = request as SubjectRequest;
       return (
@@ -27,8 +31,9 @@ export function RequestBox() {
 
   return (
     <div className={styles.box}>
+      <div>Shared Items</div>
       <div className={isLoggedIn ? styles.requestBoxDisplay : styles.requestBoxDisappear}>
-        {inbox}
+        {sharedInbox}
       </div>
     </div>
   );
