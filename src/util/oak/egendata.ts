@@ -8,6 +8,10 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { putFile } from './solid';
 import config from '../config';
+// eslint-disable-next-line import/no-cycle
+import { RootState } from '../../store';
+// eslint-disable-next-line import/no-cycle
+import { RequestState } from '../../slices/processesSlice';
 
 /*
 # Pod structure
@@ -93,3 +97,24 @@ export function getDataResponse(thing: Thing): ResponseItem {
   console.log('dataResponse=', dataResponse);
   return { t: 'Response', v: dataResponse };
 }
+
+function toState(shared: boolean, available: boolean, fetching: boolean): RequestState {
+  if (shared) return 'shared';
+  if (available) return 'available';
+  if (fetching) return 'fetching';
+  return 'received';
+}
+
+export const getProcessByRequestId = (state: RootState, requestId: string) => {
+  const shared = state.consumerConsents.items[requestId] !== undefined;
+  const available = state.data.items[requestId] !== undefined;
+  const fetching = state.providerConsents.items[requestId] !== undefined;
+  const requestState: RequestState = toState(shared, available, fetching);
+  return { id: requestId, state: requestState };
+};
+
+export const getProcesses = (state: RootState) => {
+  const requests = Object.keys(state.subjectRequests.items);
+  const processesState = requests.map((id) => getProcessByRequestId(state, id));
+  return processesState;
+};

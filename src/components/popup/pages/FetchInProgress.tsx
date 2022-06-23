@@ -9,6 +9,7 @@ import PopupContent from '../PopupContent';
 import { RootState } from '../../../store';
 import FetchingBar from '../../fetchingBar';
 import useTimeout from '../../../hooks/useTimeout';
+import { getProcessByRequestId } from '../../../util/oak/egendata';
 
 type Props = {
   requestId: string,
@@ -16,10 +17,11 @@ type Props = {
 
 function FetchInProgress(props: Props) {
   const { requestId } = props;
+  const rootState = useSelector((state: RootState) => state);
 
   const dispatch = useDispatch();
   // const request = useSelector((state: RootState) => state.requests[requestId]);
-  const requestState = useSelector((state: RootState) => state.process[requestId].state);
+  const requestState = getProcessByRequestId(rootState, requestId).state;
 
   const expired = useTimeout(5000);
 

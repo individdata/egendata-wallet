@@ -3,17 +3,19 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
-import { RootState } from '../../store';
 import {
   FlowLogo, FlowTitle, FlowArrow, FlowText,
 } from './utils';
 import { RequestState } from '../../slices/processesSlice';
+import { getProcessByRequestId } from '../../util/oak/egendata';
+import { RootState } from '../../store';
 
 function FlowBox() {
   const { id } = useParams();
+  const rootState = useSelector((state: RootState) => state);
   let state: RequestState = 'void';
   if (id) {
-    state = useSelector((rootState: RootState) => rootState.process[id].state);
+    state = getProcessByRequestId(rootState, id).state;
   }
   return (
     <div className={styles.box}>

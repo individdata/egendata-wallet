@@ -12,9 +12,11 @@ import Header from '../../components/header';
 import { Title, Steps } from './utils';
 // import { getRequestsContent } from '../../slices/requestsSlice';
 import ConsentBox from '../../components/consentBox';
+import { getProcessByRequestId } from '../../util/oak/egendata';
 
 function RequestPage() {
   const { id } = useParams();
+  const rootState = useSelector((state: RootState) => state);
 
   if (!id) {
     return <Navigate to="/home" replace />;
@@ -23,7 +25,7 @@ function RequestPage() {
   console.log(`resourceKey: ${resourceKey}`);
   const subjectRequest = useSelector((state: RootState) => state.subjectRequests.items[resourceKey]);
   console.log(`subjectRequest: ${subjectRequest}`);
-  const processState = useSelector((state: RootState) => state.process[id]);
+  const processState = getProcessByRequestId(rootState, id);
   console.log(`processState: ${processState}`);
 
   if (subjectRequest && processState) {

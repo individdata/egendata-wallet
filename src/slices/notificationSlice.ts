@@ -6,13 +6,13 @@ import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
 // import { getRequestsContent } from './requestsSlice';
-import { saveIncomingRequest, fetched, syncStateFromPod } from './processesSlice';
+import { saveIncomingRequest, syncStateFromPod } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
 import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
-import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
+import { RequestItem } from '../util/oak/egendata';
 import { connect, disconnect } from './websocketSlice';
 import { ResourceUrl } from '../util/thunkCreator';
 // import { requestItem } from '../util/oak/requests';
@@ -88,10 +88,6 @@ function toInboundDataRequest(item: RequestItem): InboundDataRequest {
   };
 }
 
-function toDataResponse(item: ResponseItem): DataResponse {
-  return item.v;
-}
-
 async function subscribeTopic(topic: string, subscriptionEndpoint: string, target: string) {
   const subscrdata = {
     '@context': ['https://www.w3.org/ns/solid/notification/v1'],
@@ -127,8 +123,8 @@ export const handleInboxNotification = async (
         // dispatch(add(inboundDataRequest));
         break;
       case 'Response':
-        const inboundDataResponse = toDataResponse(item);
-        dispatch(fetched(inboundDataResponse.requestId));
+        // const inboundDataResponse = toDataResponse(item);
+        // dispatch(fetched(inboundDataResponse.requestId));
         break;
         // eslint-disable-next-line no-empty
       default: {}

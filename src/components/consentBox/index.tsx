@@ -8,13 +8,16 @@ import {
   Document, PeopleItem, ConsentButton,
 } from './utils';
 import { RequestState } from '../../slices/processesSlice';
+import { getProcessByRequestId } from '../../util/oak/egendata';
 
 function ConsentBox() {
   const { id } = useParams();
+  const rootState = useSelector((state: RootState) => state);
+
   let requestState: RequestState = 'void';
   let providerWebId = '';
   if (id) {
-    requestState = useSelector((state: RootState) => state.process[id].state);
+    requestState = getProcessByRequestId(rootState, id).state;
     providerWebId = useSelector((state: RootState) => state.subjectRequests.items[id].providerWebId);
   }
   return (

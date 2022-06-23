@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './ShareInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { RootState } from '../../../store';
 import FetchingBar from '../../fetchingBar';
 import { setPopupData } from '../../../slices/popupSlice';
+import { getProcessByRequestId } from '../../../util/oak/egendata';
+import { RootState } from '../../../store';
 
 type Props = {
   requestId: string,
@@ -13,9 +14,10 @@ type Props = {
 
 function ShareInProgress(props: Props) {
   const { requestId } = props;
+  const rootState = useSelector((state: RootState) => state);
 
   const dispatch = useDispatch();
-  const request = useSelector((state: RootState) => state.process[requestId]);
+  const request = getProcessByRequestId(rootState, requestId);
 
   useEffect(() => {
     if (request) {
