@@ -10,16 +10,7 @@
 }
 
 .body {
-  margin-top: 50px;
-  display: inline;
-  width: 30%;
-  min-width: 480px;
-  /* height: 70%; */
-  min-width: 580px;
-  height: 66%;
-  min-height: 480px;
-  align-items: center;
-  align-content: center;
+  width: 100%;
 }
 
 
