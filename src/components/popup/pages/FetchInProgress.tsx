@@ -17,16 +17,14 @@ type Props = {
 
 function FetchInProgress(props: Props) {
   const { requestId } = props;
-  const rootState = useSelector((state: RootState) => state);
 
   const dispatch = useDispatch();
-  // const request = useSelector((state: RootState) => state.requests[requestId]);
-  const requestState = getProcessByRequestId(rootState, requestId).state;
+  const data = useSelector((state: RootState) => state.data.items[requestId]);
 
   const expired = useTimeout(5000);
 
   useEffect(() => {
-    if (requestState === 'available') {
+    if (data && data.document) {
       dispatch(setPopupData({
         component: 'FetchComplete',
         props: {
@@ -34,7 +32,7 @@ function FetchInProgress(props: Props) {
         },
       }));
     }
-  }, [requestState]);
+  }, [data]);
 
   useEffect(() => {
     if (expired) {

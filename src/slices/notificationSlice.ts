@@ -5,7 +5,6 @@
 import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
-// import { getRequestsContent } from './requestsSlice';
 import { saveIncomingRequest, syncStateFromPod } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
@@ -14,8 +13,8 @@ import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
 import { RequestItem } from '../util/oak/egendata';
 import { connect, disconnect } from './websocketSlice';
-import { ResourceUrl } from '../util/thunkCreator';
-// import { requestItem } from '../util/oak/requests';
+import { NamedResource, ResourceUrl } from '../util/thunkCreator';
+import { Data, dataThunks } from './dataSlice';
 
 type SubscriptionState = {
   unsubscribeEndpoint: string,
@@ -120,11 +119,14 @@ export const handleInboxNotification = async (
       case 'Request':
         const inboundDataRequest = toInboundDataRequest(item);
         dispatch(saveIncomingRequest(inboundDataRequest));
-        // dispatch(add(inboundDataRequest));
         break;
       case 'Response':
-        // const inboundDataResponse = toDataResponse(item);
-        // dispatch(fetched(inboundDataResponse.requestId));
+        const data: NamedResource<Data> = {
+          resourceId: item.v.requestId,
+          resourceUrl: id,
+          resource: item.v,
+        };
+        dispatch(dataThunks.create(data));
         break;
         // eslint-disable-next-line no-empty
       default: {}

@@ -54,6 +54,7 @@ export type DataRequest = {
 };
 
 export type DataResponse = {
+  created: string, // iso8601 timestamp
   id: string,
   requestId: string,
   providerWebId: string,
