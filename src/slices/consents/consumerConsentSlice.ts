@@ -5,6 +5,7 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
+// eslint-disable-next-line import/no-cycle
 import {
   dcPrefixTurtle,
   egendataPrefixTurtle,
@@ -12,6 +13,7 @@ import {
   consumerConsentsPath,
   xsdPrefixTurtle,
 } from '../../util/oak/egendata';
+// eslint-disable-next-line import/no-cycle
 import { storeTurtle } from '../../util/oak/templates';
 import {
   createContainerSlice,

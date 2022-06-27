@@ -4,9 +4,11 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
+// eslint-disable-next-line import/no-cycle
 import {
   dcPrefixTurtle, egendataPrefixTurtle, egendataSchema, providerRequestsPath,
 } from '../../util/oak/egendata';
+// eslint-disable-next-line import/no-cycle
 import {
   aclTurtle, storeTurtle,
 } from '../../util/oak/templates';

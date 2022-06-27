@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { AccessMode, ACL } from '../thunkCreator';
+// eslint-disable-next-line import/no-cycle
 import {
   consumerConsentsPath,
   dataPath, egendataPrefixTurtle, inboxPath, providerConsentsPath, providerRequestsPath, subjectRequestsPath,
