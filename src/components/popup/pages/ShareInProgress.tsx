@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIntl } from 'react-intl';
 import styles from './ShareInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import FetchingBar from '../../fetchingBar';
+import ActivityIndicator from '../../ui/ActivityIndicator';
 import { setPopupData } from '../../../slices/popupSlice';
 import { getProcessByRequestId } from '../../../util/oak/egendata';
 import { RootState } from '../../../store';
@@ -15,6 +16,7 @@ type Props = {
 function ShareInProgress(props: Props) {
   const { requestId } = props;
   const rootState = useSelector((state: RootState) => state);
+  const intl = useIntl();
 
   const dispatch = useDispatch();
   const request = getProcessByRequestId(rootState, requestId);
@@ -33,7 +35,7 @@ function ShareInProgress(props: Props) {
   return (
     <div className={styles.container}>
       <PopupContent>
-        <FetchingBar id="popup_share_data_text" />
+        <ActivityIndicator text={intl.formatMessage({ id: 'popup_share_data_text' })} />
       </PopupContent>
       <PopupButtons buttons={[]} />
     </div>

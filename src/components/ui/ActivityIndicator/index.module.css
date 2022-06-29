@@ -1,11 +1,11 @@
-.fetchColumn {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.fecthText {
+.text {
   margin-bottom: 20px;
   font-family: 'Open Sans';
   font-style: normal;
@@ -17,13 +17,13 @@
   color: #FFFFFF;
 }
 
-.ldsring {
+.spinner {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
-.ldsring div {
+.spinner div {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -32,20 +32,20 @@
   margin: 8px;
   border: 8px solid rgb(255, 255, 255);
   border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation: spinner-animation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #65D36E transparent transparent transparent;
 }
-.ldsring div:nth-child(1) {
+.spinner div:nth-child(1) {
   animation-delay: -0.45s;
 }
-.ldsring div:nth-child(2) {
+.spinner div:nth-child(2) {
   animation-delay: -0.3s;
 }
-.ldsring div:nth-child(3) {
+.spinner div:nth-child(3) {
   animation-delay: -0.15s;
 }
 
-@keyframes lds-ring {
+@keyframes spinner-animation {
   0% {
     transform: rotate(0deg);
   }
