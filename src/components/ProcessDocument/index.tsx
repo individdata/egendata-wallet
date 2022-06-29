@@ -10,7 +10,7 @@ import {
 import { RequestState } from '../../slices/processesSlice';
 import { getProcessByRequestId } from '../../util/oak/egendata';
 
-function ConsentBox() {
+function ProcessDocument() {
   const { id } = useParams();
   const rootState = useSelector((state: RootState) => state);
 
@@ -41,4 +41,4 @@ function ConsentBox() {
   );
 }
 
-export default ConsentBox;
+export default ProcessDocument;
