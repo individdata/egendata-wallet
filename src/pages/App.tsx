@@ -20,18 +20,16 @@ function App() {
   const lang = useSelector((state: RootState) => state.lang.lang);
 
   return (
-    <div>
-      <IntlProvider locale={lang} messages={LOCALES[lang]}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/request/:id" element={<RequestPage />} />
-          <Route path="/auth/cb" element={<HandleLogin />} />
-          <Route path="/test" element={<TestPage />} />
-        </Routes>
-        { popup.popupData && <Popup /> }
-      </IntlProvider>
-    </div>
+    <IntlProvider locale={lang} messages={LOCALES[lang]}>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/request/:id" element={<RequestPage />} />
+        <Route path="/auth/cb" element={<HandleLogin />} />
+        <Route path="/test" element={<TestPage />} />
+      </Routes>
+      { popup.popupData && <Popup /> }
+    </IntlProvider>
   );
 }
 
