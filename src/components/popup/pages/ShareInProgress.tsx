@@ -4,10 +4,10 @@ import { useIntl } from 'react-intl';
 import styles from './ShareInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import ActivityIndicator from '../../ui/ActivityIndicator';
 import { setPopupData } from '../../../slices/popupSlice';
 import { getProcessByRequestId } from '../../../util/oak/egendata';
 import { RootState } from '../../../store';
+import ActivityIndicator from '../../ui/ActivityIndicator';
 
 type Props = {
   requestId: string,
