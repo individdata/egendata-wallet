@@ -11,7 +11,7 @@ import FlowBox from '../../components/flowBox';
 import Header from '../../components/header';
 import { Title, Steps } from './utils';
 // import { getRequestsContent } from '../../slices/requestsSlice';
-import ConsentBox from '../../components/consentBox';
+import ProcessDocument from '../../components/ProcessDocument';
 import { getProcessByRequestId } from '../../util/oak/egendata';
 
 function RequestPage() {
@@ -45,8 +45,8 @@ function RequestPage() {
               <div className={styles.step}>
                 <Steps state={(data && data.document) ? 'available' : 'received'} />
               </div>
-              <div className={styles.consentBox}>
-                <ConsentBox />
+              <div className={styles.processDocumentContainer}>
+                <ProcessDocument />
               </div>
             </div>
           </div>
