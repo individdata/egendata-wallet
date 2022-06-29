@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import { useIntl } from 'react-intl';
 import styles from './PopupButtons.module.css';
 import popupStyles from './Popup.module.css';
 import Button from '../ui/Button';
@@ -19,11 +20,15 @@ type Props = {
 function PopupButtons(props: Props) {
   const { buttons } = props;
 
+  const intl = useIntl();
+
   const cols = buttons.length === 2 ? 6 : 12;
 
   const renderedButtons = buttons.map((button) => (
     <Grid key={button.uuid} item xs={12} sm={cols}>
-      <Button type={button.type} id={button.id} onPress={button.onPress} disabled={button.disabled} />
+      <Button preset="medium" type={button.type} onPress={button.onPress} disabled={button.disabled}>
+        {intl.formatMessage({ id: button.id })}
+      </Button>
     </Grid>
   ));
 

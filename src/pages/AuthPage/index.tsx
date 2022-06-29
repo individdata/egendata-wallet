@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import LoginImage from '../../components/loginImage';
@@ -10,6 +10,7 @@ import { doLogin } from '../../slices/authSlice';
 
 function AuthPage() {
   const user = useSelector((state: RootState) => state.auth.user);
+  const intl = useIntl();
   const isLoggedIn = user?.completed;
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
@@ -31,10 +32,12 @@ function AuthPage() {
             </div>
             {!isLoggedIn && (
               <Button
+                preset="medium"
                 type="primary"
                 onPress={() => dispatch(doLogin(currentPath))}
-                id="login_button"
-              />
+              >
+                {intl.formatMessage({ id: 'login_button' })}
+              </Button>
             )}
             <div className={styles.line}>
               <a href="http://w3schools.com" className={styles.link}>

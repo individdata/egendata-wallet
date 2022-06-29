@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 import {
@@ -10,30 +10,30 @@ import { RequestState } from '../../slices/processesSlice';
 import { getProcessByRequestId } from '../../util/oak/egendata';
 import { RootState } from '../../store';
 
-function FlowBox() {
-  const { id } = useParams();
+type Props = {
+  requestId: string,
+};
+function FlowBox({ requestId }: Props) {
   const rootState = useSelector((state: RootState) => state);
-  let state: RequestState = 'void';
-  if (id) {
-    state = getProcessByRequestId(rootState, id).state;
-  }
+  const [status, setStatus] = useState<RequestState>('void');
+
+  useEffect(() => {
+    setStatus(getProcessByRequestId(rootState, requestId).state);
+  }, [rootState]);
+
   return (
     <div className={styles.box}>
-      <div className={styles.lines}>
-        <FlowTitle state={state} />
-        <div className={styles.flow}>
-          <div className={styles.showrow}>
-            <FlowLogo step={1} state={state} />
-            <FlowArrow state={state} />
-            <FlowLogo step={2} state={state} />
-          </div>
-        </div>
-        <div className={styles.texts}>
-          <div className={styles.showrow}>
-            <FlowText id="get_your_data_text" />
-            <FlowText id="share_your_data_text" />
-          </div>
-        </div>
+      <FlowTitle state={status} />
+      <div className={styles.texts}>
+        <div style={{ flex: 1 }} />
+        <FlowLogo step={1} state={status} />
+        <FlowArrow state={status} />
+        <FlowLogo step={2} state={status} />
+        <div style={{ flex: 1 }} />
+      </div>
+      <div className={styles.texts}>
+        <FlowText id="get_your_data_text" />
+        <FlowText id="share_your_data_text" />
       </div>
     </div>
   );

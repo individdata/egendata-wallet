@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 import { Buffer } from 'buffer';
 import { v4 as uuid } from 'uuid';
+import { useIntl } from 'react-intl';
 import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
@@ -20,6 +21,7 @@ import AuthPage from '../AuthPage';
 function LandingPage() {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState<boolean | string>(false);
+  const intl = useIntl();
 
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
@@ -74,12 +76,14 @@ function LandingPage() {
                 <Title />
               </div>
               <div className={styles.flowBox}>
-                <FlowBox />
+                <FlowBox requestId={request} />
               </div>
               <div className={styles.text}>
                 <LandingTextBox />
               </div>
-              <Button type="primary" onPress={() => dispatch(doLogin(currentPath))} id="login_button" />
+              <Button preset='medium' type="primary" onPress={() => dispatch(doLogin(currentPath))}>
+                {intl.formatMessage({ id: 'login_button' })}
+              </Button>
             </div>
             <div className={styles.footer}>
               <Footer />

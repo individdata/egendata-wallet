@@ -1,132 +1,52 @@
-.box {
-    width: 40%;
-    min-width: 480px;
-    /* height: 70%; */
-    min-width: 580px;
-    height: 110px;
-    background: #191B1F;
+.container {
+    width: 100%;
+    display: flex;
+    flex: 1;
+}
+
+.card {
+    display: flex;
+    flex: 1;
+    background-color: #191B1F;
+    padding: 24px;
     border-radius: 16px;
 }
 
-.columns {
+.leftColumn {
     display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    flex-grow: 1;
 }
 
-.rows {
-    width: 60%;
-    display: inline;
-}
-
-.buttoncolumn {
-    width: 40%;
-}
-
-.buttonbox {
-    margin-top: 40px;
-}
-
-.documentrow {
-    margin-left: 12px;
-    margin-top: 16px;
-}
-
-.peoplerow {  
-   margin-left: 12px;
-}
-
-.title {
+.rightColumn {
     display: flex;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    color: #FFFFFF;
-    margin-left: 15px;
-    margin-top: 0px;
-}
-  
-.document {
-    color: #5CBC64;
-    font-weight: 800;
-    font-size: 32px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
 }
 
-.word {
-    margin-top: 5px;
-    margin-left: 4px;
-}
-
-.descript {
-    display: flex;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 16px;
-    color: #FFFFFF;
-    margin-left: 15px;
-    margin-top: 0px;
-}
-  
-.from {
-    margin-left: 5px;
-    color: #65D36E;;
-}
-
-.buttonBox1 {
-    margin-left: 20px;
-    width: 180px;
-    height: 46px;
-    background: transparent;
-    border: 1px solid #65D36E;
-    box-sizing: border-box;
-    border-radius: 24px;
-}
-
-.buttonText1 {
-    margin-left: 40px;
+.row {
     display: flex;
     flex-direction: row;
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height, or 125% */
-
-    text-align: center;
-
-    color: #65D36E;
+    align-items: center;
 }
 
-.buttonBox2 {
-    margin-left: 0px;
-    width: 200px;
-    height: 46px;
-    background: transparent;
-    border: 1px solid #65D36E;
-    box-sizing: border-box;
-    border-radius: 24px;
+.icon {
+    color: #65d36e;
+    font-size: 36px;
 }
 
-.buttonText2 {
-    margin-left: 4px;
-    display: flex;
-    flex-direction: row;
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height, or 125% */
-
-    text-align: center;
-
-    color: #65D36E;
+.documentType {
+    color: white;
 }
 
-.buttonArrow {
-    font-size: 20px;
-    margin-top: 2px;
-    margin-left: 3px;
-    color: #65D36E;
+.action {
+    color: white;
+}
+
+.provider {
+    color: #65d36e;
+    font-weight: bold;
 }

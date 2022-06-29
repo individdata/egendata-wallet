@@ -1,13 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { AiOutlineFileText } from 'react-icons/ai';
-import { ImArrowUpRight2 } from 'react-icons/im';
 import styles from './index.module.css';
-import {
-  ButtonProps,
-} from './types';
-import { setPopupData } from '../../slices/popupSlice';
 import { RequestState } from '../../slices/processesSlice';
 
 export function Document() {
@@ -47,52 +41,5 @@ export function PeopleItem({ status }: { status: RequestState }) {
       <FormattedMessage id="share_with_text" />
       <div className={styles.from}>{requestor}</div>
     </div>
-  );
-}
-
-export function ConsentButton(props: ButtonProps) {
-  const { id, status } = props;
-  const dispatch = useDispatch();
-  if (status === 'received' || status === 'fetching') {
-    return (
-      <button
-        type="button"
-        className={styles.buttonBox1}
-        onClick={() => {
-          if (id) {
-            dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId: id } }));
-          }
-        }}
-      >
-        <div className={styles.buttonText1}>
-          <FormattedMessage id="get_data_button" />
-          <div className={styles.buttonArrow}><ImArrowUpRight2 /></div>
-        </div>
-      </button>
-    );
-  }
-  if (status === 'available') {
-    return (
-      <button
-        type="button"
-        className={styles.buttonBox2}
-        onClick={() => {
-          dispatch(setPopupData({ component: 'ShareDetailPreview', props: { requestId: id } }));
-        }}
-      >
-        <div className={styles.buttonText2}>
-          <FormattedMessage id="view_and_share_data_button" />
-          <div className={styles.buttonArrow}><ImArrowUpRight2 /></div>
-        </div>
-      </button>
-    );
-  }
-  return (
-    <button
-      type="button"
-      className={styles.buttonBox1}
-    >
-      <div className={styles.buttonText1}>nothing</div>
-    </button>
   );
 }
