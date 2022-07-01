@@ -10,8 +10,6 @@ import { RootState } from '../../store';
 import styles from './index.module.css';
 import FlowBox from '../../components/flowBox';
 import Header from '../../components/header';
-import { Steps } from './utils';
-// import { getRequestsContent } from '../../slices/requestsSlice';
 import ProcessDocument from '../../components/ProcessDocument';
 import { getProcessByRequestId } from '../../util/oak/egendata';
 
@@ -45,7 +43,9 @@ function RequestPage() {
                 <FlowBox requestId={id} />
               </div>
               <div className={styles.step}>
-                <Steps state={(data && data.document) ? 'available' : 'received'} />
+                {intl.formatMessage({
+                  id: (data && data.document) ? 'second_view_and_share_your_document_text' : 'first_get_your_document_text',
+                })}
               </div>
               <div className={styles.processDocumentContainer}>
                 <ProcessDocument requestId={id} />

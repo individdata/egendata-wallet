@@ -7,7 +7,6 @@ import {
   logout,
   handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
 import { fetchContainerContent, fetchProfileData, fetchPrivateData } from '../util/oak/solid';
 import {
@@ -20,6 +19,16 @@ const idp = {
   clientName: 'Digital Wallet',
   redirectUrl: `${window.location.origin}/auth/cb`,
 };
+
+export type AuthorizedUser = {
+  webid: string;
+  name: string;
+  storage: string;
+  id: string;
+  uuid: string;
+  completed: boolean;
+  egendataDefined: boolean;
+} | Record<string, never>;
 
 export const doLogin = createAsyncThunk<string, string>(
   'auth/login',
