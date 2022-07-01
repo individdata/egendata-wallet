@@ -8,6 +8,7 @@ import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import FlowBox from '../../components/flowBox';
 import OakLogo from '../../components/header/oakLogo';
+import Layout from '../Layout';
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -16,39 +17,45 @@ function LandingPage() {
   const currentPath = url.pathname + url.search;
   const request = url.searchParams.get('request');
 
-  return (
-    <Grid container className={styles.container}>
-      {request && <Grid item xs={12} sm={10} md={8} lg={6} className={styles.right}>
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-          <OakLogo />
-        </div>
-        <div>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <div>{intl.formatMessage({ id: 'landingpage_title' })} <strong>BNP Paribas</strong></div>
-            </Grid>
-            <Grid item xs={12}>
-              <FlowBox requestId={request} />
-            </Grid>
-            <Grid item xs={12}>
-              <strong>{intl.formatMessage({ id: 'landingpage_line1' })}</strong>
-              <div style={{ color: 'grey' }}>{intl.formatMessage({ id: 'landingpage_line2' })}</div>
-            </Grid>
-            <Grid item xs={12}>
-              <a href="http://w3schools.com">{intl.formatMessage({ id: 'landingpage_link' })}</a>
-            </Grid>
-            <Grid item xs={12}>
-              <Button preset='medium' type="primary" onPress={() => dispatch(doLogin(currentPath))}>
-                {intl.formatMessage({ id: 'login_button' })}
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              {intl.formatMessage({ id: 'landingpage_footer' })}
-            </Grid>
+  return (<>
+    {request && (
+      <Layout>
+        <Grid container className={styles.container}>
+          <Grid item xs={12} className={styles.right}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
+              <OakLogo />
+            </div>
+            <div>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <div>{intl.formatMessage({ id: 'landingpage_title' })} <strong>BNP Paribas</strong></div>
+                </Grid>
+                <Grid item xs={12}>
+                  <FlowBox requestId={request} />
+                </Grid>
+                <Grid item xs={12}>
+                  <strong>{intl.formatMessage({ id: 'landingpage_line1' })}</strong>
+                  <div style={{ color: 'grey' }}>{intl.formatMessage({ id: 'landingpage_line2' })}</div>
+                </Grid>
+                <Grid item xs={12}>
+                  <a href="http://w3schools.com">{intl.formatMessage({ id: 'landingpage_link' })}</a>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button preset='medium' type="primary" onPress={() => dispatch(doLogin(currentPath))}>
+                    {intl.formatMessage({ id: 'login_button' })}
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  {intl.formatMessage({ id: 'landingpage_footer' })}
+                </Grid>
+              </Grid>
+            </div>
           </Grid>
-        </div>
-      </Grid>}
-      {!request && <>
+        </Grid>
+      </Layout>
+    )}
+    {!request && <>
+      <Grid container className={styles.container}>
         <Grid item xs={12} md={6} className={styles.left}>
           <div>
             <img className={styles.logo} alt="left-logo" />
@@ -78,9 +85,9 @@ function LandingPage() {
             </div>
           </div>
         </Grid>
-      </>}
-    </Grid>
-  );
+      </Grid>
+    </>}
+  </>);
 }
 
 export default LandingPage;

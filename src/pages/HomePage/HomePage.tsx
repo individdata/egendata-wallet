@@ -7,6 +7,7 @@ import Header from '../../components/header';
 import styles from './HomePage.module.css';
 import RequestList from '../../components/RequestList/RequestList';
 import { SubjectRequest } from '../../slices/requests/subjectRequestsSlice';
+import Layout from '../Layout';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -16,18 +17,20 @@ function HomePage() {
   };
 
   return (
-    <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
-      <Grid item xs={12}>
-        <Header />
-      </Grid>
-      <Grid item xs={12} sm={10} md={8} lg={6}>
-        <div className={styles.main}>
-          <div className={styles.body}>
-            <RequestList onRequestSelect={onRequestSelect} />
+    <Layout>
+      <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
+        <Grid item xs={12}>
+          <Header />
+        </Grid>
+        <Grid item xs={12}>
+          <div className={styles.main}>
+            <div className={styles.body}>
+              <RequestList onRequestSelect={onRequestSelect} />
+            </div>
           </div>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </Layout>
   );
 }
 
