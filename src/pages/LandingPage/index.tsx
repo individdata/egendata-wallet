@@ -1,100 +1,86 @@
 /* eslint-disable */
 import { Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router';
-import { Buffer } from 'buffer';
-import { v4 as uuid } from 'uuid';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { RootState } from '../../store';
 import styles from './index.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
-import { saveIncomingRequest } from '../../slices/processesSlice';
-// import { storeInboundDataRequest } from '../../slices/requestsSlice';
-import { redirectUpdate } from '../../slices/redirectSlice';
-import Header from '../../components/header';
-import { Footer, Title, LandingTextBox } from './utils';
 import FlowBox from '../../components/flowBox';
-import AuthPage from '../AuthPage';
+import OakLogo from '../../components/header/oakLogo';
 
 function LandingPage() {
   const dispatch = useDispatch();
-  const [redirect, setRedirect] = useState<boolean | string>(false);
   const intl = useIntl();
-
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   const request = url.searchParams.get('request');
 
-  const user = useSelector((state: RootState) => state.auth.user);
-  console.log('user = ', user);
-  const isLoggedIn = Object.keys(user).length !== 0;
-  console.log('isLoggedIn = ', isLoggedIn);
-
-  const doRedirect= useSelector((state: RootState) => state.redirect.status);
-
-  useEffect(() => {
-    if (request) {
-      dispatch(redirectUpdate());
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log('############ isLoggedIn = ', isLoggedIn);
-    console.log('############ doRedirect = ', doRedirect);
-    console.log('############ request = ', request);
-    if (isLoggedIn && !request) {
-      console.log('############ setRedirect -> /home', isLoggedIn);
-      setRedirect('/home');
-    }
-
-    if (isLoggedIn && request) {
-      const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
-      decodedRequest.id = uuid();
-      if (decodedRequest) {
-        console.log('############ setRedirect -> ', `/request/${decodedRequest.id}`);
-        dispatch(saveIncomingRequest(decodedRequest));
-        setRedirect(`/request/${decodedRequest.id}`);
-      } else {
-        console.warn('Decoded request is somehow empty?');
-      }
-    }
-  }, [isLoggedIn]);
-
-  if (redirect && typeof (redirect) === 'string') {
-    return <Navigate to={redirect} replace />;
-  }
-  if (request) {
-    return (
-      <Grid container>
-        <Grid item xs={12}>
-          <div className={styles.main}>
-            <Header />
-            <div className={styles.body}>
-              <div className={styles.title}>
-                <Title />
-              </div>
-              <div className={styles.flowBox}>
-                <FlowBox requestId={request} />
-              </div>
-              <div className={styles.text}>
-                <LandingTextBox />
-              </div>
+  return (
+    <Grid container className={styles.container}>
+      {request && <Grid item xs={12} sm={10} md={8} lg={6} className={styles.right}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
+          <OakLogo />
+        </div>
+        <div>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <div>{intl.formatMessage({ id: 'landingpage_title' })} <strong>BNP Paribas</strong></div>
+            </Grid>
+            <Grid item xs={12}>
+              <FlowBox requestId={request} />
+            </Grid>
+            <Grid item xs={12}>
+              <strong>{intl.formatMessage({ id: 'landingpage_line1' })}</strong>
+              <div style={{ color: 'grey' }}>{intl.formatMessage({ id: 'landingpage_line2' })}</div>
+            </Grid>
+            <Grid item xs={12}>
+              <a href="http://w3schools.com">{intl.formatMessage({ id: 'landingpage_link' })}</a>
+            </Grid>
+            <Grid item xs={12}>
               <Button preset='medium' type="primary" onPress={() => dispatch(doLogin(currentPath))}>
                 {intl.formatMessage({ id: 'login_button' })}
               </Button>
-            </div>
-            <div className={styles.footer}>
-              <Footer />
+            </Grid>
+            <Grid item xs={12}>
+              {intl.formatMessage({ id: 'landingpage_footer' })}
+            </Grid>
+          </Grid>
+        </div>
+      </Grid>}
+      {!request && <>
+        <Grid item xs={12} md={6} className={styles.left}>
+          <div>
+            <img className={styles.logo} alt="left-logo" />
+            <div className={styles.title}>{ intl.formatMessage({ id: 'image_page_title' }) }</div>
+            <div className={styles.subtitle}>{ intl.formatMessage({ id: 'image_page_description' }) }</div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} className={styles.right}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
+            <OakLogo />
+          </div>
+          <div>
+            <p className={styles.loginTitle}>
+              { intl.formatMessage({ id: 'log_in_text' }) }
+            </p>
+            <Button
+              preset="medium"
+              type="primary"
+              onPress={() => dispatch(doLogin(currentPath))}
+            >
+              {intl.formatMessage({ id: 'login_button' })}
+            </Button>
+            <div className={styles.line}>
+              <a href="http://w3schools.com" className={styles.link}>
+                { intl.formatMessage({ id: 'home_page_link' }) }
+              </a>
             </div>
           </div>
         </Grid>
-      </Grid>
-    );
-  }
-
-  return <AuthPage />;
+      </>}
+    </Grid>
+  );
 }
 
 export default LandingPage;

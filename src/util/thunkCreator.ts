@@ -44,14 +44,9 @@ async function contentFunction<T>(
   fetchFunction: NamedFetchFunction<T>,
   currentResources: ResourceUrl[],
 ): Promise<ContentValues<T>> {
-  console.log(`currentResources: ${currentResources}`);
   const content = await fetchContainerContent(containerUrl);
-  console.log(`container: ${containerUrl}`);
-  console.log({ content });
   const fetchList = difference(content, currentResources);
-  console.log(`resources to fetch: ${fetchList}`);
   const deleteList = difference(currentResources, content);
-  console.log(`resources to delete: ${deleteList}`);
   const addList = await Promise.all(
     fetchList.map(
       async (url) => fetchFunction(url),
@@ -148,9 +143,7 @@ export function createContainerSlice<T>(
         });
         action.payload.deleteList.forEach((resourceUrl) => {
           const resourceId = state.lookup[resourceUrl];
-          console.log(`delete item with reourceId: ${resourceId}`);
           delete state.items[resourceId];
-          console.log(`delete lookup for resourceUrl: ${resourceUrl}`);
           delete state.lookup[resourceUrl];
         });
       });

@@ -110,7 +110,7 @@ export const handleInboxNotification = async (
   notification: Notification,
   dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
 ) => {
-  console.log('handleInboxNotification: notification = ', notification);
+  console.log('Received notification', notification);
   const { topic, id } = notification.object;
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
@@ -141,13 +141,11 @@ export const handleRequestsNotification = async (
   notification: Notification,
   dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
 ) => {
-  console.log('handleRequestsNotification: notification = ', notification);
+  console.log('Received notification', notification);
   // const { topic } = notification.object;
   if (isCreate(notification) || isUpdate(notification)) {
     // console.log(`Create, topic = ${topic}`);
     // if (!topic.endsWith('/')) {
-    console.log('handleRequestsNotification: getContent');
-    console.log('currentResources:', currentResources);
     // dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
     dispatch(syncStateFromPod(storage));
     // const item = await dispatch(subjectRequestThunks.fetch(topic));
@@ -189,7 +187,6 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
     const { storage } = arg;
 
     onNotificationHandlers[arg.topic] = arg.onMessage;
-    console.log('subscribe, subjectRequests = ', subjectRequests);
 
     if (['closed', 'closing'].includes(websocketState.status)) {
       await dispatch(connect({
@@ -200,7 +197,7 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
           dispatchNotification(storage, subjectRequests, notification, dispatch, getState);
         },
       }));
-      console.log('websocketState = ', websocketState);
+      console.log('websocketState:', websocketState);
     }
 
     console.log(`start webhook subscription of ${arg.topic}`);

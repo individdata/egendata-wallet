@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 import RequestPage from './RequestPage';
 import HomePage from './HomePage';
 import LandingPage from './LandingPage';
-import { HandleLogin } from './AuthPage/HandleLogin';
 import * as config from '../util/config';
 import Popup from '../components/popup/Popup';
 import { LOCALES } from '../react-intl/locales';
@@ -25,7 +24,6 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/request/:id" element={<RequestPage />} />
-        <Route path="/auth/cb" element={<HandleLogin />} />
         <Route path="/test" element={<TestPage />} />
       </Routes>
       { popup.popupData && <Popup /> }

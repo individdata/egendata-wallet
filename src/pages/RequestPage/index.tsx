@@ -24,12 +24,9 @@ function RequestPage() {
     return <Navigate to="/home" replace />;
   }
   const resourceKey = id;
-  console.log(`resourceKey: ${resourceKey}`);
   const subjectRequest = useSelector((state: RootState) => state.subjectRequests.items[resourceKey]);
   const data = useSelector((state: RootState) => state.data.items[id]);
-  console.log(`subjectRequest: ${subjectRequest}`);
   const processState = getProcessByRequestId(rootState, id);
-  console.log(`processState: ${processState}`);
 
   if (subjectRequest && processState) {
     return (

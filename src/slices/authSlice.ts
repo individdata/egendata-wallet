@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   login,
   logout,
@@ -128,7 +128,16 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth: (state, action: PayloadAction<AuthorizedUser>) => {
+      state.user = action.payload;
+      state.status = 'loggedin';
+    },
+    unsetAuth: (state) => {
+      state.user = {};
+      state.status = 'idle';
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(doLogin.pending, (state) => {
@@ -177,5 +186,5 @@ export const authSlice = createSlice({
 });
 
 const { reducer } = authSlice;
-// export const { save } = actions;
+export const { setAuth, unsetAuth } = authSlice.actions;
 export default reducer;
