@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
-import styles from './index.module.css';
+import styles from './LandingPage.module.css';
 import Button from '../../components/ui/Button';
 import { doLogin } from '../../slices/authSlice';
 import FlowBox from '../../components/flowBox';

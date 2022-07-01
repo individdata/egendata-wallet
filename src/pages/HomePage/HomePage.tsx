@@ -4,7 +4,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 // import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
-import styles from './index.module.css';
+import styles from './HomePage.module.css';
 import RequestList from '../../components/RequestList/RequestList';
 import { SubjectRequest } from '../../slices/requests/subjectRequestsSlice';
 

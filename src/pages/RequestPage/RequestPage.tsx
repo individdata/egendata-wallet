@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Navigate } from 'react-router';
 import { RootState } from '../../store';
-import styles from './index.module.css';
+import styles from './RequestPage.module.css';
 import FlowBox from '../../components/flowBox';
 import Header from '../../components/header';
 import ProcessDocument from '../../components/ProcessDocument';

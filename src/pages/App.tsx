@@ -3,14 +3,13 @@ import './App.css';
 import { Route, Routes } from 'react-router';
 import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import RequestPage from './RequestPage';
-import HomePage from './HomePage';
-import LandingPage from './LandingPage';
+import RequestPage from './RequestPage/RequestPage';
+import HomePage from './HomePage/HomePage';
+import LandingPage from './LandingPage/LandingPage';
 import * as config from '../util/config';
 import Popup from '../components/popup/Popup';
 import { LOCALES } from '../react-intl/locales';
 import { RootState } from '../store';
-import { TestPage } from './TestPage';
 
 console.log('Launching app with config: ', config);
 
@@ -24,7 +23,6 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/request/:id" element={<RequestPage />} />
-        <Route path="/test" element={<TestPage />} />
       </Routes>
       { popup.popupData && <Popup /> }
     </IntlProvider>
