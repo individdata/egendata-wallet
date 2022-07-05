@@ -12,7 +12,6 @@ import providerRequestsReducer from './slices/requests/providerRequestsSlice';
 import dataReducer from './slices/dataSlice';
 import providerConsentReducer from './slices/consents/providerConsentSlice';
 import consumerConsentReducer from './slices/consents/consumerConsentSlice';
-import processReducer from './slices/processesSlice';
 import redirectReducer from './slices/redirectSlice';
 
 export const store = configureStore({
@@ -29,7 +28,6 @@ export const store = configureStore({
     data: dataReducer,
     providerConsents: providerConsentReducer,
     consumerConsents: consumerConsentReducer,
-    process: processReducer,
     redirect: redirectReducer,
   },
 });

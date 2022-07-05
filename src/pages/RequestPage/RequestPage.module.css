@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.container {
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+  width: 100%;
+  background: #222429;
+}
+
+.RequestPage {
+  background-color: lightblue;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flowBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+  height: 120px;
+}
+
+.processDocumentContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.step {
+  margin-top: 40px;
+  height: 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  flex-grow: 1;
+  height: 40px;
+  color: white;
+  font-weight: bold;
+}
+
+.word1 {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.word2 {
+  margin-left: 4px;
+}
+
+.word3 {
+  margin-left: 5px;
+  color: #5CBC64;
+}
+
+.word4 {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: center;
+}

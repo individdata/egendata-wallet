@@ -50,4 +50,6 @@ export default {
   sort_button_date: '(sv) Date',
   sort_button_title: '(sv) Title',
   sort_button_requestor: '(sv) Requestor',
+  manage_data_button: 'Hantera data',
+  share_document_text: 'Share your {documentTitle} with {receiver}',
 };

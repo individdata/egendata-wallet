@@ -50,4 +50,6 @@ export default {
   sort_button_date: 'Date',
   sort_button_title: 'Title',
   sort_button_requestor: 'Requestor',
+  manage_data_button: 'Manage data',
+  share_document_text: 'Share your {documentTitle} with {receiver}',
 };

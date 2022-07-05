@@ -8,7 +8,9 @@ import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
 import { PayloadAction } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
 import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../../util/oak/egendata';
+// eslint-disable-next-line import/no-cycle
 import { aclTurtle, InboundDataRequest, storeTurtle } from '../../util/oak/templates';
 import {
   createContainerSlice,

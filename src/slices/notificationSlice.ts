@@ -5,17 +5,16 @@
 import {
   createSlice, createAsyncThunk, ThunkDispatch, AnyAction,
 } from '@reduxjs/toolkit';
-// import { getRequestsContent } from './requestsSlice';
-import { saveIncomingRequest, fetched, syncStateFromPod } from './processesSlice';
+import { saveIncomingRequest, syncStateFromPod } from './processesSlice';
 import { RootState } from '../store';
 import { InboundDataRequest } from '../util/oak/templates';
 import { inboxItem } from '../util/oak/inbox';
 import { deleteFile, postFile } from '../util/oak/solid';
 import config from '../util/config';
-import { DataResponse, RequestItem, ResponseItem } from '../util/oak/egendata';
+import { RequestItem } from '../util/oak/egendata';
 import { connect, disconnect } from './websocketSlice';
-import { ResourceUrl } from '../util/thunkCreator';
-// import { requestItem } from '../util/oak/requests';
+import { NamedResource, ResourceUrl } from '../util/thunkCreator';
+import { Data, dataThunks } from './dataSlice';
 
 type SubscriptionState = {
   unsubscribeEndpoint: string,
@@ -88,10 +87,6 @@ function toInboundDataRequest(item: RequestItem): InboundDataRequest {
   };
 }
 
-function toDataResponse(item: ResponseItem): DataResponse {
-  return item.v;
-}
-
 async function subscribeTopic(topic: string, subscriptionEndpoint: string, target: string) {
   const subscrdata = {
     '@context': ['https://www.w3.org/ns/solid/notification/v1'],
@@ -115,7 +110,7 @@ export const handleInboxNotification = async (
   notification: Notification,
   dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
 ) => {
-  console.log('handleInboxNotification: notification = ', notification);
+  console.log('Received notification', notification);
   const { topic, id } = notification.object;
   if (isCreate(notification)) {
     console.log(`topic = ${topic}`);
@@ -124,11 +119,14 @@ export const handleInboxNotification = async (
       case 'Request':
         const inboundDataRequest = toInboundDataRequest(item);
         dispatch(saveIncomingRequest(inboundDataRequest));
-        // dispatch(add(inboundDataRequest));
         break;
       case 'Response':
-        const inboundDataResponse = toDataResponse(item);
-        dispatch(fetched(inboundDataResponse.requestId));
+        const data: NamedResource<Data> = {
+          resourceId: item.v.requestId,
+          resourceUrl: id,
+          resource: item.v,
+        };
+        dispatch(dataThunks.create(data));
         break;
         // eslint-disable-next-line no-empty
       default: {}
@@ -143,13 +141,11 @@ export const handleRequestsNotification = async (
   notification: Notification,
   dispatch: ThunkDispatch<unknown, unknown, AnyAction>,
 ) => {
-  console.log('handleRequestsNotification: notification = ', notification);
+  console.log('Received notification', notification);
   // const { topic } = notification.object;
   if (isCreate(notification) || isUpdate(notification)) {
     // console.log(`Create, topic = ${topic}`);
     // if (!topic.endsWith('/')) {
-    console.log('handleRequestsNotification: getContent');
-    console.log('currentResources:', currentResources);
     // dispatch(subjectRequestThunks.getContent({ storage, currentResources }));
     dispatch(syncStateFromPod(storage));
     // const item = await dispatch(subjectRequestThunks.fetch(topic));
@@ -191,7 +187,6 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
     const { storage } = arg;
 
     onNotificationHandlers[arg.topic] = arg.onMessage;
-    console.log('subscribe, subjectRequests = ', subjectRequests);
 
     if (['closed', 'closing'].includes(websocketState.status)) {
       await dispatch(connect({
@@ -202,7 +197,7 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
           dispatchNotification(storage, subjectRequests, notification, dispatch, getState);
         },
       }));
-      console.log('websocketState = ', websocketState);
+      console.log('websocketState:', websocketState);
     }
 
     console.log(`start webhook subscription of ${arg.topic}`);

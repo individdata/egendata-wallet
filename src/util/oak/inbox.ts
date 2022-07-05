@@ -6,6 +6,7 @@ import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// eslint-disable-next-line import/no-cycle
 import {
   egendataSchema, fetchThing, getDataRequest, getDataResponse, InboxItem,
 } from './egendata';

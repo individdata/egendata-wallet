@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   login,
   logout,
   handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import { AuthorizedUser } from '../pages/AuthPage/types';
 import config from '../util/config';
 import { fetchContainerContent, fetchProfileData, fetchPrivateData } from '../util/oak/solid';
 import {
@@ -20,6 +19,16 @@ const idp = {
   clientName: 'Digital Wallet',
   redirectUrl: `${window.location.origin}/auth/cb`,
 };
+
+export type AuthorizedUser = {
+  webid: string;
+  name: string;
+  storage: string;
+  id: string;
+  uuid: string;
+  completed: boolean;
+  egendataDefined: boolean;
+} | Record<string, never>;
 
 export const doLogin = createAsyncThunk<string, string>(
   'auth/login',
@@ -128,7 +137,16 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth: (state, action: PayloadAction<AuthorizedUser>) => {
+      state.user = action.payload;
+      state.status = 'loggedin';
+    },
+    unsetAuth: (state) => {
+      state.user = {};
+      state.status = 'idle';
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(doLogin.pending, (state) => {
@@ -177,5 +195,5 @@ export const authSlice = createSlice({
 });
 
 const { reducer } = authSlice;
-// export const { save } = actions;
+export const { setAuth, unsetAuth } = authSlice.actions;
 export default reducer;
