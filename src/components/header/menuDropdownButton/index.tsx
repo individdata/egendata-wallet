@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../store';
 import bars from '../../../images/bars.svg';
 import angledown from '../../../images/angle-down.svg';
+import globe from '../../../images/globe.svg';
 import styles from './index.module.css';
 import { doLogout, doLogin } from '../../../slices/authSlice';
 import { selectTab } from '../../../slices/tabsSlice';
@@ -83,7 +84,7 @@ function MenuButton() {
             onClick={() => dispatch(changeLang())}
           >
             <div className={styles.doprdownbuttontext}>
-              <img className={styles.logolang} alt="logolang" />
+              <img src={globe} className={styles.logolang} alt="logolang" />
               {buttontext}
             </div>
           </button>

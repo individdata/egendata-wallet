@@ -18,9 +18,7 @@
 .logolang {
     height: 18px;
     width: 18px;
-    margin-top: 6px;
-    margin-right: 6px;
-    content: url("/public/images/Globe.png");
+    margin-right: 4px;
 }
 
 .dropdown {
