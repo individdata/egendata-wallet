@@ -10,7 +10,7 @@ import {
   reviewGetdataInfo,
   reviewShareddataBoxItems,
 } from '../../../util/document';
-import Certificate from '../../certificate/Certificate';
+import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,
