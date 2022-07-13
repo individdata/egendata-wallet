@@ -15,9 +15,7 @@ function RequestList({ onRequestSelect }: Props) {
   const rootState = useSelector((state: RootState) => state);
   const lists = Object.keys(requests).reduce((acc: any, requestKey) => { // TODO: Define acc type
     const request = requests[requestKey];
-    console.log('1111', requestKey);
     const requestState = getProcessByRequestId(rootState, requestKey).state;
-    console.log('****', requestState);
     if (!request || !requestState) {
       return acc;
     }

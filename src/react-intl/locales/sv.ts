@@ -52,4 +52,5 @@ export default {
   sort_button_requestor: '(sv) Requestor',
   manage_data_button: 'Hantera data',
   share_document_text: 'Share your {documentTitle} with {receiver}',
+  account_details_text: 'Kontouppgifter',
 };
