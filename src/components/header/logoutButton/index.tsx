@@ -12,13 +12,13 @@ function LogoutButton() {
   const handleClick = isLoggedIn ? () => dispatch(doLogout()) : () => dispatch(doLogin('/'));
   return (
     <div className={styles.logoutItem}>
-      <img className={styles.logo} alt="logo" />
-      <div className={styles.dropdown} style={{ display: 'inline' }}>
+      <div className={styles.dropdown} style={{ display: 'float: left;' }}>
         <button
           type="button"
           className={styles.dropbtn}
           style={{ display: 'flex' }}
         >
+          <img className={styles.logo} alt="logo" />
           <div className={styles.buttontext}>
             {user?.name}
           </div>

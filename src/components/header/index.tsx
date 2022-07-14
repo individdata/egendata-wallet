@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './index.module.css';
@@ -28,29 +29,29 @@ function Header() {
     );
   }
   return (
-    <div className={styles.headline}>
-      <div className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
+    <Grid container className={styles.headline}>
+      <Grid className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
         <OakLogo />
-      </div>
+      </Grid>
       {!redirect && isLoggedIn && (
-        <div className={styles.tabsContiner}>
+        <Grid className={styles.tabsContiner}>
           <Tabs />
-        </div>
+        </Grid>
       )}
-      <div className={(isLoggedIn) ? styles.langContiner1 : styles.langContiner2}>
+      <Grid className={(isLoggedIn) ? styles.langContiner1 : styles.langContiner2}>
         <LangButton />
-      </div>
+      </Grid>
       {!redirect && isLoggedIn && (
-        <div className={styles.logoutContiner}>
+        <Grid className={styles.logoutContiner}>
           <LogoutButton />
-        </div>
+        </Grid>
       )}
       {redirect && isLoggedIn && (
-        <div className={styles.logoutContiner}>
+        <Grid className={styles.logoutContiner}>
           <RedirectLogoutButton />
-        </div>
+        </Grid>
       )}
-    </div>
+    </Grid>
   );
 }
 
