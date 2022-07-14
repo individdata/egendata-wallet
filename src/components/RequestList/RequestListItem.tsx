@@ -23,25 +23,25 @@ function RequestListItem({ request, onClick, dot }: Props) {
       type="button"
       onClick={() => onClick(request)}
     >
-      <Grid container>
+      <Grid container spacing={0.5} columns={12}>
         <Grid item xs={2}>
           <div className={styles.logo}>
             ?
           </div>
         </Grid>
         {(width > 576) && (
-          <Grid item xs={3} className={styles.requestor}>
+          <Grid item xs={2} className={styles.requestor}>
             Requestor
           </Grid>
         )}
-        <Grid item spacing={2} className={(width > 576) ? styles.flex : styles.inline}>
-          <Grid item xs={12} className={styles.label}>
+        <Grid item xs={8} spacing={2} columns={16} className={(width > 576) ? styles.flex : styles.inline}>
+          <Grid item xs={12} md={18} className={styles.label}>
             {renderedDot}
             <div className={styles.text}>
               {request.purpose}
             </div>
           </Grid>
-          <Grid item xs={4} className={styles.date}>
+          <Grid item xs={6} md={12} className={styles.date}>
             {date}
           </Grid>
         </Grid>
