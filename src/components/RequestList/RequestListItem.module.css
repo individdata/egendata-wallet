@@ -49,6 +49,7 @@
 }
 
 .date {
+  margin-left: 26px;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -56,7 +57,7 @@
 
 .dot {
   position: absolute;
-  margin-top: 2px;
+  margin-top: 6px;
   margin-right: 15px;
   width: 8px;
   height: 8px;
@@ -66,4 +67,12 @@
 
 .text {
   margin-left: 14px;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline {
+  display: inline;
 }
