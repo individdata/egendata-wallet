@@ -38,20 +38,20 @@ function RequestPage() {
               </header>
               <main>
                 <div className={styles.body}>
-                  <div className={styles.title}>
+                  <h2 className={styles.title}>
                     {intl.formatMessage({ id: 'share_document_text' }, {
                       documentTitle: 'Unemployment Certificate',
                       receiver: 'BNP Paribas',
                     })}
-                  </div>
+                  </h2>
                   <div className={styles.flowBox}>
                     <FlowBox requestId={id} />
                   </div>
-                  <div className={styles.step}>
+                  <h4 className={styles.step}>
                     {intl.formatMessage({
                       id: (data && data.document) ? 'second_view_and_share_your_document_text' : 'first_get_your_document_text',
                     })}
-                  </div>
+                  </h4>
                   <div className={styles.processDocumentContainer}>
                     <ProcessDocument requestId={id} />
                   </div>
