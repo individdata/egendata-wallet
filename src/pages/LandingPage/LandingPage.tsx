@@ -22,10 +22,12 @@ function LandingPage() {
       <Layout>
         <Grid container className={styles.container}>
           <Grid item xs={12} className={styles.right}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-              <OakLogo />
-            </div>
-            <div>
+            <header>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
+                <OakLogo />
+              </div>
+            </header>
+            <main>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <div>{intl.formatMessage({ id: 'landingpage_title' })} <strong>BNP Paribas</strong></div>
@@ -49,7 +51,7 @@ function LandingPage() {
                   {intl.formatMessage({ id: 'landingpage_footer' })}
                 </Grid>
               </Grid>
-            </div>
+            </main>
           </Grid>
         </Grid>
       </Layout>
@@ -57,17 +59,19 @@ function LandingPage() {
     {!request && <>
       <Grid container className={styles.container}>
         <Grid item xs={12} md={6} className={styles.left}>
-          <div>
+          <article>
             <img className={styles.logo} alt="left-logo" />
             <div className={styles.title}>{ intl.formatMessage({ id: 'image_page_title' }) }</div>
             <div className={styles.subtitle}>{ intl.formatMessage({ id: 'image_page_description' }) }</div>
-          </div>
+          </article>
         </Grid>
         <Grid item xs={12} md={6} className={styles.right}>
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-            <OakLogo />
-          </div>
-          <div>
+          <header>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
+              <OakLogo />
+            </div>
+          </header>
+          <main>
             <p className={styles.loginTitle}>
               { intl.formatMessage({ id: 'log_in_text' }) }
             </p>
@@ -83,7 +87,7 @@ function LandingPage() {
                 { intl.formatMessage({ id: 'home_page_link' }) }
               </a>
             </div>
-          </div>
+          </main>
         </Grid>
       </Grid>
     </>}
