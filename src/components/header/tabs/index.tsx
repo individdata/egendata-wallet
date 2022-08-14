@@ -19,7 +19,7 @@ function Tags() {
 
   return (
     <div className={isLoggedIn ? styles.tabbar1 : styles.tabbar2}>
-      <div>
+      <nav>
         <div className={styles.tab}>
           <button
             className={(tabState === 'inbox') ? styles.button1 : styles.button2}
@@ -63,7 +63,7 @@ function Tags() {
             </div>
           </button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }

@@ -24,7 +24,7 @@ function MenuButton() {
   }
   return (
     <div className={styles.logoutItem}>
-      <div className={styles.dropdown} style={{ display: 'float: right;' }}>
+      <nav className={styles.dropdown} style={{ display: 'float: right;' }}>
         <button
           type="button"
           className={styles.dropbtn}
@@ -98,7 +98,7 @@ function MenuButton() {
             </div>
           </button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }
