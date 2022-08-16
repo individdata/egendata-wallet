@@ -52,4 +52,5 @@ export default {
   sort_button_requestor: 'Requestor',
   manage_data_button: 'Manage data',
   share_document_text: 'Share your {documentTitle} with {receiver}',
+  account_details_text: 'Account details',
 };

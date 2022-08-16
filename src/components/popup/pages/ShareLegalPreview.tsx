@@ -64,15 +64,17 @@ function ShareLegalPreview(props: Props) {
         subtitleId="popup_consent_subtitle"
       />
       <PopupContent>
-        <FormattedMessage
-          id="popup_check_get_data_info_text"
-          values={{
-            providerName: '{TODO_PROVIDER_NAME}',
-          }}
-        />
-        <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />
-        <Checkbox id="popup_check_get_data_text_2" onChange={(evt) => setCheckbox2(evt.target.checked)} />
-        <Checkbox id="popup_check_get_data_text_3" onChange={(evt) => setCheckbox3(evt.target.checked)} />
+        <fieldset>
+          <FormattedMessage
+            id="popup_check_get_data_info_text"
+            values={{
+              providerName: '{TODO_PROVIDER_NAME}',
+            }}
+          />
+          <Checkbox id="popup_check_get_data_text_1" onChange={(evt) => setCheckbox1(evt.target.checked)} />
+          <Checkbox id="popup_check_get_data_text_2" onChange={(evt) => setCheckbox2(evt.target.checked)} />
+          <Checkbox id="popup_check_get_data_text_3" onChange={(evt) => setCheckbox3(evt.target.checked)} />
+        </fieldset>
       </PopupContent>
       <PopupButtons buttons={buttons} />
     </div>

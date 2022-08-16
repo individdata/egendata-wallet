@@ -7,7 +7,7 @@ import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import { reviewGetdataBoxItems, reviewGetdataInfo } from '../../../util/document';
-import Certificate from '../../Certificate/Certificate';
+import Certificate from '../../certificate';
 
 type Props = {
   requestId: string,

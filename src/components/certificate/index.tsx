@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import styles from './Certificate.module.css';
+import styles from './index.module.css';
 
 type Props = {
   certificate: Record<string, string>,

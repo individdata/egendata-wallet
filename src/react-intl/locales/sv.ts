@@ -23,8 +23,8 @@ export default {
   image_page_title: 'Din data i din kontroll',
   image_page_description: 'Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer.',
   inbox_text: 'Inkorg',
-  consents_text: 'Consents',
-  my_data_text: 'My data',
+  consents_text: 'Medgivanden',
+  my_data_text: 'Min dataß',
   get_from_text: '(sv) Get from: ',
   share_with_text: 'Dela med: ',
   first_get_your_document_text: '1. Hämta dokument',
@@ -52,4 +52,5 @@ export default {
   sort_button_requestor: '(sv) Requestor',
   manage_data_button: 'Hantera data',
   share_document_text: 'Share your {documentTitle} with {receiver}',
+  account_details_text: 'Kontouppgifter',
 };

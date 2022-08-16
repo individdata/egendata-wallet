@@ -14,14 +14,14 @@ function PopupHeader(props: Props) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <div className={styles.title}>
+        <h3 className={styles.title}>
           <FormattedMessage id={titleId} />
-        </div>
+        </h3>
       </Grid>
       <Grid item xs={12}>
-        <div className={styles.subtitle}>
+        <h4 className={styles.subtitle}>
           <FormattedMessage id={subtitleId} />
-        </div>
+        </h4>
       </Grid>
       <Grid item xs={12}>
         <div className={popupStyles.divider} />
