@@ -21,7 +21,7 @@ function FetchInProgress(props: Props) {
   const data = useSelector((state: RootState) => state.data.items[requestId]);
   const intl = useIntl();
 
-  const expired = useTimeout(5000);
+  const expired = useTimeout(15000);
 
   useEffect(() => {
     if (data && data.document) {
