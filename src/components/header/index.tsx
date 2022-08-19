@@ -16,10 +16,11 @@ function Header() {
   const user = useSelector((state: RootState) => state.auth.user);
   const { width } = useWindowDimensions();
   const isLoggedIn = user?.completed;
+  console.log('redirect_______', redirect);
   if (width < 576) {
     return (
       <div className={styles.headline}>
-        <div className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
+        <div className={styles.logo}>
           <OakLogo />
         </div>
         <div className={styles.menuContiner}>
@@ -30,7 +31,7 @@ function Header() {
   }
   return (
     <Grid container className={styles.headline}>
-      <Grid className={(!redirect && !isLoggedIn) ? styles.logo1 : styles.logo2}>
+      <Grid className={styles.logo}>
         <OakLogo />
       </Grid>
       {!redirect && isLoggedIn && (

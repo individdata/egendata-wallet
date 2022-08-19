@@ -50,11 +50,8 @@ export type ProfileData = {
 export const afterLogin = createAsyncThunk<AuthorizedUser>(
   'auth/afterlogin',
   async (id, { dispatch }) => {
-    console.log('afterlogin');
     const userInfo = await handleIncomingRedirect();
-    console.log('afterlogin111');
     const webId = userInfo?.webId ? userInfo.webId : '';
-    console.log('afterLogin webId=', webId);
     if (!webId) {
       return {};
     }

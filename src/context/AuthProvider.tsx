@@ -8,6 +8,8 @@ import { setAuth } from '../slices/authSlice';
 import { handleInboxNotification, handleRequestsNotification, subscribe } from '../slices/notificationSlice';
 import { saveIncomingRequest, syncStateFromPod } from '../slices/processesSlice';
 import { RootState } from '../store';
+import { redirectUpdate } from '../slices/redirectSlice';
+import { changeLang } from '../slices/langSlice';
 import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
 import { fetchPrivateData, fetchProfileData } from '../util/oak/solid';
 
@@ -45,6 +47,19 @@ export function AuthProvider({ children }: Props) {
     console.warn('Syncing state from pod');
     dispatch(syncStateFromPod(user.storage));
   }, [user.storage]);
+
+  useEffect(() => {
+    const redirect = localStorage.getItem('redirect'); // redirect = 'true';
+
+    if (redirect === 'true') {
+      dispatch(redirectUpdate()); // Setting redirect in redux state.
+    }
+
+    const locale = localStorage.getItem('lang'); // redirect = 'sv';
+    if (locale) {
+      dispatch(changeLang()); // Setting locale in redux state.
+    }
+  }, []);
 
   useEffect(() => {
     (async () => {

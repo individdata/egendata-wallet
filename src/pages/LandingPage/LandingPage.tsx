@@ -1,13 +1,15 @@
 /* eslint-disable */
 import { Grid } from '@mui/material';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 import styles from './LandingPage.module.css';
 import Button from '../../components/ui/Button';
+import Header from '../../components/header';
+import { redirectUpdate } from '../../slices/redirectSlice';
 import { doLogin } from '../../slices/authSlice';
 import FlowBox from '../../components/flowBox';
-import OakLogo from '../../components/header/oakLogo';
+import { RootState } from '../../store';
 import Layout from '../Layout';
 
 function LandingPage() {
@@ -16,6 +18,16 @@ function LandingPage() {
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   const request = url.searchParams.get('request');
+  const lang  = useSelector((state: RootState) => state.lang.lang);
+
+  useEffect(() => {
+    if (request) {
+      localStorage.setItem('redirect', 'true');
+    } else {
+      localStorage.setItem('redirect', 'false');
+    }
+    localStorage.setItem('lang', lang);
+  }, []);
 
   return (<>
     {request && (
@@ -24,7 +36,7 @@ function LandingPage() {
           <Grid item xs={12} className={styles.right}>
             <header>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-                <OakLogo />
+                <Header />
               </div>
             </header>
             <main>
@@ -70,7 +82,7 @@ function LandingPage() {
         <Grid item xs={12} md={6} className={styles.right}>
           <header>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-              <OakLogo />
+              <Header />
             </div>
           </header>
           <main>

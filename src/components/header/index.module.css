@@ -7,13 +7,7 @@
     width: 100%;
 }
 
-.logo1 {
-    position: absolute;
-    left: 51%;
-    top: 20px;
-}
-
-.logo2 {
+.logo {
     position: absolute;
     left: 20px;
     top: 20px;
