@@ -9,7 +9,7 @@ import { handleInboxNotification, handleRequestsNotification, subscribe } from '
 import { saveIncomingRequest, syncStateFromPod } from '../slices/processesSlice';
 import { RootState } from '../store';
 import { redirectUpdate } from '../slices/redirectSlice';
-import { changeLang } from '../slices/langSlice';
+import { updateLang } from '../slices/langSlice';
 import { inboxPath, subjectRequestsPath } from '../util/oak/egendata';
 import { fetchPrivateData, fetchProfileData } from '../util/oak/solid';
 
@@ -49,15 +49,15 @@ export function AuthProvider({ children }: Props) {
   }, [user.storage]);
 
   useEffect(() => {
-    const redirect = localStorage.getItem('redirect'); // redirect = 'true';
+    const redirect = localStorage.getItem('redirect');
 
     if (redirect === 'true') {
-      dispatch(redirectUpdate()); // Setting redirect in redux state.
+      dispatch(redirectUpdate());
     }
 
-    const locale = localStorage.getItem('lang'); // redirect = 'sv';
+    const locale = localStorage.getItem('lang');
     if (locale) {
-      dispatch(changeLang()); // Setting locale in redux state.
+      dispatch(updateLang(locale));
     }
   }, []);
 

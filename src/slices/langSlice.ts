@@ -20,9 +20,12 @@ export const langSlice = createSlice({
         state.lang = 'en';
       }
     },
+    updateLang: (state, newLang) => {
+      state.lang = newLang.payload;
+    }
   },
 });
 
 const { reducer } = langSlice;
 export default reducer;
-export const { changeLang } = langSlice.actions;
+export const { changeLang, updateLang } = langSlice.actions;
