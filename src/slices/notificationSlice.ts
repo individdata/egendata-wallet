@@ -66,12 +66,12 @@ const dispatchNotification = async (
 
 function isCreate(notfication: Notification) {
   const type = notfication.type[0];
-  return type === 'https://www.w3.org/ns/activitystreams#Create';
+  return type === 'Create' || type === 'https://www.w3.org/ns/activitystreams#Create';
 }
 
 function isUpdate(notfication: Notification) {
   const type = notfication.type[0];
-  return type === 'https://www.w3.org/ns/activitystreams#Update';
+  return type === 'Update' || type === 'https://www.w3.org/ns/activitystreams#Update';
 }
 
 function toInboundDataRequest(item: RequestItem): InboundDataRequest {
