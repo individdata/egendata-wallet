@@ -1,0 +1,12 @@
+.logo {
+  max-width: 3rem;
+  content: url("/images/bnp.png");
+  height: 100%;
+}
+
+.logo1 {
+  margin-right: 10px;
+  width: 26px;
+  height: 40px;
+  content: url("/images/oak-green.png");
+}

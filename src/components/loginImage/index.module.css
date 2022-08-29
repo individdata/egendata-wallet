@@ -1,0 +1,49 @@
+.main {
+    height: auto;
+    text-align: center;
+}
+
+.leaf {
+    height: 10%;
+    width: 10%;
+    padding-top: 10%;
+    padding-left: 45%;
+}
+  
+.leaf .logo {
+  width: auto;
+  height: auto;
+  content: url("/images/oak-white-big.png");
+}
+
+.titleContainer {
+    height: 50%;
+    padding-left: 25%;
+    width: 48%;
+    text-align: center;
+}
+
+.titleContainer .title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 530;
+    font-size: 7vw;
+    line-height: 93px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.textContainer {
+   height: 30%;
+   width: 80%;
+   padding-left: 10%;
+   padding-bottom: 20%;
+}
+
+.text {
+    color: white;
+    justify-content: center;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 400;
+}
