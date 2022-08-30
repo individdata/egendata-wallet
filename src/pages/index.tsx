@@ -22,6 +22,7 @@ const NewHome: NextPage = () => {
   const intl = useIntl();
   const currentPath = router.asPath;
   const { request } = router.query;
+  console.log({currentPath, request})
   return (<>
     {request && (
       <Layout>

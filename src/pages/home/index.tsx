@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
 import React from 'react';
-// import { useNavigate } from 'react-router';
 import { useRouter, NextRouter } from "next/router";
-// import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import styles from './index.module.css';
 import RequestList from '../../components/RequestList/RequestList';
@@ -11,10 +9,10 @@ import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice
 import Layout from '../../components/layout';
 
 function HomePage() {
-  const nextRouter: NextRouter = useRouter();
+  const router: NextRouter = useRouter();
 
   const onRequestSelect = (request: SubjectRequest) => {
-    nextRouter.push(`/request/${request.id}`);
+    router.push(`/request/${request.id}`);
   };
 
   return (

@@ -53,7 +53,7 @@ export function AuthProvider({ children }: Props) {
       if (!userinfo) return;
 
       if (userinfo.isLoggedIn === false) {
-        if (location.pathname !== '/') {
+        if (location !== '/') {
           console.log('navigate /');
           router.push('/');
         }
@@ -85,22 +85,23 @@ export function AuthProvider({ children }: Props) {
           storage, topic: requestsUrl, uuid, onMessage: handleRequestsNotification,
         }));
 
-        if (location.pathname === '/auth/cb') {
-          const request = localStorage.getItem('request');
-          const redirectPath = localStorage.getItem('redirectPath');
-          if (request && redirectPath) {
-            const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
-            decodedRequest.id = v4();
-            dispatch<any>(saveIncomingRequest(decodedRequest));
-            console.log('navigate:', redirectPath);
-            localStorage.removeItem('request');
-            localStorage.removeItem('redirectPath');
-            router.push(`/request/${decodedRequest.id}`);
-            return;
-          }
-          console.log('navigate /home');
-          router.push('/home');
-        }
+        // if (location === '/auth/cb') {
+        //   console.log("i am cb")
+        //   const request = localStorage.getItem('request');
+        //   const redirectPath = localStorage.getItem('redirectPath');
+        //   if (request && redirectPath) {
+        //     const decodedRequest = JSON.parse(Buffer.from(decodeURIComponent(request), 'base64').toString('utf8'));
+        //     decodedRequest.id = v4();
+        //     dispatch<any>(saveIncomingRequest(decodedRequest));
+        //     console.log('navigate:', redirectPath);
+        //     localStorage.removeItem('request');
+        //     localStorage.removeItem('redirectPath');
+        //     router.push(`/request/${decodedRequest.id}`);
+        //     return;
+        //   }
+        //   console.log('navigate /home');
+        //   router.push('/home');
+        // }
       }
     })();
   }, [userinfo]);

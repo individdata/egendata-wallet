@@ -4,12 +4,15 @@ import { Provider, useSelector } from 'react-redux'
 import { RootState, store } from "../store/store";
 import { IntlProvider } from "react-intl";
 import LOCALES from '../react-intl/locales';
+import { AuthProvider } from '../context/AuthProvider';
 
 function App({ Component, pageProps }: AppProps) {
   
 
   return <Provider store={store}>
-    <Component {...pageProps} />
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   </Provider> 
   
   
