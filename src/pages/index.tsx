@@ -16,7 +16,7 @@ import { RootState } from '../store/store';
 import { useRouter, NextRouter, Router } from "next/router";
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import React from 'react';
 
 
@@ -24,9 +24,11 @@ const Home: NextPage = () => {
   const {data: session, status} = useSession();
   const router = useRouter();
 
+/*
   if (status === 'authenticated') {
     router.push('/home')
   }
+*/
 
   return (
     <Container>
@@ -36,6 +38,13 @@ const Home: NextPage = () => {
         onPress={() => signIn('solid')}
         >
         Login
+      </Button>
+      <Button
+        preset="medium"
+        type="secondary"
+        onPress={() => signOut()}
+        >
+        Logout
       </Button>
       <span style={{color: 'deeppink'}}>
         {status}

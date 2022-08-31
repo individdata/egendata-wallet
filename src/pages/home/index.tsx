@@ -12,12 +12,12 @@ import Layout from '../../components/layout';
 import { useSession, getSession } from 'next-auth/react';
 import { syncStateFromPod } from '../../store/slices/processesSlice';
 import { useDispatch } from 'react-redux';
+import { useSWR } from 'swr';
+import { fetchPrivateData, fetchProfileData } from '../../util/oak/solid';
 
 
 function HomePage() {
-const {data: session, status} = useSession();
-//  const status = 'something'
-//  const session = getSession().then((session) => session, (error) => console.log(error))
+  const {data: session, status} = useSession();
   const router: NextRouter = useRouter();
   const dispatch = useDispatch();
 
@@ -27,6 +27,28 @@ const {data: session, status} = useSession();
 
   console.log(session)
 
+  /*
+  useEffect(() => {
+    console.log("Hello from effect.", session)
+
+    if (session?.storage) {
+      const data = fetchPrivateData(session.storage)
+      .then(
+        (data) => console.log("Response:", data),
+        (error) => console.error(error)
+      );
+    }
+  }, [session])
+  */
+
+  useEffect(() => {
+    if (!session?.storage) return;
+
+    console.warn('Syncing state from pod');
+    dispatch<any>(syncStateFromPod(session.storage));
+
+  }, [session?.storage]);
+  
   return (
     <Layout>
       <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
@@ -47,8 +69,10 @@ const {data: session, status} = useSession();
           </Grid>
 
           <span style={{color: 'deeppink'}}>
-            Logged in as: {session.user.email}
+            Logged in as: {session?.webid}
           </span>
+
+          <RequestList onRequestSelect={onRequestSelect} />
         </main>
       </Grid>
     </Layout>

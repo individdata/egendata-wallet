@@ -2,6 +2,8 @@ import NextAuth from 'next-auth';
 
 declare module 'next-auth' {
     interface Session {
-        storage: object,
+        webid: string,
+        storage: string,
+        accessToken: string,
     }
 }

@@ -22,13 +22,12 @@ export default function SolidProvider<P extends SolidProfile>(): OAuthConfig<P> 
     (json) => {
       options.clientId = json.client_id
       options.clientSecret = json.client_secret
+      console.log(options);
     },
     (error) => {
       console.log(error);
     }
   )
-
-  console.log(options);
 
   return {
     id: "solid",
@@ -45,11 +44,11 @@ export default function SolidProvider<P extends SolidProfile>(): OAuthConfig<P> 
     profile(profile) {
       return {
         id: profile.sub,
+        webid: profile.sub,
         name: profile.name,
         email: profile.email,
         sub: profile.sub,
         aud: profile.aud,
-        webid: profile.webid,
         iss: profile.iss,
         azp: profile.azp,
         iat: profile.iat,
