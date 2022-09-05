@@ -7,7 +7,6 @@ import {
   logout,
   handleIncomingRedirect,
 } from '@inrupt/solid-client-authn-browser';
-import config from '../../util/config';
 import { fetchContainerContent, fetchProfileData, fetchPrivateData } from '../../util/oak/solid';
 import {
   handleInboxNotification, handleRequestsNotification, subscribe, unsubscribeAll,
@@ -15,7 +14,7 @@ import {
 import { inboxPath, infraPath, subjectRequestsPath } from '../../util/oak/egendata';
 
 const idp = {
-  oidcIssuer: config.idpBaseUrl,
+  oidcIssuer: process.env.NEXT_PUBLIC_IDP_BASE_URL,
   clientName: 'Digital Wallet',
   redirectUrl: ""
 };

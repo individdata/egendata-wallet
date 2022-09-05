@@ -183,7 +183,7 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
     const state = getState() as RootState;
     const subjectRequests = Object.keys(state.subjectRequests.items);
     const websocketState = state.websocket;
-    const target = `${config.backendWsUrl}${arg.uuid}`;
+    const target = `${process.env.NEXT_PUBLIC_BACKEND_WS_URL}${arg.uuid}`;
     const { storage } = arg;
 
     onNotificationHandlers[arg.topic] = arg.onMessage;
@@ -201,8 +201,8 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
     }
 
     console.log(`start webhook subscription of ${arg.topic}`);
-    const subscriptionUrl = `${config.podProviderBaseUrl}subscription`;
-    const targetUrl = `${config.backendBaseUrl}webhook/${arg.uuid}`;
+    const subscriptionUrl = `${process.env.NEXT_PUBLIC_POD_BASE_URL}subscription`;
+    const targetUrl = `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}webhook/${arg.uuid}`;
     console.log(`webhook targetUrl: ${targetUrl}`);
     const subscriptionResponse = await subscribeTopic(arg.topic, subscriptionUrl, targetUrl);
     console.log('webhook subscription started: ', { subscriptionResponse });

@@ -37,7 +37,7 @@ export const consumerConsentsPath = `${consentsPath}consumer/`;
 export const dataPath = `${infraPath}data/`;
 export const inboxPath = `${infraPath}inbox/`;
 
-export const egendataSchema = 'https://pod-test.egendata.se/schema/core/v1#';
+export const egendataSchema = `${process.env.NEXT_PUBLIC_POD_BASE_URL}schema/core/v1#`;
 export const egendataPrefixTurtle = `@prefix egendata: <${egendataSchema}> .`;
 export const dcPrefixTurtle = '@prefix dcterm: <http://purl.org/dc/terms/> .';
 export const xsdPrefixTurtle = '@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.';
