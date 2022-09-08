@@ -1,15 +1,12 @@
 /* eslint-disable */
-import { Grid } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Grid, Typography } from '@mui/material';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import styles from './LandingPage.module.css';
 import Button from '../../components/ui/Button';
-import Header from '../../components/header';
-import { redirectUpdate } from '../../slices/redirectSlice';
 import { doLogin } from '../../slices/authSlice';
 import FlowBox from '../../components/flowBox';
-import { RootState } from '../../store';
 import Layout from '../Layout';
 
 function LandingPage() {
@@ -18,34 +15,19 @@ function LandingPage() {
   const url = new URL(window.location.href);
   const currentPath = url.pathname + url.search;
   const request = url.searchParams.get('request');
-  const lang  = useSelector((state: RootState) => state.lang.lang);
-
-  useEffect(() => {
-    if (request) {
-      localStorage.setItem('redirect', 'true');
-    } else {
-      localStorage.setItem('redirect', 'false');
-    }
-    localStorage.setItem('lang', lang);
-  }, []);
 
   return (<>
     {request && (
       <Layout>
         <Grid container className={styles.container}>
           <Grid item xs={12} className={styles.right}>
-            <header>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-                <Header />
-              </div>
-            </header>
             <main>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <h2>{intl.formatMessage({ id: 'landingpage_title' })} <strong>BNP Paribas</strong></h2>
                 </Grid>
                 <Grid item xs={12}>
-                  <FlowBox requestId={request} />
+                  <FlowBox requestId={request} landing />
                 </Grid>
                 <Grid item xs={12}>
                   <h2>{intl.formatMessage({ id: 'landingpage_line1' })}</h2>
@@ -82,7 +64,7 @@ function LandingPage() {
         <Grid item xs={12} md={6} className={styles.right}>
           <header>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: 16 }}>
-              <Header />
+              <Typography>Egendata</Typography>
             </div>
           </header>
           <main>

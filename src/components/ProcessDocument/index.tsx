@@ -1,15 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import {
+  Button,
+  Box,
+  createTheme,
+  Grid,
+  Paper,
+  ThemeProvider,
+  Typography,
+  Stack,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { ImArrowUpRight2 } from 'react-icons/im';
-import { AiOutlineFileText } from 'react-icons/ai';
-import styles from './index.module.css';
-import { RootState } from '../../store';
 import { RequestState } from '../../slices/processesSlice';
 import { getProcessByRequestId } from '../../util/oak/egendata';
-import Button from '../ui/Button';
 import { setPopupData } from '../../slices/popupSlice';
+import { RootState } from '../../store';
+import { ArrowUpRight, DocumentIcon } from '../../icons/icons';
 
 type Props = {
   requestId: string,
@@ -26,79 +33,118 @@ function ProcessDocument({ requestId }: Props) {
   }, [rootState]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
-        <div className={styles.leftColumn}>
-          <div className={styles.row}>
-            <div className={styles.icon}><AiOutlineFileText /></div>
-            <div className={styles.documentType}>Unemployment Certificate</div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.action}>{intl.formatMessage({ id: 'get_from_text' })}</div>
-            <div className={styles.provider}>Arbetsförmedlingen</div>
-          </div>
-        </div>
-        <div className={styles.rightColumn}>
-          <div>
-            {status === 'received' && (
-              <Button
-                preset="small"
-                type="secondary"
-                onPress={() => {
-                  dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId } }));
-                }}
-                iconRight={<ImArrowUpRight2 />}
-              >
-                {intl.formatMessage({ id: 'get_data_button' })}
-              </Button>
-            )}
-            {status === 'fetching' && (
-              <Button
-                preset="small"
-                type="secondary"
-                onPress={() => {
-                  dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId } }));
-                }}
-                iconRight={<ImArrowUpRight2 />}
-              >
-                {intl.formatMessage({ id: 'get_data_button' })}
-              </Button>
-            )}
-            {status === 'available' && (
-              <Button
-                preset="small"
-                type="secondary"
-                onPress={() => {
-                  dispatch(setPopupData({ component: 'ShareDetailPreview', props: { requestId } }));
-                }}
-                iconRight={<ImArrowUpRight2 />}
-              >
-                {intl.formatMessage({ id: 'view_and_share_data_button' })}
-              </Button>
-            )}
-            {status === 'void' && (
-              <Button
-                preset="small"
-                type="secondary"
-                onPress={() => {}}
-              >
-                {intl.formatMessage({ id: 'nothing' })}
-              </Button>
-            )}
-            {status === 'shared' && (
-              <Button
-                preset="small"
-                type="secondary"
-                onPress={() => {}}
-                iconRight={<ImArrowUpRight2 />}
-              >
-                {intl.formatMessage({ id: 'manage_data_button' })}
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    <Box>
+      <ThemeProvider theme={createTheme({
+        palette: {
+          text: {
+            primary: '#FFFFFF',
+            secondary: '#ACACAC',
+          },
+          background: {
+            paper: '#191B1F',
+          },
+        },
+        components: {
+          MuiButton: {
+            defaultProps: {
+              color: 'success',
+            },
+            styleOverrides: {
+              root: {
+                borderRadius: '24px',
+                height: '46px',
+              },
+            },
+          },
+          MuiSvgIcon: {
+            styleOverrides: {
+              root: {
+                height: '32px',
+                width: '32px',
+              },
+            },
+          },
+        },
+      })}
+      >
+
+        <Paper elevation={0} sx={{ borderRadius: '16px' }}>
+          <Box padding={3}>
+            <Grid container>
+              <Grid item xs={9} textAlign="left">
+                <Stack direction="row" alignItems="center">
+                  <DocumentIcon />
+                  <Typography fontSize="large" paddingLeft={1}>Unemployment Certificate</Typography>
+                </Stack>
+
+                <Typography>
+                  {intl.formatMessage({ id: 'get_from_text' })}
+                  <Typography component="span" sx={{ color: '#65D36E' }}>Arbetsförmedlingen</Typography>
+                </Typography>
+              </Grid>
+              <Grid item xs={3} alignSelf="center">
+                {status === 'received' && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    endIcon={<ArrowUpRight />}
+                    onClick={() => {
+                      dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId } }));
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'get_data_button' })}
+                  </Button>
+                )}
+                {status === 'fetching' && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    endIcon={<ArrowUpRight />}
+                    onClick={() => {
+                      dispatch(setPopupData({ component: 'FetchDetailPreview', props: { requestId } }));
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'get_data_button' })}
+                  </Button>
+                )}
+                {status === 'available' && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    endIcon={<ArrowUpRight />}
+                    onClick={() => {
+                      dispatch(setPopupData({ component: 'ShareDetailPreview', props: { requestId } }));
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'view_and_share_data_button' })}
+                  </Button>
+                )}
+                {status === 'void' && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    endIcon={<ArrowUpRight />}
+                    onClick={() => {}}
+                  >
+                    {intl.formatMessage({ id: 'nothing' })}
+                  </Button>
+                )}
+                {status === 'shared' && (
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    endIcon={<ArrowUpRight />}
+                    onClick={() => {}}
+                  >
+                    {intl.formatMessage({ id: 'manage_data_button' })}
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
+      </ThemeProvider>
+    </Box>
   );
 }
 
