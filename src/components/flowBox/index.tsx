@@ -1,19 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styles from './index.module.css';
 import {
-  FlowLogo, FlowTitle, FlowArrow, FlowText,
-} from './utils';
+  Box,
+  Container,
+  createTheme,
+  Grid,
+  Paper,
+  ThemeProvider,
+  Typography,
+} from '@mui/material';
 import { RequestState } from '../../slices/processesSlice';
 import { getProcessByRequestId } from '../../util/oak/egendata';
 import { RootState } from '../../store';
+import {
+  Arrow,
+  CheckIcon,
+  StepOneIcon,
+  StepOneActiveIcon,
+  StepTwoIcon,
+  StepTwoActiveIcon,
+} from './icons';
 
 type Props = {
   requestId: string,
+  landing?: boolean,
 };
-function FlowBox({ requestId }: Props) {
+
+function FlowBox({ requestId, landing }: Props) {
   const rootState = useSelector((state: RootState) => state);
   const [status, setStatus] = useState<RequestState>('void');
 
@@ -21,22 +37,93 @@ function FlowBox({ requestId }: Props) {
     setStatus(getProcessByRequestId(rootState, requestId).state);
   }, [rootState]);
 
+  let stepOne;
+  if (!landing && status === 'received') {
+    stepOne = (<StepOneActiveIcon />);
+  } else if (!landing && status in ['fetching', 'available', 'shared']) {
+    stepOne = (<CheckIcon />);
+  } else {
+    stepOne = (<StepOneIcon />);
+  }
+
+  let stepTwo;
+  if (!landing && status === 'available') {
+    stepTwo = (<StepTwoActiveIcon />);
+  } else if (!landing && status === 'shared') {
+    stepTwo = (<CheckIcon />);
+  } else {
+    stepTwo = (<StepTwoIcon />);
+  }
+
   return (
-    <div className={styles.box}>
-      <FlowTitle state={status} />
-      <div className={styles.texts}>
-        <div style={{ flex: 1 }} />
-        <FlowLogo step={1} state={status} />
-        <FlowArrow state={status} />
-        <FlowLogo step={2} state={status} />
-        <div style={{ flex: 1 }} />
-      </div>
-      <div className={styles.texts}>
-        <FlowText id="get_your_data_text" />
-        <FlowText id="share_your_data_text" />
-      </div>
-    </div>
+    <Box sx={{ width: '100%' }}>
+      <ThemeProvider theme={createTheme({
+        palette: {
+          text: {
+            primary: '#FFFFFF',
+            secondary: '#ACACAC',
+          },
+          background: {
+            paper: '#2D43A5',
+          },
+        },
+        components: {
+          MuiSvgIcon: {
+            styleOverrides: {
+              root: {
+                height: '32px',
+                width: '32px',
+              },
+            },
+          },
+        },
+      })}
+      >
+        <Paper elevation={0} sx={{ borderRadius: '16px' }}>
+          <Container sx={{ paddingTop: 2, paddingBottom: 2 }}>
+            {landing && (<Typography variant="h6">Egendata</Typography>)}
+
+            <Grid container spacing={0}>
+              <Grid item sx={{ flexGrow: 1 }} />
+              <Grid item>
+                { stepOne }
+              </Grid>
+              <Grid item sx={{ flexBasis: 0, flexGrow: 2, alignSelf: 'center' }}>
+                <Box textAlign="center">
+                  <Arrow />
+                </Box>
+              </Grid>
+              <Grid item>
+                { stepTwo }
+              </Grid>
+              <Grid item sx={{ flexGrow: 1 }} />
+            </Grid>
+
+            <Grid container spacing={0}>
+              <Grid item xs={6}>
+                <Typography align="center">
+                  <FormattedMessage id="get_your_data_text" />
+                </Typography>
+                <Typography align="center" fontSize="small">
+                  <FormattedMessage id="get_your_data_description" />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography align="center">
+                  <FormattedMessage id="share_your_data_text" />
+                </Typography>
+                <Typography align="center" fontSize="small">
+                  <FormattedMessage id="share_your_data_description" />
+                </Typography>
+              </Grid>
+            </Grid>
+          </Container>
+        </Paper>
+      </ThemeProvider>
+    </Box>
   );
 }
+
+FlowBox.defaultProps = { landing: false };
 
 export default FlowBox;
