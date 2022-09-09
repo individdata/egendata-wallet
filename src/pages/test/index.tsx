@@ -1,13 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router';
-import { useRouter, NextRouter } from "next/router";
-import Layout from '../../components/layout';
-import { Grid } from '@mui/material';
-import { importJWK, exportJWK, generateKeyPair, JWK, KeyLike, SignJWT } from 'jose';
+import { Container, Stack } from '@mui/material';
+import { importJWK, JWK, SignJWT } from 'jose';
 import { v4 as uuid } from 'uuid';
 import { useSession } from 'next-auth/react';
-import { getCredentials } from '../../lib/SolidProvider';
 
 async function createDpopJWK(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: string, url: string) {
   jwkPrivateKey.alg = 'ES256'
@@ -29,35 +26,42 @@ async function createDpopJWK(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: stri
 
 function HomePage() {
   const {data: session, status} = useSession();
+  const [privateData, setPrivateData] = useState('')
 
-  const resourceURI = session?.seeAlso;
+  const resourceURI = session?.seeAlso ?? "";
   const resourceMethod = 'GET';
 
   useEffect(() => {
-
-    console.log(session)
-
     if (session) {
-      createDpopJWK(session.jwkPrivateKey as KeyLike, session.jwkPublicKey as JWK, resourceMethod, resourceURI).then(
-      (dpop) => {
-        const headers = new Headers({
-          Authorization: `DPoP ${session.dpop.access_token}`,
-          DPoP: dpop,
-        })
-        
-        fetch(resourceURI, {headers: headers, method: resourceMethod}).then((res) => console.log(res.data))
-      }
+      createDpopJWK(session.keys.privateKey, session.keys.publicKey, resourceMethod, resourceURI)
+        .then((dpop) => {
+          const headers = new Headers({
+            Authorization: `DPoP ${session.dpop_token}`,
+            DPoP: dpop,
+          });
+          
+          fetch(resourceURI, {headers: headers, method: resourceMethod})
+            .then((res) => res.text())
+            .then((body) => setPrivateData(body))
+        }
       )
     }
-      
-
   }, [session])
 
   return (
-    <Layout>
-      <Grid container sx={{ color: 'deeppink' }}>
-      </Grid>
-    </Layout>
+    <Container>
+      <Stack direction="column">
+        <div style={{ color: 'white' }}>
+          DPoP-token: <span  style={{ color: 'deeppink' }}>{ session?.dpop_token }</span>
+        </div>
+
+        <div style={{ color: 'white' }}>Resource URI: { resourceURI }<br />
+          <pre>
+            <code  style={{ color: 'deeppink' }}>{ privateData }</code>
+          </pre>
+        </div>
+      </Stack>
+    </Container>
   );
 }
 

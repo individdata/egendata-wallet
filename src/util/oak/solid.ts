@@ -105,8 +105,8 @@ export async function gendataContainerExists(egendataUrl: string) {
 export async function fetchPrivateData(seeAlso: string) {
   const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
   const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
-  const ssn = getStringNoLocale(privateMe, 'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier') ?? '';
-  const uuid = getStringNoLocale(privateMe, 'https://pod-test.egendata.se/schema/core/v1#uuid') ?? '';
+  const ssn = getStringNoLocale(privateMe, `${process.env.NEXT_PUBLIC_POD_BASE_URL}schema/core/v1#dataSubjectIdentifier`) ?? '';
+  const uuid = getStringNoLocale(privateMe,  `${process.env.NEXT_PUBLIC_POD_BASE_URL}schema/core/v1#uuid`) ?? '';
   const firstname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
   const lastname = getStringNoLocale(privateMe, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
   const fullname = `${firstname}  ${lastname}`;

@@ -6,9 +6,10 @@ declare module 'next-auth' {
         webid: string,
         storage: string,
         seeAlso: string,
-        accessToken: string,
-        jwkPrivateKey: JWK,
-        jwkPublicKey: JWK,
-        dpop: JWT,
+        dpop_token: string,
+        keys: {
+            privateKey: JWK,
+            publicKey: JWK,
+        }
     }
 }
