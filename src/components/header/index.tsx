@@ -16,6 +16,7 @@ function Header() {
   const user = useSelector((state: RootState) => state.auth.user);
   const width = useWindowDimensions()?.width || 0;
   const isLoggedIn = user?.completed;
+  console.log({redirect, user, isLoggedIn});
   if (width < 576) {
     return (
       <div className={styles.headline}>

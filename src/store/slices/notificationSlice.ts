@@ -134,7 +134,6 @@ export const handleInboxNotification = async (
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleRequestsNotification = async (
   storage: string,
   currentResources: ResourceUrl[],
@@ -155,7 +154,6 @@ export const handleRequestsNotification = async (
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ensureNotificationContainsTopic(notification: Notification, subscriptions: Record<string, SubscriptionState>, topic: string): Notification {
   const { topic: objectTopic } = notification.object;
   const { id: resourceId } = notification.object;
@@ -208,7 +206,6 @@ export const subscribe = createAsyncThunk<string, { storage: string, topic: stri
     console.log('webhook subscription started: ', { subscriptionResponse });
 
     const subscriptionResponseJson = JSON.parse(subscriptionResponse.data);
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { unsubscribe_endpoint } = subscriptionResponseJson;
     return unsubscribe_endpoint;
   },
@@ -234,6 +231,7 @@ export const unsubscribeAll = createAsyncThunk<void>(
     console.log('unsubscribe subscriptions: ', subscriptions);
     Object.keys(subscriptions).forEach(async (key) => {
       const endpoint = subscriptions[key].unsubscribeEndpoint;
+      console.log(endpoint);
       if (endpoint) {
         await deleteFile(endpoint);
       }

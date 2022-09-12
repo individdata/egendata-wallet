@@ -1,21 +1,21 @@
+import React from 'react';
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import { Provider, useSelector } from 'react-redux'
 import { RootState, store } from "../store/store";
 import { IntlProvider } from "react-intl";
 import LOCALES from '../react-intl/locales';
-import { AuthProvider } from '../context/AuthProvider';
+import { SessionProvider } from 'next-auth/react';
+
+import type { AppProps } from 'next/app'
 
 function App({ Component, pageProps }: AppProps) {
-  
-
-  return <Provider store={store}>
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
-  </Provider> 
-  
-  
+  return (
+    <SessionProvider session={pageProps.session} refetchInterval={0}>
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>   
+    </SessionProvider>
+  )
 }
 
 export default App

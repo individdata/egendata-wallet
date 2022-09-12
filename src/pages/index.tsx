@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl, IntlProvider } from 'react-intl';
 import LOCALES from '../react-intl/locales';
@@ -13,10 +13,15 @@ import FlowBox from '../components/flowBox';
 import Button from '../components/ui/Button';
 import { doLogin } from '../store/slices/authSlice';
 import { RootState } from '../store/store';
-import { useRouter, NextRouter } from "next/router";
+import { useRouter, NextRouter, Router } from "next/router";
+import { faSignIn } from '@fortawesome/free-solid-svg-icons';
+
+import { useSession, signIn, signOut } from 'next-auth/react';
+import React from 'react';
 
 const NewHome: NextPage = () => {
   const router: NextRouter = useRouter();
+  const {data: session, status} = useSession();
   
   const dispatch = useDispatch();
   const intl = useIntl();
@@ -49,7 +54,7 @@ const NewHome: NextPage = () => {
                   <a href="http://w3schools.com">{intl.formatMessage({ id: 'landingpage_link' })}</a>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button preset='medium' type="primary" onPress={() => dispatch<any>(doLogin(currentPath))}>
+                  <Button preset='medium' type="primary" onPress={() => signIn('solid')}>
                     {intl.formatMessage({ id: 'login_button' })}
                   </Button>
                 </Grid>
@@ -86,7 +91,7 @@ const NewHome: NextPage = () => {
             <Button
               preset="medium"
               type="primary"
-              onPress={() => dispatch<any>(doLogin(currentPath))}
+              onPress={() => signIn('solid')}
             >
               {intl.formatMessage({ id: 'login_button' })}
             </Button>
