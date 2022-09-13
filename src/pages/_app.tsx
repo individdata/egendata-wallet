@@ -1,18 +1,38 @@
 import React from 'react';
-import '../styles/globals.css'
+import Head from 'next/head';
+import type { AppProps } from 'next/app'
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import theme from '../theme';  // TODO: Update as appropriate.
+import createEmotionCache from '../lib/createEmotionCache';
+import { SessionProvider } from 'next-auth/react';
 import { Provider, useSelector } from 'react-redux'
 import { RootState, store } from "../store/store";
 import { IntlProvider } from "react-intl";
 import LOCALES from '../react-intl/locales';
-import { SessionProvider } from 'next-auth/react';
 
-import type { AppProps } from 'next/app'
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-function App({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+function App(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1 width=device-width" />
+          </Head>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </CacheProvider>
       </Provider>   
     </SessionProvider>
   )

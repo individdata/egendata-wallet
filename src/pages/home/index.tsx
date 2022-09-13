@@ -1,27 +1,55 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+// import { useNavigate } from 'react-router';
 import { useRouter, NextRouter } from "next/router";
+// import { getRequestsContent } from '../../slices/requestsSlice';
 import Header from '../../components/header';
 import styles from './index.module.css';
 import RequestList from '../../components/RequestList/RequestList';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
 import Layout from '../../components/layout';
-import { IntlProvider } from 'react-intl';
-import { RootState } from '../../store/store';
-import { useSelector } from 'react-redux';
-import LOCALES from '../../react-intl/locales';
+import { useSession, getSession } from 'next-auth/react';
+import { syncStateFromPod } from '../../store/slices/processesSlice';
+import { useDispatch } from 'react-redux';
+import { useSWR } from 'swr';
+import { fetchPrivateData, fetchProfileData } from '../../util/oak/solid';
+
 
 function HomePage() {
+  const {data: session, status} = useSession();
   const router: NextRouter = useRouter();
-  const lang = useSelector((state: RootState) => state.lang.lang);
+  const dispatch = useDispatch();
 
   const onRequestSelect = (request: SubjectRequest) => {
     router.push(`/request/${request.id}`);
   };
 
+  console.log(session)
+
+  /*
+  useEffect(() => {
+    console.log("Hello from effect.", session)
+
+    if (session?.storage) {
+      const data = fetchPrivateData(session.storage)
+      .then(
+        (data) => console.log("Response:", data),
+        (error) => console.error(error)
+      );
+    }
+  }, [session])
+  */
+
+  useEffect(() => {
+    if (!session?.storage) return;
+
+    console.warn('Syncing state from pod');
+    dispatch<any>(syncStateFromPod(session.storage));
+
+  }, [session?.storage]);
+  
   return (
-    <IntlProvider locale={lang} messages={LOCALES[lang]}>
     <Layout>
       <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
         <header>
@@ -33,14 +61,21 @@ function HomePage() {
           <Grid item xs={12}>
             <div className={styles.main}>
               <div className={styles.body}>
-                <RequestList onRequestSelect={onRequestSelect} />
+                <span style={{color: 'deeppink'}}>
+                  {status}
+                </span>
               </div>
             </div>
           </Grid>
+
+          <span style={{color: 'deeppink'}}>
+            Logged in as: {session?.webid}
+          </span>
+
+          <RequestList onRequestSelect={onRequestSelect} />
         </main>
       </Grid>
     </Layout>
-    </IntlProvider>
   );
 }
 

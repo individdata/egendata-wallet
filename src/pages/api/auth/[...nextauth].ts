@@ -2,16 +2,10 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import SolidProvider from "../../../lib/SolidProvider"
 import { fetchProfileData } from "../../../util/oak/solid";
 import { NextApiRequest, NextApiResponse } from 'next';
-import { JWK } from 'jose';
 
 // Call the registration endpoint.
 // openid-client has some support for this? 
 // See https://github.com/panva/node-openid-client/blob/main/docs/README.md#clientregistermetadata-other
-
-type Keypair = {
-  privateKey: JWK,
-  publicKey: JWK,
-}
 export function registerCredentials() {
   const options = { clientId: '', clientSecret: ''};
   const body = {
@@ -73,7 +67,7 @@ function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions
         // Pass on to the client.
 
         session.dpop_token = token.dpop_token as string;
-        session.keys = token.keys as Keypair;
+        session.keys = token.keys;
 
         if (token.sub) {
           session.webid = token.sub
