@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 // import { useNavigate } from 'react-router';
 import { useRouter, NextRouter } from "next/router";
@@ -12,8 +12,8 @@ import Layout from '../../components/layout';
 import { useSession, getSession } from 'next-auth/react';
 import { syncStateFromPod } from '../../store/slices/processesSlice';
 import { useDispatch } from 'react-redux';
-import { useSWR } from 'swr';
 import { fetchPrivateData, fetchProfileData } from '../../util/oak/solid';
+import MenuBar from '../../components/MenuBar/MenuBar';
 
 
 function HomePage() {
@@ -50,14 +50,10 @@ function HomePage() {
   }, [session?.storage]);
   
   return (
-    <Layout>
+    <Container>
+      <MenuBar />
+      <main>
       <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
-        <header>
-          <Grid item xs={12}>
-            <Header />
-          </Grid>
-        </header>
-        <main>
           <Grid item xs={12}>
             <div className={styles.main}>
               <div className={styles.body}>
@@ -73,9 +69,9 @@ function HomePage() {
           </span>
 
           <RequestList onRequestSelect={onRequestSelect} />
-        </main>
-      </Grid>
-    </Layout>
+        </Grid>
+      </main>
+    </Container>
   );
 }
 

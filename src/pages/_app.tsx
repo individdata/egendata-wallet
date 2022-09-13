@@ -21,6 +21,7 @@ interface MyAppProps extends AppProps {
 
 function App(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
       <Provider store={store}>

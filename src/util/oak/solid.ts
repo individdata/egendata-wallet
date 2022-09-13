@@ -102,8 +102,8 @@ export async function gendataContainerExists(egendataUrl: string) {
   return { name, storage, seeAlso };
 }
 
-export async function fetchPrivateData(seeAlso: string) {
-  const ds1 = await getSolidDataset(`${seeAlso}`, { fetch });
+export async function fetchPrivateData(seeAlso: string, fetcher) {
+  const ds1 = await getSolidDataset(`${seeAlso}`, { fetch: fetcher });
   const privateMe = getThing(ds1, `${seeAlso}#me`) as Thing;
   const ssn = getStringNoLocale(privateMe, `${process.env.NEXT_PUBLIC_POD_BASE_URL}schema/core/v1#dataSubjectIdentifier`) ?? '';
   const uuid = getStringNoLocale(privateMe,  `${process.env.NEXT_PUBLIC_POD_BASE_URL}schema/core/v1#uuid`) ?? '';

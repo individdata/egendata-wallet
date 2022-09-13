@@ -2,6 +2,12 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import SolidProvider from "../../../lib/SolidProvider"
 import { fetchProfileData } from "../../../util/oak/solid";
 import { NextApiRequest, NextApiResponse } from 'next';
+import { JWK } from 'jose';
+
+type KeyPair = {
+  privateKey: JWK,
+  publicKey: JWK
+}
 
 // Call the registration endpoint.
 // openid-client has some support for this? 
@@ -45,7 +51,7 @@ export function registerCredentials() {
 
 const credentials = registerCredentials();
 
-function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions {  
+export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions {
   return {
     debug: true,
     providers: [
@@ -67,7 +73,9 @@ function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions
         // Pass on to the client.
 
         session.dpop_token = token.dpop_token as string;
-        session.keys = token.keys;
+        session.keys = token.keys as KeyPair;
+
+        session.user = user
 
         if (token.sub) {
           session.webid = token.sub
