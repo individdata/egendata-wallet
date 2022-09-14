@@ -72,7 +72,7 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
       async session({ session, token, user }) {
         // Pass on to the client.
 
-        session.dpop_token = token.dpop_token as string;
+        session.dpopToken = token.dpop_token as string;
         session.keys = token.keys as KeyPair;
 
         session.user = user

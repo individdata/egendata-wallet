@@ -6,10 +6,10 @@ import { authOptions } from "./auth/[...nextauth]";
 import fetchFactory from '../../lib/fetchFactory';
 import { fetchPrivateData } from '../../util/oak/solid';
 
+import { getSolidDataset, getThing, getUrlAll, Thing } from '@inrupt/solid-client';
+
 type Data = {
-  name: string,
-  ssn: string,
-  uuid: string,
+  urls: string[],
 }
 
 export default async function handler(
@@ -21,13 +21,22 @@ export default async function handler(
   if (session) {
     // Signed in
     const fetch = fetchFactory({keyPair: session.keys, dpopToken: session.dpopToken});
-    const { ssn, fullname, uuid } = await fetchPrivateData(session.seeAlso, fetch);
+    const resource = `${session.storage}egendata/requests/subject/`;
+    const ds = await getSolidDataset(resource, { fetch })
 
-    res.status(200).json({ 
-      name: fullname,
-      ssn: ssn,
-      uuid: uuid,
-    })
+    if (ds) {
+        const r = getThing(ds, resource) as Thing;
+        console.log(r);
+        const urls = getUrlAll(r, 'http://www.w3.org/ns/ldp#contains')
+
+        res.status(200).json({ 
+          urls: urls
+        })
+
+    } else {
+        res.status(200).json({urls: []})
+    }
+
   } else {
     // Not Signed in
     res.status(401)

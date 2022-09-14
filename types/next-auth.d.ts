@@ -1,12 +1,12 @@
 import NextAuth from 'next-auth';
-import { KeyLike, JWK } from 'jose';
+import { JWK } from 'jose';
 
 declare module 'next-auth' {
     interface Session {
         webid: string,
         storage: string,
         seeAlso: string,
-        dpop_token: string,
+        dpopToken: string,
         keys: {
             privateKey: JWK,
             publicKey: JWK,

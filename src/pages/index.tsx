@@ -54,7 +54,7 @@ const NewHome: NextPage = () => {
                   <a href="http://w3schools.com">{intl.formatMessage({ id: 'landingpage_link' })}</a>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button preset='medium' type="primary" onPress={() => signIn('solid')}>
+                  <Button preset='medium' type="primary" onPress={() => signIn('solid', {callbackUrl: '/home'})}>
                     {intl.formatMessage({ id: 'login_button' })}
                   </Button>
                 </Grid>

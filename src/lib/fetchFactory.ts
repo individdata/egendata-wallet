@@ -39,7 +39,7 @@ export default function fetchFactory(props: fetchFactoryProps): fetchFactoryRetu
   const publicKey = props.keyPair.publicKey as JWK;
   const dpopToken = props.dpopToken as JWK;
 
-  console.log(privateKey, publicKey, dpopToken);
+//  console.log(privateKey, publicKey, dpopToken);
 
   return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
     init = init || {};
@@ -52,7 +52,7 @@ export default function fetchFactory(props: fetchFactoryProps): fetchFactoryRetu
     init.headers.set('Authorization', `DPoP ${dpopToken}`);
     init.headers.set('DPoP', dpopHeader);
 
-    console.log(input, init);
+//    console.log(input, init);
     return await fetch(input, init);
   }
 }
