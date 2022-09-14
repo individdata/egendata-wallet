@@ -6,8 +6,6 @@ import {
 import {
   fetch,
 } from '@inrupt/solid-client-authn-browser';
-import { putFile } from './solid';
-import config from '../config';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../../store';
 // eslint-disable-next-line import/no-cycle

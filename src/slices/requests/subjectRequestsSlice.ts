@@ -9,7 +9,9 @@ import {
 } from '@inrupt/solid-client-authn-browser';
 import { PayloadAction } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../../util/oak/egendata';
+import {
+  dcPrefixTurtle, egendataPrefixTurtle, egendataSchema, subjectRequestsPath,
+} from '../../util/oak/egendata';
 import { fetchProfileData } from '../../util/oak/solid';
 // eslint-disable-next-line import/no-cycle
 import { aclTurtle, InboundDataRequest, storeTurtle } from '../../util/oak/templates';
@@ -69,8 +71,10 @@ export const subjectRequest = (
 };
 
 const requestBody = ((request: SubjectRequest | undefined) => (request ? `
+${dcPrefixTurtle}
 ${egendataPrefixTurtle}
 <> a egendata:InboundDataRequest ;
+  dcterm:created "${request.created}" ;
   egendata:id "${request.id}" ;
   egendata:requestorWebId "${request.requestorWebId}" ;
   egendata:providerWebId "${request.providerWebId}" ;
