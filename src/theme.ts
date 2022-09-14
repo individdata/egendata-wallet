@@ -21,8 +21,8 @@ const theme = createTheme({
       secondary: '#ACACAC',
     },
     background: {
-      paper: '#222429',
-      default: '#31343B',
+      paper: '#31343B',
+      default: '#222429',
     },
   },
   typography: {
@@ -80,6 +80,7 @@ const theme = createTheme({
         root: {
           textAlign: 'center',
           fontWeight: '400',
+          backgroundColor: 'transparent',
         },
       },
     },

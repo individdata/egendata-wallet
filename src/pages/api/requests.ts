@@ -4,13 +4,27 @@ import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 
 import fetchFactory from '../../lib/fetchFactory';
-import { fetchPrivateData } from '../../util/oak/solid';
 
-import { getSolidDataset, getThing, getUrlAll, Thing } from '@inrupt/solid-client';
+import { getSolidDataset, getThing, getUrl, getUrlAll, Thing, getStringNoLocale, getDatetime } from '@inrupt/solid-client';
 
 type Data = {
-  urls: string[],
+  requests: Object[],
 }
+
+async function processRequest(thing: Thing) {
+  return {
+    type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
+    documentTitle: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentTitle') ?? '',
+    documentType: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '',
+    id: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#id') ?? '',
+    providerWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '',
+    purpose: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#purpose') ?? '',
+    requstorWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '',
+    returnUrl: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#returnUrl') ?? '',
+    created: (getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date()).toISOString(),  // TODO: Missing dates?
+  };
+}
+
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,16 +39,17 @@ export default async function handler(
     const ds = await getSolidDataset(resource, { fetch })
 
     if (ds) {
-        const r = getThing(ds, resource) as Thing;
-        console.log(r);
-        const urls = getUrlAll(r, 'http://www.w3.org/ns/ldp#contains')
+      const r = getThing(ds, resource) as Thing;
+      const urls = getUrlAll(r, 'http://www.w3.org/ns/ldp#contains')
 
-        res.status(200).json({ 
-          urls: urls
-        })
+      const requests = await Promise.all(urls.map(async (url) => processRequest(getThing(await getSolidDataset(url, { fetch }), url))));
+
+      res.status(200).json({ 
+        requests: requests
+      })
 
     } else {
-        res.status(200).json({urls: []})
+      res.status(200).json({requests: []})
     }
 
   } else {

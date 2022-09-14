@@ -54,20 +54,6 @@ function HomePage() {
       <MenuBar />
       <main>
       <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
-          <Grid item xs={12}>
-            <div className={styles.main}>
-              <div className={styles.body}>
-                <span style={{color: 'deeppink'}}>
-                  {status}
-                </span>
-              </div>
-            </div>
-          </Grid>
-
-          <span style={{color: 'deeppink'}}>
-            Logged in as: {session?.webid}
-          </span>
-
           <RequestList onRequestSelect={onRequestSelect} />
         </Grid>
       </main>
