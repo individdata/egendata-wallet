@@ -88,9 +88,12 @@ export async function fetchProfileData(webId: string) {
   const ds = await getSolidDataset(webId);
   const profile = getThing(ds, webId) as Thing;
   const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
+  const logo = getUrl(profile, 'http://xmlns.com/foaf/0.1/logo') ?? '';
   const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
   const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
-  return { name, storage, seeAlso };
+  return {
+    name, logo, storage, seeAlso,
+  };
 }
 
 export async function gendataContainerExists(egendataUrl: string) {

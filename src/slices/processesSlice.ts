@@ -11,7 +11,9 @@ import { consumerConsentThunks, ConsumerConsent } from './consents/consumerConse
 import { providerConsentThunks, ProviderConsent } from './consents/providerConsentSlice';
 import { providerRequestThunks, ProviderRequest } from './requests/providerRequestsSlice';
 import { dataThunks, Data } from './dataSlice';
-import { subjectRequestThunks, subjectRequest, SubjectRequest } from './requests/subjectRequestsSlice';
+import {
+  subjectRequestThunks, subjectRequest, SubjectRequest,
+} from './requests/subjectRequestsSlice';
 import { NamedOptionalResource, NamedResource } from '../util/thunkCreator';
 import {
   InboundDataRequest, storeOutboundRequestLink, storeOutboundResponseAcl, storeOutboundResponseLink,
@@ -46,7 +48,13 @@ export const saveIncomingRequest = createAsyncThunk<SubjectRequest, InboundDataR
     console.log(`saveIncomingRequest, state = ${state}`);
     const { user } = state.auth;
     const userPod = user.storage;
-    const resource = subjectRequest(userPod, user.webid, request);
+    const { name, logo } = await fetchProfileData(request.requestorWebId);
+    const requestorInformation = {
+      name,
+      logo,
+    };
+    console.log(`requestorInformation - name: ${requestorInformation.name}, logo: ${requestorInformation.logo}`);
+    const resource = subjectRequest(userPod, user.webid, request, requestorInformation);
     console.log(`saveIncomingRequest: ${resource}`);
     const createAction = await dispatch(subjectRequestThunks.create(resource));
     const { payload } = createAction;

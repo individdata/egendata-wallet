@@ -27,11 +27,11 @@ function RequestListItem({ request, onClick, dot }: Props) {
           flexGrow: 1,
         }}
       >
-        <Avatar alt="BNP Paribas" src={`${process.env.PUBLIC_URL}/logos/BNP_Paribas.svg`} />
+        <Avatar alt={`${request.requestorName}`} src={`${request.requestorLogo}`} />
         <Grid container spacing={2} maxHeight="60px" marginLeft={1}>
           <Grid item xs={3}>
             <Typography>
-              Requestor
+              {request.requestorName}
             </Typography>
           </Grid>
           <Grid item xs={6} md={7}>

@@ -10,6 +10,7 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { egendataPrefixTurtle, egendataSchema, subjectRequestsPath } from '../../util/oak/egendata';
+import { fetchProfileData } from '../../util/oak/solid';
 // eslint-disable-next-line import/no-cycle
 import { aclTurtle, InboundDataRequest, storeTurtle } from '../../util/oak/templates';
 import {
@@ -25,6 +26,8 @@ export type SubjectRequest = {
   id: string,
   created: string, // iso8601 timestamp
   requestorWebId: string,
+  requestorName: string,
+  requestorLogo: string, // URL
   providerWebId: string,
   documentType: string,
   documentTitle: string,
@@ -32,7 +35,17 @@ export type SubjectRequest = {
   returnUrl: string,
 };
 
-export const subjectRequest = (userPod: string, userWebId: string, request: InboundDataRequest): NamedResource<SubjectRequest> => {
+export type RequestorInformation = {
+  name: string,
+  logo: string, // URL
+};
+
+export const subjectRequest = (
+  userPod: string,
+  userWebId: string,
+  request: InboundDataRequest,
+  requestorInformation: RequestorInformation,
+): NamedResource<SubjectRequest> => {
   const resourceUrl = userPod + subjectRequestsPath + request.id;
   return {
     resourceId: request.id,
@@ -43,6 +56,8 @@ export const subjectRequest = (userPod: string, userWebId: string, request: Inbo
       documentType: request.documentType,
       documentTitle: request.documentTitle,
       requestorWebId: request.requestorWebId,
+      requestorName: requestorInformation.name,
+      requestorLogo: requestorInformation.logo,
       providerWebId: request.providerWebId,
       purpose: request.purpose,
       returnUrl: request.returnUrl,
@@ -86,6 +101,8 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Subject
   const documentTitle = getStringNoLocale(thing, `${egendataSchema}documentTitle`) ?? '';
   const purpose = getStringNoLocale(thing, `${egendataSchema}purpose`) ?? '';
   const returnUrl = getStringNoLocale(thing, `${egendataSchema}returnUrl`) ?? '';
+  const { name, logo } = await fetchProfileData(requestorWebId);
+  console.log(`requestorInformation - name: ${name}, logo: ${logo}`);
 
   return {
     resourceId: id,
@@ -94,6 +111,8 @@ async function fetchFunction(resourceUrl: string): Promise<NamedResource<Subject
       id,
       created: created.toISOString(),
       requestorWebId,
+      requestorName: name,
+      requestorLogo: logo,
       providerWebId,
       documentType,
       documentTitle,
