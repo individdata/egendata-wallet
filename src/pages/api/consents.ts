@@ -5,23 +5,20 @@ import { authOptions } from "./auth/[...nextauth]";
 
 import fetchFactory from '../../lib/fetchFactory';
 
-import { getSolidDataset, getThing, getUrl, getUrlAll, getContainedResourceUrlAll, Thing, getStringNoLocale, getDatetime } from '@inrupt/solid-client';
+import { getSolidDataset, getThing, getUrl, getUrlAll, getDatetime, getContainedResourceUrlAll, Thing, getStringNoLocale } from '@inrupt/solid-client';
 
 type Data = {};
 
-function processRequest(thing: Thing) {
+function processConsent(thing: Thing) {
   return {
     url: thing.url,
     type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
-    documentTitle: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentTitle') ?? '',
-    documentType: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '',
-    id: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#id') ?? '',
+    created: getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(),
+    consentDocument: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#consentDocument'),
+    providerRequest: getUrl(thing, 'https://pod-test.egendata.se/schema/core/v1#providerRequest'),
     providerWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '',
-    purpose: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#purpose') ?? '',
-    requstorWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '',
-    returnUrl: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#returnUrl') ?? '',
-    created: getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(),  // TODO: Missing dates?
-  };
+    requestId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestId') ?? '',
+  }
 }
 
 export default async function handler(
@@ -35,11 +32,11 @@ export default async function handler(
     const fetch = fetchFactory({keyPair: session.keys, dpopToken: session.dpopToken});
 
     const resourceLocations = [
-      `${session.storage}egendata/requests/provider/`,
-      `${session.storage}egendata/requests/subject/`,
+      `${session.storage}egendata/consents/provider/`,
+      `${session.storage}egendata/consents/consumer/`,
     ]
 
-    const requests = await Promise.all(resourceLocations.map(
+    const consents = await Promise.all(resourceLocations.map(
       async (resourceLocation) => {
         let ds;
         try {
@@ -49,17 +46,17 @@ export default async function handler(
           return [];
         }
         const r = getThing(ds, resourceLocation) as Thing;
-
+        
         return await Promise.all(getContainedResourceUrlAll(ds).map(
           async (resource) => {
             const ds = await getSolidDataset(resource, { fetch });
-            return processRequest(getThing(ds, resource) as Thing);
+            return processConsent(getThing(ds, resource) as Thing);
           }
         ));
       }
     ));
 
-    res.status(200).json(requests.flat());
+    res.status(200).json(consents.flat());
 
   } else {
     // Not Signed in

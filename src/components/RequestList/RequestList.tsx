@@ -2,38 +2,41 @@ import React from 'react';
 import { Grid, List, ListSubheader, Typography } from '@mui/material';
 import RequestListItem from './RequestListItem';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
-import useSWR from 'swr';
+import useRequests from '../../hooks/useRequests';
+import useConsents from '../../hooks/useConsents';
 
 type RequestListProps = {
    onRequestSelect: (request: SubjectRequest) => void,
 };
 
-const fetcher = (...args) => fetch(...args).then(res => res.json());
-
-function useRequests() {
-  const {data, error} = useSWR(`/api/requests`, fetcher);
-
-  return {
-    data: data,
-    isLoading: !error && !data,
-    isError: error,
-  }
-}
-
 function RequestList({onRequestSelect}: RequestListProps) {
-  const {data, isLoading, isError} = useRequests();
+  const {requests, isRequestsLoading} = useRequests();
+  const {consents, isConsentsLoading} = useConsents();
 
-  if (isLoading) return (
+  console.log(requests, consents);
+
+  if (isRequestsLoading || isConsentsLoading) return (
     <Typography sx={{ textAlign: 'center' }}>
       Loading data, please wait.
     </Typography>);
 
-  const nonSharedRequests = data.requests;
-  const sharedRequests = data.requests;
+  let nonSharedRequests = [];
+  let sharedRequests = [];
+
+  for (let request of requests) {
+    if (request.type === 'https://pod-test.egendata.se/schema/core/v1#InboundDataRequest') {
+      if (consents.map((c) => c.providerRequest).includes(request.url)) {
+        sharedRequests.push(request)
+      }
+      else {
+        nonSharedRequests.push(request);
+      }
+    }
+  }
   
   const nonSharedList = nonSharedRequests.map((request: SubjectRequest) => (
     <RequestListItem
-      key={`RequestListItem-${request.id}`}
+      key={`RequestListItem-${request}`}
       request={request}
       onClick={onRequestSelect}
       dot
@@ -42,7 +45,7 @@ function RequestList({onRequestSelect}: RequestListProps) {
 
   const sharedList = sharedRequests.map((request: SubjectRequest) => (
     <RequestListItem
-      key={`RequestListItem-${request.id}`}
+      key={`RequestListItem-${request}`}
       request={request}
       onClick={onRequestSelect}
     />

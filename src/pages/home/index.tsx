@@ -41,13 +41,13 @@ function HomePage() {
   }, [session])
   */
 
-  useEffect(() => {
-    if (!session?.storage) return;
+  // useEffect(() => {
+  //   if (!session?.storage) return;
 
-    console.warn('Syncing state from pod');
-    dispatch<any>(syncStateFromPod(session.storage));
+  //   console.warn('Syncing state from pod');
+  //   dispatch<any>(syncStateFromPod(session.storage));
 
-  }, [session?.storage]);
+  // }, [session?.storage]);
   
   return (
     <Container>

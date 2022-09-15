@@ -7,15 +7,16 @@ import {
   Typography,
 } from '@mui/material';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
+import useRequest from '../../hooks/useRequest';
 
-type Props = {
+type RequestListItemProps = {
   request: SubjectRequest,
-  onClick: (request: SubjectRequest) => void,
+  onClick: (request: string) => void,
   dot?: boolean,
 };
 
-function RequestListItem({ request, onClick, dot }: Props) {
-  const date = request.created.substring(0, 10);
+function RequestListItem({ request, onClick, dot }: RequestListItemProps) {
+  console.log(request)
 
   return (
     <ListItem>
@@ -27,11 +28,11 @@ function RequestListItem({ request, onClick, dot }: Props) {
           flexGrow: 1,
         }}
       >
-        <Avatar alt="BNP Paribas" src={`${process.env.PUBLIC_URL}/logos/BNP_Paribas.svg`} />
+        <Avatar alt="BNP Paribas" src="https://idp-test.egendata.se/bnp/logo.svg" />
         <Grid container spacing={2} maxHeight="60px" marginLeft={1}>
           <Grid item xs={3}>
             <Typography>
-              Requestor
+              { request.requestorWebId }
             </Typography>
           </Grid>
           <Grid item xs={6} md={7}>
@@ -53,7 +54,7 @@ function RequestListItem({ request, onClick, dot }: Props) {
           </Grid>
           <Grid item xs={3} md={2}>
             <Typography align="right" marginRight={1}>
-              {date}
+              {request.created.substring(0, 10)}
             </Typography>
           </Grid>
         </Grid>
