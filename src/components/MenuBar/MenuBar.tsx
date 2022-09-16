@@ -20,6 +20,7 @@ import {
   Link,
   Divider,
   Button,
+  Badge,
 } from '@mui/material';
 import {
   MenuIcon,
@@ -54,9 +55,9 @@ export default function MenuBar() {
   };
 
   const pages = [
-    { state: 'inbox', path: '/home', text: 'Inbox' },
-    { state: 'consent', path: '/consent', text: 'Consents' },
-    { state: 'mydata', path: '/request', text: 'My Data' },
+    { state: 'inbox', path: '/home', text: 'Inbox', status: 3 },
+    { state: 'consent', path: '/consent', text: 'Consents', status: false },
+    { state: 'mydata', path: '/request', text: 'My Data', status: false },
   ];
 
   return (
@@ -67,11 +68,12 @@ export default function MenuBar() {
             Egendata
           </Typography>
 
-          <Box sx={{ flexGrow: 1, placeContent: 'center', display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, placeContent: 'center', display: { xs: 'none', md: 'flex' } }} paddingTop={1}>
             <Tabs value={router.query}>
-              {pages.map((page) => (
-                <Tab
-                  label={page.text}
+              { pages.map((page) => (
+                <Tab 
+                  key={page.path}
+                  label={<Badge color="warning" badgeContent={page.status} invisible={!page.status} overlap="rectangular"><Typography paddingLeft={1} paddingRight={1}>{page.text}</Typography></Badge>}
                   value={page.path}
                   component={Link}
                   onClick={(e) => {
