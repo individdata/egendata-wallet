@@ -3,6 +3,7 @@ import SolidProvider from "../../../lib/SolidProvider"
 import { fetchProfileData } from "../../../util/oak/solid";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { JWK } from 'jose';
+import { signOut } from "next-auth/react";
 
 type KeyPair = {
   privateKey: JWK,
@@ -63,27 +64,34 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
 
         // Login?
         if (account) {
-          token.dpop_token = account.access_token;
+          token.dpopToken = account.access_token;
+          token.dpopTokenExpiresAt = account.expires_at
           token.keys = account.keys;
+        }
+        
+        // Check if token has expired
+        const now = Math.floor(Date.now() / 1000);
+        console.log("Token expires in ", token.dpopTokenExpiresAt as number - now)
+        if (token.dpopTokenExpiresAt as number < now) {
+          signOut()
         }
 
         return token;
-      },
+      },  
       async session({ session, token, user }) {
-        // Pass on to the client.
-
-        session.dpopToken = token.dpop_token as string;
-        session.keys = token.keys as KeyPair;
-
         session.user = user
-
-        if (token.sub) {
-          session.webid = token.sub
-
+                
+        if (token.webid && !(session.webid || session.storage || session.seeAlso)) {
+          session.webid = token.webid
+          
           const { storage, seeAlso } = await fetchProfileData(session.webid);      
           session.storage = storage
           session.seeAlso = seeAlso
-        }
+        }  
+
+        // Probably best if we can avoid having the keys on the client.
+        // session.dpopToken = token.dpopToken as string;
+        // session.keys = token.keys as KeyPair;
 
         return session;
       },

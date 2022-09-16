@@ -6,6 +6,7 @@ import { authOptions } from "./auth/[...nextauth]";
 import fetchFactory from '../../lib/fetchFactory';
 
 import { getSolidDataset, getThing, getUrl, getUrlAll, getDatetime, getContainedResourceUrlAll, Thing, getStringNoLocale } from '@inrupt/solid-client';
+import { getToken } from 'next-auth/jwt';
 
 type Data = {};
 
@@ -28,8 +29,9 @@ export default async function handler(
   const session = await unstable_getServerSession(req, res, authOptions(req, res));
 
   if (session) {
+    const token = await getToken({ req });
     // Signed in
-    const fetch = fetchFactory({keyPair: session.keys, dpopToken: session.dpopToken});
+    const fetch = fetchFactory({keyPair: token.keys, dpopToken: token.dpopToken});
 
     const resourceLocations = [
       `${session.storage}egendata/consents/provider/`,
