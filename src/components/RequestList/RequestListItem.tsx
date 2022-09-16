@@ -7,16 +7,17 @@ import {
   Typography,
 } from '@mui/material';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
-import useRequest from '../../hooks/useRequest';
+import { getSolidDataset, getThing, Thing } from '@inrupt/solid-client';
+import useRequestorInfo from '../../hooks/useRequestorInfo';
 
 type RequestListItemProps = {
   request: SubjectRequest,
   onClick: (request: string) => void,
-  dot?: boolean,
+  unread?: boolean,
 };
 
-function RequestListItem({ request, onClick, dot }: RequestListItemProps) {
-  console.log(request)
+function RequestListItem({ request, onClick, unread }: RequestListItemProps) {
+  const {requestor, isLoading} = useRequestorInfo(request.requestorWebId);
 
   return (
     <ListItem>
@@ -28,32 +29,29 @@ function RequestListItem({ request, onClick, dot }: RequestListItemProps) {
           flexGrow: 1,
         }}
       >
-        <Avatar alt="BNP Paribas" src="https://idp-test.egendata.se/bnp/logo.svg" />
-        <Grid container spacing={2} maxHeight="60px" marginLeft={1}>
+        <Avatar
+          alt={ isLoading ? '' : requestor?.name } 
+          src={ isLoading ? '' : requestor?.logo as string }
+        >?</Avatar>
+        <Grid container spacing={2} maxHeight="60px" marginLeft={1} alignItems="center">
           <Grid item xs={3}>
-            <Typography>
-              { request.requestorWebId }
+            <Typography sx={{
+              ...(unread && {fontWeight: '600'})
+            }}>
+              { isLoading ? '...' : requestor?.name }
             </Typography>
           </Grid>
           <Grid item xs={6} md={7}>
             <Typography sx={{
-              ...(dot && {
-                position: 'relative',
-                ':before': {
-                  position: 'absolute',
-                  right: '100%',
-                  paddingRight: '0.2em',
-                  color: '#FFEA79',
-                  content: '"●"',
-                },
-              }),
-            }}
-            >
+              ...(unread && {fontWeight: '600'})
+            }}>
               {request.purpose}
             </Typography>
           </Grid>
           <Grid item xs={3} md={2}>
-            <Typography align="right" marginRight={1}>
+            <Typography align="right" marginRight={1} sx={{
+              ...(unread && {fontWeight: '600'})
+            }}>
               {request.created.substring(0, 10)}
             </Typography>
           </Grid>

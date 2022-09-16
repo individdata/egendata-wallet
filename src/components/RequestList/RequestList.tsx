@@ -13,8 +13,6 @@ function RequestList({onRequestSelect}: RequestListProps) {
   const {requests, isRequestsLoading} = useRequests();
   const {consents, isConsentsLoading} = useConsents();
 
-  console.log(requests, consents);
-
   if (isRequestsLoading || isConsentsLoading) return (
     <Typography sx={{ textAlign: 'center' }}>
       Loading data, please wait.
@@ -24,7 +22,8 @@ function RequestList({onRequestSelect}: RequestListProps) {
   let sharedRequests = [];
 
   for (let request of requests) {
-    if (request.type === 'https://pod-test.egendata.se/schema/core/v1#InboundDataRequest') {
+    if (request.type.endsWith('/schema/core/v1#InboundDataRequest')) {
+      // TODO: Verify that requests are split correctly.
       if (consents.map((c) => c.providerRequest).includes(request.url)) {
         sharedRequests.push(request)
       }
@@ -36,16 +35,16 @@ function RequestList({onRequestSelect}: RequestListProps) {
   
   const nonSharedList = nonSharedRequests.map((request: SubjectRequest) => (
     <RequestListItem
-      key={`RequestListItem-${request}`}
+      key={`RequestListItem-${request.id}`}
       request={request}
       onClick={onRequestSelect}
-      dot
+      unread
     />
   ));
 
   const sharedList = sharedRequests.map((request: SubjectRequest) => (
     <RequestListItem
-      key={`RequestListItem-${request}`}
+      key={`RequestListItem-${request.id}`}
       request={request}
       onClick={onRequestSelect}
     />
