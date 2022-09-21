@@ -64,14 +64,17 @@ app.prepare().then(() => {
   })
 
   server.on('upgrade', async(req, socket, head) => {
-    console.log("From upgrade event", req.url);
-    try {
-      wss.handleUpgrade(req, socket, head, (ws) => {
-      wss.emit('connection', ws, req)
-    })
-    } catch(err) {
-      console.log('Socket upgrade failed', err)
-      socket.destroy()
+    const { pathname } = parse(req.url, true);
+    if (pathname !== '/_next/webpack-hmr') {
+      console.log("From upgrade event", req.url);
+      try {
+        wss.handleUpgrade(req, socket, head, (ws) => {
+        wss.emit('connection', ws, req)
+      })
+      } catch(err) {
+        console.log('Socket upgrade failed', err)
+        socket.destroy()
+      }
     }
   }
 );
