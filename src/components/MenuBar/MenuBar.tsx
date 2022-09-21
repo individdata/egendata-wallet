@@ -28,7 +28,7 @@ import {
   ProfileIcon,
   ExitIcon,
 } from '../../icons/icons';
-import { RootState } from '../../store';
+import { RootState } from '../../store/store';
 import { selectTab } from '../../store/slices/tabsSlice';
 import { changeLang } from '../../store/slices/langSlice';
 import useUser from '../../hooks/useUser';

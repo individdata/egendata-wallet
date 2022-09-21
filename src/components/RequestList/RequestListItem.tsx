@@ -8,21 +8,34 @@ import {
 } from '@mui/material';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
 import { getSolidDataset, getThing, Thing } from '@inrupt/solid-client';
+import useRequest from '../../hooks/useRequest';
 import useRequestorInfo from '../../hooks/useRequestorInfo';
 
 type RequestListItemProps = {
-  request: SubjectRequest,
-  onClick: (request: string) => void,
-  unread?: boolean,
+  uuid: string,
+  onClick: (uuid: string) => void,
 };
 
-function RequestListItem({ request, onClick, unread }: RequestListItemProps) {
-  const {requestor, isLoading} = useRequestorInfo(request.requestorWebId);
+function RequestListItem({ uuid, onClick }: RequestListItemProps) {
+  const { request, isLoading: isRequestLoading } = useRequest(uuid);
+  const { requestor, isLoading: isRequestorLoading} = useRequestorInfo(() => request.request.requestorWebId);
+
+  if (isRequestLoading) {
+    return (
+      <ListItem sx={{borderRadius: '30px', flexGrow: 1}}>
+        <Typography>
+          Loading request...
+        </Typography>
+      </ListItem>
+    )
+  }
+
+  const unread = request.state === 'received';
 
   return (
     <ListItem>
       <ListItemButton
-        onClick={() => onClick(request)}
+        onClick={() => onClick(uuid)}
         sx={{
           p: 1,
           borderRadius: '30px',
@@ -30,29 +43,29 @@ function RequestListItem({ request, onClick, unread }: RequestListItemProps) {
         }}
       >
         <Avatar
-          alt={ isLoading ? '' : requestor?.name } 
-          src={ isLoading ? '' : requestor?.logo as string }
+          alt={ isRequestorLoading ? '' : requestor?.name } 
+          src={ isRequestorLoading ? '' : requestor?.logo as string }
         >?</Avatar>
         <Grid container spacing={2} maxHeight="60px" marginLeft={1} alignItems="center">
           <Grid item xs={3}>
             <Typography sx={{
               ...(unread && {fontWeight: '600'})
             }}>
-              { isLoading ? '...' : requestor?.name }
+              { isRequestorLoading ? '...' : requestor?.name }
             </Typography>
           </Grid>
           <Grid item xs={6} md={7}>
             <Typography sx={{
               ...(unread && {fontWeight: '600'})
             }}>
-              {request.purpose}
+              {request.request.purpose}
             </Typography>
           </Grid>
           <Grid item xs={3} md={2}>
             <Typography align="right" marginRight={1} sx={{
               ...(unread && {fontWeight: '600'})
             }}>
-              {request.created.substring(0, 10)}
+              {request.request.created.substring(0, 10)}
             </Typography>
           </Grid>
         </Grid>

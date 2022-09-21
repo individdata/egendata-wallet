@@ -3,11 +3,12 @@ import { ProcessesState } from '../store/slices/processesSlice';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-export default function useRequests() {
+export default function useRequestsIds() {
   const {data, error} = useSWR('/api/requests', fetcher);
 
   return {
-    requests: data,
+    unsharedRequests: data?.unsharedRequests,
+    sharedRequests: data?.sharedRequests,
     isRequestsLoading: !error && !data,
     isRequestsError: error,
   }

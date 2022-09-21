@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, List, ListSubheader, Typography } from '@mui/material';
 import RequestListItem from './RequestListItem';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
-import useRequests from '../../hooks/useRequests';
+import useRequestsIds from '../../hooks/useRequestsIds';
 import useConsents from '../../hooks/useConsents';
 
 type RequestListProps = {
@@ -10,42 +10,26 @@ type RequestListProps = {
 };
 
 function RequestList({onRequestSelect}: RequestListProps) {
-  const {requests, isRequestsLoading} = useRequests();
-  const {consents, isConsentsLoading} = useConsents();
+  const {sharedRequests, unsharedRequests, isRequestsLoading} = useRequestsIds();
 
-  if (isRequestsLoading || isConsentsLoading) return (
+  if (isRequestsLoading) return (
     <Typography sx={{ textAlign: 'center' }}>
       Loading data, please wait.
     </Typography>);
-
-  let nonSharedRequests = [];
-  let sharedRequests = [];
-
-  for (let request of requests) {
-    if (request.type.endsWith('/schema/core/v1#InboundDataRequest')) {
-      // TODO: Verify that requests are split correctly.
-      if (consents.map((c) => c.providerRequest).includes(request.url)) {
-        sharedRequests.push(request)
-      }
-      else {
-        nonSharedRequests.push(request);
-      }
-    }
-  }
   
-  const nonSharedList = nonSharedRequests.map((request: SubjectRequest) => (
+  const nonSharedList = unsharedRequests.map((uuid: string) => (
     <RequestListItem
-      key={`RequestListItem-${request.id}`}
-      request={request}
+      key={`RequestListItem-${uuid}`}
+      uuid={uuid}
       onClick={onRequestSelect}
       unread
     />
   ));
 
-  const sharedList = sharedRequests.map((request: SubjectRequest) => (
+  const sharedList = sharedRequests.map((uuid: string) => (
     <RequestListItem
-      key={`RequestListItem-${request.id}`}
-      request={request}
+      key={`RequestListItem-${uuid}`}
+      uuid={uuid}
       onClick={onRequestSelect}
     />
   ));
@@ -54,7 +38,7 @@ function RequestList({onRequestSelect}: RequestListProps) {
     <Grid container justifyContent="center">
       <Grid item xs={12} md={10} lg={8}>
         <List>
-          {nonSharedRequests.length !== 0 && (<ListSubheader>Your incomplete tasks</ListSubheader>)}
+          {unsharedRequests.length !== 0 && (<ListSubheader>Your incomplete tasks</ListSubheader>)}
           {nonSharedList}
           {sharedRequests.length !== 0 && (<ListSubheader>Completed tasks</ListSubheader>)}
           {sharedList}

@@ -10,21 +10,6 @@ import { getToken } from 'next-auth/jwt';
 
 type Data = {};
 
-function processRequest(thing: Thing) {
-  return {
-    url: thing.url,
-    type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
-    documentTitle: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentTitle') ?? '',
-    documentType: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '',
-    id: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#id') ?? '',
-    providerWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '',
-    purpose: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#purpose') ?? '',
-    requestorWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '',
-    returnUrl: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#returnUrl') ?? '',
-    created: getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(),  // TODO: Missing dates?
-  };
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -32,38 +17,28 @@ export default async function handler(
   const session = await unstable_getServerSession(req, res, authOptions(req, res));
 
   if (session) {
+    // Signed in
     const token = await getToken({ req });
 
-    // Signed in
     const fetch = fetchFactory({keyPair: token?.keys, dpopToken: token?.dpopToken});
 
-    const resourceLocations = [
-      `${session.storage}egendata/requests/provider/`,
-      `${session.storage}egendata/requests/subject/`,
-    ]
+    const resourceLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/subject/`;    
+    const dsResourceList = await getSolidDataset(resourceLocation, { fetch });
+    const resourceList = getContainedResourceUrlAll(dsResourceList).map((url) => url.split('/').pop());
+    
+    const sharedResourcesLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}consents/consumer/`;
+    const dsSharedResources = await getSolidDataset(sharedResourcesLocation, { fetch });
+    const sharedResourcesList = getContainedResourceUrlAll(dsSharedResources);
+    const sharedMap = (await Promise.all(sharedResourcesList.map(async (url) => {
+      const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
+      return getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#requestId');
+    })));
 
-    const requests = await Promise.all(resourceLocations.map(
-      async (resourceLocation) => {
-        let ds;
-        try {
-          ds = await getSolidDataset(resourceLocation, { fetch });
-        }
-        catch (error) {
-          return [];
-        }
-        const r = getThing(ds, resourceLocation) as Thing;
+    const unsharedResources = resourceList.filter((requestId) => !sharedMap.includes(requestId));
+    const sharedResources = resourceList.filter((requestId) => sharedMap.includes(requestId));
 
-        return await Promise.all(getContainedResourceUrlAll(ds).map(
-          async (resource) => {
-            const ds = await getSolidDataset(resource, { fetch });
-            return processRequest(getThing(ds, resource) as Thing);
-          }
-        ));
-      }
-    ));
 
-    res.status(200).json(requests.flat());
-
+    res.status(200).json({sharedRequests: sharedResources, unsharedRequests: unsharedResources});
   } else {
     // Not Signed in
     res.status(401)
