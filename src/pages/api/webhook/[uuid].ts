@@ -22,6 +22,8 @@ export default async function handler(
 
   const { uuid } = req.query;
   
+  console.log("Handling webhook for ${uuid}.");
+
   const wsClients = req.wsClients;
   const notification = req.body;
 
