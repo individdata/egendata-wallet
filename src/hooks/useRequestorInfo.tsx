@@ -19,7 +19,7 @@ const fetcher = (url: string, ...args) => getSolidDataset(url, ...args)
   }
 );
 
-export default function useRequestorInfo(url: string) {
+export default function useRequestorInfo(url: string | (() => string)) {
   const {data, error} = useSWR(url, fetcher);
 
   return {

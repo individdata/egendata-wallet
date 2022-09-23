@@ -4,40 +4,41 @@ import {
   Grid,
   ListItem,
   ListItemButton,
+  Skeleton,
   Typography,
 } from '@mui/material';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
 import { getSolidDataset, getThing, Thing } from '@inrupt/solid-client';
 import useRequest from '../../hooks/useRequest';
 import useRequestorInfo from '../../hooks/useRequestorInfo';
+import { useRouter } from 'next/router';
 
 type RequestListItemProps = {
   uuid: string,
   onClick: (uuid: string) => void,
 };
 
-function RequestListItem({ uuid, onClick }: RequestListItemProps) {
+function RequestListItem({ uuid }: RequestListItemProps) {
   const { request, isLoading: isRequestLoading } = useRequest(uuid);
-  const { requestor, isLoading: isRequestorLoading} = useRequestorInfo(() => request.request.requestorWebId);
+  const { requestor, isLoading: isRequestorLoading} = useRequestorInfo(() => request.requestorWebId);
+
+  const router = useRouter();
 
   if (isRequestLoading) {
     return (
-      <ListItem sx={{borderRadius: '30px', flexGrow: 1}}>
-        <Typography>
-          Loading request...
-        </Typography>
-      </ListItem>
+      <Skeleton variant="rounded" />
     )
   }
 
-  const unread = request.state === 'received';
+  console.log(request)
+
+  const unread = false;
 
   return (
-    <ListItem>
+    <ListItem key={uuid}>
       <ListItemButton
-        onClick={() => onClick(uuid)}
+        onClick={() => router.push(`/request/${uuid}`)}
         sx={{
-          p: 1,
           borderRadius: '30px',
           flexGrow: 1,
         }}
@@ -58,14 +59,14 @@ function RequestListItem({ uuid, onClick }: RequestListItemProps) {
             <Typography sx={{
               ...(unread && {fontWeight: '600'})
             }}>
-              {request.request.purpose}
+              {request.purpose}
             </Typography>
           </Grid>
           <Grid item xs={3} md={2}>
             <Typography align="right" marginRight={1} sx={{
               ...(unread && {fontWeight: '600'})
             }}>
-              {request.request.created.substring(0, 10)}
+              {request.created.substring(0, 10)}
             </Typography>
           </Grid>
         </Grid>

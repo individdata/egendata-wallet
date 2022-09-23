@@ -1,19 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router';
 import { useRouter, NextRouter } from "next/router";
-// import { getRequestsContent } from '../../slices/requestsSlice';
-import Header from '../../components/header';
-import styles from './index.module.css';
 import RequestList from '../../components/RequestList/RequestList';
 import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
-import Layout from '../../components/layout';
 import { useSession, getSession } from 'next-auth/react';
-import { syncStateFromPod } from '../../store/slices/processesSlice';
 import { useDispatch } from 'react-redux';
-import { fetchPrivateData, fetchProfileData } from '../../util/oak/solid';
 import MenuBar from '../../components/MenuBar/MenuBar';
+import { GetStaticPropsContext } from 'next';
 
 
 function HomePage() {

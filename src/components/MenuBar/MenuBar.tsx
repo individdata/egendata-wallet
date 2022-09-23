@@ -32,6 +32,7 @@ import { RootState } from '../../store/store';
 import { selectTab } from '../../store/slices/tabsSlice';
 import { changeLang } from '../../store/slices/langSlice';
 import useUser from '../../hooks/useUser';
+import { FormattedMessage } from 'react-intl';
 
 export default function MenuBar() {
   const {data: session, status} = useSession();
@@ -55,9 +56,9 @@ export default function MenuBar() {
   };
 
   const pages = [
-    { state: 'inbox', path: '/home', text: 'Inbox', status: 3 },
-    { state: 'consent', path: '/consent', text: 'Consents', status: false },
-    { state: 'mydata', path: '/request', text: 'My Data', status: false },
+    { state: 'inbox', path: '/home', messageId: 'menubar_inbox', status: 3 },
+    { state: 'consent', path: '/consent', messageId: 'menubar_consents', status: false },
+    { state: 'mydata', path: '/request', messageId: 'menubar_my_data', status: false },
   ];
 
   return (
@@ -69,11 +70,17 @@ export default function MenuBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, placeContent: 'center', display: { xs: 'none', md: 'flex' } }} paddingTop={1}>
-            <Tabs value={router.query}>
+            <Tabs value={router.route}>
               { pages.map((page) => (
                 <Tab 
                   key={page.path}
-                  label={<Badge color="warning" badgeContent={page.status} invisible={!page.status} overlap="rectangular"><Typography paddingLeft={1} paddingRight={1}>{page.text}</Typography></Badge>}
+                  label={
+                    <Badge color="warning" badgeContent={page.status} invisible={!page.status} overlap="rectangular">
+                      <Typography paddingLeft={1} paddingRight={1}>
+                        <FormattedMessage id={page.messageId} />
+                      </Typography>
+                    </Badge>
+                  }
                   value={page.path}
                   component={Link}
                   onClick={(e) => {
@@ -127,19 +134,27 @@ export default function MenuBar() {
                         }}
                         sx={{ backgroundColor: 'transparent' }}
                       >
-                        <ListItemText>{page.text}</ListItemText>
+                        <ListItemText>
+                          <FormattedMessage id={page.messageId} />
+                        </ListItemText>
                       </ListItemButton>
                       <Divider />
                     </>
                   ))}
-                  <ListItemButton sx={{ backgroundColor: 'transparent' }}>
-                    <ListItemText>Account details</ListItemText>
+                  <ListItemButton key="accountDetails" sx={{ backgroundColor: 'transparent' }}>
+                    <ListItemText>
+                      <FormattedMessage id="menubar_account_details" />
+                    </ListItemText>
                   </ListItemButton>
-                  <ListItemButton sx={{ backgroundColor: 'transparent' }}>
-                    <ListItemText>Language</ListItemText>
+                  <ListItemButton key="language" sx={{ backgroundColor: 'transparent' }}>
+                    <ListItemText>
+                      <FormattedMessage id="menubar_language" />
+                    </ListItemText>
                   </ListItemButton>
-                  <ListItemButton sx={{ backgroundColor: 'transparent' }}>
-                    <ListItemText>Log out</ListItemText>
+                  <ListItemButton key="logout" sx={{ backgroundColor: 'transparent' }}>
+                    <ListItemText>
+                      <FormattedMessage id="menubar_logout" />
+                    </ListItemText>
                   </ListItemButton>
                 </List>
               </Container>
@@ -194,8 +209,8 @@ export default function MenuBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClose}><FormattedMessage id="menubar_profile" /></MenuItem>
+                  <MenuItem onClick={handleClose}><FormattedMessage id="menubar_account_details" /></MenuItem>
                 </Menu>
               </>
             )}
