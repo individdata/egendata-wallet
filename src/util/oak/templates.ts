@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import { AccessMode, ACL } from '../thunkCreator';
-// eslint-disable-next-line import/no-cycle
 import {
   consumerConsentsPath,
   dataPath, egendataPrefixTurtle, inboxPath, providerConsentsPath, providerRequestsPath, subjectRequestsPath,
@@ -210,7 +209,6 @@ export async function storeOutboundResponseAcl(id: string, userPod: string, user
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inboxAclTurtle = ((userWebId: string, userPod: string) => `
 # ACL resource for the oak inbox
 @prefix acl: <http://www.w3.org/ns/auth/acl#>.

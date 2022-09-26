@@ -66,7 +66,7 @@ export const afterLogin = createAsyncThunk<AuthorizedUser>(
       // console.log('matched');
       const u = profileData as ProfileData;
       // console.log('matched userInfo=', userInfo);
-      const { ssn, fullname, uuid } = await fetchPrivateData(u.seeAlso);
+      const { ssn, fullname, uuid } = await fetchPrivateData(u.seeAlso, { fetch });
       // console.log('ssnData=', userInfo);
       if (ssn) {
         console.log('matched ssn=', ssn);

@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../store/slices/popupSlice';
 import styles from './FetchLegalPreview.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
 // import { createOutboundDataRequest } from '../../../slices/requestsSlice';
-import { consentFetch } from '../../../slices/processesSlice';
-import { RootState } from '../../../store';
+import { consentFetch } from '../../../store/slices/processesSlice';
+import { RootState } from '../../../store/store';
+import { AnyAction } from '@reduxjs/toolkit';
 
 type Props = {
   requestId: string,
@@ -38,7 +38,7 @@ function FetchLegalPreview(props: Props) {
           requestId,
           providerWebId,
           consentDocument: 'consent text ...',
-        }));
+        }) as unknown as AnyAction);  // TODO: What type should it be?
         dispatch(setPopupData({
           component: 'FetchInProgress',
           props: {

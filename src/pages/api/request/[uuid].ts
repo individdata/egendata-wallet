@@ -7,11 +7,16 @@ import fetchFactory from '../../../lib/fetchFactory';
 import { getDatetime, getThingAll, getInteger, getSolidDataset, getStringNoLocale, getThing, getUrl, getUrlAll, Thing, Url } from '@inrupt/solid-client';
 
 type Data = {
-    request: {},
-    state: 'received' | 'fetching' | 'available' | 'sharing',
-    outboundRequests: {},  // TODO: Expand to allow multiple values.
-    data: {},
-    consents: {},
+  url: string;
+  type: string;
+  documentTitle: string;
+  documentType: string;
+  id: string;
+  providerWebId: string;
+  purpose: string;
+  requestorWebId: string;
+  returnUrl: string;
+  created: Date;
 }
 
 function processRequest(thing: Thing) {
@@ -40,7 +45,7 @@ export default async function handler(
     console.log(`[${uuid} T=${Date.now() - ts}] ${msg}`);
   }
 
-  log("Starting processing of request")
+  // log("Starting processing of request")
 
   const session = await unstable_getServerSession(req, res, authOptions(req, res));
 
@@ -51,19 +56,19 @@ export default async function handler(
     const token = await getToken({ req });
     const fetch = fetchFactory({keyPair: token?.keys, dpopToken: token?.dpopToken});
 
-    log("Fetching base data")
+    // log("Fetching base data")
     // Fetch base data about request.
     const requestUrl = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/subject/${uuid}`;
     const requestDS = await getSolidDataset(requestUrl, { fetch });
     const requestThing = getThing(requestDS, requestUrl) as Thing;
     const request = processRequest(requestThing);
 
-    log("Sending response")
+    // log("Sending response")
     res.status(200).json(request);
   } else {
     // Not Signed in
     res.status(401)
   }
   res.end()
-  log("Finished")
+  // log("Finished")
 }

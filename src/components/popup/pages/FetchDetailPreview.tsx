@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../store/slices/popupSlice';
 import styles from './FetchDetailPreview.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';

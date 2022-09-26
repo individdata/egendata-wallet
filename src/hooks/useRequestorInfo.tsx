@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 //const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-const fetcher = (url: string, ...args) => getSolidDataset(url, ...args)
+const fetcher = (url: string) => getSolidDataset(url)
   .then((ds) => getThing(ds, url) as Thing)
   .then(
   (thing) => {

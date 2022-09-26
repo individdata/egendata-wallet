@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-export default {
+const sv = {
   landingpage_title: 'Dela din data med ',
   landingpage_line1: 'Påbörja din dataöverföring genom att identifiera dig nedan.',
   landingpage_line2: 'Ett användarkonto skapas automatiskt när du loggar in första gången.',
@@ -54,3 +54,5 @@ export default {
   share_document_text: 'Share your {documentTitle} with {receiver}',
   account_details_text: 'Kontouppgifter',
 };
+
+export default sv;

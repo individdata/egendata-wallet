@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 
 
 type RequestListProps = {
-   onRequestSelect: (request: SubjectRequest) => void,
+   onRequestSelect: (uuid: string) => void,
 };
 
 function RequestList({onRequestSelect}: RequestListProps) {

@@ -28,18 +28,18 @@ export default async function handler(
     try {
       const resourceLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/subject/`;    
       const dsResourceList = await getSolidDataset(resourceLocation, { fetch });
-      const resourceList = getContainedResourceUrlAll(dsResourceList).map((url) => url.split('/').pop());
+      const resourceList = getContainedResourceUrlAll(dsResourceList).map((url) => url.split('/').pop()) as string[];
       
       const sharedResourcesLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}consents/consumer/`;
       const dsSharedResources = await getSolidDataset(sharedResourcesLocation, { fetch });
       const sharedResourcesList = getContainedResourceUrlAll(dsSharedResources);
       const sharedMap = (await Promise.all(sharedResourcesList.map(async (url) => {
         const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-        return getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#requestId');
+        return getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#requestId') as string;
       })));
       
-      unsharedResources = resourceList.filter((requestId) => !sharedMap.includes(requestId)) as string[];
-      sharedResources = resourceList.filter((requestId) => sharedMap.includes(requestId)) as string[];
+      unsharedResources = resourceList.filter((requestId) => !sharedMap.includes(requestId));
+      sharedResources = resourceList.filter((requestId) => sharedMap.includes(requestId));
     } catch(error: any) {
       if (error.response.status !== 404) {
         throw error;

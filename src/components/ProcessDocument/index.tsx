@@ -43,7 +43,7 @@ function ProcessDocument({ requestId }: Props) {
     )
   }
 
-  const status = request.state;
+  const status = request?.state;
 
   return (
     <Box>

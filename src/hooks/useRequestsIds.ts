@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { ProcessesState } from '../store/slices/processesSlice';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json());
+const fetcher = (...args: [input: RequestInfo | URL, init?: RequestInit | undefined]) => fetch(...args).then(res => res.json());
 
 export default function useRequestsIds() {
   const {data, error} = useSWR('/api/requests', fetcher);

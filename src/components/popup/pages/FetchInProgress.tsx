@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../store/slices/popupSlice';
 import styles from './FetchInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { RootState } from '../../../store';
+import { RootState } from '../../../store/store';
 import ActivityIndicator from '../../ui/ActivityIndicator';
 import useTimeout from '../../../hooks/useTimeout';
+import { request } from 'http';
 
 type Props = {
   requestId: string,
@@ -32,7 +32,7 @@ function FetchInProgress(props: Props) {
         },
       }));
     }
-  }, [data]);
+  }, [data, requestId]);
 
   useEffect(() => {
     if (expired) {
@@ -43,7 +43,7 @@ function FetchInProgress(props: Props) {
         },
       }));
     }
-  }, [expired]);
+  }, [expired, requestId]);
 
   return (
     <div className={styles.container}>

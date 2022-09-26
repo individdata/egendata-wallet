@@ -16,9 +16,10 @@ import { useRouter } from 'next/router';
 type RequestListItemProps = {
   uuid: string,
   onClick: (uuid: string) => void,
+  unread?: boolean,
 };
 
-function RequestListItem({ uuid }: RequestListItemProps) {
+function RequestListItem({ uuid, unread = false }: RequestListItemProps) {
   const { request, isLoading: isRequestLoading } = useRequest(uuid);
   const { requestor, isLoading: isRequestorLoading} = useRequestorInfo(() => request.requestorWebId);
 
@@ -32,8 +33,6 @@ function RequestListItem({ uuid }: RequestListItemProps) {
 
   console.log(request)
 
-  const unread = false;
-
   return (
     <ListItem key={uuid}>
       <ListItemButton
@@ -44,7 +43,6 @@ function RequestListItem({ uuid }: RequestListItemProps) {
         }}
       >
         <Avatar
-          alt={ isRequestorLoading ? '' : requestor?.name } 
           src={ isRequestorLoading ? '' : requestor?.logo as string }
         >?</Avatar>
         <Grid container spacing={2} maxHeight="60px" marginLeft={1} alignItems="center">

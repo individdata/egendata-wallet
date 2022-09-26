@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { Grid } from '@mui/material';
-import { unsetPopupData } from '../../../slices/popupSlice';
+import { unsetPopupData } from '../../../store/slices/popupSlice';
 import styles from './ShareComplete.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
@@ -14,7 +14,6 @@ type Props = {
 };
 
 function ShareComplete(props: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { requestId } = props;
 
   const dispatch = useDispatch();

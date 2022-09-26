@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { setPopupData, unsetPopupData } from '../../../slices/popupSlice';
+import { setPopupData, unsetPopupData } from '../../../store/slices/popupSlice';
 import styles from './ShareLegalPreview.module.css';
 import PopupButtons, { PopupButton } from '../PopupButtons';
 import PopupContent from '../PopupContent';
 import PopupHeader from '../PopupHeader';
 import Checkbox from '../../ui/Checkbox';
-import { consentShare } from '../../../slices/processesSlice';
-import { RootState } from '../../../store';
+import { consentShare } from '../../../store/slices/processesSlice';
+import { RootState } from '../../../store/store';
+import { AnyAction } from '@reduxjs/toolkit';
 // import { shareInboundDataResponse } from '../../../slices/requestsSlice';
 
 type Props = {
@@ -46,7 +47,7 @@ function ShareLegalPreview(props: Props) {
           requestId,
           requestorWebId,
           consentDocument: 'consent text ...',
-        }));
+        }) as unknown as AnyAction);  // TODO: What type should it be?
         dispatch(setPopupData({
           component: 'ShareInProgress',
           props: {

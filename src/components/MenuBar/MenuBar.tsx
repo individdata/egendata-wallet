@@ -83,8 +83,8 @@ export default function MenuBar() {
                   }
                   value={page.path}
                   component={Link}
-                  onClick={(e) => {
-                    e.preventDefault() // Maybe not needed?
+                  onClick={(evt: any) => {
+                    evt.preventDefault() // Maybe not needed?
                     dispatch(selectTab(page.state));
                     router.push(page.path);
                   }}

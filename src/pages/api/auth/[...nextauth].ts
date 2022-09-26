@@ -54,7 +54,7 @@ const credentials = registerCredentials();
 
 export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuthOptions {
   return {
-    debug: true,
+    debug: process.env.NODE_ENV !== 'production',
     providers: [
       SolidProvider(credentials),
     ],
@@ -82,7 +82,7 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
         session.user = user
                 
         if (token.webid && !(session.webid || session.storage || session.seeAlso)) {
-          session.webid = token.webid
+          session.webid = token.webid as string
           
           const { storage, seeAlso } = await fetchProfileData(session.webid);      
           session.storage = storage

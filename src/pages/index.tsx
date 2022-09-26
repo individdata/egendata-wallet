@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
 import { Grid } from '@mui/material';
 import { useRouter } from "next/router";
@@ -21,7 +22,7 @@ const Index = () => {
     <Grid container className={styles.container}>
       <Grid item xs={12} md={6} className={styles.left}>
         <article>
-          <img className={styles.logo} alt="left-logo" />
+          <Image className={styles.logo} alt="left-logo" src="/images/oak-green.png" width="54" height="80" />
           <h1 className={styles.title}>
             <FormattedMessage id="indexpage_title" />
           </h1>

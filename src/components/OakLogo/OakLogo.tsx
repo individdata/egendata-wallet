@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Box } from '@mui/material';
 
 function OakLogo() {
@@ -16,7 +17,7 @@ function OakLogo() {
         height: '40px',
       }
     }}>
-      <img src="/images/oak-green.png" />
+      <Image src="/images/oak-green.png" alt="logo" width="27" height="40" />
       Project
       <Box color="white">OAK</Box>
     </Box>

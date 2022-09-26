@@ -15,8 +15,8 @@ function HomePage() {
   const router: NextRouter = useRouter();
   const dispatch = useDispatch();
 
-  const onRequestSelect = (request: SubjectRequest) => {
-    router.push(`/request/${request.id}`);
+  const onRequestSelect = (uuid: string) => {
+    router.push(`/request/${uuid}`);
   };
 
   console.log(session)

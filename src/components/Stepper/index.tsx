@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -12,9 +10,9 @@ import {
   ThemeProvider,
   Typography,
 } from '@mui/material';
-import { RequestState } from '../../slices/processesSlice';
+import { RequestState } from '../../store/slices/processesSlice';
 import { getProcessByRequestId } from '../../util/oak/egendata';
-import { RootState } from '../../store';
+import { RootState } from '../../store/store';
 import {
   Arrow,
   CheckIcon,
@@ -35,7 +33,7 @@ function Stepper({ requestId, landing }: Props) {
 
   useEffect(() => {
     setStatus(getProcessByRequestId(rootState, requestId).state);
-  }, [rootState]);
+  }, [rootState, requestId]);
 
   let stepOne;
   if (!landing && status === 'received') {

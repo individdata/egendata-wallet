@@ -21,9 +21,9 @@ async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: strin
 
 type fetchFactoryProps = {
   keyPair: {
-    privateKey: JWK | unknown,
-    publicKey: JWK | unknown,
-  },
+    privateKey: JWK,
+    publicKey: JWK,
+  } | unknown,
   dpopToken: string | unknown,
 }
 
@@ -35,9 +35,8 @@ export default function fetchFactory(props: fetchFactoryProps): fetchFactoryRetu
   if (! (props.keyPair && props.dpopToken))
     throw 'Missing keyPair and/or DPoP access token.';
 
-  const privateKey = props.keyPair.privateKey as JWK;
-  const publicKey = props.keyPair.publicKey as JWK;
-  const dpopToken = props.dpopToken as JWK;
+  const { privateKey, publicKey } = props.keyPair as {privateKey: JWK, publicKey: JWK};
+  const dpopToken = props.dpopToken;
 
 //  console.log(privateKey, publicKey, dpopToken);
 

@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from "next/router";
 import { useSelector } from 'react-redux';
 // import { useIntl } from 'react-intl';
@@ -24,10 +24,11 @@ function RequestPage() {
   const { id } = router.query;
 
   // const intl = useIntl();
-
-  if (!id) {
-    router.push('/home');
-  }
+  useEffect(() => {
+    if (!id) {
+      router.push('/home');
+    }
+  })
 
   return (
     <Container maxWidth="lg">
@@ -46,7 +47,7 @@ function RequestPage() {
             >
             </Typography>
 
-            <Stepper requestId={id} />
+            <Stepper requestId={id as string} />
 
             <Typography
               variant="h6"
@@ -59,7 +60,7 @@ function RequestPage() {
 
             </Typography>
 
-            <ProcessDocument requestId={id} />
+            <ProcessDocument requestId={id as string} />
 
           </Grid>
         </Grid>

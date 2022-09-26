@@ -2,7 +2,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../store/store';
 import FetchComplete from './pages/FetchComplete';
 import FetchDetailPreview from './pages/FetchDetailPreview';
 import FetchInProgress from './pages/FetchInProgress';

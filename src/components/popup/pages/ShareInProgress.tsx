@@ -4,9 +4,9 @@ import { useIntl } from 'react-intl';
 import styles from './ShareInProgress.module.css';
 import PopupButtons from '../PopupButtons';
 import PopupContent from '../PopupContent';
-import { setPopupData } from '../../../slices/popupSlice';
+import { setPopupData } from '../../../store/slices/popupSlice';
 import { getProcessByRequestId } from '../../../util/oak/egendata';
-import { RootState } from '../../../store';
+import { RootState } from '../../../store/store';
 import ActivityIndicator from '../../ui/ActivityIndicator';
 
 type Props = {
@@ -30,7 +30,7 @@ function ShareInProgress(props: Props) {
         },
       }));
     }
-  }, [request]);
+  }, [request, requestId]);
 
   return (
     <div className={styles.container}>

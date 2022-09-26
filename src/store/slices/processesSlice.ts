@@ -54,6 +54,7 @@ export const saveIncomingRequest = createAsyncThunk<SubjectRequest, InboundDataR
   },
 );
 
+// TODO: This is used where AnyAction is expected. What type should it be?
 export const consentFetch = createAsyncThunk<void, FetchConsent>(
   'requests/consentFetch',
   async (consent, { getState, dispatch }): Promise<void> => {
