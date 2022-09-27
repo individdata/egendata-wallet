@@ -1,4 +1,5 @@
 # Digital wallet
+
 This is the digital wallet application.
 
 ## Getting Started
@@ -33,14 +34,15 @@ All messages should have unique ids. ESlint enforces and generates them when you
 npm run lint -- --fix
 ```
 
+To extract all messages from the code base run the following command.
+The `lang/en.json` file will be replaced and the `lang/sv.json` will be updated.
+
+```
+npm run lang:extract
+```
+
 To compile new language files run:
 
 ```
 npm run lang:compile
-```
-
-To extract all messages from the code base run (⚠ overwrites old files):
-
-```
-npm run lang:extract
 ```

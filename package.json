@@ -7,13 +7,12 @@
     "build": "next build",
     "start": "NODE_ENV=production node src/server.js",
     "lint": "eslint src",
-    "lang:extract:en": "formatjs extract 'src/**/*.{ts,tsx}' --out-file lang/en.json",
-    "lang:extract:sv": "formatjs extract 'src/**/*.{ts,tsx}' --out-file lang/sv.json",
-    "lang:extract": "npm run lang:extract:en & npm run lang:extract:sv",
+    "lang:extract:base": "formatjs extract 'src/**/*.{ts,tsx}' --out-file lang/en.json",
+    "lang:update:sv": "mv -f lang/sv.json lang/temp.json && jq -s '.[0] * .[1]' lang/en.json lang/temp.json > lang/sv.json && rm lang/temp.json",
     "lang:compile:en": "formatjs compile lang/en.json --ast --out-file src/locales/en.json",
     "lang:compile:sv": "formatjs compile lang/sv.json --ast --out-file src/locales/sv.json",
-    "lang:compile": "npm run lang:compile:en & npm run lang:compile:sv",
-    "lang": "npm run lang:extract & npm run lang:compile"
+    "lang:extract": "npm run lang:extract:base && npm run lang:update:sv",
+    "lang:compile": "npm run lang:compile:en & npm run lang:compile:sv"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^17.0.3",
@@ -36,6 +35,7 @@
     "next": "12.2.5",
     "next-auth": "^4.10.3",
     "next-redux-wrapper": "^7.0.5",
+    "node-jq": "^2.3.4",
     "random-js": "^2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
