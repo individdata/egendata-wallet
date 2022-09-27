@@ -75,6 +75,10 @@
     "defaultMessage": "Sign in",
     "description": "Landing page sign in button."
   },
+  "LPU/Zd": {
+    "defaultMessage": "No tasks available.",
+    "description": "Requests listing empty."
+  },
   "Lgsy+X": {
     "defaultMessage": "Your incomplete tasks",
     "description": "Requests listing subtitle for incomplete tasks."

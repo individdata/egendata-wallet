@@ -62,24 +62,27 @@ const Index = () => {
         <main>
           <h3 className={styles.loginTitle}>
             <FormattedMessage
-              defaultMessage="Welcome to Egendata" id="DF7L5F"
+              id="DF7L5F"
+              defaultMessage="Welcome to Egendata"
               description="Index page welcome text."
             />
           </h3>
           <Button
             preset="medium"
             type="primary"
-            onPress={() => signIn("solid", { callbackUrl: '/home' })}
+            onPress={() => signIn("solid", { callbackUrl: "/home" })}
           >
             <FormattedMessage
-              defaultMessage="Log in" id="4G0feJ"
+              id="4G0feJ"
+              defaultMessage="Log in"
               description="Index page log in button."
             />
           </Button>
           <div className={styles.line}>
             <a href="http://w3schools.com" className={styles.link}>
               <FormattedMessage
-                defaultMessage="How do I login with BankID?" id="nGfQl/"
+                id="nGfQl/"
+                defaultMessage="How do I login with BankID?"
                 description="Index page login help text."
               />
             </a>

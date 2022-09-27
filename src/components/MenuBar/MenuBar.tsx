@@ -21,7 +21,6 @@ import {
   Button,
   Badge,
 } from "@mui/material";
-import Link from "../../lib/Link";
 import { MenuIcon, GlobeIcon, ProfileIcon, ExitIcon } from "../../icons/icons";
 import { RootState } from "../../store/store";
 import { selectTab } from "../../store/slices/tabsSlice";
@@ -64,8 +63,8 @@ export default function MenuBar() {
       ),
     },
     {
-      state: "consent",
-      path: "/consent",
+      state: "consents",
+      path: "/consents",
       status: false,
       message: (
         <FormattedMessage
@@ -77,7 +76,7 @@ export default function MenuBar() {
     },
     {
       state: "mydata",
-      path: "/request",
+      path: "/mydata",
       status: false,
       message: (
         <FormattedMessage
@@ -121,7 +120,6 @@ export default function MenuBar() {
                     </Badge>
                   }
                   value={page.path}
-                  component={Link.Link}
                   onClick={(evt: any) => {
                     evt.preventDefault(); // Maybe not needed?
                     dispatch(selectTab(page.state));

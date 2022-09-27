@@ -75,6 +75,10 @@
     "defaultMessage": "Logga in",
     "description": "Landing page sign in button."
   },
+  "LPU/Zd": {
+    "defaultMessage": "Inga uppgifter tillgängliga.",
+    "description": "Requests listing empty."
+  },
   "Lgsy+X": {
     "defaultMessage": "Dina pågående uppgifter",
     "description": "Requests listing subtitle for incomplete tasks."
