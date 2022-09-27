@@ -98,7 +98,7 @@ export default function MenuBar() {
           {/* Centered tab menu, desktop. */}
           <Box
             sx={{
-              flexGrow: 1,
+              flexGrow: 0,
               placeContent: "center",
               display: { xs: "none", md: "flex" },
             }}
