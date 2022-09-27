@@ -69,7 +69,7 @@ const Index = () => {
           <Button
             preset="medium"
             type="primary"
-            onPress={() => signIn("solid")}
+            onPress={() => signIn("solid", { callbackUrl: '/home' })}
           >
             <FormattedMessage
               defaultMessage="Log in" id="4G0feJ"

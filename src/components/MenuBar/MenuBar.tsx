@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import {
   AppBar,
   Box,
@@ -17,11 +17,11 @@ import {
   ListItemButton,
   Tabs,
   Tab,
-  Link,
   Divider,
   Button,
   Badge,
 } from "@mui/material";
+import Link from "../../lib/Link";
 import { MenuIcon, GlobeIcon, ProfileIcon, ExitIcon } from "../../icons/icons";
 import { RootState } from "../../store/store";
 import { selectTab } from "../../store/slices/tabsSlice";
@@ -68,7 +68,7 @@ export default function MenuBar() {
       path: "/consent",
       status: false,
       message: (
-        <FormattedMessage 
+        <FormattedMessage
           id="Yy59up"
           defaultMessage="Contents"
           description="Menubar consents tab."
@@ -80,7 +80,7 @@ export default function MenuBar() {
       path: "/request",
       status: false,
       message: (
-        <FormattedMessage 
+        <FormattedMessage
           id="1aMDvI"
           defaultMessage="My data"
           description="Menubar my data tab."
@@ -95,6 +95,7 @@ export default function MenuBar() {
         <Toolbar disableGutters>
           <Typography sx={{ flexBasis: 0, flexGrow: 1 }}>Egendata</Typography>
 
+          {/* Centered tab menu, desktop. */}
           <Box
             sx={{
               flexGrow: 1,
@@ -120,7 +121,7 @@ export default function MenuBar() {
                     </Badge>
                   }
                   value={page.path}
-                  component={Link}
+                  component={Link.Link}
                   onClick={(evt: any) => {
                     evt.preventDefault(); // Maybe not needed?
                     dispatch(selectTab(page.state));
@@ -131,6 +132,7 @@ export default function MenuBar() {
             </Tabs>
           </Box>
 
+          {/* Container for menus. */}
           <Box
             sx={{
               flexGrow: 1,
@@ -138,6 +140,7 @@ export default function MenuBar() {
               display: { xs: "flex", md: "none" },
             }}
           >
+            {/* Full screen drawer menu, mobile. */}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -154,7 +157,7 @@ export default function MenuBar() {
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
             >
-              <Container>
+              <Container sx={{ height: "100vh" }}>
                 <Toolbar>
                   <Typography sx={{ flexGrow: 1 }}>Egendata</Typography>
                   <IconButton size="large" onClick={() => setDrawerOpen(false)}>
@@ -162,7 +165,7 @@ export default function MenuBar() {
                   </IconButton>
                 </Toolbar>
 
-                <List sx={{ minHeight: "100vh" }} component="nav">
+                <List component="nav">
                   {pages.map((page) => (
                     <>
                       <ListItemButton
@@ -173,9 +176,7 @@ export default function MenuBar() {
                         }}
                         sx={{ backgroundColor: "transparent" }}
                       >
-                        <ListItemText>
-                          {page.message}
-                        </ListItemText>
+                        <ListItemText>{page.message}</ListItemText>
                       </ListItemButton>
                       <Divider />
                     </>
@@ -185,7 +186,7 @@ export default function MenuBar() {
                     sx={{ backgroundColor: "transparent" }}
                   >
                     <ListItemText>
-                      <FormattedMessage 
+                      <FormattedMessage
                         id="VR+Zu1"
                         defaultMessage="Account details"
                         description="Menu alternative for account details."
@@ -207,6 +208,7 @@ export default function MenuBar() {
                   <ListItemButton
                     key="logout"
                     sx={{ backgroundColor: "transparent" }}
+                    onClick={() => signOut({ callbackUrl: "/" })}
                   >
                     <ListItemText>
                       <FormattedMessage
@@ -221,6 +223,7 @@ export default function MenuBar() {
             </Drawer>
           </Box>
 
+          {/* Drop down menu, desktop. */}
           <Box
             sx={{
               flexBasis: 0,
@@ -279,8 +282,16 @@ export default function MenuBar() {
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <FormattedMessage
-                      defaultMessage="Account details" id="5r5uWQ"
+                      id="5r5uWQ"
+                      defaultMessage="Account details"
                       description="Menubar account details button."
+                    />
+                  </MenuItem>
+                  <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                    <FormattedMessage
+                      id="lEEJQP"
+                      defaultMessage="Log out"
+                      description="Menu alternative for log out."
                     />
                   </MenuItem>
                 </Menu>
