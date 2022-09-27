@@ -10,7 +10,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Provider, useSelector } from 'react-redux'
 import { RootState, store } from "../store/store";
 import { IntlProvider } from "react-intl";
-import LOCALES from '../react-intl/locales';
+import LOCALES from '../locales';
 import { useRouter } from 'next/router';
 
 // Client-side cache, shared for the whole session of the user in the browser.

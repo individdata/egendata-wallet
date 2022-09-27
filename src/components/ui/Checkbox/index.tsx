@@ -41,7 +41,11 @@ function Checkbox(props: CheckboxProps) {
         />
         <label htmlFor={inputId}>
           <div className={styles.label}>
-            <FormattedMessage id={id} />
+            <FormattedMessage 
+              id="kyYPLX"
+              defaultMessage="Checkbox text"
+              description="Checkbox text." 
+            />
           </div>
         </label>
       </Grid>

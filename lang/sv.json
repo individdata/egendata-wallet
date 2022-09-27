@@ -1,0 +1,218 @@
+{
+  "1aMDvI": {
+    "defaultMessage": "Mina data",
+    "description": "Menubar my data tab."
+  },
+  "2PffNX": {
+    "defaultMessage": "Fortsätt",
+    "description": "Popup share now button."
+  },
+  "3ZcQ4T": {
+    "defaultMessage": "TODO {providerName}",
+    "description": "Popup check get data info text."
+  },
+  "4G0feJ": {
+    "defaultMessage": "Logga in",
+    "description": "Index page log in button."
+  },
+  "4l8wsO": {
+    "defaultMessage": "Gå tillbaka till ursprungstjänsten",
+    "description": "Popup return to requesting service, leaving us."
+  },
+  "5fkC00": {
+    "defaultMessage": "Påbörja din dataöverföring genom att identifiera dig nedan.",
+    "description": "Landing page instruction."
+  },
+  "5r5uWQ": {
+    "defaultMessage": "Kontouppgifter",
+    "description": "Menubar account details button."
+  },
+  "6RE9ba": {
+    "defaultMessage": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer.",
+    "description": "Index page main subtitle."
+  },
+  "8quOpv": {
+    "defaultMessage": "Hantera data",
+    "description": "Process document manage data button."
+  },
+  "9PXjGU": {
+    "defaultMessage": "Dela mina data",
+    "description": "Stepper second step title."
+  },
+  "9akVnQ": {
+    "defaultMessage": "Dela",
+    "description": "Popup share data text."
+  },
+  "9rKhuH": {
+    "defaultMessage": "Du är på väg att hämta ditt arbetslöshetsintyg från Arbetsförmedlingen.",
+    "description": "Popup subtitle when providing consent."
+  },
+  "DF7L5F": {
+    "defaultMessage": "Välkommen till Egendata",
+    "description": "Index page welcome text."
+  },
+  "EgF3o6": {
+    "defaultMessage": "Avslutade uppgifter",
+    "description": "Request listing subtitle for completed tasks."
+  },
+  "ErkLAo": {
+    "defaultMessage": "Från",
+    "description": "Process document from text (document origin)."
+  },
+  "Iuny4B": {
+    "defaultMessage": "Läser in data...",
+    "description": "Process document waiting for data."
+  },
+  "IwF/TU": {
+    "defaultMessage": "Godkänn överföring",
+    "description": "Popup title when providing consent."
+  },
+  "JvjNu7": {
+    "defaultMessage": "Dela dina data med <boldThis>{party}</boldThis>",
+    "description": "Landing page main title."
+  },
+  "L6PEya": {
+    "defaultMessage": "Logga in",
+    "description": "Landing page sign in button."
+  },
+  "Lgsy+X": {
+    "defaultMessage": "Dina pågående uppgifter",
+    "description": "Requests listing subtitle for incomplete tasks."
+  },
+  "MrflTl": {
+    "defaultMessage": "Ditt {document} från {af} har hämtats. Klicka för att granska hämtade data.",
+    "description": "Successfully fetched data."
+  },
+  "OCdt+0": {
+    "defaultMessage": "{party} will be provided information that you are registered as a job seeker at {providerName} and the date of such registration. For privacy reasons, {party} will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in {af}, the transfer automatically terminates and you will need to provide an additional consent for the \"job-seeker status\" final date to be transfered to {party}.",
+    "description": "Information before starting data fetching process."
+  },
+  "OY/hPX": {
+    "defaultMessage": "Granska och dela dokument",
+    "description": "Popup title when reviewing document to share."
+  },
+  "Oy3/Wo": {
+    "defaultMessage": "Håll dig uppdaterad.",
+    "description": "Popup success share description."
+  },
+  "RgYSBk": {
+    "defaultMessage": "Profil",
+    "description": "Menubar profile button."
+  },
+  "SI9BWw": {
+    "defaultMessage": "Arbetslöshetsintyg",
+    "description": "Process document, name of document."
+  },
+  "TZmGLi": {
+    "defaultMessage": "Läser in data...",
+    "description": "Request listing loading data."
+  },
+  "URmXKu": {
+    "defaultMessage": "Skriv in din epostadress",
+    "description": "Success share enter email."
+  },
+  "VR+Zu1": {
+    "defaultMessage": "Ditt konto",
+    "description": "Menu alternative for account details."
+  },
+  "VwA7Is": {
+    "defaultMessage": "Dela senare",
+    "description": "Popup share later button."
+  },
+  "XvkbpE": {
+    "defaultMessage": "Godkän och hämta {document}",
+    "description": "Stepper first step description."
+  },
+  "Yy59up": {
+    "defaultMessage": "Medgivanden",
+    "description": "Menubar consents tab."
+  },
+  "aDPXaf": {
+    "defaultMessage": "Project OAK allmänna villkor",
+    "description": "Landing page terms and conditions text."
+  },
+  "aeoy6U": {
+    "defaultMessage": "Dina data i din kontroll",
+    "description": "Index page main text."
+  },
+  "cPkVMH": {
+    "defaultMessage": "Fortsätt och hämta data.",
+    "description": "Popup continue button."
+  },
+  "edtIll": {
+    "defaultMessage": "Inkorg",
+    "description": "Menubar inbox tab."
+  },
+  "gPZL3f": {
+    "defaultMessage": "Hämta data",
+    "description": "Stepper first step title."
+  },
+  "gWb9Tk": {
+    "defaultMessage": "Ett användarkonto skapas automatiskt när du loggar in första gången.",
+    "description": "Landing page further instruction."
+  },
+  "idsKv7": {
+    "defaultMessage": "Nästa",
+    "description": "Popup next button."
+  },
+  "ihPHBB": {
+    "defaultMessage": "Your {document} is now being shared with {party}.",
+    "description": "Successfully shared document title."
+  },
+  "kyYPLX": {
+    "defaultMessage": "Checkbox text",
+    "description": "Checkbox text."
+  },
+  "l8RpOr": {
+    "defaultMessage": "You can always revoke your consent under Consents.",
+    "description": "Successfully shared document subtitle."
+  },
+  "lEEJQP": {
+    "defaultMessage": "Logga ut",
+    "description": "Menu alternative for log out."
+  },
+  "m0KhCy": {
+    "defaultMessage": "Godkänn och hämta data",
+    "description": "Popup providing consent button."
+  },
+  "nGfQl/": {
+    "defaultMessage": "Hur loggar jag in med BankID?",
+    "description": "Index page login help text."
+  },
+  "nGzRRb": {
+    "defaultMessage": "Hämtar data...",
+    "description": "Waiting on process."
+  },
+  "npMjyJ": {
+    "defaultMessage": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer.",
+    "description": "Landing page footer disclaimer."
+  },
+  "oINMVj": {
+    "defaultMessage": "Byt språk",
+    "description": "Menu alternative for language selection."
+  },
+  "qrKUHl": {
+    "defaultMessage": "Hämta data",
+    "description": "Process document get data button."
+  },
+  "rE/FVx": {
+    "defaultMessage": "Dina data hämtas och vi meddelar dig när de är tillgängliga.",
+    "description": "Waiting for fetching data."
+  },
+  "s2YZRa": {
+    "defaultMessage": "Visa och dela data",
+    "description": "Process document view and share data button."
+  },
+  "udrupD": {
+    "defaultMessage": "Stäng",
+    "description": "Popup close button."
+  },
+  "yU4pU6": {
+    "defaultMessage": "Granska ditt Unemployment certificate och dela med BNP Paribas.",
+    "description": "Popup subtitle when reviewing document to share."
+  },
+  "yV4Xg2": {
+    "defaultMessage": "Granska dina data innan de delas med {party}",
+    "description": "Stepper second step description."
+  }
+}

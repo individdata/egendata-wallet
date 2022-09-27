@@ -16,7 +16,11 @@ function RequestList({onRequestSelect}: RequestListProps) {
 
   if (isRequestsLoading) return (
     <Typography sx={{ textAlign: 'center' }}>
-      <FormattedMessage id="requestlist_loading_data" />
+      <FormattedMessage 
+        id="TZmGLi"
+        defaultMessage="Loading data..."
+        description="Request listing loading data."
+      />
     </Typography>);
   
   const nonSharedList = unsharedRequests.map((uuid: string) => (
@@ -42,13 +46,21 @@ function RequestList({onRequestSelect}: RequestListProps) {
         <List>
           {unsharedRequests.length !== 0 && (
             <ListSubheader>
-              <FormattedMessage id="requestlist_incomplete_tasks" />
+              <FormattedMessage 
+                id="Lgsy+X"
+                defaultMessage="Your incomplete tasks"
+                description="Requests listing subtitle for incomplete tasks."
+              />
             </ListSubheader>
           )}
           {nonSharedList}
           {sharedRequests.length !== 0 && (
             <ListSubheader>
-              <FormattedMessage id="requestlist_completed_tasks" />
+              <FormattedMessage 
+                id="EgF3o6"
+                defaultMessage="Completed tasks"
+                description="Request listing subtitle for completed tasks."
+              />
             </ListSubheader>
           )}
           {sharedList}

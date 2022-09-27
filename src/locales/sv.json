@@ -1,0 +1,416 @@
+{
+  "1aMDvI": [
+    {
+      "type": 0,
+      "value": "Mina data"
+    }
+  ],
+  "2PffNX": [
+    {
+      "type": 0,
+      "value": "Fortsätt"
+    }
+  ],
+  "3ZcQ4T": [
+    {
+      "type": 0,
+      "value": "TODO "
+    },
+    {
+      "type": 1,
+      "value": "providerName"
+    }
+  ],
+  "4G0feJ": [
+    {
+      "type": 0,
+      "value": "Logga in"
+    }
+  ],
+  "4l8wsO": [
+    {
+      "type": 0,
+      "value": "Gå tillbaka till ursprungstjänsten"
+    }
+  ],
+  "5fkC00": [
+    {
+      "type": 0,
+      "value": "Påbörja din dataöverföring genom att identifiera dig nedan."
+    }
+  ],
+  "5r5uWQ": [
+    {
+      "type": 0,
+      "value": "Kontouppgifter"
+    }
+  ],
+  "6RE9ba": [
+    {
+      "type": 0,
+      "value": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer."
+    }
+  ],
+  "8quOpv": [
+    {
+      "type": 0,
+      "value": "Hantera data"
+    }
+  ],
+  "9PXjGU": [
+    {
+      "type": 0,
+      "value": "Dela mina data"
+    }
+  ],
+  "9akVnQ": [
+    {
+      "type": 0,
+      "value": "Dela"
+    }
+  ],
+  "9rKhuH": [
+    {
+      "type": 0,
+      "value": "Du är på väg att hämta ditt arbetslöshetsintyg från Arbetsförmedlingen."
+    }
+  ],
+  "DF7L5F": [
+    {
+      "type": 0,
+      "value": "Välkommen till Egendata"
+    }
+  ],
+  "EgF3o6": [
+    {
+      "type": 0,
+      "value": "Avslutade uppgifter"
+    }
+  ],
+  "ErkLAo": [
+    {
+      "type": 0,
+      "value": "Från"
+    }
+  ],
+  "Iuny4B": [
+    {
+      "type": 0,
+      "value": "Läser in data..."
+    }
+  ],
+  "IwF/TU": [
+    {
+      "type": 0,
+      "value": "Godkänn överföring"
+    }
+  ],
+  "JvjNu7": [
+    {
+      "type": 0,
+      "value": "Dela dina data med "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "party"
+        }
+      ],
+      "type": 8,
+      "value": "boldThis"
+    }
+  ],
+  "L6PEya": [
+    {
+      "type": 0,
+      "value": "Logga in"
+    }
+  ],
+  "Lgsy+X": [
+    {
+      "type": 0,
+      "value": "Dina pågående uppgifter"
+    }
+  ],
+  "MrflTl": [
+    {
+      "type": 0,
+      "value": "Ditt "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    },
+    {
+      "type": 0,
+      "value": " från "
+    },
+    {
+      "type": 1,
+      "value": "af"
+    },
+    {
+      "type": 0,
+      "value": " har hämtats. Klicka för att granska hämtade data."
+    }
+  ],
+  "OCdt+0": [
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": " will be provided information that you are registered as a job seeker at "
+    },
+    {
+      "type": 1,
+      "value": "providerName"
+    },
+    {
+      "type": 0,
+      "value": " and the date of such registration. For privacy reasons, "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": " will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in "
+    },
+    {
+      "type": 1,
+      "value": "af"
+    },
+    {
+      "type": 0,
+      "value": ", the transfer automatically terminates and you will need to provide an additional consent for the \"job-seeker status\" final date to be transfered to "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "OY/hPX": [
+    {
+      "type": 0,
+      "value": "Granska och dela dokument"
+    }
+  ],
+  "Oy3/Wo": [
+    {
+      "type": 0,
+      "value": "Håll dig uppdaterad."
+    }
+  ],
+  "RgYSBk": [
+    {
+      "type": 0,
+      "value": "Profil"
+    }
+  ],
+  "SI9BWw": [
+    {
+      "type": 0,
+      "value": "Arbetslöshetsintyg"
+    }
+  ],
+  "TZmGLi": [
+    {
+      "type": 0,
+      "value": "Läser in data..."
+    }
+  ],
+  "URmXKu": [
+    {
+      "type": 0,
+      "value": "Skriv in din epostadress"
+    }
+  ],
+  "VR+Zu1": [
+    {
+      "type": 0,
+      "value": "Ditt konto"
+    }
+  ],
+  "VwA7Is": [
+    {
+      "type": 0,
+      "value": "Dela senare"
+    }
+  ],
+  "XvkbpE": [
+    {
+      "type": 0,
+      "value": "Godkän och hämta "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    }
+  ],
+  "Yy59up": [
+    {
+      "type": 0,
+      "value": "Medgivanden"
+    }
+  ],
+  "aDPXaf": [
+    {
+      "type": 0,
+      "value": "Project OAK allmänna villkor"
+    }
+  ],
+  "aeoy6U": [
+    {
+      "type": 0,
+      "value": "Dina data i din kontroll"
+    }
+  ],
+  "cPkVMH": [
+    {
+      "type": 0,
+      "value": "Fortsätt och hämta data."
+    }
+  ],
+  "edtIll": [
+    {
+      "type": 0,
+      "value": "Inkorg"
+    }
+  ],
+  "gPZL3f": [
+    {
+      "type": 0,
+      "value": "Hämta data"
+    }
+  ],
+  "gWb9Tk": [
+    {
+      "type": 0,
+      "value": "Ett användarkonto skapas automatiskt när du loggar in första gången."
+    }
+  ],
+  "idsKv7": [
+    {
+      "type": 0,
+      "value": "Nästa"
+    }
+  ],
+  "ihPHBB": [
+    {
+      "type": 0,
+      "value": "Your "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    },
+    {
+      "type": 0,
+      "value": " is now being shared with "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "kyYPLX": [
+    {
+      "type": 0,
+      "value": "Checkbox text"
+    }
+  ],
+  "l8RpOr": [
+    {
+      "type": 0,
+      "value": "You can always revoke your consent under Consents."
+    }
+  ],
+  "lEEJQP": [
+    {
+      "type": 0,
+      "value": "Logga ut"
+    }
+  ],
+  "m0KhCy": [
+    {
+      "type": 0,
+      "value": "Godkänn och hämta data"
+    }
+  ],
+  "nGfQl/": [
+    {
+      "type": 0,
+      "value": "Hur loggar jag in med BankID?"
+    }
+  ],
+  "nGzRRb": [
+    {
+      "type": 0,
+      "value": "Hämtar data..."
+    }
+  ],
+  "npMjyJ": [
+    {
+      "type": 0,
+      "value": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer."
+    }
+  ],
+  "oINMVj": [
+    {
+      "type": 0,
+      "value": "Byt språk"
+    }
+  ],
+  "qrKUHl": [
+    {
+      "type": 0,
+      "value": "Hämta data"
+    }
+  ],
+  "rE/FVx": [
+    {
+      "type": 0,
+      "value": "Dina data hämtas och vi meddelar dig när de är tillgängliga."
+    }
+  ],
+  "s2YZRa": [
+    {
+      "type": 0,
+      "value": "Visa och dela data"
+    }
+  ],
+  "udrupD": [
+    {
+      "type": 0,
+      "value": "Stäng"
+    }
+  ],
+  "yU4pU6": [
+    {
+      "type": 0,
+      "value": "Granska ditt Unemployment certificate och dela med BNP Paribas."
+    }
+  ],
+  "yV4Xg2": [
+    {
+      "type": 0,
+      "value": "Granska dina data innan de delas med "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    }
+  ]
+}

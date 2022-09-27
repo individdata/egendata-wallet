@@ -5,22 +5,22 @@ import styles from './PopupHeader.module.css';
 import popupStyles from './Popup.module.css';
 
 type Props = {
-  titleId: string,
-  subtitleId: string,
+  title: string,
+  subtitle: string,
 };
 
 function PopupHeader(props: Props) {
-  const { titleId, subtitleId } = props;
+  const { title, subtitle } = props;
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <h3 className={styles.title}>
-          <FormattedMessage id={titleId} />
+          {title}
         </h3>
       </Grid>
       <Grid item xs={12}>
         <h4 className={styles.subtitle}>
-          <FormattedMessage id={subtitleId} />
+          {subtitle}
         </h4>
       </Grid>
       <Grid item xs={12}>

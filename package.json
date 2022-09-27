@@ -5,7 +5,15 @@
   "scripts": {
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 NODE_OPTIONS=--inspect NEXTAUTH_DEBUG=1 node src/server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node src/server.js"
+    "start": "NODE_ENV=production node src/server.js",
+    "lint": "eslint src",
+    "lang:extract:en": "formatjs extract 'src/**/*.{ts,tsx}' --out-file lang/en.json",
+    "lang:extract:sv": "formatjs extract 'src/**/*.{ts,tsx}' --out-file lang/sv.json",
+    "lang:extract": "npm run lang:extract:en & npm run lang:extract:sv",
+    "lang:compile:en": "formatjs compile lang/en.json --ast --out-file src/locales/en.json",
+    "lang:compile:sv": "formatjs compile lang/sv.json --ast --out-file src/locales/sv.json",
+    "lang:compile": "npm run lang:compile:en & npm run lang:compile:sv",
+    "lang": "npm run lang:extract & npm run lang:compile"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^17.0.3",
@@ -13,6 +21,8 @@
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
+    "@formatjs/cli": "^5.1.0",
+    "@formatjs/swc-plugin": "^1.4.11",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
@@ -21,6 +31,7 @@
     "@inrupt/solid-client-authn-browser": "^1.12.2",
     "@mui/material": "^5.10.4",
     "@reduxjs/toolkit": "^1.8.5",
+    "eslint-plugin-formatjs": "^4.3.1",
     "jose": "^4.9.1",
     "next": "12.2.5",
     "next-auth": "^4.10.3",

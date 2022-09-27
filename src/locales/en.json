@@ -1,0 +1,416 @@
+{
+  "1aMDvI": [
+    {
+      "type": 0,
+      "value": "My data"
+    }
+  ],
+  "2PffNX": [
+    {
+      "type": 0,
+      "value": "Continue to share data"
+    }
+  ],
+  "3ZcQ4T": [
+    {
+      "type": 0,
+      "value": "TODO "
+    },
+    {
+      "type": 1,
+      "value": "providerName"
+    }
+  ],
+  "4G0feJ": [
+    {
+      "type": 0,
+      "value": "Log in"
+    }
+  ],
+  "4l8wsO": [
+    {
+      "type": 0,
+      "value": "Return to requesting service"
+    }
+  ],
+  "5fkC00": [
+    {
+      "type": 0,
+      "value": "To handle your request you need to identify yourself."
+    }
+  ],
+  "5r5uWQ": [
+    {
+      "type": 0,
+      "value": "Account details"
+    }
+  ],
+  "6RE9ba": [
+    {
+      "type": 0,
+      "value": "Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations."
+    }
+  ],
+  "8quOpv": [
+    {
+      "type": 0,
+      "value": "Manage data"
+    }
+  ],
+  "9PXjGU": [
+    {
+      "type": 0,
+      "value": "Share the data"
+    }
+  ],
+  "9akVnQ": [
+    {
+      "type": 0,
+      "value": "Share data text"
+    }
+  ],
+  "9rKhuH": [
+    {
+      "type": 0,
+      "value": "You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
+    }
+  ],
+  "DF7L5F": [
+    {
+      "type": 0,
+      "value": "Welcome to Egendata"
+    }
+  ],
+  "EgF3o6": [
+    {
+      "type": 0,
+      "value": "Completed tasks"
+    }
+  ],
+  "ErkLAo": [
+    {
+      "type": 0,
+      "value": "From"
+    }
+  ],
+  "Iuny4B": [
+    {
+      "type": 0,
+      "value": "Loading data..."
+    }
+  ],
+  "IwF/TU": [
+    {
+      "type": 0,
+      "value": "Consent document transfer"
+    }
+  ],
+  "JvjNu7": [
+    {
+      "type": 0,
+      "value": "Share your data with "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "party"
+        }
+      ],
+      "type": 8,
+      "value": "boldThis"
+    }
+  ],
+  "L6PEya": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "Lgsy+X": [
+    {
+      "type": 0,
+      "value": "Your incomplete tasks"
+    }
+  ],
+  "MrflTl": [
+    {
+      "type": 0,
+      "value": "Your "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    },
+    {
+      "type": 0,
+      "value": " from "
+    },
+    {
+      "type": 1,
+      "value": "af"
+    },
+    {
+      "type": 0,
+      "value": " has now been fetched. Click view data to review all the fetched data."
+    }
+  ],
+  "OCdt+0": [
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": " will be provided information that you are registered as a job seeker at "
+    },
+    {
+      "type": 1,
+      "value": "providerName"
+    },
+    {
+      "type": 0,
+      "value": " and the date of such registration. For privacy reasons, "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": " will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in "
+    },
+    {
+      "type": 1,
+      "value": "af"
+    },
+    {
+      "type": 0,
+      "value": ", the transfer automatically terminates and you will need to provide an additional consent for the \"job-seeker status\" final date to be transfered to "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "OY/hPX": [
+    {
+      "type": 0,
+      "value": "Review your document data"
+    }
+  ],
+  "Oy3/Wo": [
+    {
+      "type": 0,
+      "value": "Stay up to date on all your data matters."
+    }
+  ],
+  "RgYSBk": [
+    {
+      "type": 0,
+      "value": "Profile"
+    }
+  ],
+  "SI9BWw": [
+    {
+      "type": 0,
+      "value": "Unemployment certificate"
+    }
+  ],
+  "TZmGLi": [
+    {
+      "type": 0,
+      "value": "Loading data..."
+    }
+  ],
+  "URmXKu": [
+    {
+      "type": 0,
+      "value": "Just enter your Email address"
+    }
+  ],
+  "VR+Zu1": [
+    {
+      "type": 0,
+      "value": "Account details"
+    }
+  ],
+  "VwA7Is": [
+    {
+      "type": 0,
+      "value": "Share later"
+    }
+  ],
+  "XvkbpE": [
+    {
+      "type": 0,
+      "value": "Consent and fetch your "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    }
+  ],
+  "Yy59up": [
+    {
+      "type": 0,
+      "value": "Contents"
+    }
+  ],
+  "aDPXaf": [
+    {
+      "type": 0,
+      "value": "Project OAK terms and conditions"
+    }
+  ],
+  "aeoy6U": [
+    {
+      "type": 0,
+      "value": "Your data in your control"
+    }
+  ],
+  "cPkVMH": [
+    {
+      "type": 0,
+      "value": "Continue to get data"
+    }
+  ],
+  "edtIll": [
+    {
+      "type": 0,
+      "value": "Inbox"
+    }
+  ],
+  "gPZL3f": [
+    {
+      "type": 0,
+      "value": "Get the data"
+    }
+  ],
+  "gWb9Tk": [
+    {
+      "type": 0,
+      "value": "If you are a first time user of Project OAK an account will be created for you when you log in."
+    }
+  ],
+  "idsKv7": [
+    {
+      "type": 0,
+      "value": "Next"
+    }
+  ],
+  "ihPHBB": [
+    {
+      "type": 0,
+      "value": "Your "
+    },
+    {
+      "type": 1,
+      "value": "document"
+    },
+    {
+      "type": 0,
+      "value": " is now being shared with "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "kyYPLX": [
+    {
+      "type": 0,
+      "value": "Checkbox text"
+    }
+  ],
+  "l8RpOr": [
+    {
+      "type": 0,
+      "value": "You can always revoke your consent under Consents."
+    }
+  ],
+  "lEEJQP": [
+    {
+      "type": 0,
+      "value": "Log out"
+    }
+  ],
+  "m0KhCy": [
+    {
+      "type": 0,
+      "value": "Consent and get data"
+    }
+  ],
+  "nGfQl/": [
+    {
+      "type": 0,
+      "value": "How do I login with BankID?"
+    }
+  ],
+  "nGzRRb": [
+    {
+      "type": 0,
+      "value": "Fetching data..."
+    }
+  ],
+  "npMjyJ": [
+    {
+      "type": 0,
+      "value": "Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations."
+    }
+  ],
+  "oINMVj": [
+    {
+      "type": 0,
+      "value": "Change language"
+    }
+  ],
+  "qrKUHl": [
+    {
+      "type": 0,
+      "value": "Get data"
+    }
+  ],
+  "rE/FVx": [
+    {
+      "type": 0,
+      "value": "Your fetching is under proceed get notified when it's ready."
+    }
+  ],
+  "s2YZRa": [
+    {
+      "type": 0,
+      "value": "View and share data"
+    }
+  ],
+  "udrupD": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "yU4pU6": [
+    {
+      "type": 0,
+      "value": "Review your Unemployment certificate data to be shared with BNP Paribas."
+    }
+  ],
+  "yV4Xg2": [
+    {
+      "type": 0,
+      "value": "Review your data and share it with "
+    },
+    {
+      "type": 1,
+      "value": "party"
+    }
+  ]
+}

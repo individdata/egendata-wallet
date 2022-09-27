@@ -1,0 +1,218 @@
+{
+  "1aMDvI": {
+    "defaultMessage": "My data",
+    "description": "Menubar my data tab."
+  },
+  "2PffNX": {
+    "defaultMessage": "Continue to share data",
+    "description": "Popup share now button."
+  },
+  "3ZcQ4T": {
+    "defaultMessage": "TODO {providerName}",
+    "description": "Popup check get data info text."
+  },
+  "4G0feJ": {
+    "defaultMessage": "Log in",
+    "description": "Index page log in button."
+  },
+  "4l8wsO": {
+    "defaultMessage": "Return to requesting service",
+    "description": "Popup return to requesting service, leaving us."
+  },
+  "5fkC00": {
+    "defaultMessage": "To handle your request you need to identify yourself.",
+    "description": "Landing page instruction."
+  },
+  "5r5uWQ": {
+    "defaultMessage": "Account details",
+    "description": "Menubar account details button."
+  },
+  "6RE9ba": {
+    "defaultMessage": "Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations.",
+    "description": "Index page main subtitle."
+  },
+  "8quOpv": {
+    "defaultMessage": "Manage data",
+    "description": "Process document manage data button."
+  },
+  "9PXjGU": {
+    "defaultMessage": "Share the data",
+    "description": "Stepper second step title."
+  },
+  "9akVnQ": {
+    "defaultMessage": "Share data text",
+    "description": "Popup share data text."
+  },
+  "9rKhuH": {
+    "defaultMessage": "You are about to fetch your Unemployment certificate from Arbetsförmedlingen.",
+    "description": "Popup subtitle when providing consent."
+  },
+  "DF7L5F": {
+    "defaultMessage": "Welcome to Egendata",
+    "description": "Index page welcome text."
+  },
+  "EgF3o6": {
+    "defaultMessage": "Completed tasks",
+    "description": "Request listing subtitle for completed tasks."
+  },
+  "ErkLAo": {
+    "defaultMessage": "From",
+    "description": "Process document from text (document origin)."
+  },
+  "Iuny4B": {
+    "defaultMessage": "Loading data...",
+    "description": "Process document waiting for data."
+  },
+  "IwF/TU": {
+    "defaultMessage": "Consent document transfer",
+    "description": "Popup title when providing consent."
+  },
+  "JvjNu7": {
+    "defaultMessage": "Share your data with <boldThis>{party}</boldThis>",
+    "description": "Landing page main title."
+  },
+  "L6PEya": {
+    "defaultMessage": "Sign in",
+    "description": "Landing page sign in button."
+  },
+  "Lgsy+X": {
+    "defaultMessage": "Your incomplete tasks",
+    "description": "Requests listing subtitle for incomplete tasks."
+  },
+  "MrflTl": {
+    "defaultMessage": "Your {document} from {af} has now been fetched. Click view data to review all the fetched data.",
+    "description": "Successfully fetched data."
+  },
+  "OCdt+0": {
+    "defaultMessage": "{party} will be provided information that you are registered as a job seeker at {providerName} and the date of such registration. For privacy reasons, {party} will not have access to any other information about you. You can withdraw your consent at any time which will terminate any further data transfer. When you are no longer registered as a job seeker in {af}, the transfer automatically terminates and you will need to provide an additional consent for the \"job-seeker status\" final date to be transfered to {party}.",
+    "description": "Information before starting data fetching process."
+  },
+  "OY/hPX": {
+    "defaultMessage": "Review your document data",
+    "description": "Popup title when reviewing document to share."
+  },
+  "Oy3/Wo": {
+    "defaultMessage": "Stay up to date on all your data matters.",
+    "description": "Popup success share description."
+  },
+  "RgYSBk": {
+    "defaultMessage": "Profile",
+    "description": "Menubar profile button."
+  },
+  "SI9BWw": {
+    "defaultMessage": "Unemployment certificate",
+    "description": "Process document, name of document."
+  },
+  "TZmGLi": {
+    "defaultMessage": "Loading data...",
+    "description": "Request listing loading data."
+  },
+  "URmXKu": {
+    "defaultMessage": "Just enter your Email address",
+    "description": "Success share enter email."
+  },
+  "VR+Zu1": {
+    "defaultMessage": "Account details",
+    "description": "Menu alternative for account details."
+  },
+  "VwA7Is": {
+    "defaultMessage": "Share later",
+    "description": "Popup share later button."
+  },
+  "XvkbpE": {
+    "defaultMessage": "Consent and fetch your {document}",
+    "description": "Stepper first step description."
+  },
+  "Yy59up": {
+    "defaultMessage": "Contents",
+    "description": "Menubar consents tab."
+  },
+  "aDPXaf": {
+    "defaultMessage": "Project OAK terms and conditions",
+    "description": "Landing page terms and conditions text."
+  },
+  "aeoy6U": {
+    "defaultMessage": "Your data in your control",
+    "description": "Index page main text."
+  },
+  "cPkVMH": {
+    "defaultMessage": "Continue to get data",
+    "description": "Popup continue button."
+  },
+  "edtIll": {
+    "defaultMessage": "Inbox",
+    "description": "Menubar inbox tab."
+  },
+  "gPZL3f": {
+    "defaultMessage": "Get the data",
+    "description": "Stepper first step title."
+  },
+  "gWb9Tk": {
+    "defaultMessage": "If you are a first time user of Project OAK an account will be created for you when you log in.",
+    "description": "Landing page further instruction."
+  },
+  "idsKv7": {
+    "defaultMessage": "Next",
+    "description": "Popup next button."
+  },
+  "ihPHBB": {
+    "defaultMessage": "Your {document} is now being shared with {party}.",
+    "description": "Successfully shared document title."
+  },
+  "kyYPLX": {
+    "defaultMessage": "Checkbox text",
+    "description": "Checkbox text."
+  },
+  "l8RpOr": {
+    "defaultMessage": "You can always revoke your consent under Consents.",
+    "description": "Successfully shared document subtitle."
+  },
+  "lEEJQP": {
+    "defaultMessage": "Log out",
+    "description": "Menu alternative for log out."
+  },
+  "m0KhCy": {
+    "defaultMessage": "Consent and get data",
+    "description": "Popup providing consent button."
+  },
+  "nGfQl/": {
+    "defaultMessage": "How do I login with BankID?",
+    "description": "Index page login help text."
+  },
+  "nGzRRb": {
+    "defaultMessage": "Fetching data...",
+    "description": "Waiting on process."
+  },
+  "npMjyJ": {
+    "defaultMessage": "Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organtisations.",
+    "description": "Landing page footer disclaimer."
+  },
+  "oINMVj": {
+    "defaultMessage": "Change language",
+    "description": "Menu alternative for language selection."
+  },
+  "qrKUHl": {
+    "defaultMessage": "Get data",
+    "description": "Process document get data button."
+  },
+  "rE/FVx": {
+    "defaultMessage": "Your fetching is under proceed get notified when it''s ready.",
+    "description": "Waiting for fetching data."
+  },
+  "s2YZRa": {
+    "defaultMessage": "View and share data",
+    "description": "Process document view and share data button."
+  },
+  "udrupD": {
+    "defaultMessage": "Close",
+    "description": "Popup close button."
+  },
+  "yU4pU6": {
+    "defaultMessage": "Review your Unemployment certificate data to be shared with BNP Paribas.",
+    "description": "Popup subtitle when reviewing document to share."
+  },
+  "yV4Xg2": {
+    "defaultMessage": "Review your data and share it with {party}",
+    "description": "Stepper second step description."
+  }
+}

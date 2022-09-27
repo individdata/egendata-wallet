@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useIntl } from 'react-intl';
-import styles from './ShareInProgress.module.css';
-import PopupButtons from '../PopupButtons';
-import PopupContent from '../PopupContent';
-import { setPopupData } from '../../../store/slices/popupSlice';
-import { getProcessByRequestId } from '../../../util/oak/egendata';
-import { RootState } from '../../../store/store';
-import ActivityIndicator from '../../ui/ActivityIndicator';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useIntl } from "react-intl";
+import styles from "./ShareInProgress.module.css";
+import PopupButtons from "../PopupButtons";
+import PopupContent from "../PopupContent";
+import { setPopupData } from "../../../store/slices/popupSlice";
+import { getProcessByRequestId } from "../../../util/oak/egendata";
+import { RootState } from "../../../store/store";
+import ActivityIndicator from "../../ui/ActivityIndicator";
 
 type Props = {
-  requestId: string,
+  requestId: string;
 };
 
 function ShareInProgress(props: Props) {
@@ -23,19 +23,27 @@ function ShareInProgress(props: Props) {
 
   useEffect(() => {
     if (request) {
-      dispatch(setPopupData({
-        component: 'ShareComplete',
-        props: {
-          requestId,
-        },
-      }));
+      dispatch(
+        setPopupData({
+          component: "ShareComplete",
+          props: {
+            requestId,
+          },
+        })
+      );
     }
   }, [request, requestId]);
 
   return (
     <div className={styles.container}>
       <PopupContent>
-        <ActivityIndicator text={intl.formatMessage({ id: 'popup_share_data_text' })} />
+        <ActivityIndicator
+          text={intl.formatMessage({
+            id: '9akVnQ',
+            defaultMessage: "Share data text",
+            description: "Popup share data text.",
+          })}
+        />
       </PopupContent>
       <PopupButtons buttons={[]} />
     </div>
