@@ -32,6 +32,10 @@ export default function MenuBar() {
   const { data: session, status } = useSession();
   const { user, isLoading, isError } = useUser();
 
+  if (isError) {
+    signOut({ callbackUrl: "/" });
+  }
+
   const dispatch = useDispatch();
   const router = useRouter();
   //  const user = useSelector((state: RootState) => state.auth.user);
