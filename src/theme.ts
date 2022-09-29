@@ -87,7 +87,6 @@ const theme = createTheme({
     MuiDivider: {
       styleOverrides: {
         root: {
-          width: '2px',
           color: '#ACACAC',
         },
       },
@@ -98,6 +97,13 @@ const theme = createTheme({
           color: '#ffffff',
           backgroundColor: '#191B1F',
           height: '60px',
+        },
+      },
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(34, 36, 41, 0.6)',
         },
       },
     },
