@@ -9,6 +9,7 @@ import {
   Typography,
   Stack,
   Skeleton,
+  Theme,
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,26 +53,19 @@ function ProcessDocument({ requestId }: Props) {
   return (
     <Box>
       <ThemeProvider
-        theme={createTheme({
+        theme={(theme: Theme) => createTheme({
+          ...theme,
           palette: {
-            text: {
-              primary: "#FFFFFF",
-              secondary: "#ACACAC",
-            },
+            ...theme.palette,
             background: {
               paper: "#191B1F",
             },
           },
           components: {
             MuiButton: {
+              ...theme.components?.MuiButton,
               defaultProps: {
                 color: "success",
-              },
-              styleOverrides: {
-                root: {
-                  borderRadius: "24px",
-                  height: "46px",
-                },
               },
             },
             MuiSvgIcon: {

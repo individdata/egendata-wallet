@@ -7,6 +7,7 @@ import {
   createTheme,
   Grid,
   Paper,
+  Theme,
   ThemeProvider,
   Typography,
 } from "@mui/material";
@@ -56,12 +57,10 @@ function Stepper({ requestId, landing }: Props) {
   return (
     <Box sx={{ width: "100%" }}>
       <ThemeProvider
-        theme={createTheme({
+        theme={(theme: Theme) => createTheme({
+          ...theme,
           palette: {
-            text: {
-              primary: "#FFFFFF",
-              secondary: "#ACACAC",
-            },
+            ...theme.palette,
             background: {
               paper: "#2D43A5",
             },
