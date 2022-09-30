@@ -10,10 +10,10 @@ import { useRouter } from "next/router";
 import { useSelector } from 'react-redux';
 // import { useIntl } from 'react-intl';
 // import { Navigate } from 'react-router';
-import { RootState } from '../../store/store';
-import Stepper from '../../components/Stepper';
-import ProcessDocument from '../../components/ProcessDocument';
-import MenuBar from '../../components/MenuBar/MenuBar';
+import { RootState } from '../../../store/store';
+import Stepper from '../../../components/Stepper';
+import ProcessDocument from '../../../components/ProcessDocument';
+import MenuBar from '../../../components/MenuBar/MenuBar';
 import { useSession } from 'next-auth/react';
 
 function RequestPage() {
@@ -24,11 +24,11 @@ function RequestPage() {
   const { id } = router.query;
 
   // const intl = useIntl();
-  useEffect(() => {
-    if (!id) {
-      router.push('/home');
-    }
-  })
+  // useEffect(() => {
+  //   if (!id) {
+  //     router.push('/home');
+  //   }
+  // })
 
   return (
     <Container maxWidth="lg">

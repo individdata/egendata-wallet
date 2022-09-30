@@ -28,13 +28,17 @@ import { changeLang } from "../../store/slices/langSlice";
 import useUser from "../../hooks/useUser";
 import { FormattedMessage } from "react-intl";
 
-export default function MenuBar() {
+type MenuBarProps = {
+  disabledNav?: boolean;
+};
+
+export default function MenuBar({ disabledNav = false }: MenuBarProps) {
   const { data: session, status } = useSession();
   const { user, isLoading, isError } = useUser();
 
-  if (isError) {
-    signOut({ callbackUrl: "/" });
-  }
+  // if (isError) {
+  //   signOut({ callbackUrl: "/" });
+  // }
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -107,31 +111,33 @@ export default function MenuBar() {
             }}
             paddingTop={1}
           >
-            <Tabs value={router.route}>
-              {pages.map((page) => (
-                <Tab
-                  key={page.path}
-                  label={
-                    <Badge
-                      color="warning"
-                      badgeContent={page.status}
-                      invisible={!page.status}
-                      overlap="rectangular"
-                    >
-                      <Typography paddingLeft={1} paddingRight={1}>
-                        {page.message}
-                      </Typography>
-                    </Badge>
-                  }
-                  value={page.path}
-                  onClick={(evt: any) => {
-                    evt.preventDefault(); // Maybe not needed?
-                    dispatch(selectTab(page.state));
-                    router.push(page.path);
-                  }}
-                />
-              ))}
-            </Tabs>
+            {!disabledNav && (
+              <Tabs value={router.route}>
+                {pages.map((page) => (
+                  <Tab
+                    key={page.path}
+                    label={
+                      <Badge
+                        color="warning"
+                        badgeContent={page.status}
+                        invisible={!page.status}
+                        overlap="rectangular"
+                      >
+                        <Typography paddingLeft={1} paddingRight={1}>
+                          {page.message}
+                        </Typography>
+                      </Badge>
+                    }
+                    value={page.path}
+                    onClick={(evt: any) => {
+                      evt.preventDefault(); // Maybe not needed?
+                      dispatch(selectTab(page.state));
+                      router.push(page.path);
+                    }}
+                  />
+                ))}
+              </Tabs>
+            )}
           </Box>
 
           {/* Container for menus. */}
@@ -156,7 +162,7 @@ export default function MenuBar() {
             <Drawer
               anchor="top"
               variant="temporary"
-              open={drawerOpen}
+              open={!disabledNav && drawerOpen}
               onClose={() => setDrawerOpen(false)}
             >
               <Container sx={{ height: "100vh" }}>

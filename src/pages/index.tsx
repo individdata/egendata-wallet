@@ -12,12 +12,6 @@ import { signIn } from "next-auth/react";
 const Index = () => {
   const router = useRouter();
 
-  const { request } = router.query;
-  if (request) {
-    // TOOD: Do this redirect with a middleware instead?
-    router.push(`/landing?request=${request}`);
-  }
-
   return (
     <Grid container className={styles.container}>
       <Grid item xs={12} md={6} className={styles.left}>
