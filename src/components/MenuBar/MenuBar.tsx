@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/react';
 import {
   AppBar,
   Box,
@@ -20,13 +20,12 @@ import {
   Divider,
   Button,
   Badge,
-} from "@mui/material";
-import { MenuIcon, GlobeIcon, ProfileIcon, ExitIcon } from "../../icons/icons";
-import { RootState } from "../../store/store";
-import { selectTab } from "../../store/slices/tabsSlice";
-import { changeLang } from "../../store/slices/langSlice";
-import useUser from "../../hooks/useUser";
-import { FormattedMessage } from "react-intl";
+} from '@mui/material';
+import { FormattedMessage } from 'react-intl';
+import { MenuIcon, GlobeIcon, ProfileIcon, ExitIcon } from '../../icons/icons';
+import { RootState } from '../../store/store';
+import { changeLang } from '../../store/slices/langSlice';
+import useUser from '../../hooks/useUser';
 
 type MenuBarProps = {
   disabledNav?: boolean;
@@ -35,10 +34,6 @@ type MenuBarProps = {
 export default function MenuBar({ disabledNav = false }: MenuBarProps) {
   const { data: session, status } = useSession();
   const { user, isLoading, isError } = useUser();
-
-  // if (isError) {
-  //   signOut({ callbackUrl: "/" });
-  // }
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -59,40 +54,22 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
 
   const pages = [
     {
-      state: "inbox",
-      path: "/home",
+      route: 'inbox',
+      path: '/home',
       status: 3,
-      message: (
-        <FormattedMessage
-          id="edtIll"
-          defaultMessage="Inbox"
-          description="Menubar inbox tab."
-        />
-      ),
+      message: <FormattedMessage id="edtIll" defaultMessage="Inbox" description="Menubar inbox tab." />,
     },
     {
-      state: "consents",
-      path: "/consents",
+      state: 'consents',
+      path: '/consents',
       status: false,
-      message: (
-        <FormattedMessage
-          id="Yy59up"
-          defaultMessage="Contents"
-          description="Menubar consents tab."
-        />
-      ),
+      message: <FormattedMessage id="Yy59up" defaultMessage="Contents" description="Menubar consents tab." />,
     },
     {
-      state: "mydata",
-      path: "/mydata",
+      state: 'mydata',
+      path: '/mydata',
       status: false,
-      message: (
-        <FormattedMessage
-          id="1aMDvI"
-          defaultMessage="My data"
-          description="Menubar my data tab."
-        />
-      ),
+      message: <FormattedMessage id="1aMDvI" defaultMessage="My data" description="Menubar my data tab." />,
     },
   ];
 
@@ -106,23 +83,18 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
           <Box
             sx={{
               flexGrow: 0,
-              placeContent: "center",
-              display: { xs: "none", md: "flex" },
+              placeContent: 'center',
+              display: { xs: 'none', md: 'flex' },
             }}
             paddingTop={1}
           >
             {!disabledNav && (
-              <Tabs value={router.route}>
+              <Tabs value={pages.map((page) => page.path).includes(router.route) ? router.route : ''}>
                 {pages.map((page) => (
                   <Tab
                     key={page.path}
                     label={
-                      <Badge
-                        color="warning"
-                        badgeContent={page.status}
-                        invisible={!page.status}
-                        overlap="rectangular"
-                      >
+                      <Badge color="warning" badgeContent={page.status} invisible={!page.status} overlap="rectangular">
                         <Typography paddingLeft={1} paddingRight={1}>
                           {page.message}
                         </Typography>
@@ -131,7 +103,6 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                     value={page.path}
                     onClick={(evt: any) => {
                       evt.preventDefault(); // Maybe not needed?
-                      dispatch(selectTab(page.state));
                       router.push(page.path);
                     }}
                   />
@@ -144,8 +115,8 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
           <Box
             sx={{
               flexGrow: 1,
-              placeContent: "end",
-              display: { xs: "flex", md: "none" },
+              placeContent: 'end',
+              display: { xs: 'flex', md: 'none' },
             }}
           >
             {/* Full screen drawer menu, mobile. */}
@@ -165,7 +136,7 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
               open={!disabledNav && drawerOpen}
               onClose={() => setDrawerOpen(false)}
             >
-              <Container sx={{ height: "100vh" }}>
+              <Container sx={{ height: '100vh' }}>
                 <Toolbar>
                   <Typography sx={{ flexGrow: 1 }}>Egendata</Typography>
                   <IconButton size="large" onClick={() => setDrawerOpen(false)}>
@@ -179,20 +150,16 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                       <ListItemButton
                         onClick={(e) => {
                           e.preventDefault(); // Maybe not needed
-                          dispatch(selectTab(page.state));
                           router.push(page.path);
                         }}
-                        sx={{ backgroundColor: "transparent" }}
+                        sx={{ backgroundColor: 'transparent' }}
                       >
-                        <ListItemText>{page.message}</ListItemText>
+                        <ListItemText key={page.route}>{page.message}</ListItemText>
                       </ListItemButton>
                       <Divider />
                     </>
                   ))}
-                  <ListItemButton
-                    key="accountDetails"
-                    sx={{ backgroundColor: "transparent" }}
-                  >
+                  <ListItemButton key="accountDetails" sx={{ backgroundColor: 'transparent' }}>
                     <ListItemText>
                       <FormattedMessage
                         id="VR+Zu1"
@@ -201,10 +168,7 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                       />
                     </ListItemText>
                   </ListItemButton>
-                  <ListItemButton
-                    key="language"
-                    sx={{ backgroundColor: "transparent" }}
-                  >
+                  <ListItemButton key="language" sx={{ backgroundColor: 'transparent' }}>
                     <ListItemText>
                       <FormattedMessage
                         id="oINMVj"
@@ -215,8 +179,8 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                   </ListItemButton>
                   <ListItemButton
                     key="logout"
-                    sx={{ backgroundColor: "transparent" }}
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    sx={{ backgroundColor: 'transparent' }}
+                    onClick={() => signOut({ callbackUrl: '/' })}
                   >
                     <ListItemText>
                       <FormattedMessage
@@ -236,20 +200,15 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
             sx={{
               flexBasis: 0,
               flexGrow: 1,
-              placeContent: "end",
+              placeContent: 'end',
               display: {
-                xs: "none",
-                md: "flex",
+                xs: 'none',
+                md: 'flex',
               },
             }}
           >
-            <Button
-              size="large"
-              color="inherit"
-              startIcon={<GlobeIcon />}
-              onClick={() => dispatch(changeLang())}
-            >
-              {lang === "en" ? "sv" : "en"}
+            <Button size="large" color="inherit" startIcon={<GlobeIcon />} onClick={() => dispatch(changeLang())}>
+              {lang === 'en' ? 'sv' : 'en'}
             </Button>
 
             {user && (
@@ -270,23 +229,19 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose}>
-                    <FormattedMessage
-                      id="RgYSBk"
-                      defaultMessage="Profile"
-                      description="Menubar profile button."
-                    />
+                    <FormattedMessage id="RgYSBk" defaultMessage="Profile" description="Menubar profile button." />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <FormattedMessage
@@ -295,7 +250,7 @@ export default function MenuBar({ disabledNav = false }: MenuBarProps) {
                       description="Menubar account details button."
                     />
                   </MenuItem>
-                  <MenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                  <MenuItem onClick={() => signOut({ callbackUrl: '/' })}>
                     <FormattedMessage
                       id="lEEJQP"
                       defaultMessage="Log out"

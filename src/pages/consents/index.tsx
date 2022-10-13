@@ -1,17 +1,19 @@
-import { Container, Grid, Typography } from "@mui/material";
-import MenuBar from "../../components/MenuBar/MenuBar";
+import { Container, Grid, Typography } from '@mui/material';
+import MenuBar from '../../components/MenuBar/MenuBar';
 
-const MyData = () => {
+function MyData() {
   return (
     <Container>
       <MenuBar />
       <main>
         <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
-          <Typography component="h1" variant="h4">Consents</Typography>
+          <Typography component="h1" variant="h4">
+            Consents
+          </Typography>
         </Grid>
       </main>
-  </Container>
+    </Container>
   );
-};
+}
 
 export default MyData;

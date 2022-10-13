@@ -1,5 +1,5 @@
-import { importJWK, JWK, SignJWT } from "jose"
-import { v4 as uuid } from "uuid";
+import { importJWK, JWK, SignJWT } from 'jose';
+import { v4 as uuid } from 'uuid';
 
 async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: string, url: string) {
   jwkPrivateKey.alg = 'ES256';
@@ -11,34 +11,33 @@ async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: strin
     jti: uuid(),
   })
     .setProtectedHeader({
-    alg: 'ES256',
-    jwk: jwkPublicKey,
-    typ: 'dpop+jwt'
+      alg: 'ES256',
+      jwk: jwkPublicKey,
+      typ: 'dpop+jwt',
     })
     .setIssuedAt()
-    .sign(privateKey)
+    .sign(privateKey);
 }
 
 type fetchFactoryProps = {
-  keyPair: {
-    privateKey: JWK,
-    publicKey: JWK,
-  } | unknown,
-  dpopToken: string | unknown,
+  keyPair:
+    | {
+        privateKey: JWK;
+        publicKey: JWK;
+      }
+    | unknown;
+  dpopToken: string | unknown;
+};
+
+export interface fetchInterface {
+  (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response>;
 }
 
-interface fetchFactoryReturnFunction {
-  (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response>,
-}
+export default function fetchFactory(props: fetchFactoryProps): fetchInterface {
+  if (!(props.keyPair && props.dpopToken)) throw 'Missing keyPair and/or DPoP access token.';
 
-export default function fetchFactory(props: fetchFactoryProps): fetchFactoryReturnFunction {
-  if (! (props.keyPair && props.dpopToken))
-    throw 'Missing keyPair and/or DPoP access token.';
-
-  const { privateKey, publicKey } = props.keyPair as {privateKey: JWK, publicKey: JWK};
-  const dpopToken = props.dpopToken;
-
-//  console.log(privateKey, publicKey, dpopToken);
+  const { privateKey, publicKey } = props.keyPair as { privateKey: JWK; publicKey: JWK };
+  const { dpopToken } = props;
 
   return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
     init = init || {};
@@ -51,7 +50,6 @@ export default function fetchFactory(props: fetchFactoryProps): fetchFactoryRetu
     init.headers.set('Authorization', `DPoP ${dpopToken}`);
     init.headers.set('DPoP', dpopHeader);
 
-//    console.log(input, init);
     return await fetch(input, init);
-  }
+  };
 }

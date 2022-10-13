@@ -1,20 +1,9 @@
-import React, { ReactNode } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { useEffect, useState } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  createTheme,
-  Divider,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import React, { ReactNode, useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Box, createTheme, Divider, Theme, ThemeProvider, Typography } from '@mui/material';
 
 type CustomDialogProps = {
   title: string;
@@ -49,57 +38,60 @@ export default function BaseDialog({
 
   return (
     <ThemeProvider
-      theme={createTheme({
-        palette: {
-          primary: {
-            main: "#65D36E",
-            dark: "#51A958",
-            contrastText: "#FFFFFF",
+      theme={(theme: Theme) =>
+        createTheme({
+          ...theme,
+          palette: {
+            primary: {
+              main: '#65D36E',
+              dark: '#51A958',
+              contrastText: '#FFFFFF',
+            },
+            text: {
+              primary: '#FFFFFF',
+              secondary: '#ACACAC',
+            },
+            success: {
+              main: '#65D36E',
+            },
+            background: {
+              paper: 'black',
+            },
           },
-          text: {
-            primary: "#FFFFFF",
-            secondary: "#ACACAC",
+          typography: {
+            fontFamily: '"Open Sans", sans-serif',
+            fontWeightMedium: 600,
+            fontWeightBold: 800,
+            fontSize: 13,
           },
-          success: {
-            main: "#65D36E",
+          shape: {
+            borderRadius: 16,
           },
-          background: {
-            paper: "black",
-          },
-        },
-        typography: {
-          fontFamily: '"Open Sans", sans-serif',
-          fontWeightMedium: 600,
-          fontWeightBold: 800,
-          fontSize: 13,
-        },
-        shape: {
-          borderRadius: 16,
-        },
-        components: {
-          MuiDivider: {
-            styleOverrides: {
-              root: {
-                borderColor: "#434343",
+          components: {
+            MuiDivider: {
+              styleOverrides: {
+                root: {
+                  borderColor: '#434343',
+                },
+              },
+            },
+            MuiCardContent: {
+              styleOverrides: {
+                root: {
+                  padding: '24px',
+                },
+              },
+            },
+            MuiButton: {
+              styleOverrides: {
+                root: {
+                  borderRadius: '24px',
+                },
               },
             },
           },
-          MuiCardContent: {
-            styleOverrides: {
-              root: {
-                padding: "24px",
-              },
-            },
-          },
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                borderRadius: "24px",
-              },
-            },
-          },
-        },
-      })}
+        })
+      }
     >
       <Dialog fullWidth maxWidth="md" open={open}>
         <DialogTitle margin={2} marginBottom={1} variant="h5">
@@ -117,27 +109,27 @@ export default function BaseDialog({
               size="large"
               onClick={handleClose}
               sx={{
-                color: "#65D36E",
-                borderColor: "#ACACAC",
-                "&:hover": {
-                  borderColor: "#65D36E",
+                color: '#65D36E',
+                borderColor: '#ACACAC',
+                '&:hover': {
+                  borderColor: '#65D36E',
                 },
               }}
             >
               Cancel
             </Button>
             <Button
-              variant={buttonActive ? "contained" : "outlined"}
-              color={buttonActive ? "success" : "primary"}
+              variant={buttonActive ? 'contained' : 'outlined'}
+              color={buttonActive ? 'success' : 'primary'}
               size="large"
               onClick={onContinueClick}
               disabled={!buttonActive}
               sx={{
-                "&.Mui-disabled": {
-                  color: "#ACACAC",
-                  borderColor: "#ACACAC",
+                '&.Mui-disabled': {
+                  color: '#ACACAC',
+                  borderColor: '#ACACAC',
                 },
-                marginLeft: "16px",
+                marginLeft: '16px',
               }}
             >
               {action}

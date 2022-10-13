@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { EventHandler, ReactElement, useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -18,11 +18,11 @@ const checkboxListTexts = [
   'I have read and understand how Project OAK processes my personal data, as outlined in the Privacy policy.',
 ];
 
-type FetchDialogProps = {
-  onConsent: () => Promise<void>;
+type ShareConsentDialogProps = {
+  onConsent: () => void;
 };
 
-export default function FetchDialog({ onConsent }: FetchDialogProps) {
+export default function ShareConsentDialog({ onConsent }: ShareConsentDialogProps) {
   const [state, setState] = useState('preview');
   const [checkboxes, setCheckbox] = useState(
     Object.fromEntries(checkboxListTexts.map((t, index) => [`box${index}`, false])),
@@ -51,7 +51,7 @@ export default function FetchDialog({ onConsent }: FetchDialogProps) {
     return (
       <BaseDialog
         title="Consent document transfer"
-        subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
+        subtitle="You are about to share your Unemployment certificate to BNP Paribas."
         action="Consent and get your data"
         buttonActive={buttonActive}
         onContinueClick={onConsent}
@@ -83,21 +83,40 @@ export default function FetchDialog({ onConsent }: FetchDialogProps) {
   // state === 'preview'
   return (
     <BaseDialog
-      title="Preview of your document transfer"
-      subtitle="You are about to fetch your Unemployment certificate from Arbetsförmedlingen."
+      title="Review your document transfer"
+      subtitle="Review your Unemployment certificate data to be shareed with BNP Paribas."
       action="Continue to get your data"
       onContinueClick={() => setState('consent')}
     >
       <Card>
         <CardContent>
-          <Typography>Unmployment certificate Employment status</Typography>
-          <Typography>Employment status start date</Typography>
-          <Typography>Employment certificate request date</Typography>
+          <Typography paddingBottom={2} color="primary">
+            Unemployment certificate
+          </Typography>
+          <Typography>
+            Employment status:{' '}
+            <Typography component="span" color="primary">
+              Unmployment
+            </Typography>
+          </Typography>
+          <Typography>
+            Employment status start date:{' '}
+            <Typography component="span" color="primary">
+              {new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+            </Typography>
+          </Typography>
+          <Typography>
+            Employment certificate request date:{' '}
+            <Typography component="span" color="primary">
+              {new Date(Date.now()).toLocaleDateString()}
+            </Typography>
+          </Typography>
         </CardContent>
       </Card>
       <DialogContent>
         <DialogContentText>
-          Purpose of this transfer: To see and review the information before sharing it with the recipient.
+          Purpose of this transfer: BNP Paribas will be provided information that you are registered as a job seeker in
+          Arbetsförmedlingen and the date of the registration.
         </DialogContentText>
       </DialogContent>
     </BaseDialog>

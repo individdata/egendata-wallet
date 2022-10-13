@@ -12,6 +12,7 @@ const theme = createTheme({
     },
     success: {
       main: '#65D36E',
+      contrastText: '#000000',
     },
     warning: {
       main: '#FFEA79',
@@ -26,10 +27,19 @@ const theme = createTheme({
     },
   },
   typography: {
+    htmlFontSize: 16,
     fontFamily: '"Open Sans", sans-serif',
     fontWeightMedium: 600,
     fontWeightBold: 800,
     fontSize: 13,
+    h1: {
+      fontWeight: 600,
+      fontSize: '1.5rem',
+    },
+    h2: {
+      fontWeight: 600,
+      fontSize: '1rem',
+    },
   },
   shape: {
     borderRadius: 16,
@@ -104,6 +114,17 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'rgba(34, 36, 41, 0.6)',
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'yellow',
+
+          '&:focus': {
+            backgroundColor: 'deeppink',
+          },
         },
       },
     },

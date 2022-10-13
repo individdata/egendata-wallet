@@ -1,8 +1,20 @@
 {
+  "/+PMp+": [
+    {
+      "type": 0,
+      "value": "Something went wrong when sharing your document. Try again later."
+    }
+  ],
   "1aMDvI": [
     {
       "type": 0,
       "value": "Mina data"
+    }
+  ],
+  "20LWpl": [
+    {
+      "type": 0,
+      "value": "Your shared document"
     }
   ],
   "2PffNX": [
@@ -51,6 +63,12 @@
       "value": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer."
     }
   ],
+  "7TkBpL": [
+    {
+      "type": 0,
+      "value": "Waiting"
+    }
+  ],
   "8quOpv": [
     {
       "type": 0,
@@ -75,6 +93,12 @@
       "value": "Du är på väg att hämta ditt arbetslöshetsintyg från Arbetsförmedlingen."
     }
   ],
+  "CRXT3O": [
+    {
+      "type": 0,
+      "value": "Your unemployement certificate is now being shared with BNP Paribas."
+    }
+  ],
   "DF7L5F": [
     {
       "type": 0,
@@ -91,6 +115,18 @@
     {
       "type": 0,
       "value": "Från"
+    }
+  ],
+  "F50OAe": [
+    {
+      "type": 0,
+      "value": "Fetching..."
+    }
+  ],
+  "Hzensj": [
+    {
+      "type": 0,
+      "value": "Your fetching is in progress but might take a while."
     }
   ],
   "Iuny4B": [
@@ -215,10 +251,54 @@
       "value": "Håll dig uppdaterad."
     }
   ],
+  "QEzAbb": [
+    {
+      "type": 0,
+      "value": "By registering you accept our"
+    },
+    {
+      "type": 1,
+      "value": "linebreak"
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Privacy Policy"
+        }
+      ],
+      "type": 8,
+      "value": "linkPrivacyPolicy"
+    },
+    {
+      "type": 0,
+      "value": " and "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Terms of service"
+        }
+      ],
+      "type": 8,
+      "value": "linkTermsOfService"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "RgYSBk": [
     {
       "type": 0,
       "value": "Profil"
+    }
+  ],
+  "S3tJF0": [
+    {
+      "type": 0,
+      "value": "Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data."
     }
   ],
   "SI9BWw": [
@@ -231,6 +311,12 @@
     {
       "type": 0,
       "value": "Läser in data..."
+    }
+  ],
+  "UCFPOA": [
+    {
+      "type": 0,
+      "value": "You can always revoke your consent under Consents."
     }
   ],
   "URmXKu": [
@@ -261,16 +347,34 @@
       "value": "document"
     }
   ],
+  "YCdA/w": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
   "Yy59up": [
     {
       "type": 0,
       "value": "Medgivanden"
     }
   ],
+  "Z35aBz": [
+    {
+      "type": 0,
+      "value": "Add your email address to get notified when further actions are needed."
+    }
+  ],
   "aDPXaf": [
     {
       "type": 0,
       "value": "Project OAK allmänna villkor"
+    }
+  ],
+  "aWT2YD": [
+    {
+      "type": 0,
+      "value": "We can't find your unemployment certificate. Make sure you're registered at Arbetsförmedlingen as unemployed."
     }
   ],
   "aeoy6U": [
@@ -303,6 +407,12 @@
       "value": "Ett användarkonto skapas automatiskt när du loggar in första gången."
     }
   ],
+  "gpDDd6": [
+    {
+      "type": 0,
+      "value": "Get your data"
+    }
+  ],
   "idsKv7": [
     {
       "type": 0,
@@ -329,6 +439,12 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "kmUDMm": [
+    {
+      "type": 0,
+      "value": "Share your data"
     }
   ],
   "kyYPLX": [
@@ -373,10 +489,34 @@
       "value": "Project OAK är en myndighetstjänst som gör det möjligt att lagra och skicka sin egna data mellan statliga och privata aktörer."
     }
   ],
+  "o1FDX1": [
+    {
+      "type": 0,
+      "value": "Get your data"
+    }
+  ],
   "oINMVj": [
     {
       "type": 0,
       "value": "Byt språk"
+    }
+  ],
+  "pHE0rC": [
+    {
+      "type": 0,
+      "value": "Your fetching is processing, add your email and get notified when it's ready."
+    }
+  ],
+  "pqiVfp": [
+    {
+      "type": 0,
+      "value": "Something went wrong with your transfer. Try again later."
+    }
+  ],
+  "pum/RZ": [
+    {
+      "type": 0,
+      "value": "View and share your document"
     }
   ],
   "qrKUHl": [
@@ -397,10 +537,34 @@
       "value": "Visa och dela data"
     }
   ],
+  "sN26ST": [
+    {
+      "type": 0,
+      "value": "Add email"
+    }
+  ],
+  "sg8aJi": [
+    {
+      "type": 0,
+      "value": "Sharing..."
+    }
+  ],
   "udrupD": [
     {
       "type": 0,
       "value": "Stäng"
+    }
+  ],
+  "wdTCcn": [
+    {
+      "type": 0,
+      "value": "Waiting for your data"
+    }
+  ],
+  "xxJ8Ck": [
+    {
+      "type": 0,
+      "value": "Continue"
     }
   ],
   "yU4pU6": [

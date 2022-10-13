@@ -1,40 +1,44 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
+import { unstable_getServerSession } from 'next-auth/next';
+import { getToken } from 'next-auth/jwt';
+import { authOptions } from './auth/[...nextauth]';
 
 import fetchFactory from '../../lib/fetchFactory';
-import { fetchPrivateData } from '../../util/oak/solid';
-import { getToken } from 'next-auth/jwt';
-import { JWK } from 'jose';
+import { getSolidDataset, getStringNoLocale, getThing, Thing } from '@inrupt/solid-client';
 
 type Data = {
-  name: string,
-  ssn: string,
-  uuid: string,
-}
+  name: string;
+  ssn: string;
+  uuid: string;
+};
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const session = await unstable_getServerSession(req, res, authOptions(req, res));
 
   if (session) {
     // Signed in
     const token = await getToken({ req });
 
-    const fetch = fetchFactory({keyPair: token?.keys, dpopToken: token?.dpopToken});
-    const { ssn, fullname, uuid } = await fetchPrivateData(session.seeAlso, fetch);
+    const fetch = fetchFactory({ keyPair: token?.keys, dpopToken: token?.dpopToken });
 
-    res.status(200).json({ 
-      name: fullname,
-      ssn: ssn,
-      uuid: uuid,
-    })
+    // Fetch basic data from provider request
+    const ds = await getSolidDataset(session.seeAlso, { fetch });
+    const requestThing = getThing(ds, `${session.seeAlso}#me`) as Thing;
+    const firstName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
+    const lastName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
+    const ssn =
+      getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier') ?? '';
+    const uuid = getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#uuid') ?? '';
+
+    res.status(200).json({
+      name: `${firstName} ${lastName}`,
+      ssn,
+      uuid,
+    });
   } else {
     // Not Signed in
-    res.status(401)
+    res.status(401);
   }
-  res.end()
+  res.end();
 }

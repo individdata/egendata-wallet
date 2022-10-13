@@ -1,61 +1,43 @@
-import React from "react";
-import { Grid, List, ListSubheader, Typography } from "@mui/material";
-import RequestListItem from "./RequestListItem";
-import { SubjectRequest } from "../../store/slices/requests/subjectRequestsSlice";
-import useRequestsIds from "../../hooks/useRequestsIds";
-import useConsents from "../../hooks/useConsents";
-import { FormattedMessage } from "react-intl";
+import React from 'react';
+import { Grid, List, ListSubheader, Typography } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
+import RequestListItem from './RequestListItem';
+import useRequests from '../../hooks/useRequests';
 
 type RequestListProps = {
-  onRequestSelect: (uuid: string) => void;
+  onRequestSelect: (request: any) => void;
 };
 
 function RequestList({ onRequestSelect }: RequestListProps) {
-  const { sharedRequests, unsharedRequests, isRequestsLoading } =
-    useRequestsIds();
+  const { requests, isLoading } = useRequests();
 
-  if (isRequestsLoading)
+  if (isLoading)
     return (
-      <Typography sx={{ textAlign: "center" }}>
-        <FormattedMessage
-          id="TZmGLi"
-          defaultMessage="Loading data..."
-          description="Request listing loading data."
-        />
+      <Typography sx={{ textAlign: 'center' }}>
+        <FormattedMessage id="TZmGLi" defaultMessage="Loading data..." description="Request listing loading data." />
       </Typography>
     );
 
-  const nonSharedList = unsharedRequests.map((uuid: string) => (
-    <RequestListItem
-      key={`RequestListItem-${uuid}`}
-      uuid={uuid}
-      onClick={onRequestSelect}
-      unread
-    />
+  const unsharedRequests = requests?.filter((r) => !r.isShared);
+  const nonSharedList = unsharedRequests?.map((request) => (
+    <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} unread />
   ));
 
-  const sharedList = sharedRequests.map((uuid: string) => (
-    <RequestListItem
-      key={`RequestListItem-${uuid}`}
-      uuid={uuid}
-      onClick={onRequestSelect}
-    />
+  const sharedRequests = requests?.filter((r) => r.isShared);
+  const sharedList = sharedRequests?.map((request) => (
+    <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} />
   ));
 
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={10} lg={8}>
-        {unsharedRequests.length === 0 && sharedRequests.length === 0 && (
-          <Typography component="h1" variant="h4" sx={{ textAlign: "center" }}>
-            <FormattedMessage
-              id="LPU/Zd"
-              defaultMessage="No tasks available."
-              description="Requests listing empty."
-            />
+        {unsharedRequests?.length === 0 && sharedRequests?.length === 0 && (
+          <Typography component="h1" variant="h4" sx={{ textAlign: 'center' }}>
+            <FormattedMessage id="LPU/Zd" defaultMessage="No tasks available." description="Requests listing empty." />
           </Typography>
         )}
         <List>
-          {unsharedRequests.length !== 0 && (
+          {unsharedRequests?.length !== 0 && (
             <ListSubheader>
               <FormattedMessage
                 id="Lgsy+X"
@@ -65,7 +47,7 @@ function RequestList({ onRequestSelect }: RequestListProps) {
             </ListSubheader>
           )}
           {nonSharedList}
-          {sharedRequests.length !== 0 && (
+          {sharedRequests?.length !== 0 && (
             <ListSubheader>
               <FormattedMessage
                 id="EgF3o6"

@@ -17,13 +17,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Build the docker image with
 
 ```
-docker build -t wallet:latest .
+podman build -t wallet .
 ```
 
 To run use the command
 
 ```
-docker run -p 3000:3000 --env-file .env wallet:latest
+podman run -p 3000:3000 --env-file .env wallet
 ```
 
 ## Internationalization (i18n)

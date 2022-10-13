@@ -1,17 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Container, Grid } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useRouter, NextRouter } from "next/router";
-import RequestList from '../../components/RequestList/RequestList';
-import { SubjectRequest } from '../../store/slices/requests/subjectRequestsSlice';
-import { useSession, getSession } from 'next-auth/react';
+import React from 'react';
+import { useRouter, NextRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
+import RequestList from '../../components/RequestList/RequestList';
 import MenuBar from '../../components/MenuBar/MenuBar';
-import { GetStaticPropsContext } from 'next';
-
 
 function HomePage() {
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
   const router: NextRouter = useRouter();
   const dispatch = useDispatch();
 
@@ -19,7 +16,7 @@ function HomePage() {
     router.push(`/request/${uuid}`);
   };
 
-  console.log(session)
+  console.log(session);
 
   /*
   useEffect(() => {
@@ -42,12 +39,12 @@ function HomePage() {
   //   dispatch<any>(syncStateFromPod(session.storage));
 
   // }, [session?.storage]);
-  
+
   return (
     <Container>
       <MenuBar />
       <main>
-      <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
+        <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
           <RequestList onRequestSelect={onRequestSelect} />
         </Grid>
       </main>

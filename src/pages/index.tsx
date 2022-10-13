@@ -1,28 +1,20 @@
-import React from "react";
-import Image from "next/image";
-import { FormattedMessage } from "react-intl";
-import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
-import styles from "./index.module.css";
-import OakLogo from "../components/OakLogo/OakLogo";
-import Button from "../components/ui/Button";
+import React from 'react';
+import Image from 'next/image';
+import { FormattedMessage } from 'react-intl';
+import { Button, Grid } from '@mui/material';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import styles from './index.module.css';
+import OakLogo from '../components/OakLogo/OakLogo';
 
-import { signIn } from "next-auth/react";
-
-const Index = () => {
+function Index() {
   const router = useRouter();
 
   return (
     <Grid container className={styles.container}>
       <Grid item xs={12} md={6} className={styles.left}>
         <article>
-          <Image
-            className={styles.logo}
-            alt="left-logo"
-            src="/images/oak-green.png"
-            width="54"
-            height="80"
-          />
+          <Image className={styles.logo} alt="left-logo" src="/images/oak-green.png" width="54" height="80" />
           <h1 className={styles.title}>
             <FormattedMessage
               id="aeoy6U"
@@ -43,7 +35,7 @@ const Index = () => {
         <header>
           <div
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
@@ -55,22 +47,10 @@ const Index = () => {
         </header>
         <main>
           <h3 className={styles.loginTitle}>
-            <FormattedMessage
-              id="DF7L5F"
-              defaultMessage="Welcome to Egendata"
-              description="Index page welcome text."
-            />
+            <FormattedMessage id="DF7L5F" defaultMessage="Welcome to Egendata" description="Index page welcome text." />
           </h3>
-          <Button
-            preset="medium"
-            type="primary"
-            onPress={() => signIn("solid", { callbackUrl: "/home" })}
-          >
-            <FormattedMessage
-              id="4G0feJ"
-              defaultMessage="Log in"
-              description="Index page log in button."
-            />
+          <Button size="large" color="primary" onClick={() => signIn('solid', { callbackUrl: '/home' })}>
+            <FormattedMessage id="4G0feJ" defaultMessage="Log in" description="Index page log in button." />
           </Button>
           <div className={styles.line}>
             <a href="http://w3schools.com" className={styles.link}>
@@ -85,6 +65,6 @@ const Index = () => {
       </Grid>
     </Grid>
   );
-};
+}
 
 export default Index;
