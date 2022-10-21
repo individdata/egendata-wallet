@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import styles from './index.module.css';
 import OakLogo from '../components/OakLogo/OakLogo';
+import Link from '../lib/Link';
 
 function Index() {
   const router = useRouter();
@@ -46,21 +47,39 @@ function Index() {
           </div>
         </header>
         <main>
-          <h3 className={styles.loginTitle}>
-            <FormattedMessage id="DF7L5F" defaultMessage="Welcome to Egendata" description="Index page welcome text." />
-          </h3>
-          <Button size="large" color="primary" onClick={() => signIn('solid', { callbackUrl: '/home' })}>
-            <FormattedMessage id="4G0feJ" defaultMessage="Log in" description="Index page log in button." />
-          </Button>
-          <div className={styles.line}>
-            <a href="http://w3schools.com" className={styles.link}>
-              <FormattedMessage
-                id="nGfQl/"
-                defaultMessage="How do I login with BankID?"
-                description="Index page login help text."
-              />
-            </a>
-          </div>
+          <Grid container flexDirection="column">
+            <Grid item>
+              <Typography variant="h1" component="h1" fontSize={40}>
+                <FormattedMessage
+                  id="DF7L5F"
+                  defaultMessage="Welcome to Egendata"
+                  description="Index page welcome text."
+                />
+              </Typography>
+            </Grid>
+            <Grid item marginTop={8} marginBottom={4}>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                sx={{ fontSize: '1.25rem', color: 'black' }}
+                onClick={() => signIn('solid', { callbackUrl: '/home' })}
+              >
+                <FormattedMessage id="4G0feJ" defaultMessage="Log in" description="Index page log in button." />
+              </Button>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1" component="p">
+                <Link href="http://w3schools.com">
+                  <FormattedMessage
+                    id="nGfQl/"
+                    defaultMessage="How do I login with BankID?"
+                    description="Index page login help text."
+                  />
+                </Link>
+              </Typography>
+            </Grid>
+          </Grid>
         </main>
       </Grid>
     </Grid>
