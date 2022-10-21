@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, createTheme, IconButton, Theme, ThemeProvider } from '@mui/material';
+import { Box, IconButton, Theme, ThemeProvider, createTheme } from '@mui/material';
 import { CloseIcon } from './icons';
 
 type ControlFlowBaseDialogProps = {

@@ -1,17 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button,
   Box,
-  createTheme,
-  Grid,
-  Paper,
-  ThemeProvider,
-  Typography,
-  Stack,
-  Skeleton,
-  Theme,
+  Button,
   Dialog,
   DialogContent,
+  Grid,
+  Paper,
+  Skeleton,
+  Stack,
+  Theme,
+  ThemeProvider,
+  Typography,
+  createTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';

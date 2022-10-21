@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, createTheme, Divider, Theme, ThemeProvider, Typography } from '@mui/material';
+import { Box, Divider, Theme, ThemeProvider, Typography, createTheme } from '@mui/material';
 
 type CustomDialogProps = {
   title: string;

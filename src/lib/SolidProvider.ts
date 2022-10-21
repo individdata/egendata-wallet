@@ -1,4 +1,4 @@
-import { exportJWK, generateKeyPair, JWK } from 'jose';
+import { JWK, exportJWK, generateKeyPair } from 'jose';
 import type { OAuthConfig, OAuthUserConfig } from 'next-auth/providers';
 
 export interface SolidProfile extends Record<string, any> {

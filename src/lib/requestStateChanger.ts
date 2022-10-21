@@ -1,4 +1,5 @@
 import {
+  Thing,
   buildThing,
   createAcl,
   createSolidDataset,
@@ -14,7 +15,6 @@ import {
   saveSolidDatasetAt,
   setAgentResourceAccess,
   setThing,
-  Thing,
 } from '@inrupt/solid-client';
 import { ResponseData } from '../pages/api/request/[id]';
 import { fetchInterface } from './fetchFactory';

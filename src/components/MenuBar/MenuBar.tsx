@@ -4,25 +4,25 @@ import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import {
   AppBar,
+  Badge,
   Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
+  Button,
   Container,
-  MenuItem,
+  Divider,
   Drawer,
-  ListItemText,
+  IconButton,
   List,
   ListItemButton,
-  Tabs,
+  ListItemText,
+  Menu,
+  MenuItem,
   Tab,
-  Divider,
-  Button,
-  Badge,
+  Tabs,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
-import { MenuIcon, GlobeIcon, ProfileIcon, ExitIcon } from '../../icons/icons';
+import { ExitIcon, GlobeIcon, MenuIcon, ProfileIcon } from '../../icons/icons';
 import { RootState } from '../../store/store';
 import { changeLang } from '../../store/slices/langSlice';
 import useUser from '../../hooks/useUser';

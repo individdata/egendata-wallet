@@ -5,7 +5,7 @@ import { getToken } from 'next-auth/jwt';
 import { authOptions } from './auth/[...nextauth]';
 
 import fetchFactory from '../../lib/fetchFactory';
-import { getSolidDataset, getStringNoLocale, getThing, Thing } from '@inrupt/solid-client';
+import { Thing, getSolidDataset, getStringNoLocale, getThing } from '@inrupt/solid-client';
 
 type Data = {
   name: string;

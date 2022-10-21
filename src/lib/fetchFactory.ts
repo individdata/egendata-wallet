@@ -1,4 +1,4 @@
-import { importJWK, JWK, SignJWT } from 'jose';
+import { JWK, SignJWT, importJWK } from 'jose';
 import { v4 as uuid } from 'uuid';
 
 async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: string, url: string) {

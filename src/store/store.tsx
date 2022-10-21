@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import langReducer from './slices/langSlice';
 
 export const store = configureStore({

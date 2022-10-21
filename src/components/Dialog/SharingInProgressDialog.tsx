@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FormEvent, useEffect, useState } from 'react';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import ControlFlowBaseDialog from './ControlFlowBaseDialog';
 import { CloseIcon, EmailIcon, ErrorIcon, OkIcon } from './icons';
 

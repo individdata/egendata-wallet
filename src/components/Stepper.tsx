@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import {
   Box,
   Container,
-  createTheme,
   Grid,
   Icon,
   Paper,
@@ -11,8 +10,9 @@ import {
   Theme,
   ThemeProvider,
   Typography,
+  createTheme,
 } from '@mui/material';
-import { Arrow, CheckIcon, StepOneIcon, StepOneActiveIcon, StepTwoIcon, StepTwoActiveIcon } from '../icons/stepper';
+import { Arrow, CheckIcon, StepOneActiveIcon, StepOneIcon, StepTwoActiveIcon, StepTwoIcon } from '../icons/stepper';
 import useRequest from '../hooks/useRequest';
 
 type Props = { requestId: string; landing: never } | { requestId: ''; landing: boolean };

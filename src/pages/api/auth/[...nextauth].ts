@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { JWK } from 'jose';
 import SolidProvider from '../../../lib/SolidProvider';
-import { getSolidDataset, getStringNoLocale, getThing, getUrl, Thing } from '@inrupt/solid-client';
+import { Thing, getSolidDataset, getStringNoLocale, getThing, getUrl } from '@inrupt/solid-client';
 
 type KeyPair = {
   privateKey: JWK;

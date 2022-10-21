@@ -1,4 +1,4 @@
-import { getSolidDataset, getStringNoLocale, getThing, getUrl, Thing } from '@inrupt/solid-client';
+import { Thing, getSolidDataset, getStringNoLocale, getThing, getUrl } from '@inrupt/solid-client';
 import useSWR from 'swr';
 import { decodeLogo } from '../lib/HandleLogo';
 
