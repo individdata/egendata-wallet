@@ -2,7 +2,7 @@
   "/+PMp+": [
     {
       "type": 0,
-      "value": "Something went wrong when sharing your document. Try again later."
+      "value": "Något gick fel med delningen av ditt dokument. Försök igen senare."
     }
   ],
   "1aMDvI": [
@@ -14,7 +14,7 @@
   "20LWpl": [
     {
       "type": 0,
-      "value": "Your shared document"
+      "value": "Ditt delade dokument"
     }
   ],
   "2PffNX": [
@@ -66,7 +66,7 @@
   "7TkBpL": [
     {
       "type": 0,
-      "value": "Waiting"
+      "value": "Väntar"
     }
   ],
   "8quOpv": [
@@ -96,7 +96,7 @@
   "CRXT3O": [
     {
       "type": 0,
-      "value": "Your unemployement certificate is now being shared with BNP Paribas."
+      "value": "Ditt arbetslöshetsintyg delas nu med BNP Paribas."
     }
   ],
   "DF7L5F": [
@@ -120,13 +120,13 @@
   "F50OAe": [
     {
       "type": 0,
-      "value": "Fetching..."
+      "value": "Hämtar..."
     }
   ],
   "Hzensj": [
     {
       "type": 0,
-      "value": "Your fetching is in progress but might take a while."
+      "value": "Dina data hämtas men det kan ta en stund."
     }
   ],
   "Iuny4B": [
@@ -254,7 +254,7 @@
   "QEzAbb": [
     {
       "type": 0,
-      "value": "By registering you accept our"
+      "value": "Genom att registrera accepterar du vår"
     },
     {
       "type": 1,
@@ -272,7 +272,7 @@
     },
     {
       "type": 0,
-      "value": " and "
+      "value": " och "
     },
     {
       "children": [
@@ -298,7 +298,7 @@
   "S3tJF0": [
     {
       "type": 0,
-      "value": "Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data."
+      "value": "Ditt arbetslöshetsintyg har nu hämtats från Arbetsförmedlingen. Klicka på visa data för att visa alla hämtade data."
     }
   ],
   "SI9BWw": [
@@ -316,7 +316,7 @@
   "UCFPOA": [
     {
       "type": 0,
-      "value": "You can always revoke your consent under Consents."
+      "value": "Du kan alltid återta ditt medgivande under menyn Medgivanden."
     }
   ],
   "URmXKu": [
@@ -340,7 +340,7 @@
   "XvkbpE": [
     {
       "type": 0,
-      "value": "Godkän och hämta "
+      "value": "Godkänn och hämta "
     },
     {
       "type": 1,
@@ -350,7 +350,7 @@
   "YCdA/w": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Epost"
     }
   ],
   "Yy59up": [
@@ -362,7 +362,7 @@
   "Z35aBz": [
     {
       "type": 0,
-      "value": "Add your email address to get notified when further actions are needed."
+      "value": "Lägg till din epostadress för att få notifieringar när du behöver agera."
     }
   ],
   "aDPXaf": [
@@ -374,7 +374,7 @@
   "aWT2YD": [
     {
       "type": 0,
-      "value": "We can't find your unemployment certificate. Make sure you're registered at Arbetsförmedlingen as unemployed."
+      "value": "Vi kan inte hitta ditt arbetslöshetsintyg. Försäkra dig om att du är registrerad som arbetssökande hos Arbetsförmedlingen."
     }
   ],
   "aeoy6U": [
@@ -422,7 +422,7 @@
   "ihPHBB": [
     {
       "type": 0,
-      "value": "Your "
+      "value": "Ditt "
     },
     {
       "type": 1,
@@ -430,7 +430,7 @@
     },
     {
       "type": 0,
-      "value": " is now being shared with "
+      "value": " delas nu med "
     },
     {
       "type": 1,
@@ -456,7 +456,7 @@
   "l8RpOr": [
     {
       "type": 0,
-      "value": "You can always revoke your consent under Consents."
+      "value": "Du kan alltid återta ditt medgivande under menyn Medgivanden."
     }
   ],
   "lEEJQP": [
@@ -492,7 +492,7 @@
   "o1FDX1": [
     {
       "type": 0,
-      "value": "Get your data"
+      "value": "Hämta dina data"
     }
   ],
   "oINMVj": [
@@ -504,19 +504,19 @@
   "pHE0rC": [
     {
       "type": 0,
-      "value": "Your fetching is processing, add your email and get notified when it's ready."
+      "value": "Dina data hämtas, ange din epostadress för att bli meddelad när de är hämtade."
     }
   ],
   "pqiVfp": [
     {
       "type": 0,
-      "value": "Something went wrong with your transfer. Try again later."
+      "value": "Något gick fel med din hämtning. Försök igen senare."
     }
   ],
   "pum/RZ": [
     {
       "type": 0,
-      "value": "View and share your document"
+      "value": "Visa och dela ditt dokument."
     }
   ],
   "qrKUHl": [
@@ -540,13 +540,13 @@
   "sN26ST": [
     {
       "type": 0,
-      "value": "Add email"
+      "value": "Lägg till epost"
     }
   ],
   "sg8aJi": [
     {
       "type": 0,
-      "value": "Sharing..."
+      "value": "Delar..."
     }
   ],
   "udrupD": [
@@ -558,19 +558,19 @@
   "wdTCcn": [
     {
       "type": 0,
-      "value": "Waiting for your data"
+      "value": "Väntar på dina data"
     }
   ],
   "xxJ8Ck": [
     {
       "type": 0,
-      "value": "Continue"
+      "value": "Fortsätt"
     }
   ],
   "yU4pU6": [
     {
       "type": 0,
-      "value": "Granska ditt Unemployment certificate och dela med BNP Paribas."
+      "value": "Granska ditt arbetslöshetsintyg och dela med BNP Paribas."
     }
   ],
   "yV4Xg2": [

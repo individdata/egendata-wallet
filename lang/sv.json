@@ -1,6 +1,6 @@
 {
   "/+PMp+": {
-    "defaultMessage": "Something went wrong when sharing your document. Try again later.",
+    "defaultMessage": "Något gick fel med delningen av ditt dokument. Försök igen senare.",
     "description": "Sharing document modal, error."
   },
   "1aMDvI": {
@@ -8,7 +8,7 @@
     "description": "Menubar my data tab."
   },
   "20LWpl": {
-    "defaultMessage": "Your shared document",
+    "defaultMessage": "Ditt delade dokument",
     "description": "Second step of processing request."
   },
   "4G0feJ": {
@@ -28,7 +28,7 @@
     "description": "Index page main subtitle."
   },
   "7TkBpL": {
-    "defaultMessage": "Waiting",
+    "defaultMessage": "Väntar",
     "description": "Process document get data button."
   },
   "8quOpv": {
@@ -36,7 +36,7 @@
     "description": "Process document manage data button."
   },
   "CRXT3O": {
-    "defaultMessage": "Your unemployement certificate is now being shared with BNP Paribas.",
+    "defaultMessage": "Ditt arbetslöshetsintyg delas nu med BNP Paribas.",
     "description": "Sharing document modal, successful."
   },
   "DF7L5F": {
@@ -52,11 +52,11 @@
     "description": "Process document from text (document origin)."
   },
   "F50OAe": {
-    "defaultMessage": "Fetching...",
+    "defaultMessage": "Hämtar...",
     "description": "Fetching document modal."
   },
   "Hzensj": {
-    "defaultMessage": "Your fetching is in progress but might take a while.",
+    "defaultMessage": "Dina data hämtas men det kan ta en stund.",
     "description": "Modal for waiting for fetching."
   },
   "JvjNu7": {
@@ -72,7 +72,7 @@
     "description": "Requests listing subtitle for incomplete tasks."
   },
   "QEzAbb": {
-    "defaultMessage": "By registering you accept our{linebreak}<linkPrivacyPolicy>Privacy Policy</linkPrivacyPolicy> and <linkTermsOfService>Terms of service</linkTermsOfService>.",
+    "defaultMessage": "Genom att registrera accepterar du vår{linebreak}<linkPrivacyPolicy>Privacy Policy</linkPrivacyPolicy> och <linkTermsOfService>Terms of service</linkTermsOfService>.",
     "description": "Landing page terms and conditions text."
   },
   "RgYSBk": {
@@ -80,7 +80,7 @@
     "description": "Menubar profile button."
   },
   "S3tJF0": {
-    "defaultMessage": "Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data.",
+    "defaultMessage": "Ditt arbetslöshetsintyg har nu hämtats från Arbetsförmedlingen. Klicka på visa data för att visa alla hämtade data.",
     "description": "Fetching document modal, successful."
   },
   "SI9BWw": {
@@ -92,7 +92,7 @@
     "description": "Request listing loading data."
   },
   "UCFPOA": {
-    "defaultMessage": "You can always revoke your consent under Consents.",
+    "defaultMessage": "Du kan alltid återta ditt medgivande under menyn Medgivanden.",
     "description": "Sharing document modal, successful information."
   },
   "VR+Zu1": {
@@ -100,11 +100,11 @@
     "description": "Menu alternative for account details."
   },
   "XvkbpE": {
-    "defaultMessage": "Godkän och hämta {document}",
+    "defaultMessage": "Godkänn och hämta {document}",
     "description": "Stepper first step description."
   },
   "YCdA/w": {
-    "defaultMessage": "Email",
+    "defaultMessage": "Epost",
     "description": "Fetching document modal, label for email input."
   },
   "Yy59up": {
@@ -112,11 +112,11 @@
     "description": "Menubar consents tab."
   },
   "Z35aBz": {
-    "defaultMessage": "Add your email address to get notified when further actions are needed.",
+    "defaultMessage": "Lägg till din epostadress för att få notifieringar när du behöver agera.",
     "description": "Sharing document modal, get notified by email."
   },
   "aWT2YD": {
-    "defaultMessage": "We can't find your unemployment certificate. Make sure you're registered at Arbetsförmedlingen as unemployed.",
+    "defaultMessage": "Vi kan inte hitta ditt arbetslöshetsintyg. Försäkra dig om att du är registrerad som arbetssökande hos Arbetsförmedlingen.",
     "description": "Fetching document modal, missing prerequisites."
   },
   "aeoy6U": {
@@ -152,7 +152,7 @@
     "description": "Landing page footer disclaimer."
   },
   "o1FDX1": {
-    "defaultMessage": "Get your data",
+    "defaultMessage": "Hämta dina data",
     "description": "Stepper first step title."
   },
   "oINMVj": {
@@ -160,15 +160,15 @@
     "description": "Menu alternative for language selection."
   },
   "pHE0rC": {
-    "defaultMessage": "Your fetching is processing, add your email and get notified when it's ready.",
+    "defaultMessage": "Dina data hämtas, ange din epostadress för att bli meddelad när de är hämtade.",
     "description": "Fetching document modal, took too long time."
   },
   "pqiVfp": {
-    "defaultMessage": "Something went wrong with your transfer. Try again later.",
+    "defaultMessage": "Något gick fel med din hämtning. Försök igen senare.",
     "description": "Fetching document modal, error."
   },
   "pum/RZ": {
-    "defaultMessage": "View and share your document",
+    "defaultMessage": "Visa och dela ditt dokument.",
     "description": "Second step of processing request."
   },
   "qrKUHl": {
@@ -180,19 +180,19 @@
     "description": "Process document view and share data button."
   },
   "sN26ST": {
-    "defaultMessage": "Add email",
+    "defaultMessage": "Lägg till epost",
     "description": "Fetching document modal, button for adding email."
   },
   "sg8aJi": {
-    "defaultMessage": "Sharing...",
+    "defaultMessage": "Delar...",
     "description": "Sharing document modal."
   },
   "wdTCcn": {
-    "defaultMessage": "Waiting for your data",
+    "defaultMessage": "Väntar på dina data",
     "description": "First step of processing request."
   },
   "xxJ8Ck": {
-    "defaultMessage": "Continue",
+    "defaultMessage": "Fortsätt",
     "description": "Landing page continue button."
   },
   "yV4Xg2": {
@@ -268,7 +268,7 @@
     "description": "Popup next button."
   },
   "ihPHBB": {
-    "defaultMessage": "Your {document} is now being shared with {party}.",
+    "defaultMessage": "Ditt {document} delas nu med {party}.",
     "description": "Successfully shared document title."
   },
   "kyYPLX": {
@@ -276,7 +276,7 @@
     "description": "Checkbox text."
   },
   "l8RpOr": {
-    "defaultMessage": "You can always revoke your consent under Consents.",
+    "defaultMessage": "Du kan alltid återta ditt medgivande under menyn Medgivanden.",
     "description": "Successfully shared document subtitle."
   },
   "m0KhCy": {
@@ -296,7 +296,7 @@
     "description": "Popup close button."
   },
   "yU4pU6": {
-    "defaultMessage": "Granska ditt Unemployment certificate och dela med BNP Paribas.",
+    "defaultMessage": "Granska ditt arbetslöshetsintyg och dela med BNP Paribas.",
     "description": "Popup subtitle when reviewing document to share."
   },
   "Iuny4B": {
