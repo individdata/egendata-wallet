@@ -18,7 +18,11 @@ import useRequest from '../hooks/useRequest';
 type Props = { requestId: string; landing: never } | { requestId: ''; landing: boolean };
 
 function Stepper({ requestId = '', landing = false }: Props) {
-  const { request, isLoading } = useRequest(requestId);
+  const { request, isLoading, isError } = useRequest(requestId);
+
+  if (isError) {
+    return;
+  }
 
   if (!landing && isLoading) {
     return <Skeleton height="130px" />;

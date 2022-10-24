@@ -26,10 +26,11 @@ type Props = {
 
 function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
   const [showInfo, setShowInfo] = useState(false);
+  const { request, isLoading, isError } = useRequest(requestId);
 
-  const { request, isLoading } = useRequest(requestId);
-  // TODO: Fetch some details about the request?
-  // const { requestor, isLoading: isRequestorLoading } = useRequestorInfo( () => request.requestorWebId );
+  if (isError) {
+    return;
+  }
 
   if (isLoading) {
     return <Skeleton height="55px" />;

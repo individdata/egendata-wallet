@@ -69,7 +69,6 @@ export default function SolidProvider<P extends SolidProfile>(options: OAuthUser
       },
     },
     profile(profile) {
-      console.log(profile);
       return {
         id: profile.sub,
         webid: profile.sub,

@@ -6,6 +6,8 @@ import { authOptions } from '../auth/[...nextauth]';
 import fetchFactory from '../../../lib/fetchFactory';
 import { changeToFetching, changeToSharing, getRequestWithState } from '../../../lib/requestStateChanger';
 
+import logger from '../../../lib/logger';
+
 type RequestInfo = {
   outbound: {} | {}[];
   data: {};
@@ -53,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
       response = await getRequestWithState(requestURL, fetch);
     } catch (error: any) {
-      console.error(error);
+      logger.warn(error, `Failed to fetch information about request ${requestURL.toString()}`);
       res.status(500).end();
       return;
     }
@@ -68,6 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     if (req.body.new_state === 'fetching') {
+      logger.info(`Changing state of request ${id} to 'fetching'.`);
       const baseURL = new URL(process.env.EGENDATA_PATH_FRAGMENT as string, session.storage);
 
       const requestURL = new URL(`requests/subject/${id}`, baseURL);
@@ -75,18 +78,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       try {
         await changeToFetching(session.webid, requestURL, fetch);
       } catch (error: any) {
-        console.log('Something went wrong when updating state to fetching.', error);
+        logger.error(error, `Failed to change state of ${requestURL.toString()} to fetching.`);
         res.status(500).end();
         return;
       }
 
-      console.log(`Accepted consent to fetch for ${id}`);
+      logger.info(`Accepted consent to fetch for ${id}`);
 
       // res.status(201).json([subjectRequest, consentProvider, dataStore, notification]);
       res.status(201).json({ state: 'fetching' });
     }
 
     if (req.body.new_state === 'sharing') {
+      logger.info(`Changing state of request ${id} to 'sharing'.`);
       const baseURL = new URL(process.env.EGENDATA_PATH_FRAGMENT as string, session.storage);
 
       const requestURL = new URL(`requests/subject/${id}`, baseURL);
@@ -96,12 +100,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       try {
         await changeToSharing(session.webid, requestURL, fetch);
       } catch (error: any) {
-        console.log('Something went wrong when updating state to sharing.', error);
+        logger.error(error, `Failed to change state of ${requestURL.toString()} to sharing.`);
         res.status(500).end();
         return;
       }
 
-      console.log(`Accepted consent to share for ${id}`);
+      logger.info(`Accepted consent to share for ${id}`);
 
       // res.status(201).json([subjectRequest, consentProvider, dataStore, notification]);
       res.status(201).json({ state: 'sharing' });
