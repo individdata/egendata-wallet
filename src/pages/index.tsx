@@ -1,53 +1,66 @@
 import React from 'react';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
-import { Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import styles from './index.module.css';
-import OakLogo from '../components/OakLogo/OakLogo';
 import Link from '../lib/Link';
 
 function Index() {
   const router = useRouter();
 
   return (
-    <Grid container className={styles.container}>
-      <Grid item xs={12} md={6} className={styles.left}>
-        <article>
-          <Image className={styles.logo} alt="left-logo" src="/images/oak-green.png" width="54" height="80" />
-          <h1 className={styles.title}>
+    <Grid container component="main">
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{
+          height: '100vh',
+          backgroundImage: 'url(/leaves.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+        container
+        direction="column"
+        justifyContent="center"
+      >
+        <Grid item textAlign="center">
+          <Typography variant="h1" component="h1">
             <FormattedMessage
               id="aeoy6U"
               defaultMessage="Your data in your control"
               description="Index page main text."
             />
-          </h1>
-          <h3 className={styles.subtitle}>
+          </Typography>
+          <Typography variant="h3" component="h2">
             <FormattedMessage
               id="6RE9ba"
               defaultMessage="Project Oak is a governmental initiative that allows you to store and transfer digital information between public and private organizations."
               description="Index page main subtitle."
             />
-          </h3>
-        </article>
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={6} className={styles.right}>
-        <header>
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              paddingTop: 16,
-            }}
-          >
-            <OakLogo />
-          </div>
-        </header>
-        <main>
-          <Grid container flexDirection="column">
+
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{
+          height: '100vh',
+        }}
+        container
+        direction="column"
+        justifyContent="space-between"
+      >
+        <Grid item container direction="row" gap={1} padding={8}>
+          <Image src="/images/oak-green.png" width="27px" height="40px" />
+          <Typography fontSize={30}>Egendata</Typography>
+        </Grid>
+
+        <Grid item>
+          <Grid container flexDirection="column" textAlign="center">
             <Grid item>
               <Typography variant="h1" component="h1" fontSize={40}>
                 <FormattedMessage
@@ -80,7 +93,8 @@ function Index() {
               </Typography>
             </Grid>
           </Grid>
-        </main>
+        </Grid>
+        <Grid item flexBasis={40} />
       </Grid>
     </Grid>
   );
