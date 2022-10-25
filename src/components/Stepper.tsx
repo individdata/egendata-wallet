@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  Box,
-  Container,
-  Grid,
-  Icon,
-  Paper,
-  Skeleton,
-  Theme,
-  ThemeProvider,
-  Typography,
-  createTheme,
-} from '@mui/material';
+import { Box, Container, Grid, Paper, Skeleton, Theme, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { Arrow, CheckIcon, StepOneActiveIcon, StepOneIcon, StepTwoActiveIcon, StepTwoIcon } from '../icons/stepper';
 import useRequest from '../hooks/useRequest';
 
 type Props = { requestId: string; landing: never } | { requestId: ''; landing: boolean };
 
 function Stepper({ requestId = '', landing = false }: Props) {
-  const { request, isLoading } = useRequest(requestId);
+  const { request, isLoading, isError } = useRequest(requestId);
+
+  if (isError) {
+    return <></>;
+  }
 
   if (!landing && isLoading) {
     return <Skeleton height="130px" />;

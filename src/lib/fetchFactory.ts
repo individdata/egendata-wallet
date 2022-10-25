@@ -1,6 +1,8 @@
 import { JWK, SignJWT, importJWK } from 'jose';
 import { v4 as uuid } from 'uuid';
 
+import logger from './logger';
+
 async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: string, url: string) {
   jwkPrivateKey.alg = 'ES256';
   const privateKey = await importJWK(jwkPrivateKey);
@@ -50,6 +52,12 @@ export default function fetchFactory(props: fetchFactoryProps): fetchInterface {
     init.headers.set('Authorization', `DPoP ${dpopToken}`);
     init.headers.set('DPoP', dpopHeader);
 
-    return await fetch(input, init);
+    const rv = await fetch(input, init);
+    if (rv.ok) {
+      logger.debug(`Successfully fetched ${input} (${init.method}).`);
+    } else {
+      logger.debug(rv, `Failed to fetch ${input} (${init.method}) - status ${rv.status}.`);
+    }
+    return rv;
   };
 }

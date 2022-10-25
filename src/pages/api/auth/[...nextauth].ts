@@ -4,6 +4,8 @@ import { JWK } from 'jose';
 import SolidProvider from '../../../lib/SolidProvider';
 import { Thing, getSolidDataset, getStringNoLocale, getThing, getUrl } from '@inrupt/solid-client';
 
+import logger from '../../../lib/logger';
+
 type KeyPair = {
   privateKey: JWK;
   publicKey: JWK;
@@ -21,6 +23,8 @@ export async function fetchProfileData(webId: string) {
 // openid-client has some support for this?
 // See https://github.com/panva/node-openid-client/blob/main/docs/README.md#clientregistermetadata-other
 export function registerCredentials() {
+  logger.info('Registering new application credentials.');
+
   const options = { clientId: '', clientSecret: '' };
   const body = {
     client_name: 'Egendata Wallet',
@@ -46,7 +50,7 @@ export function registerCredentials() {
         return options;
       },
       (error) => {
-        console.log(error);
+        logger.error(error, 'Failed to register application credentials with IDP.');
       },
     );
   return options;
@@ -71,7 +75,7 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
 
         // Check if token has expired
         const now = Math.floor(Date.now() / 1000);
-        console.log('Token expires in ', (token.dpopTokenExpiresAt as number) - now);
+        logger.debug(`Token expires in ${(token.dpopTokenExpiresAt as number) - now}`);
         // if ((token.dpopTokenExpiresAt as number) < now) {
         //   signOut();
         // }
@@ -93,8 +97,11 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
       },
     },
     events: {
+      signIn: (user) => {
+        logger.info(`User successfully signed in, ${user.user.webid} (${user.account!.provider}).`);
+      },
       signOut: (token) => {
-        console.log(`Signing out (${token})`);
+        logger.info(`Signing out user ${token.token.webid}.`);
       },
     },
   };
