@@ -1,17 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  Box,
-  Container,
-  Grid,
-  Icon,
-  Paper,
-  Skeleton,
-  Theme,
-  ThemeProvider,
-  Typography,
-  createTheme,
-} from '@mui/material';
+import { Box, Container, Grid, Paper, Skeleton, Theme, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { Arrow, CheckIcon, StepOneActiveIcon, StepOneIcon, StepTwoActiveIcon, StepTwoIcon } from '../icons/stepper';
 import useRequest from '../hooks/useRequest';
 
@@ -21,7 +10,7 @@ function Stepper({ requestId = '', landing = false }: Props) {
   const { request, isLoading, isError } = useRequest(requestId);
 
   if (isError) {
-    return;
+    return <></>;
   }
 
   if (!landing && isLoading) {

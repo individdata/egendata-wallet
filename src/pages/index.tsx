@@ -1,14 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
-import { Box, Button, Grid, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
+import { Button, Grid, Typography } from '@mui/material';
 import { signIn } from 'next-auth/react';
 import Link from '../lib/Link';
 
 function Index() {
-  const router = useRouter();
-
   return (
     <Grid container component="main">
       <Grid
@@ -55,7 +52,7 @@ function Index() {
         justifyContent="space-between"
       >
         <Grid item container direction="row" gap={1} padding={8}>
-          <Image src="/images/oak-green.png" width="27px" height="40px" />
+          <Image src="/images/oak-green.png" width="27px" height="40px" alt="" />
           <Typography fontSize={30}>Egendata</Typography>
         </Grid>
 

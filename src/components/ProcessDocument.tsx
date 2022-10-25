@@ -29,7 +29,7 @@ function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
   const { request, isLoading, isError } = useRequest(requestId);
 
   if (isError) {
-    return;
+    return <></>;
   }
 
   if (isLoading) {

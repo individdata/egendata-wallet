@@ -1,20 +1,11 @@
 import {
   Thing,
-  buildThing,
-  createAcl,
-  createSolidDataset,
-  createThing,
   getDatetime,
   getSolidDataset,
-  getSolidDatasetWithAcl,
   getStringNoLocale,
   getThing,
   getUrl,
   getUrlAll,
-  saveAclFor,
-  saveSolidDatasetAt,
-  setAgentResourceAccess,
-  setThing,
 } from '@inrupt/solid-client';
 import { ResponseData } from '../pages/api/request/[id]';
 import { fetchInterface } from './fetchFactory';
