@@ -1,8 +1,9 @@
 import React from 'react';
 import { Avatar, Grid, ListItem, ListItemButton, Skeleton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import useRequestorInfo from '../../hooks/useRequestorInfo';
+import useProfile from '../../hooks/useProfile';
 import { GetResponseItem } from '../../pages/api/request';
+import useLogo from '../../hooks/useLogo';
 
 type RequestListItemProps = {
   request: GetResponseItem;
@@ -11,12 +12,17 @@ type RequestListItemProps = {
 };
 
 function RequestListItem({ request, unread = false }: RequestListItemProps) {
-  const { requestor, isLoading: isRequestorLoading } = useRequestorInfo(() => request.requestorWebId);
+  const {
+    profile: requestor,
+    isLoading: isRequestorLoading,
+    isError: isRequestorError,
+  } = useProfile(request.requestorWebId);
+  const { logo, isLogoLoading } = useLogo(!isRequestorLoading && !isRequestorError ? requestor.logo : null);
+
   const router = useRouter();
-  console.log('RequestListItme, request:', request);
 
   return (
-    <ListItem key={request.id}>
+    <ListItem key={request.id} data-testid="RequestItem">
       <ListItemButton
         onClick={() => router.push(`/request/${request.id}`)}
         sx={{
@@ -24,15 +30,16 @@ function RequestListItem({ request, unread = false }: RequestListItemProps) {
           flexGrow: 1,
         }}
       >
-        <Avatar src={isRequestorLoading ? '' : (requestor?.logo as string)}>?</Avatar>
+        <Avatar src={isLogoLoading ? '' : logo} data-testid="avatar"></Avatar>
         <Grid container spacing={2} maxHeight="60px" marginLeft={1} alignItems="center">
           <Grid item xs={3}>
             <Typography
               sx={{
                 ...(unread && { fontWeight: '600' }),
               }}
+              data-testid="requestorName"
             >
-              {isRequestorLoading ? '...' : requestor?.name}
+              {isRequestorLoading ? <Skeleton /> : isRequestorError ? '' : requestor.name}
             </Typography>
           </Grid>
           <Grid item xs={6} md={7}>

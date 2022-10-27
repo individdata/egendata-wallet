@@ -123,6 +123,22 @@
       "value": "Hämtar..."
     }
   ],
+  "FG6mxq": [
+    {
+      "type": 0,
+      "value": "From: "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "provider"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
+    }
+  ],
   "Hzensj": [
     {
       "type": 0,
@@ -173,6 +189,22 @@
     {
       "type": 0,
       "value": "Dina pågående uppgifter"
+    }
+  ],
+  "LsOV2y": [
+    {
+      "type": 0,
+      "value": "From: "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "provider"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
     }
   ],
   "MrflTl": [
@@ -305,6 +337,12 @@
     {
       "type": 0,
       "value": "Arbetslöshetsintyg"
+    }
+  ],
+  "SSlkv5": [
+    {
+      "type": 0,
+      "value": "Could not retrieve data..."
     }
   ],
   "TZmGLi": [
@@ -559,6 +597,22 @@
     {
       "type": 0,
       "value": "Väntar på dina data"
+    }
+  ],
+  "xoQ5iA": [
+    {
+      "type": 0,
+      "value": "Share with: "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "requestor"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
     }
   ],
   "xxJ8Ck": [

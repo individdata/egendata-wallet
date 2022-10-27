@@ -71,16 +71,26 @@
       "value": "Completed tasks"
     }
   ],
-  "ErkLAo": [
-    {
-      "type": 0,
-      "value": "From"
-    }
-  ],
   "F50OAe": [
     {
       "type": 0,
       "value": "Fetching..."
+    }
+  ],
+  "FG6mxq": [
+    {
+      "type": 0,
+      "value": "From: "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "provider"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
     }
   ],
   "Hzensj": [
@@ -167,10 +177,10 @@
       "value": "Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data."
     }
   ],
-  "SI9BWw": [
+  "SSlkv5": [
     {
       "type": 0,
-      "value": "Unemployment certificate"
+      "value": "Could not retrieve data..."
     }
   ],
   "TZmGLi": [
@@ -331,6 +341,22 @@
     {
       "type": 0,
       "value": "Waiting for your data"
+    }
+  ],
+  "xoQ5iA": [
+    {
+      "type": 0,
+      "value": "Share with: "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "requestor"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
     }
   ],
   "xxJ8Ck": [

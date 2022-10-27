@@ -9,11 +9,22 @@ type RequestListProps = {
 };
 
 function RequestList({ onRequestSelect }: RequestListProps) {
-  const { requests, isLoading } = useRequests();
+  const { requests, isLoading, isError } = useRequests();
+
+  if (isError)
+    return (
+      <Typography sx={{ textAlign: 'center' }} data-testid="errorMessage">
+        <FormattedMessage
+          id="SSlkv5"
+          defaultMessage="Could not retrieve data..."
+          description="Request listing error when loading data."
+        />
+      </Typography>
+    );
 
   if (isLoading)
     return (
-      <Typography sx={{ textAlign: 'center' }}>
+      <Typography sx={{ textAlign: 'center' }} data-testid="loadingMessage">
         <FormattedMessage id="TZmGLi" defaultMessage="Loading data..." description="Request listing loading data." />
       </Typography>
     );
@@ -32,13 +43,13 @@ function RequestList({ onRequestSelect }: RequestListProps) {
     <Grid container justifyContent="center">
       <Grid item xs={12} md={10} lg={8}>
         {unsharedRequests?.length === 0 && sharedRequests?.length === 0 && (
-          <Typography component="h1" variant="h4" sx={{ textAlign: 'center' }}>
+          <Typography component="h1" variant="h4" sx={{ textAlign: 'center' }} data-testid="noTasks">
             <FormattedMessage id="LPU/Zd" defaultMessage="No tasks available." description="Requests listing empty." />
           </Typography>
         )}
         <List>
           {unsharedRequests?.length !== 0 && (
-            <ListSubheader>
+            <ListSubheader data-testid="incompleteSubheader">
               <FormattedMessage
                 id="Lgsy+X"
                 defaultMessage="Your incomplete tasks"
@@ -48,7 +59,7 @@ function RequestList({ onRequestSelect }: RequestListProps) {
           )}
           {nonSharedList}
           {sharedRequests?.length !== 0 && (
-            <ListSubheader>
+            <ListSubheader data-testid="completeSubheader">
               <FormattedMessage
                 id="EgF3o6"
                 defaultMessage="Completed tasks"

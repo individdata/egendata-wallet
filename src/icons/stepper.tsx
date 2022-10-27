@@ -10,7 +10,7 @@ export const StepOneIcon = createSvgIcon(
       fill="#FFFFFF"
     />
   </>,
-  'Step one',
+  'One',
 );
 
 export const StepOneActiveIcon = createSvgIcon(
@@ -21,7 +21,7 @@ export const StepOneActiveIcon = createSvgIcon(
       fill="#2D43A5"
     />
   </>,
-  'Step one active',
+  'OneActive',
 );
 
 export const StepTwoIcon = createSvgIcon(
@@ -32,7 +32,7 @@ export const StepTwoIcon = createSvgIcon(
       fill="#FFFFFF"
     />
   </>,
-  'Step two',
+  'Two',
 );
 
 export const StepTwoActiveIcon = createSvgIcon(
@@ -43,7 +43,7 @@ export const StepTwoActiveIcon = createSvgIcon(
       fill="#2D43A5"
     />
   </>,
-  'Step two active',
+  'TwoActive',
 );
 
 export const CheckIcon = createSvgIcon(

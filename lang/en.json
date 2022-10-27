@@ -47,13 +47,13 @@
     "defaultMessage": "Completed tasks",
     "description": "Request listing subtitle for completed tasks."
   },
-  "ErkLAo": {
-    "defaultMessage": "From",
-    "description": "Process document from text (document origin)."
-  },
   "F50OAe": {
     "defaultMessage": "Fetching...",
     "description": "Fetching document modal."
+  },
+  "FG6mxq": {
+    "defaultMessage": "From: <bold>{provider}</bold>",
+    "description": "Process document from provider."
   },
   "Hzensj": {
     "defaultMessage": "Your fetching is in progress but might take a while.",
@@ -83,9 +83,9 @@
     "defaultMessage": "Your Registration certificate from Arbetsförmedlingen has now been fetched. Click view data to review all the fetched data.",
     "description": "Fetching document modal, successful."
   },
-  "SI9BWw": {
-    "defaultMessage": "Unemployment certificate",
-    "description": "Process document, name of document."
+  "SSlkv5": {
+    "defaultMessage": "Could not retrieve data...",
+    "description": "Request listing error when loading data."
   },
   "TZmGLi": {
     "defaultMessage": "Loading data...",
@@ -190,6 +190,10 @@
   "wdTCcn": {
     "defaultMessage": "Waiting for your data",
     "description": "First step of processing request."
+  },
+  "xoQ5iA": {
+    "defaultMessage": "Share with: <bold>{requestor}</bold>",
+    "description": "Share document with requestor."
   },
   "xxJ8Ck": {
     "defaultMessage": "Continue",

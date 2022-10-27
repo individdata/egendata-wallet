@@ -47,13 +47,13 @@
     "defaultMessage": "Avslutade uppgifter",
     "description": "Request listing subtitle for completed tasks."
   },
-  "ErkLAo": {
-    "defaultMessage": "Från",
-    "description": "Process document from text (document origin)."
-  },
   "F50OAe": {
     "defaultMessage": "Hämtar...",
     "description": "Fetching document modal."
+  },
+  "FG6mxq": {
+    "defaultMessage": "From: <bold>{provider}</bold>",
+    "description": "Process document from provider."
   },
   "Hzensj": {
     "defaultMessage": "Dina data hämtas men det kan ta en stund.",
@@ -83,9 +83,9 @@
     "defaultMessage": "Ditt arbetslöshetsintyg har nu hämtats från Arbetsförmedlingen. Klicka på visa data för att visa alla hämtade data.",
     "description": "Fetching document modal, successful."
   },
-  "SI9BWw": {
-    "defaultMessage": "Arbetslöshetsintyg",
-    "description": "Process document, name of document."
+  "SSlkv5": {
+    "defaultMessage": "Could not retrieve data...",
+    "description": "Request listing error when loading data."
   },
   "TZmGLi": {
     "defaultMessage": "Läser in data...",
@@ -191,6 +191,10 @@
     "defaultMessage": "Väntar på dina data",
     "description": "First step of processing request."
   },
+  "xoQ5iA": {
+    "defaultMessage": "Share with: <bold>{requestor}</bold>",
+    "description": "Share document with requestor."
+  },
   "xxJ8Ck": {
     "defaultMessage": "Fortsätt",
     "description": "Landing page continue button."
@@ -198,6 +202,18 @@
   "yV4Xg2": {
     "defaultMessage": "Granska dina data innan de delas med {party}",
     "description": "Stepper second step description."
+  },
+  "LsOV2y": {
+    "defaultMessage": "From: <bold>{provider}</bold>",
+    "description": "Process document from text (document origin)."
+  },
+  "ErkLAo": {
+    "defaultMessage": "Från",
+    "description": "Process document from text (document origin)."
+  },
+  "SI9BWw": {
+    "defaultMessage": "Arbetslöshetsintyg",
+    "description": "Process document, name of document."
   },
   "9PXjGU": {
     "defaultMessage": "Dela mina data",

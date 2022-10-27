@@ -17,6 +17,7 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ArrowDown, ArrowUpRight, DocumentIcon } from '../icons/icons';
 import useRequest from '../hooks/useRequest';
+import useProfile from '../hooks/useProfile';
 
 type Props = {
   requestId: string;
@@ -24,16 +25,23 @@ type Props = {
   onShowConsentClick: () => void;
 };
 
-function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
+type Profile = {
+  name: string;
+  logo: string;
+};
+
+export function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
   const [showInfo, setShowInfo] = useState(false);
   const { request, isLoading, isError } = useRequest(requestId);
+  const { profile: requestor, isLoading: isRequestorLoading } = useProfile(!isLoading ? request.requestorWebId : null);
+  const { profile: provider, isLoading: isProviderLoading } = useProfile(!isLoading ? request.providerWebId : null);
 
   if (isError) {
     return <></>;
   }
 
   if (isLoading) {
-    return <Skeleton height="55px" />;
+    return <Skeleton height="55px" data-testid="Loading" />;
   }
 
   const { state } = request;
@@ -77,7 +85,7 @@ function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
           })
         }
       >
-        <Typography variant="h5" component="h2" marginBottom={2}>
+        <Typography variant="h5" component="h2" marginBottom={2} data-testid="Subheader">
           {state === 'received' && (
             <>
               <Typography variant="h5" component="span">
@@ -127,25 +135,44 @@ function ProcessDocument({ requestId, onGetClick, onShowConsentClick }: Props) {
               <Grid item xs={6} textAlign="left">
                 <Stack direction="row" alignItems="center">
                   <DocumentIcon />
-                  <Typography fontSize="large" paddingLeft={1}>
-                    <FormattedMessage
-                      id="SI9BWw"
-                      defaultMessage="Unemployment certificate"
-                      description="Process document, name of document."
-                    />
+                  <Typography fontSize="large" paddingLeft={1} data-testid="DocumentTitle">
+                    {!isLoading ? request.documentTitle : ''}
                   </Typography>
                 </Stack>
 
+                {(isProviderLoading || isRequestorLoading) && <Skeleton data-testid="Skeleton" />}
+
                 <Typography>
-                  <FormattedMessage
-                    id="ErkLAo"
-                    defaultMessage="From"
-                    description="Process document from text (document origin)."
-                  />
-                  :&nbsp;
-                  <Typography component="span" sx={{ color: '#65D36E' }}>
-                    Arbetsförmedlingen
-                  </Typography>
+                  {['received', 'fetching'].includes(request.state) && !isProviderLoading && (
+                    <FormattedMessage
+                      id="FG6mxq"
+                      defaultMessage="From: <bold>{provider}</bold>"
+                      description="Process document from provider."
+                      values={{
+                        provider: provider.name,
+                        bold: (msg) => (
+                          <Typography component="span" sx={{ color: '#65D36E' }} data-testid="ProviderName">
+                            {msg}
+                          </Typography>
+                        ),
+                      }}
+                    />
+                  )}
+                  {['available', 'sharing'].includes(request.state) && !isRequestorLoading && (
+                    <FormattedMessage
+                      id="xoQ5iA"
+                      defaultMessage="Share with: <bold>{requestor}</bold>"
+                      description="Share document with requestor."
+                      values={{
+                        requestor: requestor.name,
+                        bold: (msg) => (
+                          <Typography component="span" sx={{ color: '#65D36E' }} data-testid="RequestorName">
+                            {msg}
+                          </Typography>
+                        ),
+                      }}
+                    />
+                  )}
                 </Typography>
               </Grid>
               <Grid item xs={6} alignSelf="center" textAlign="right">

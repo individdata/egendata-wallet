@@ -1,30 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
 import { v4 as uuid } from 'uuid';
 import { getToken } from 'next-auth/jwt';
 import {
   Thing,
-  buildThing,
-  createAcl,
-  createSolidDataset,
-  createThing,
   getContainedResourceUrlAll,
   getDatetime,
-  getResourceAcl,
-  getResourceInfoWithAcl,
   getSolidDataset,
-  getSolidDatasetWithAcl,
   getStringNoLocale,
   getThing,
   getUrl,
-  hasAcl,
-  saveAclFor,
-  saveSolidDatasetAt,
-  setAgentResourceAccess,
-  setIri,
-  setThing,
-  setUrl,
 } from '@inrupt/solid-client';
 import fetchFactory from '../../../lib/fetchFactory';
 import { authOptions } from '../auth/[...nextauth]';

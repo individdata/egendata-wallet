@@ -25,7 +25,7 @@ import { FormattedMessage } from 'react-intl';
 import { ExitIcon, GlobeIcon, MenuIcon, ProfileIcon } from '../../icons/icons';
 import { RootState } from '../../store/store';
 import { changeLang } from '../../store/slices/langSlice';
-import useUser from '../../hooks/useUser';
+import useLoginInfoUser from '../../hooks/useUser';
 
 type MenuBarProps = {
   disabledNav?: boolean;
@@ -33,7 +33,7 @@ type MenuBarProps = {
 
 export default function MenuBar({ disabledNav = false }: MenuBarProps) {
   const { data: session, status } = useSession();
-  const { user, isLoading, isError } = useUser();
+  const { user, isLoading, isError } = useLoginInfoUser();
 
   const dispatch = useDispatch();
   const router = useRouter();

@@ -1,4 +1,4 @@
-import React, { ReactPropTypes } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';

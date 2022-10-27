@@ -6,7 +6,7 @@ import useRequest from '../hooks/useRequest';
 
 type Props = { requestId: string; landing: never } | { requestId: ''; landing: boolean };
 
-function Stepper({ requestId = '', landing = false }: Props) {
+export function Stepper({ requestId = '', landing = false }: Props) {
   const { request, isLoading, isError } = useRequest(requestId);
 
   if (isError) {
@@ -14,7 +14,7 @@ function Stepper({ requestId = '', landing = false }: Props) {
   }
 
   if (!landing && isLoading) {
-    return <Skeleton height="130px" />;
+    return <Skeleton height="130px" data-testid="StepperSkeleton" />;
   }
 
   let stepOne = <StepOneIcon />;
@@ -66,20 +66,24 @@ function Stepper({ requestId = '', landing = false }: Props) {
         <Paper elevation={0} sx={{ borderRadius: '16px' }}>
           <Container sx={{ paddingTop: 2, paddingBottom: 2 }}>
             {landing && (
-              <Typography variant="h6" fontSize={20} marginBottom={-1}>
+              <Typography variant="h6" fontSize={20} marginBottom={-1} data-testid="egendataBrandName">
                 Egendata
               </Typography>
             )}
 
             <Grid container spacing={0}>
               <Grid item sx={{ flexGrow: 1 }} />
-              <Grid item>{stepOne}</Grid>
+              <Grid item data-testid="StepOneIcon">
+                {stepOne}
+              </Grid>
               <Grid item sx={{ flexBasis: 0, flexGrow: 2, alignSelf: 'center' }}>
                 <Box textAlign="center">
                   <Arrow {...(arrowActive ? { color: '#65D36E' } : {})} />
                 </Box>
               </Grid>
-              <Grid item>{stepTwo}</Grid>
+              <Grid item data-testid="StepTwoIcon">
+                {stepTwo}
+              </Grid>
               <Grid item sx={{ flexGrow: 1 }} />
             </Grid>
 
