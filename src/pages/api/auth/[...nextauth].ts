@@ -29,7 +29,7 @@ export function registerCredentials() {
   const body = {
     client_name: 'Egendata Wallet',
     application_type: 'web',
-    redirect_uris: ['http://localhost:3000/api/auth/callback/solid'],
+    redirect_uris: [`${process.env.NEXT_PUBLIC_IDP_BASE_URL}api/auth/callback/solid`],
     subject_type: 'public',
     token_endpoint_auth_method: 'client_secret_basic',
     id_token_signed_response_alg: 'ES256',
