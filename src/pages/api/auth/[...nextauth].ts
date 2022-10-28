@@ -36,6 +36,8 @@ export function registerCredentials() {
     grant_types: ['authorization_code', 'refresh_token', 'client_credentials'],
   };
 
+  logger.info('Preparing application credentials registration.', body);
+
   const response = fetch(`${process.env.NEXT_PUBLIC_IDP_BASE_URL}.oidc/reg`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
