@@ -29,17 +29,16 @@ export function registerCredentials() {
   const body = {
     client_name: 'Egendata Wallet',
     application_type: 'web',
-    redirect_uris: [`${process.env.NEXTAUTH_URL}/api/auth/callback/solid`],
+    redirect_uris: [new URL('/api/auth/callback/solid', process.env.NEXTAUTH_URL)],
     subject_type: 'public',
     token_endpoint_auth_method: 'client_secret_basic',
     id_token_signed_response_alg: 'ES256',
-    grant_types: ['authorization_code', 'refresh_token', 'client_credentials'],
+    grant_types: ['authorization_code', 'refresh_token'],
   };
 
   logger.info(body, 'Preparing application credentials registration.');
-  logger.info(body);
 
-  const response = fetch(`${process.env.NEXT_PUBLIC_IDP_BASE_URL}.oidc/reg`, {
+  const response = fetch(new URL('.oidc/reg', process.env.NEXT_PUBLIC_IDP_BASE_URL), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     body: JSON.stringify(body),
