@@ -46,7 +46,7 @@ wss.on('connection', (ws, req) => {
 });
 
 if (process.env.EGENDATA_WITH_WEBSOCKET) {
-  console.info('Starting with websocket server');
+  console.log('Starting with websocket server');
   app.prepare().then(() => {
     const server = createServer(async (req, res) => {
       try {
@@ -56,7 +56,7 @@ if (process.env.EGENDATA_WITH_WEBSOCKET) {
         req.wsClients = wsClients;
         await handle(req, res, parsedUrl);
       } catch (err) {
-        console.error('Error occurred handling', req.url, err);
+        console.log('Error occurred handling', req.url, err);
         res.statusCode = 500;
         res.end('internal server error');
       }
@@ -81,7 +81,7 @@ if (process.env.EGENDATA_WITH_WEBSOCKET) {
     });
   });
 } else {
-  console.info('Starting without websocket server');
+  console.log('Starting without websocket server');
   app.prepare().then(() => {
     createServer(async (req, res) => {
       try {
