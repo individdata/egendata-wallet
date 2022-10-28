@@ -45,36 +45,56 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-app.prepare().then(() => {
-  const server = createServer(async (req, res) => {
-    try {
-      // Be sure to pass `true` as the second argument to `url.parse`.
-      // This tells it to parse the query portion of the URL.
-      const parsedUrl = parse(req.url, true);
-      req.wsClients = wsClients;
-      await handle(req, res, parsedUrl);
-    } catch (err) {
-      console.error('Error occurred handling', req.url, err);
-      res.statusCode = 500;
-      res.end('internal server error');
-    }
-  }).listen(port, (err) => {
-    if (err) throw err;
-    console.log(`> Ready on http://${hostname}:${port}`);
-  });
-
-  server.on('upgrade', async (req, socket, head) => {
-    const { pathname } = parse(req.url, true);
-    if (pathname !== '/_next/webpack-hmr') {
-      console.log('From upgrade event', req.url);
+if (process.env.EGENDATA_WITH_WEBSOCKET) {
+  console.info('Starting with websocket server');
+  app.prepare().then(() => {
+    const server = createServer(async (req, res) => {
       try {
-        wss.handleUpgrade(req, socket, head, (ws) => {
-          wss.emit('connection', ws, req);
-        });
+        // Be sure to pass `true` as the second argument to `url.parse`.
+        // This tells it to parse the query portion of the URL.
+        const parsedUrl = parse(req.url, true);
+        req.wsClients = wsClients;
+        await handle(req, res, parsedUrl);
       } catch (err) {
-        console.log('Socket upgrade failed', err);
-        socket.destroy();
+        console.error('Error occurred handling', req.url, err);
+        res.statusCode = 500;
+        res.end('internal server error');
       }
-    }
+    }).listen(port, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on http://${hostname}:${port}`);
+    });
+
+    server.on('upgrade', async (req, socket, head) => {
+      const { pathname } = parse(req.url, true);
+      if (pathname !== '/_next/webpack-hmr') {
+        console.log('From upgrade event', req.url);
+        try {
+          wss.handleUpgrade(req, socket, head, (ws) => {
+            wss.emit('connection', ws, req);
+          });
+        } catch (err) {
+          console.log('Socket upgrade failed', err);
+          socket.destroy();
+        }
+      }
+    });
   });
-});
+} else {
+  console.info('Starting without websocket server');
+  app.prepare().then(() => {
+    createServer(async (req, res) => {
+      try {
+        const parsedUrl = parse(req.url, true);
+        await handle(req, res, parsedUrl);
+      } catch (err) {
+        console.error('Error occurred handling', req.url, err);
+        res.statusCode = 500;
+        res.end('internal server error');
+      }
+    }).listen(port, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on http://${hostname}:${port}`);
+    });
+  });
+}

@@ -28,7 +28,7 @@ export default function SolidProvider<P extends SolidProfile>(options: OAuthUser
     id: 'solid',
     name: 'Solid',
     type: 'oauth',
-    wellKnown: `${process.env.NEXT_PUBLIC_IDP_BASE_URL}.well-known/openid-configuration`,
+    wellKnown: new URL('.well-known/openid-configuration', process.env.NEXT_PUBLIC_IDP_BASE_URL).toString(),
     authorization: { params: { grant_type: 'authorization_code', scope: 'openid offline_access webid' } },
     idToken: true,
     checks: ['pkce', 'state'], // TODO: Is "state" useful?
@@ -37,7 +37,7 @@ export default function SolidProvider<P extends SolidProfile>(options: OAuthUser
       id_token_signed_response_alg: 'ES256',
     },
     token: {
-      url: `${process.env.NEXT_PUBLIC_IDP_BASE_URL}.oidc/token`,
+      url: new URL('.oidc/token', process.env.NEXT_PUBLIC_IDP_BASE_URL).toString(),
       async request({ params, checks, client, provider }) {
         // Request a bearer token, default behaviour.
         // const tokens = await client.grant({

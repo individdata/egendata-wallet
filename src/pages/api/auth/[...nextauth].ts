@@ -29,7 +29,7 @@ export function registerCredentials() {
   const body = {
     client_name: 'Egendata Wallet',
     application_type: 'web',
-    redirect_uris: [new URL('/api/auth/callback/solid', process.env.NEXTAUTH_URL)],
+    redirect_uris: [new URL('/api/auth/callback/solid', process.env.NEXTAUTH_URL).toString()],
     subject_type: 'public',
     token_endpoint_auth_method: 'client_secret_basic',
     id_token_signed_response_alg: 'ES256',
@@ -104,6 +104,17 @@ export function authOptions(req: NextApiRequest, res: NextApiResponse): NextAuth
       },
       signOut: (token) => {
         logger.info(`Signing out user ${token.token.webid}.`);
+      },
+    },
+    logger: {
+      error(code, metadata) {
+        logger.error(metadata, code);
+      },
+      warn(code) {
+        logger.warn(code);
+      },
+      debug(code, metadata) {
+        logger.debug(metadata, code);
       },
     },
   };
