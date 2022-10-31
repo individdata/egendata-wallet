@@ -25,7 +25,7 @@ program
     const { purpose, documentType, returnUrl } = options;
 
     const data = { providerWebId, requestorWebId, purpose, documentType, returnUrl };
-    const payload = Buffer.from(JSON.stringify(data), 'utf-8').toString('base64');
+    const payload = encodeURIComponent(Buffer.from(JSON.stringify(data), 'utf-8').toString('base64'));
     console.log(payload);
   });
 
