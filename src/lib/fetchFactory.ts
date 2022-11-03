@@ -3,7 +3,15 @@ import { v4 as uuid } from 'uuid';
 
 import logger from './logger';
 
-async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: string, url: string) {
+export type generateDPoPProps = {
+  jwkPrivateKey: JWK;
+  jwkPublicKey: JWK;
+  method: string;
+  url: string;
+};
+
+export async function generateDPoP(props: generateDPoPProps) {
+  const { jwkPrivateKey, jwkPublicKey, method, url } = props;
   jwkPrivateKey.alg = 'ES256';
   const privateKey = await importJWK(jwkPrivateKey);
 
@@ -21,7 +29,7 @@ async function generateDPoP(jwkPrivateKey: JWK, jwkPublicKey: JWK, method: strin
     .sign(privateKey);
 }
 
-type fetchFactoryProps = {
+export type fetchFactoryProps = {
   keyPair:
     | {
         privateKey: JWK;
@@ -35,7 +43,7 @@ export interface fetchInterface {
   (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response>;
 }
 
-export default function fetchFactory(props: fetchFactoryProps): fetchInterface {
+export default function fetchFactory(props: fetchFactoryProps, generator = generateDPoP): fetchInterface {
   if (!(props.keyPair && props.dpopToken)) throw 'Missing keyPair and/or DPoP access token.';
 
   const { privateKey, publicKey } = props.keyPair as { privateKey: JWK; publicKey: JWK };
@@ -45,7 +53,12 @@ export default function fetchFactory(props: fetchFactoryProps): fetchInterface {
     init = init || {};
     init.method = init.method || 'GET';
 
-    const dpopHeader = await generateDPoP(privateKey, publicKey, init.method, input.toString());
+    const dpopHeader = await generator({
+      jwkPrivateKey: privateKey,
+      jwkPublicKey: publicKey,
+      method: init.method,
+      url: input.toString(),
+    });
 
     /** A Headers object, an object literal, or an array of two-item arrays to set request's headers. */
     init.headers = new Headers(init.headers || {});
