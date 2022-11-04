@@ -1,15 +1,15 @@
 # syntax=docker/dockerfile:1
 
 # Install dependencies
-FROM node:16-alpine as deps
-RUN apk add --no-cache libc6-compat
+FROM node:16 as deps
+# RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
 # Build from source when needed
-FROM node:16-alpine as build
+FROM node:16 as build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -19,7 +19,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm run build
 
 # Production image, copy files and run
-FROM node:16-alpine
+FROM node:16
 WORKDIR /app
 
 ENV NODE_ENV production
