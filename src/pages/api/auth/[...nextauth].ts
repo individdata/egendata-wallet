@@ -12,11 +12,17 @@ type KeyPair = {
 };
 
 export async function fetchProfileData(webId: string) {
-  const profile = getThing(await getSolidDataset(webId), webId) as Thing;
-  const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
-  const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
-  const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
-  return { name, storage, seeAlso };
+  try {
+    logger.debug('Fetching user details.');
+    const profile = getThing(await getSolidDataset(webId), webId) as Thing;
+    const name = getStringNoLocale(profile, 'http://xmlns.com/foaf/0.1/name') ?? '';
+    const storage = getUrl(profile, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+    const seeAlso = getUrl(profile, 'http://www.w3.org/2000/01/rdf-schema#seeAlso') ?? '';
+    return { name, storage, seeAlso };
+  } catch (error: any) {
+    logger.error('Failed to fetch user details.');
+    throw error;
+  }
 }
 
 // Call the registration endpoint.
