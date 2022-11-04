@@ -6,17 +6,17 @@ import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import RequestList from '../../components/RequestList/RequestList';
 import MenuBar from '../../components/MenuBar/MenuBar';
+import logger from '../../lib/logger';
 
 function HomePage() {
-  const { data: session, status } = useSession();
+  logger.debug('Visiting /home');
+  // const { data: session, status } = useSession();
   const router: NextRouter = useRouter();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onRequestSelect = (uuid: string) => {
     router.push(`/request/${uuid}`);
   };
-
-  console.log(session);
 
   /*
   useEffect(() => {
@@ -45,7 +45,8 @@ function HomePage() {
       <MenuBar />
       <main>
         <Grid container sx={{ justifyContent: 'center', backgroundColor: '#222429' }}>
-          <RequestList onRequestSelect={onRequestSelect} />
+          {/* <RequestList onRequestSelect={onRequestSelect} /> */}
+          Hello
         </Grid>
       </main>
     </Container>
