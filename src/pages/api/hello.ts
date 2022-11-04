@@ -42,7 +42,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       });
     } catch (error: any) {
       logger.error(error, 'Failed to fetch user details.');
-      res.status(500).json({ error: 500, message: 'Failed to fetch user details.' }).end();
+      res.status(500).json({ error: 500, message: 'Failed to fetch user details.' });
+      res.end();
       return;
     }
   } else {
