@@ -69,7 +69,7 @@ export default function fetchFactory(props: fetchFactoryProps, generator = gener
     if (rv.ok) {
       logger.debug(`Successfully fetched ${input} (${init.method}).`);
     } else {
-      logger.debug(`Failed to fetch ${input} (${init.method}) - status ${rv.status}.`);
+      logger.debug(rv, `Failed to fetch ${input} (${init.method}) - status ${rv.status}.`);
     }
     return rv;
   };

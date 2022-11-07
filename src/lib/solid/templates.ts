@@ -67,7 +67,7 @@ export type TurtleNotificationProps = {
 };
 
 export const turtleNotification = ({ providerRequest }: TurtleNotificationProps) => {
-  return `@prefix egendata: <${egendataSchema}> .\n<> egendata:OutBoundDataRequest <${providerRequest}>.`;
+  return `@prefix egendata: <${egendataSchema}> .\n<> egendata:OutboundDataRequest <${providerRequest}>.`;
 };
 
 export type TurtleConsumerConsentProps = {
