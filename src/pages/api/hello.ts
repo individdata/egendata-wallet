@@ -9,7 +9,6 @@ import { Thing, getSolidDataset, getStringNoLocale, getThing } from '@inrupt/sol
 
 type Data = {
   name: string;
-  ssn: string;
   uuid: string;
 };
 
@@ -27,13 +26,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const requestThing = getThing(ds, `${session.seeAlso}#me`) as Thing;
     const firstName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
     const lastName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
-    const ssn =
-      getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier') ?? '';
     const uuid = getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#uuid') ?? '';
 
     res.status(200).json({
       name: `${firstName} ${lastName}`,
-      ssn,
       uuid,
     });
   } else {
