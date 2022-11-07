@@ -39,6 +39,12 @@ export const changeToFetching = async (webId: string, requestURL: URL, fetch: fe
   let ds, acl;
   const baseURL = new URL('../../', requestURL);
 
+  const profileThing = getThing(await getSolidDataset(webId, { fetch }), webId) as Thing;
+  const ssn = getStringNoLocale(
+    profileThing,
+    'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier',
+  ) as string;
+
   const requestThing = getThing(
     await getSolidDataset(requestURL.toString(), { fetch }),
     requestURL.toString(),
@@ -62,7 +68,7 @@ export const changeToFetching = async (webId: string, requestURL: URL, fetch: fe
   // Write provider request
   const providerRequest = turtleProviderRequest({
     id: providerRequestId,
-    dataSubjectIdentifier: webId,
+    dataSubjectIdentifier: ssn,
     dataLocation: dataLocation.toString(),
     notificationInbox: inboxLocation.toString(),
     documentType: documentType,
