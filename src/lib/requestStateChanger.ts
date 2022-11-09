@@ -35,11 +35,11 @@ function processRequest(thing: Thing) {
   };
 }
 
-export const changeToFetching = async (webId: string, requestURL: URL, fetch: fetchInterface) => {
+export const changeToFetching = async (webId: string, seeAlso: string, requestURL: URL, fetch: fetchInterface) => {
   let ds, acl;
   const baseURL = new URL('../../', requestURL);
 
-  const profileThing = getThing(await getSolidDataset(webId, { fetch }), webId) as Thing;
+  const profileThing = getThing(await getSolidDataset(seeAlso, { fetch }), seeAlso) as Thing;
   const ssn = getStringNoLocale(
     profileThing,
     'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier',

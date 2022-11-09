@@ -76,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const requestURL = new URL(`requests/subject/${id}`, baseURL);
 
       try {
-        await changeToFetching(session.webid, requestURL, fetch);
+        await changeToFetching(session.webid, session.seeAlso, requestURL, fetch);
       } catch (error: any) {
         logger.error(error, `Failed to change state of ${requestURL.toString()} to fetching.`);
         res.status(500).end();
