@@ -39,7 +39,8 @@ export const changeToFetching = async (webId: string, seeAlso: string, requestUR
   let ds, acl;
   const baseURL = new URL('../../', requestURL);
 
-  const profileThing = getThing(await getSolidDataset(seeAlso, { fetch }), seeAlso) as Thing;
+  ds = await getSolidDataset(seeAlso, { fetch });
+  const profileThing = getThing(ds, `${seeAlso}#me`) as Thing;
   const ssn = getStringNoLocale(
     profileThing,
     'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier',
