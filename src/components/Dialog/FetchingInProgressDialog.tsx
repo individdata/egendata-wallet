@@ -14,48 +14,29 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { RequestState } from '../../types';
 import ControlFlowBaseDialog from './ControlFlowBaseDialog';
 import { CloseIcon, EmailIcon, ErrorIcon, OkIcon } from './icons';
 
-type FetchState = 'fetching' | 'success' | 'timeout' | 'missing' | 'error';
-
 type FetchingInProgressDialogProps = {
-  requestState: any;
+  state: RequestState;
   error: boolean;
+  handleClose: () => void;
 };
 
-export default function FetchingInProgressDialog({ requestState, error }: FetchingInProgressDialogProps) {
+export default function FetchingInProgressDialog({ state, error, handleClose }: FetchingInProgressDialogProps) {
   const [email, setEmail] = useState('');
-  const [state, setState] = useState<FetchState>('fetching');
-
-  setTimeout(() => {
-    if (state === 'fetching') {
-      setState('timeout');
-    }
-  }, 15000);
-
-  useEffect(() => {
-    if (requestState === 'available') setState('success');
-  }, [requestState]);
-
-  useEffect(() => {
-    if (error) setState('error');
-  }, [error]);
 
   function handleAddEmail() {
     console.log(`Adding email: ${email}`);
   }
 
-  function handleClose() {
-    console.log('closing');
-  }
-
   return (
-    <ControlFlowBaseDialog>
+    <ControlFlowBaseDialog canBeClosed>
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        {state === 'timeout' ? (
+        {['timeout', 'error'].includes(state) && (
           <IconButton
             aria-label="close"
             onClick={handleClose}
@@ -68,10 +49,10 @@ export default function FetchingInProgressDialog({ requestState, error }: Fetchi
           >
             <CloseIcon />
           </IconButton>
-        ) : null}
+        )}
       </DialogTitle>
       <DialogContent>
-        {state === 'fetching' && (
+        {state === 'fetching' && !error && (
           <Box marginY={8}>
             <Typography variant="h5" align="center" marginBottom={2}>
               <FormattedMessage defaultMessage="Fetching..." id="F50OAe" description="Fetching document modal." />
@@ -88,7 +69,7 @@ export default function FetchingInProgressDialog({ requestState, error }: Fetchi
             />
           </Box>
         )}
-        {state === 'success' && (
+        {state === 'available' && !error && (
           <Box>
             <Typography variant="h5" align="center">
               <OkIcon />
@@ -100,7 +81,7 @@ export default function FetchingInProgressDialog({ requestState, error }: Fetchi
             </Typography>
           </Box>
         )}
-        {state === 'timeout' && (
+        {state === 'timeout' && !error && (
           <Grid container direction="column" alignItems="center">
             <Grid item m={4}>
               <Typography variant="h5" align="center">
@@ -156,7 +137,7 @@ export default function FetchingInProgressDialog({ requestState, error }: Fetchi
             </Typography>
           </Box>
         )}
-        {state === 'error' && (
+        {error && (
           <Grid container direction="column" alignItems="center">
             <Grid item m={4} textAlign="center">
               <ErrorIcon />
