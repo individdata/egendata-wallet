@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid, List, ListSubheader, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Grid, List, ListItemButton, ListSubheader, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import RequestListItem from './RequestListItem';
 import useRequests from '../../hooks/useRequests';
@@ -8,8 +8,8 @@ type RequestListProps = {
   onRequestSelect: (request: any) => void;
 };
 
-function RequestList({ onRequestSelect }: RequestListProps) {
-  const { requests, isLoading, isError } = useRequests();
+function RequestListPage({ onRequestSelect, index }: { onRequestSelect: (request: any) => void; index: number }) {
+  const { requests, isLoading, isError } = useRequests(index);
 
   if (isError)
     return (
@@ -29,24 +29,35 @@ function RequestList({ onRequestSelect }: RequestListProps) {
       </Typography>
     );
 
-  const unsharedRequests = requests?.filter((r) => !r.isShared);
-  const nonSharedList = unsharedRequests?.map((request) => (
+  const renderedRequests = requests?.map((request) => (
     <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} unread />
   ));
 
-  const sharedRequests = requests?.filter((r) => r.isShared);
-  const sharedList = sharedRequests?.map((request) => (
-    <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} />
-  ));
+  return <>{renderedRequests}</>;
+}
+
+function RequestList({ onRequestSelect }: RequestListProps) {
+  const [count, setCount] = useState(0);
+
+  // const unsharedRequests = requests?.filter((r) => !r.isShared);
+  // const nonSharedList = unsharedRequests?.map((request) => (
+  //   <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} unread />
+  // ));
+
+  // const sharedRequests = requests?.filter((r) => r.isShared);
+  // const sharedList = sharedRequests?.map((request) => (
+  //   <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} />
+  // ));
+
+  const pages = [];
+  for (let i = 0; i < count; i++) {
+    pages.push(<RequestListPage onRequestSelect={onRequestSelect} index={i} />);
+  }
 
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={10} lg={8}>
-        {unsharedRequests?.length === 0 && sharedRequests?.length === 0 && (
-          <Typography component="h1" variant="h4" sx={{ textAlign: 'center' }} data-testid="noTasks">
-            <FormattedMessage id="LPU/Zd" defaultMessage="No tasks available." description="Requests listing empty." />
-          </Typography>
-        )}
+        {/* {unsharedRequests?.length === 0 && sharedRequests?.length === 0 && (
         <List>
           {unsharedRequests?.length !== 0 && (
             <ListSubheader data-testid="incompleteSubheader">
@@ -68,6 +79,12 @@ function RequestList({ onRequestSelect }: RequestListProps) {
             </ListSubheader>
           )}
           {sharedList}
+        </List> */}
+        <List>
+          {pages}
+          <Typography align="center">
+            <Button onClick={() => setCount(count + 1)}>Show older requests</Button>
+          </Typography>
         </List>
       </Grid>
     </Grid>

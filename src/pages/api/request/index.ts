@@ -21,7 +21,7 @@ export type GetResponseItem = {
   requestorWebId: string;
   purpose: string;
   created: Date;
-  isShared: boolean;
+  // isShared: boolean;
 };
 
 type PostResponse = {
@@ -58,6 +58,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const fetch = fetchFactory({ keyPair: token?.keys, dpopToken: token?.dpopToken });
 
   if (req.method === 'GET') {
+    const pageSize = 5;
+    const page = Number(req.query.page) ?? 0;
+
     let requestsUrlList: string[] = [];
     const resourceLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/subject/`;
     try {
@@ -67,42 +70,46 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       if (error.response.status !== 404) {
         throw error;
       }
-      return res.status(404).end();
+      res.status(200).json([]);
     }
-    const requestsList = await Promise.all(
-      requestsUrlList.map(async (url) => {
+
+    // let sharedResources: string[] = [];
+    // const sharedResourcesLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}consents/consumer/`;
+    // try {
+    //   const dsSharedResources = await getSolidDataset(sharedResourcesLocation, { fetch });
+    //   sharedResources = getContainedResourceUrlAll(dsSharedResources);
+    // } catch (error: any) {
+    //   if (error.response.status !== 404) {
+    //     throw error;
+    //   }
+    // }
+    // const sharedResourceIds = await Promise.all(
+    //   sharedResources.map(async (url) => {
+    //     const thing = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
+    //     return getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}requestId`) as string;
+    //   }),
+    // );
+
+    // // console.log(requestsList, sharedResourceIds);
+
+    // const resources = requestsList.map(
+    //   (r): GetResponseItem => ({
+    //     id: r.id,
+    //     url: r.url,
+    //     requestorWebId: r.requestorWebId,
+    //     purpose: r.purpose,
+    //     created: r.created,
+    //     isShared: sharedResourceIds.includes(r.id),
+    //   }),
+    // );
+
+    const start = page * pageSize;
+    const end = start + pageSize;
+
+    const resources = await Promise.all(
+      requestsUrlList.slice(start, end).map(async (url) => {
         const thing = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
         return processRequest(thing);
-      }),
-    );
-
-    let sharedResources: string[] = [];
-    const sharedResourcesLocation = `${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}consents/consumer/`;
-    try {
-      const dsSharedResources = await getSolidDataset(sharedResourcesLocation, { fetch });
-      sharedResources = getContainedResourceUrlAll(dsSharedResources);
-    } catch (error: any) {
-      if (error.response.status !== 404) {
-        throw error;
-      }
-    }
-    const sharedResourceIds = await Promise.all(
-      sharedResources.map(async (url) => {
-        const thing = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-        return getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}requestId`) as string;
-      }),
-    );
-
-    // console.log(requestsList, sharedResourceIds);
-
-    const resources = requestsList.map(
-      (r): GetResponseItem => ({
-        id: r.id,
-        url: r.url,
-        requestorWebId: r.requestorWebId,
-        purpose: r.purpose,
-        created: r.created,
-        isShared: sharedResourceIds.includes(r.id),
       }),
     );
 

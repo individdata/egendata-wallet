@@ -124,7 +124,6 @@ export default function ShareConsentDialog({ state, error, onContinue, onConsent
         </DialogContent>
       </BaseDialog>
     );
-
-    return <></>;
   }
+  return <></>;
 }
