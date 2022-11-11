@@ -1,7 +1,9 @@
 import { JWK, SignJWT, importJWK } from 'jose';
 import { v4 as uuid } from 'uuid';
 
-import logger from './logger';
+import parentLogger from './logger';
+
+const logger = parentLogger.child({ module: 'fetchFactory' });
 
 export type generateDPoPProps = {
   jwkPrivateKey: JWK;
@@ -49,7 +51,7 @@ export default function fetchFactory(props: fetchFactoryProps, generator = gener
   const { privateKey, publicKey } = props.keyPair as { privateKey: JWK; publicKey: JWK };
   const { dpopToken } = props;
 
-  return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
+  return async (input, init?): Promise<Response> => {
     init = init || {};
     init.method = init.method || 'GET';
 
@@ -65,6 +67,7 @@ export default function fetchFactory(props: fetchFactoryProps, generator = gener
     init.headers.set('Authorization', `DPoP ${dpopToken}`);
     init.headers.set('DPoP', dpopHeader);
 
+    logger.debug(`Fetching [DPoP] (${input})`);
     const rv = await fetch(input, init);
     if (rv.ok) {
       logger.debug(`Successfully fetched ${input} (${init.method}).`);

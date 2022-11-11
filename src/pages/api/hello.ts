@@ -24,9 +24,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // Fetch basic data from provider request
     const ds = await getSolidDataset(session.seeAlso, { fetch });
     const requestThing = getThing(ds, `${session.seeAlso}#me`) as Thing;
-    const firstName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/firstName') ?? '';
-    const lastName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/lastName') ?? '';
-    const uuid = getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#uuid') ?? '';
+    const firstName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/firstName');
+    const lastName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/lastName');
+    const uuid = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}uuid`) ?? '';
 
     res.status(200).json({
       name: `${firstName} ${lastName}`,

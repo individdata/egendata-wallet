@@ -35,13 +35,13 @@ function processRequest(thing: Thing) {
   return {
     url: thing.url,
     type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
-    documentTitle: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentTitle') ?? '',
-    documentType: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '',
-    id: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#id') ?? '',
-    providerWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '',
-    purpose: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#purpose') ?? '',
-    requestorWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '',
-    returnUrl: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#returnUrl') ?? '',
+    documentTitle: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}documentTitle`) ?? '',
+    documentType: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}documentType`) ?? '',
+    id: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}id`) ?? '',
+    providerWebId: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}providerWebId`) ?? '',
+    purpose: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}purpose`) ?? '',
+    requestorWebId: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}requestorWebId`) ?? '',
+    returnUrl: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}returnUrl`) ?? '',
     created: getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(), // TODO: Missing dates?
   };
 }
@@ -89,7 +89,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const sharedResourceIds = await Promise.all(
       sharedResources.map(async (url) => {
         const thing = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-        return getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestId') as string;
+        return getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}requestId`) as string;
       }),
     );
 

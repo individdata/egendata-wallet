@@ -24,36 +24,31 @@ function processRequest(thing: Thing) {
   return {
     url: thing.url,
     type: getUrl(thing, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ?? '',
-    documentTitle: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentTitle') ?? '',
-    documentType: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '',
-    id: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#id') ?? '',
-    providerWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '',
-    purpose: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#purpose') ?? '',
-    requestorWebId: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '',
-    returnUrl: getStringNoLocale(thing, 'https://pod-test.egendata.se/schema/core/v1#returnUrl') ?? '',
-    created: getDatetime(thing, 'http://purl.org/dc/terms/created') ?? new Date(), // TODO: Missing dates?
+    documentTitle: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}documentTitle`),
+    documentType: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}documentType`),
+    id: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}id`),
+    providerWebId: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}providerWebId`),
+    purpose: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}purpose`),
+    requestorWebId: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}requestorWebId`),
+    returnUrl: getStringNoLocale(thing, `${process.env.EGENDATA_SCHEMA_URL}returnUrl`),
+    created: getDatetime(thing, 'http://purl.org/dc/terms/created'),
   };
 }
 
 export const changeToFetching = async (webId: string, seeAlso: string, requestURL: URL, fetch: fetchInterface) => {
   let ds, acl;
-  const baseURL = new URL('../../', requestURL);
 
+  // ds = await getSolidDataset('http://localhost:3002/2dce2d35-fcd5-4652-a269-040b2e92ec0e/profile/private', { fetch });
   ds = await getSolidDataset(seeAlso, { fetch });
   const profileThing = getThing(ds, `${seeAlso}#me`) as Thing;
-  const ssn = getStringNoLocale(
-    profileThing,
-    'https://pod-test.egendata.se/schema/core/v1#dataSubjectIdentifier',
-  ) as string;
+  const ssn = getStringNoLocale(profileThing, `${process.env.EGENDATA_SCHEMA_URL}dataSubjectIdentifier`) as string;
 
   const requestThing = getThing(
     await getSolidDataset(requestURL.toString(), { fetch }),
     requestURL.toString(),
   ) as Thing;
-  const documentType =
-    getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#documentType') ?? '';
-  const providerWebId =
-    getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#providerWebId') ?? '';
+  const documentType = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}documentType`) ?? '';
+  const providerWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}providerWebId`) ?? '';
 
   const providerStorageURL =
     getUrl(
@@ -61,6 +56,7 @@ export const changeToFetching = async (webId: string, seeAlso: string, requestUR
       'http://www.w3.org/ns/pim/space#storage',
     ) ?? '';
 
+  const baseURL = new URL('../../', requestURL);
   const providerRequestId = requestURL.pathname.split('/').pop() ?? '';
   const providerRequestURL = new URL(`requests/provider/${providerRequestId}`, baseURL);
   const dataLocation = new URL(`data/${providerRequestId}`, baseURL);
@@ -154,8 +150,7 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
     await getSolidDataset(requestURL.toString(), { fetch }),
     requestURL.toString(),
   ) as Thing;
-  const requestorWebId =
-    getStringNoLocale(requestThing, 'https://pod-test.egendata.se/schema/core/v1#requestorWebId') ?? '';
+  const requestorWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_PATH_FRAGMENT}requestorWebId`) ?? '';
 
   // Find data location
   const outboundRequestUrl = new URL('../../requests/provider/', requestURL);
@@ -170,8 +165,8 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
       outboundRequestsUrls.map(async (url) => {
         const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
         const rv = {
-          id: getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#id'),
-          dataLocation: getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#dataLocation'),
+          id: getStringNoLocale(r, `${process.env.EGENDATA_PATH_FRAGMENT}id`),
+          dataLocation: getStringNoLocale(r, `${process.env.EGENDATA_PATH_FRAGMENT}dataLocation`),
         };
         return rv;
       }),
@@ -287,7 +282,7 @@ export const getRequestWithState = async (requestURL: URL, fetch: fetchInterface
           const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
           const rv = {
             url: r.url,
-            id: getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#id'),
+            id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}id`),
           };
           return rv;
         }),
@@ -314,7 +309,7 @@ export const getRequestWithState = async (requestURL: URL, fetch: fetchInterface
         if (r) {
           const rv = {
             url,
-            id: getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#requestId'),
+            id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}requestId`),
           };
           // console.log(rv);
           // log(`Finished with ${url}`)
@@ -354,7 +349,7 @@ export const getRequestWithState = async (requestURL: URL, fetch: fetchInterface
           if (r) {
             const rv = {
               url,
-              id: getStringNoLocale(r, 'https://pod-test.egendata.se/schema/core/v1#requestId'),
+              id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}requestId`),
             };
             return rv;
           }
