@@ -150,7 +150,7 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
     await getSolidDataset(requestURL.toString(), { fetch }),
     requestURL.toString(),
   ) as Thing;
-  const requestorWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_PATH_FRAGMENT}requestorWebId`) ?? '';
+  const requestorWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}requestorWebId`) ?? '';
 
   // Find data location
   const outboundRequestUrl = new URL('../../requests/provider/', requestURL);
@@ -165,8 +165,8 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
       outboundRequestsUrls.map(async (url) => {
         const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
         const rv = {
-          id: getStringNoLocale(r, `${process.env.EGENDATA_PATH_FRAGMENT}id`),
-          dataLocation: getStringNoLocale(r, `${process.env.EGENDATA_PATH_FRAGMENT}dataLocation`),
+          id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}id`),
+          dataLocation: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}dataLocation`),
         };
         return rv;
       }),
