@@ -10,8 +10,8 @@ program.name('payload-gen').description('Utility to generate payload data for eg
 // providerWebId, purpose, documentType, requestorWebId, returnUrl
 
 program
-  .command('build')
-  .description('Build a new payload from parameters.')
+  .command('encode')
+  .description('Encode a new payload from parameters.')
   .argument('<providerWebId>', 'Entity that can provide data for the request.')
   .argument('<requestorWebId>', 'Entity that requests the data.')
   .option('-p, --purpose <string>', 'Purpose of the request.', 'Testing purposes.')
@@ -21,12 +21,23 @@ program
     'http://egendata.se/schema/core/v1#UnemploymentCertificate',
   )
   .option('-u, --returnUrl <url>', 'Destination to send user to when complete.', 'https://example.com/some/destination')
+  .option('-b, --base <url>', 'Base URL to deployed system.')
   .action((providerWebId, requestorWebId, options) => {
-    const { purpose, documentType, returnUrl } = options;
+    const { purpose, documentType, returnUrl, base } = options;
 
     const data = { providerWebId, requestorWebId, purpose, documentType, returnUrl };
     const payload = encodeURIComponent(Buffer.from(JSON.stringify(data), 'utf-8').toString('base64'));
-    console.log(payload);
+
+    let url;
+    try {
+      url = base ? new URL(base) : new URL('http://example.com');
+    } catch (error) {
+      console.error('Invalid base URL.');
+      exit(1);
+    }
+    url.pathname = '/request';
+    url.searchParams.append('payload', payload);
+    console.log(url.toString());
   });
 
 program
