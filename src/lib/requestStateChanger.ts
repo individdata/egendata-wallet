@@ -16,7 +16,9 @@ import {
   turtleNotification,
   turtleProviderConsent,
   turtleProviderRequest,
+  turtleResponseNotification,
 } from './solid';
+import { v4 as uuid } from 'uuid';
 
 type RequestState = 'received' | 'fetching' | 'available' | 'sharing';
 
@@ -124,6 +126,7 @@ export const changeToFetching = async (webId: string, seeAlso: string, requestUR
     headers: { 'Content-Type': 'text/turtle' },
   });
 
+  // TODO: Change to newly generated UUID instead of providerRequestId.
   const notificationURL = new URL(
     `${process.env.EGENDATA_PATH_FRAGMENT}inbox/${providerRequestId}`,
     providerStorageURL,
@@ -224,6 +227,23 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
     body: updatedDataACL,
     headers: { 'Content-Type': 'text/turtle' },
   });
+
+  // Write notification
+  const requestorThing = getThing(await getSolidDataset(requestorWebId, { fetch }), requestorWebId) as Thing;
+  const storageLocation = getStringNoLocale(requestorThing, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+
+  if (storageLocation) {
+    const notificationURL = new URL(`${process.env.EGENDATA_PATH_FRAGMENT}inbox/${uuid()}`, storageLocation);
+
+    const notification = turtleResponseNotification({ dataLocation: dataLocation.toString() });
+    const result = await fetch(notificationURL.toString(), {
+      method: 'PUT',
+      body: notification,
+      headers: { 'Content-Type': 'text/turtle' },
+    });
+
+    console.log(`Put notification in ${notificationURL.toString()}.`);
+  }
 
   // ds = await getSolidDatasetWithAcl(dataLocation!, { fetch });
   // acl = createAcl(ds);

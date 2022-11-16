@@ -94,3 +94,11 @@ export const turtleConsumerConsent = ({
   egendata:sharedData "${sharedData}" ;
   <http://purl.org/dc/terms/created> "${date.toISOString()}"^^<http://www.w3.org/2001/XMLSchema#dateTime> .`;
 };
+
+export type TurtleResponseNotificationProps = {
+  dataLocation: string;
+};
+
+export const turtleResponseNotification = ({ dataLocation }: TurtleResponseNotificationProps) => {
+  return `@prefix egendata: <${egendataSchema}> .\n<> egendata:OutboundDataResponse <${dataLocation}>.`;
+};
