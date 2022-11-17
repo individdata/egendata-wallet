@@ -4,7 +4,10 @@ This is the digital wallet application.
 
 ## Getting Started
 
-First, run the development server:
+First, create a `.env` file or `.env.local`. All the required environment
+variables are documented in `.env-example`.
+
+Start the development server:
 
 ```bash
 npm run dev
