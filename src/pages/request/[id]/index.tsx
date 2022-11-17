@@ -9,7 +9,7 @@ import ProcessDocument from '../../../components/ProcessDocument';
 import MenuBar from '../../../components/MenuBar/MenuBar';
 import FetchingInProgressDialog from '../../../components/Dialog/FetchingInProgressDialog';
 import ShareConsentDialog from '../../../components/Dialog/ConsentDialog';
-import { RequestState } from '../../../types';
+import { ExtendedRequestState } from '../../../types';
 import { useSWRConfig } from 'swr';
 
 function RequestPage() {
@@ -17,7 +17,7 @@ function RequestPage() {
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
-  const [state, setState] = useState<RequestState>('received');
+  const [state, setState] = useState<ExtendedRequestState>('received');
   const [error, setError] = useState(false);
   const [showModal, setShowModal] = useState(false);
 

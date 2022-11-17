@@ -132,13 +132,13 @@ afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe('Stepper component in landing mode', () => {
-  test('shows egendata brand name', () => {
+  it('shows egendata brand name', () => {
     render(withTheme(withIntl(<Stepper requestId="" landing />)));
 
     expect(screen.getByTestId('egendataBrandName')).toHaveTextContent('Egendata');
   });
 
-  test('shows correct icons', () => {
+  it('shows correct icons', () => {
     render(withTheme(withIntl(<Stepper requestId="" landing />)));
 
     expect(screen.getByTestId('StepOneIcon')).toContainElement(screen.getByTestId('OneIcon'));
@@ -147,7 +147,7 @@ describe('Stepper component in landing mode', () => {
 });
 
 describe('Stepper component _not_ in landing mode', () => {
-  test('does not show egendata brand name', async () => {
+  it('does not show egendata brand name', async () => {
     render(withSWR(withTheme(withIntl(<Stepper requestId="39b355d5-9e9d-451b-b531-3017a7f5818c" />))));
 
     await waitForElementToBeRemoved(() => screen.getByTestId('StepperSkeleton'));
@@ -155,7 +155,7 @@ describe('Stepper component _not_ in landing mode', () => {
     expect(screen.queryByTestId('egendataBrandName')).not.toBeInTheDocument();
   });
 
-  test('shows correct icons in state `received`', async () => {
+  it('shows correct icons in state `received`', async () => {
     render(withSWR(withTheme(withIntl(<Stepper requestId="39b355d5-9e9d-451b-b531-3017a7f5818c" />))));
 
     await waitForElementToBeRemoved(() => screen.getByTestId('StepperSkeleton'));
@@ -164,7 +164,7 @@ describe('Stepper component _not_ in landing mode', () => {
     expect(screen.getByTestId('StepTwoIcon')).toContainElement(screen.getByTestId('TwoIcon'));
   });
 
-  test('shows correct icons in state `fetching`', async () => {
+  it('shows correct icons in state `fetching`', async () => {
     render(withSWR(withTheme(withIntl(<Stepper requestId="69ef5436-35cc-4931-92bf-e42c0838f547" />))));
 
     await waitForElementToBeRemoved(() => screen.getByTestId('StepperSkeleton'));
@@ -173,7 +173,7 @@ describe('Stepper component _not_ in landing mode', () => {
     expect(screen.getByTestId('StepTwoIcon')).toContainElement(screen.getByTestId('TwoIcon'));
   });
 
-  test('shows correct icons in state `available`', async () => {
+  it('shows correct icons in state `available`', async () => {
     render(withSWR(withTheme(withIntl(<Stepper requestId="0644bee2-1aef-40df-9f09-42e36870de7e" />))));
 
     await waitForElementToBeRemoved(() => screen.getByTestId('StepperSkeleton'));
@@ -182,7 +182,7 @@ describe('Stepper component _not_ in landing mode', () => {
     expect(screen.getByTestId('StepTwoIcon')).toContainElement(screen.getByTestId('TwoActiveIcon'));
   });
 
-  test('shows correct icons in state `sharing`', async () => {
+  it('shows correct icons in state `sharing`', async () => {
     render(withSWR(withTheme(withIntl(<Stepper requestId="c91b1d4e-1c39-4c89-9369-f0dca2270f89" />))));
 
     await waitForElementToBeRemoved(() => screen.getByTestId('StepperSkeleton'));

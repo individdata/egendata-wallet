@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from './../auth/[...nextauth]';
+import { authOptions } from '../auth/[...nextauth]';
 import { Thing, getSolidDataset, getStringNoLocale, getThing, getUrl } from '@inrupt/solid-client';
 
 type Data = {
@@ -17,9 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   if (req.method === 'GET') {
-    const { id } = req.query;
+    const { webid } = req.query;
 
-    const requestURL = new URL(`${process.env.NEXT_PUBLIC_IDP_BASE_URL}${id}/profile/card#me`);
+    const requestURL = new URL(webid as string);
 
     const thing = getThing(await getSolidDataset(requestURL.toString(), { fetch }), requestURL.toString()) as Thing;
     const name = getStringNoLocale(thing, 'http://xmlns.com/foaf/0.1/name');

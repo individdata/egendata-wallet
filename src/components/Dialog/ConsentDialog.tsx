@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import BaseDialog from './BaseDialog';
-import { RequestState } from '../../types';
+import { ExtendedRequestState } from '../../types';
 
 const checkboxListTexts = [
   'I give my consent for the Project OAK to handle and transfer this information once to BNP Paribas.',
@@ -20,7 +20,7 @@ const checkboxListTexts = [
 ];
 
 type ShareConsentDialogProps = {
-  state: RequestState;
+  state: ExtendedRequestState;
   error: boolean;
   onContinue: () => void;
   onConsent: () => void;

@@ -1,9 +1,9 @@
-type accessMode = 'Control' | 'Read' | 'Write' | 'Append';
+export type AccessMode = 'Control' | 'Read' | 'Write' | 'Append';
 
-type acl = {
+export type acl = {
   label: string;
   agent: string;
-  mode: accessMode[];
+  mode: AccessMode[];
 }[];
 
 export const turtleACL = (url: string, acl: acl) => {

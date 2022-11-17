@@ -5,10 +5,10 @@ jest.mock('pino', () => {
 });
 
 describe('logger', () => {
-  test('setups Pino', () => {
+  it('setups Pino', () => {
     const logger = require('./logger');
 
     expect(pino).toBeCalledTimes(1);
-    expect(pino).toBeCalledWith({ level: 'debug', base: { env: 'test' } });
+    expect(pino).toBeCalledWith({ enabled: false, level: 'debug', base: { env: 'test' } });
   });
 });

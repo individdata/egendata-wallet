@@ -16,12 +16,12 @@ import {
 } from '@mui/material';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { RequestState } from '../../types';
+import { ExtendedRequestState } from '../../types';
 import ControlFlowBaseDialog from './ControlFlowBaseDialog';
 import { CloseIcon, EmailIcon, ErrorIcon, OkIcon } from './icons';
 
 type FetchingInProgressDialogProps = {
-  state: RequestState;
+  state: ExtendedRequestState;
   error: boolean;
   handleClose: () => void;
 };

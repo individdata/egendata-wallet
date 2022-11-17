@@ -9,7 +9,6 @@ import { Thing, getSolidDataset, getStringNoLocale, getThing } from '@inrupt/sol
 
 type Data = {
   name: string;
-  uuid: string;
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -26,11 +25,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const requestThing = getThing(ds, `${session.seeAlso}#me`) as Thing;
     const firstName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/firstName');
     const lastName = getStringNoLocale(requestThing, 'http://xmlns.com/foaf/0.1/lastName');
-    const uuid = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}uuid`) ?? '';
 
     res.status(200).json({
       name: `${firstName} ${lastName}`,
-      uuid,
     });
   } else {
     // Not Signed in

@@ -1,7 +1,7 @@
 import { JWK, SignJWT, importJWK } from 'jose';
 import { v4 as uuid } from 'uuid';
 
-import parentLogger from './logger';
+import { logger as parentLogger } from './logger';
 
 const logger = parentLogger.child({ module: 'fetchFactory' });
 

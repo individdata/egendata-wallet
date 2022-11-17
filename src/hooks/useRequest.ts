@@ -4,7 +4,7 @@ const fetcher = (...args: [input: RequestInfo | URL, init?: RequestInit | undefi
   fetch(...args).then((res) => res.json());
 
 export default function useRequest(id: string) {
-  const { data, error } = useSWR(id !== '' ? `/api/request/${id}` : null, fetcher);
+  const { data, error } = useSWR(id ? `/api/request/${id}` : null, fetcher);
 
   return {
     request: data,

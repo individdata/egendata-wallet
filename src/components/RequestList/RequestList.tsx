@@ -9,7 +9,7 @@ type RequestListProps = {
 };
 
 function RequestListPage({ onRequestSelect, index }: { onRequestSelect: (request: any) => void; index: number }) {
-  const { requests, isLoading, isError } = useRequests(index);
+  const { requests: data, isLoading, isError } = useRequests(index);
 
   if (isError)
     return (
@@ -29,15 +29,18 @@ function RequestListPage({ onRequestSelect, index }: { onRequestSelect: (request
       </Typography>
     );
 
-  const renderedRequests = requests?.map((request) => (
-    <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} unread />
-  ));
+  const { requests, total } = data;
+  // console.log('All requests:', requests, total);
+
+  const renderedRequests = requests.map((request) => {
+    return <RequestListItem key={`RequestListItem-${request.id}`} request={request} onClick={onRequestSelect} unread />;
+  });
 
   return <>{renderedRequests}</>;
 }
 
 function RequestList({ onRequestSelect }: RequestListProps) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   // const unsharedRequests = requests?.filter((r) => !r.isShared);
   // const nonSharedList = unsharedRequests?.map((request) => (

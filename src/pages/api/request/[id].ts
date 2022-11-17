@@ -4,9 +4,11 @@ import { getToken } from 'next-auth/jwt';
 import { authOptions } from '../auth/[...nextauth]';
 
 import fetchFactory from '../../../lib/fetchFactory';
-import { changeToFetching, changeToSharing, getRequestWithState } from '../../../lib/requestStateChanger';
+import { changeToFetching, changeToSharing } from '../../../lib/requestStateChanger';
 
 import logger from '../../../lib/logger';
+import { requestFromURL } from '../../../lib/solid';
+import { RequestInfoWithDetails } from '../../../types';
 
 type RequestInfo = {
   outbound: {} | {}[];
@@ -17,20 +19,7 @@ type RequestInfo = {
 type RequestState = 'received' | 'fetching' | 'available' | 'sharing';
 
 export type ResponseData =
-  | {
-      url: string;
-      type: string;
-      documentTitle: string;
-      documentType: string;
-      id: string;
-      providerWebId: string;
-      purpose: string;
-      requestorWebId: string;
-      returnUrl: string;
-      created: Date;
-      state: RequestState;
-      related: RequestInfo;
-    }
+  | RequestInfoWithDetails
   | {
       state: RequestState;
     };
@@ -49,11 +38,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === 'GET') {
     const { id } = req.query;
 
-    const requestURL = new URL(`${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/subject/${id}`);
+    const requestURL = new URL(`${session.storage}${process.env.EGENDATA_PATH_FRAGMENT}requests/${id}/`);
 
     let response;
     try {
-      response = await getRequestWithState(requestURL, fetch);
+      // response = await getRequestWithState(requestURL, fetch);
+      response = await requestFromURL(requestURL, { fetch });
     } catch (error: any) {
       logger.warn(error, `Failed to fetch information about request ${requestURL.toString()}`);
       res.status(500).end();
@@ -73,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       logger.info(`Changing state of request ${id} to 'fetching'.`);
       const baseURL = new URL(process.env.EGENDATA_PATH_FRAGMENT as string, session.storage);
 
-      const requestURL = new URL(`requests/subject/${id}`, baseURL);
+      const requestURL = new URL(`requests/${id}/`, baseURL);
 
       try {
         await changeToFetching(session.webid, session.seeAlso, requestURL, fetch);

@@ -19,6 +19,7 @@ import {
   turtleResponseNotification,
 } from './solid';
 import { v4 as uuid } from 'uuid';
+import { requestFromURL } from '@app/lib/solid';
 
 type RequestState = 'received' | 'fetching' | 'available' | 'sharing';
 
@@ -40,73 +41,51 @@ function processRequest(thing: Thing) {
 export const changeToFetching = async (webId: string, seeAlso: string, requestURL: URL, fetch: fetchInterface) => {
   let ds, acl;
 
+  const requestWithDetails = await requestFromURL(requestURL, { fetch });
+  const { id: requestId, documentType, providerWebId } = requestWithDetails;
+
   // ds = await getSolidDataset('http://localhost:3002/2dce2d35-fcd5-4652-a269-040b2e92ec0e/profile/private', { fetch });
   ds = await getSolidDataset(seeAlso, { fetch });
   const profileThing = getThing(ds, `${seeAlso}#me`) as Thing;
   const ssn = getStringNoLocale(profileThing, `${process.env.EGENDATA_SCHEMA_URL}dataSubjectIdentifier`) as string;
 
-  const requestThing = getThing(
-    await getSolidDataset(requestURL.toString(), { fetch }),
-    requestURL.toString(),
-  ) as Thing;
-  const documentType = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}documentType`) ?? '';
-  const providerWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}providerWebId`) ?? '';
-
   const providerStorageURL =
     getUrl(
-      getThing(await getSolidDataset(providerWebId, { fetch }), providerWebId) as Thing,
+      getThing(await getSolidDataset(providerWebId.toString(), { fetch }), providerWebId.toString()) as Thing,
       'http://www.w3.org/ns/pim/space#storage',
     ) ?? '';
 
-  const baseURL = new URL('../../', requestURL);
-  const providerRequestId = requestURL.pathname.split('/').pop() ?? '';
-  const providerRequestURL = new URL(`requests/provider/${providerRequestId}`, baseURL);
-  const dataLocation = new URL(`data/${providerRequestId}`, baseURL);
-  const inboxLocation = new URL(`inbox/${providerRequestId}/`, baseURL);
+  const fetchURL = new URL(`fetch`, requestURL);
+  const dataLocation = new URL(`data`, requestURL);
+  const inboxLocation = new URL(`../../inbox/${requestId}/`, requestURL);
 
   // Write provider request
   const providerRequest = turtleProviderRequest({
-    id: providerRequestId,
+    id: requestId,
     dataSubjectIdentifier: ssn,
     dataLocation: dataLocation.toString(),
     notificationInbox: inboxLocation.toString(),
     documentType: documentType,
     date: new Date(),
   });
-  await fetch(providerRequestURL.toString(), {
+  await fetch(fetchURL.toString(), {
     method: 'PUT',
     body: providerRequest,
     headers: { 'Content-Type': 'text/turtle' },
   });
 
-  // Write ACL for provider request
-  const providerRequestACL = turtleACL(providerRequestURL.toString(), [
+  // Write ACL for fetchURL
+  const providerRequestACL = turtleACL(fetchURL.toString(), [
     { label: 'owner', agent: webId, mode: ['Control', 'Write', 'Append', 'Read'] },
-    { label: 'provider', agent: providerWebId, mode: ['Read'] },
+    { label: 'provider', agent: providerWebId.toString(), mode: ['Read'] },
   ]);
-  await fetch(aclURL(providerRequestURL).toString(), {
+  await fetch(aclURL(fetchURL).toString(), {
     method: 'PUT',
     body: providerRequestACL,
     headers: { 'Content-Type': 'text/turtle' },
   });
 
-  const providerConsentURL = new URL(`consents/provider/${providerRequestId}`, baseURL);
-
-  // Write provider consent
-  const providerConsent = turtleProviderConsent({
-    consentDocument: 'consent text...',
-    providerRequest: providerRequestURL.toString(),
-    providerWebId: webId,
-    requestId: providerRequestId,
-    date: new Date(),
-  });
-  await fetch(providerConsentURL.toString(), {
-    method: 'PUT',
-    body: providerConsent,
-    headers: { 'Content-Type': 'text/turtle' },
-  });
-
-  const dataURL = new URL(`data/${providerRequestId}`, baseURL);
+  const dataURL = new URL(`data`, requestURL);
 
   // Write data resource
   await fetch(dataURL.toString(), {
@@ -118,7 +97,7 @@ export const changeToFetching = async (webId: string, seeAlso: string, requestUR
   // Write ACL for data resource
   const dataACL = turtleACL(dataURL.toString(), [
     { label: 'owner', agent: webId, mode: ['Control', 'Write', 'Append', 'Read'] },
-    { label: 'provider', agent: providerWebId, mode: ['Write', 'Append'] },
+    { label: 'provider', agent: providerWebId.toString(), mode: ['Write', 'Append'] },
   ]);
   await fetch(aclURL(dataURL).toString(), {
     method: 'PUT',
@@ -127,65 +106,43 @@ export const changeToFetching = async (webId: string, seeAlso: string, requestUR
   });
 
   // TODO: Change to newly generated UUID instead of providerRequestId.
-  const notificationURL = new URL(
-    `${process.env.EGENDATA_PATH_FRAGMENT}inbox/${providerRequestId}`,
-    providerStorageURL,
-  );
+  const notificationURL = new URL(`${process.env.EGENDATA_PATH_FRAGMENT}inbox/${requestId}`, providerStorageURL);
 
   // Write notification
-  const notification = turtleNotification({ providerRequest: providerRequestURL.toString() });
+  const notification = turtleNotification({ providerRequest: notificationURL.toString() });
   const result = await fetch(notificationURL.toString(), {
     method: 'PUT',
     body: notification,
     headers: { 'Content-Type': 'text/turtle' },
   });
 
-  console.log(result);
+  // console.log(result);
 };
 
 export const changeToSharing = async (webId: string, requestURL: URL, fetch: fetchInterface) => {
   let ds, acl;
-  const baseURL = new URL('../../', requestURL);
-  const providerRequestId = requestURL.pathname.split('/').pop() ?? '';
 
-  // Fetch basic data from provider request
-  const requestThing = getThing(
-    await getSolidDataset(requestURL.toString(), { fetch }),
-    requestURL.toString(),
-  ) as Thing;
-  const requestorWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}requestorWebId`) ?? '';
+  const requestWithDetails = await requestFromURL(requestURL, { fetch });
+  const { id: requestId, requestorWebId } = requestWithDetails;
 
-  // Find data location
-  const outboundRequestUrl = new URL('../../requests/provider/', requestURL);
-  console.log(outboundRequestUrl.toString());
-  const outboundRequestsThing = getThing(
-    await getSolidDataset(outboundRequestUrl.toString(), { fetch }),
-    outboundRequestUrl.toString(),
-  ) as Thing;
-  const outboundRequestsUrls = getUrlAll(outboundRequestsThing, 'http://www.w3.org/ns/ldp#contains');
-  const outboundRequests = (
-    await Promise.all(
-      outboundRequestsUrls.map(async (url) => {
-        const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-        const rv = {
-          id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}id`),
-          dataLocation: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}dataLocation`),
-        };
-        return rv;
-      }),
-    )
-  )
-    .filter((obj) => obj && obj.id === providerRequestId)
-    .map(({ id, ...rest }) => rest);
-  const dataLocation = new URL(outboundRequests[0].dataLocation!); // Assume single document for now.
+  // const baseURL = new URL('../../', requestURL);
+  // const providerRequestId = requestURL.pathname.split('/').pop() ?? '';
 
-  const consumerConsentURL = new URL(`consents/consumer/${providerRequestId}`, baseURL);
+  // // Fetch basic data from provider request
+  // const requestThing = getThing(
+  //   await getSolidDataset(requestURL.toString(), { fetch }),
+  //   requestURL.toString(),
+  // ) as Thing;
+  // const requestorWebId = getStringNoLocale(requestThing, `${process.env.EGENDATA_SCHEMA_URL}requestorWebId`) ?? '';
+
+  const dataLocation = new URL(`data`, requestURL);
+  const consumerConsentURL = new URL(`consent`, requestURL);
 
   // Write consumer consent
   const consumerConsent = turtleConsumerConsent({
     consentDocument: 'Consent text.',
-    consumerWebId: requestorWebId,
-    requestId: providerRequestId,
+    consumerWebId: requestorWebId.toString(),
+    requestId: requestId,
     sharedData: dataLocation.toString(),
     date: new Date(),
   });
@@ -195,32 +152,10 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
     headers: { 'Content-Type': 'text/turtle' },
   });
 
-  // const consumerConsent = buildThing(createThing({ url: consumerConsentURL.toString() }))
-  // .addUrl(
-  //   'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-  //   'https://pod-test.egendata.se/schema/core/v1#InboundDataResponse',
-  // )
-  // .addStringNoLocale('https://pod-test.egendata.se/schema/core/v1#consentDocument', 'consent text...')
-  // .addStringNoLocale('https://pod-test.egendata.se/schema/core/v1#consumerWebId', requestorWebId)
-  // .addStringNoLocale('https://pod-test.egendata.se/schema/core/v1#requestId', providerRequestId)
-  // .addStringNoLocale('https://pod-test.egendata.se/schema/core/v1#sharedData', dataLocation!)
-  // .addDatetime('http://purl.org/dc/terms/created', new Date())
-  // .build();
-
-  // ds = setThing(createSolidDataset(), consumerConsent);
-
-  // console.log(consumerConsentURL.toString());
-
-  // try {
-  //   await saveSolidDatasetAt(consumerConsentURL.toString(), ds, { fetch });
-  // } catch (error: any) {
-  //   throw Error(`Failed to create consumer consent resource. (${consumerConsentURL.toString()})`);
-  // }
-
-  // Write ACL for consumer consent
+  // Update ACL for data resource
   const updatedDataACL = turtleACL(dataLocation.toString(), [
     { label: 'owner', agent: webId, mode: ['Control', 'Write', 'Append', 'Read'] },
-    { label: 'requestor', agent: requestorWebId, mode: ['Read'] },
+    { label: 'requestor', agent: requestorWebId.toString(), mode: ['Read'] },
   ]);
   await fetch(aclURL(dataLocation).toString(), {
     method: 'PUT',
@@ -228,12 +163,26 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
     headers: { 'Content-Type': 'text/turtle' },
   });
 
-  // Write notification
-  const requestorThing = getThing(await getSolidDataset(requestorWebId, { fetch }), requestorWebId) as Thing;
-  const storageLocation = getStringNoLocale(requestorThing, 'http://www.w3.org/ns/pim/space#storage') ?? '';
+  const fetchLocation = new URL(`fetch`, requestURL);
+  // Update ACL for fetch resource
+  const updatedFetchACL = turtleACL(fetchLocation.toString(), [
+    { label: 'owner', agent: webId, mode: ['Control', 'Write', 'Append', 'Read'] },
+  ]);
+  await fetch(aclURL(fetchLocation).toString(), {
+    method: 'PUT',
+    body: updatedFetchACL,
+    headers: { 'Content-Type': 'text/turtle' },
+  });
 
-  if (storageLocation) {
-    const notificationURL = new URL(`${process.env.EGENDATA_PATH_FRAGMENT}inbox/${uuid()}`, storageLocation);
+  // Write notification
+  const consumerStorageURL =
+    getUrl(
+      getThing(await getSolidDataset(requestorWebId.toString(), { fetch }), requestorWebId.toString()) as Thing,
+      'http://www.w3.org/ns/pim/space#storage',
+    ) ?? '';
+
+  if (consumerStorageURL) {
+    const notificationURL = new URL(`${process.env.EGENDATA_PATH_FRAGMENT}inbox/${uuid()}`, consumerStorageURL);
 
     const notification = turtleResponseNotification({ dataLocation: dataLocation.toString() });
     const result = await fetch(notificationURL.toString(), {
@@ -242,148 +191,6 @@ export const changeToSharing = async (webId: string, requestURL: URL, fetch: fet
       headers: { 'Content-Type': 'text/turtle' },
     });
 
-    console.log(`Put notification in ${notificationURL.toString()}.`);
+    // console.log(`Put notification in ${notificationURL.toString()}.`);
   }
-
-  // ds = await getSolidDatasetWithAcl(dataLocation!, { fetch });
-  // acl = createAcl(ds);
-  // acl = setAgentResourceAccess(acl, webId, { read: true, write: true, append: true, control: true });
-  // acl = setAgentResourceAccess(acl, requestorWebId, { read: true, write: false, append: false, control: false });
-
-  // try {
-  //   await saveAclFor(ds, acl, { fetch });
-  // } catch (error: any) {
-  //   throw Error(`Failed to update datastore ACL. (${dataLocation})`);
-  // }
-};
-
-export const getRequestWithState = async (requestURL: URL, fetch: fetchInterface): Promise<ResponseData> => {
-  const requestId = requestURL.pathname.split('/').pop() ?? '';
-
-  const rv = (
-    request: any,
-    state: RequestState,
-    outbound: { url: string }[],
-    data: { url: string }[],
-    consents: { url: string }[],
-  ) => {
-    return { ...request, state, related: { outbound, data, consents } };
-  };
-
-  // Fetch base data about request.
-  console.log(`Fetching details of ${requestURL.toString()}`);
-  const requestThing = getThing(
-    await getSolidDataset(requestURL.toString(), { fetch }),
-    requestURL.toString(),
-  ) as Thing;
-  const request = processRequest(requestThing);
-
-  // Fetch list of all outbound request(s) that are associated with the request.
-  // TODO: Should we use id of requests/provider instead of requestId of consents/provider
-  const outboundRequestUrl = new URL('../../requests/provider/', requestURL);
-  console.log(outboundRequestUrl.toString());
-  let outboundRequestsThing;
-  let outboundRequests: any[] = [];
-  try {
-    outboundRequestsThing = getThing(
-      await getSolidDataset(outboundRequestUrl.toString(), { fetch }),
-      outboundRequestUrl.toString(),
-    ) as Thing;
-  } catch (error: any) {
-    if (error.response.status !== 404) {
-      throw Error(`Failed to list contents of ${outboundRequestUrl.toString()}`);
-    }
-  }
-  if (outboundRequestsThing) {
-    const outboundRequestsUrls = getUrlAll(outboundRequestsThing, 'http://www.w3.org/ns/ldp#contains');
-    outboundRequests = (
-      await Promise.all(
-        outboundRequestsUrls.map(async (url) => {
-          const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-          const rv = {
-            url: r.url,
-            id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}id`),
-          };
-          return rv;
-        }),
-      )
-    )
-      .filter((obj) => obj && obj.id === requestId)
-      .map(({ id, ...rest }) => rest);
-  }
-
-  if (outboundRequests.length === 0) {
-    return rv(request, 'received', [], [], []);
-  }
-
-  // Check if data has been added.
-  const url = new URL('../../data/', requestURL);
-  console.log(url.toString());
-  const r = getThing(await getSolidDataset(url.toString(), { fetch }), url.toString()) as Thing;
-  const urls = getUrlAll(r, 'http://www.w3.org/ns/ldp#contains'); // TODO: Optimise better!
-  const data = (
-    await Promise.all(
-      urls.map(async (url) => {
-        // log(`Fetching ${url}`)
-        const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-        if (r) {
-          const rv = {
-            url,
-            id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}requestId`),
-          };
-          // console.log(rv);
-          // log(`Finished with ${url}`)
-          return rv;
-        }
-        return { url, id: '' };
-      }),
-    )
-  )
-    .filter((item) => item.id === requestId)
-    .map(({ id, ...rest }) => rest);
-
-  if (data.length < outboundRequests.length) {
-    return rv(request, 'fetching', outboundRequests, [], []);
-  }
-
-  // Fetch consents associated with the request.
-  const consumerConsentsUrl = new URL('../../consents/consumer/', requestURL);
-  console.log(consumerConsentsUrl.toString());
-  let consumerConsentsDS;
-  try {
-    consumerConsentsDS = await getSolidDataset(consumerConsentsUrl.toString(), { fetch });
-  } catch (error: any) {
-    if (error.response.status !== 404) {
-      throw error;
-    }
-  }
-
-  let consumerConsents;
-  if (consumerConsentsDS) {
-    const consumerConsentsThing = getThing(consumerConsentsDS, consumerConsentsUrl.toString()) as Thing;
-    const consumerConsentsUrls = getUrlAll(consumerConsentsThing, 'http://www.w3.org/ns/ldp#contains');
-    consumerConsents = (
-      await Promise.all(
-        consumerConsentsUrls.map(async (url) => {
-          const r = getThing(await getSolidDataset(url, { fetch }), url) as Thing;
-          if (r) {
-            const rv = {
-              url,
-              id: getStringNoLocale(r, `${process.env.EGENDATA_SCHEMA_URL}requestId`),
-            };
-            return rv;
-          }
-          return { url, id: '' };
-        }),
-      )
-    )
-      .filter((item) => item.id === requestId)
-      .map(({ id, ...rest }) => rest);
-  }
-
-  if (consumerConsents && consumerConsents.length > 0) {
-    return rv(request, 'sharing', outboundRequests, data, consumerConsents);
-  }
-
-  return rv(request, 'available', outboundRequests, data, []);
 };

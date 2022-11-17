@@ -62,25 +62,31 @@ const server = setupServer(
     );
   }),
   // Requestor
-  rest.get('/api/user/ff9ec25d-9a8b-4e3e-bc00-0c8de1763b14', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        name: 'Insurance Company Inc.',
-        logo: 'https://example.com/some/path',
-      }),
-    );
-  }),
+  rest.get(
+    '/api/user/https%3A%2F%2Fidp-test.egendata.se%2Fff9ec25d-9a8b-4e3e-bc00-0c8de1763b14%2Fprofile%2Fcard%23me',
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          name: 'Insurance Company Inc.',
+          logo: 'https://example.com/some/path',
+        }),
+      );
+    },
+  ),
   // Provider
-  rest.get('/api/user/aade2aaf-d8ce-4343-9286-aa67507be966', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        name: 'Government Agency',
-        logo: 'https://example.com/some/path',
-      }),
-    );
-  }),
+  rest.get(
+    '/api/user/https%3A%2F%2Fidp-test.egendata.se%2Faade2aaf-d8ce-4343-9286-aa67507be966%2Fprofile%2Fcard%23me',
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          name: 'Government Agency',
+          logo: 'https://example.com/some/path',
+        }),
+      );
+    },
+  ),
 );
 
 beforeAll(() => server.listen());
@@ -88,7 +94,7 @@ afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe('ProcessDocument', () => {
-  test('shows document title and provider when in state `received`', async () => {
+  it('shows document title and provider when in state `received`', async () => {
     render(
       withSWR(
         withTheme(
@@ -110,7 +116,7 @@ describe('ProcessDocument', () => {
     expect(screen.getByTestId('ProviderName')).toHaveTextContent(/Government Agency/i);
   });
 
-  test('shows document title and provider when in state `available`', async () => {
+  it('shows document title and provider when in state `available`', async () => {
     render(
       withSWR(
         withTheme(
