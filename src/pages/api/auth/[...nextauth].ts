@@ -38,7 +38,7 @@ export function registerCredentials() {
 
   logger.info(body, 'Preparing application credentials registration.');
 
-  const response = fetch(new URL('.oidc/reg', process.env.NEXT_PUBLIC_IDP_BASE_URL), {
+  const response = fetch(new URL('.oidc/reg', process.env.IDP_BASE_URL), {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     body: JSON.stringify(body),

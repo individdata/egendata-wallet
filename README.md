@@ -4,8 +4,9 @@ This is the digital wallet application.
 
 ## Getting Started
 
-First, create a `.env` file or `.env.local`. All the required environment
-variables are documented in `.env-example`.
+Default environment variables can be found in `.env`.
+Create a `.env.local` file and set `NEXTAUTH_SECRET` to some secret value.
+For more information about environment variable load order se the [Next.js documentation](https://nextjs.org/docs/basic-features/environment-variables#environment-variable-load-order).
 
 Start the development server:
 
